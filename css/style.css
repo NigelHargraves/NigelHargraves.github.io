@@ -7,7 +7,7 @@ div.container {
 }
 
 header {
-    background: linear-gradient( #84a9ce, #838485);
+    background: linear-gradient( rgba(169, 209, 219, 0.842), rgba(111, 172, 187, 0.842));
     box-shadow: 1px 1px 8px 10px #6287b8;
 }
 
