@@ -1,0 +1,41 @@
+div.container {
+    box-shadow: 1px 1px 8px 10px #6287b8;
+    background: linear-gradient( rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.3));
+    max-width: 1200px;
+    min-width: 200px;
+    height: 100vh;
+    margin: auto;
+}
+
+header {
+    background: #142741;
+    box-shadow: 1px 1px 8px 10px #6287b8;
+}
+
+body {
+    background: #8ba5c7;
+}
+
+h2 {
+    text-align: center;
+}
+
+.box1 {
+    max-width: 200px;
+    max-height: 200px;
+    margin: auto;
+}
+
+.box2 {
+    text-align: center;
+    max-width: 200px;
+    max-height: 200px;
+    margin: auto;
+}
+
+.box3 {
+    box-shadow: 10px 10px 8px 1px #b2c7e2;
+    background: linear-gradient( rgba(219, 231, 231, 0.842), rgba(138, 221, 221, 0.3));
+    max-width: 800px;
+    margin: auto;
+}
