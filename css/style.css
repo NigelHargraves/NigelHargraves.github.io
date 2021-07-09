@@ -1,6 +1,5 @@
 div.container {
     box-shadow: 1px 1px 8px 10px #6287b8;
-    background: linear-gradient( rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.3));
     max-width: 1200px;
     min-width: 200px;
     height: 100vh;
@@ -8,7 +7,7 @@ div.container {
 }
 
 header {
-    background: #142741;
+    background: #96b9eb;
     box-shadow: 1px 1px 8px 10px #6287b8;
 }
 
