@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="calculator.js"></script>
+    <link rel="stylesheet" href="css/calculator.css">
+</head>
+<header>
+    <center>
+        <div class="btn-group" role="group" aria-label="Basic outlined example">
+            <a class="btn btn-success" href="index.html">Home</a>
+            <a class="btn btn-success" href="https://nigelhargraveswebdeveloperprofile.netlify.app/">Web Blog</a>
+            <a class="btn btn-success" href="https://github.com/NigelHargraves">Github Profile</a>
+            <a class="btn btn-success" href="noughtsandcrosses.html">O's & X's</a>
+        </div>
+    </center>
+</header>
+
+<body>
+
+    <body style="background-color:rgb(154, 154, 206);">
+        <table class="tablepos">
+            <thead>
+                <tr>
+                    <th colspan="3"><input type="textfield" size="16" id="display1" readonly></th>
+                    <th><input type="textfield" size="1" id="display2" readonly></th>
+                </tr>
+            </thead>
+            <tr>
+                <td><button type="button" class="mybutton" id="point" onclick="addNumbers('.')">&nbsp;.&ensp;</button></td>
+                <td><button type="button" class="mybutton" id="sq" onclick="squaredNumber('sq')">SQ</button> </td>
+                <td><button type="button" class="mybutton" id="sr" onclick="squareRootNumber('sr')">SR</button></td>
+                <td><button type="button" class="mybutton" id="N" onclick="addNumbers('-')">N</button></td>
+            </tr>
+            <tr>
+                <td><button type="button" class="mybutton" id="1" onclick="addNumbers(1)">&nbsp;1&nbsp;</button></td>
+                <td><button type="button" class="mybutton" id="2" onclick="addNumbers(2)">&nbsp;2&nbsp;</button> </td>
+                <td><button type="button" class="mybutton" id="3" onclick="addNumbers(3)">&nbsp;3&nbsp;</button></td>
+                <td><button type="button" class="mybutton" id="/" onclick="setNum1('/')">&nbsp;/&nbsp;</button></td>
+            </tr>
+            <tr>
+                <td><button type="button" class="mybutton" id="4" onclick="addNumbers(4)">&nbsp;4&nbsp;</button></td>
+                <td><button type="button" class="mybutton" id="5" onclick="addNumbers(5)">&nbsp;5&nbsp;</button> </td>
+                <td><button type="button" class="mybutton" id="6" onclick="addNumbers(6)">&nbsp;6&nbsp;</button></td>
+                <td><button type="button" class="mybutton" id="*" onclick="setNum1('*')">&nbsp;*&nbsp;</button></td>
+            </tr>
+            <tr>
+                <td><button type="button" class="mybutton" id="7" onclick="addNumbers(7)">&nbsp;7&nbsp;</button></td>
+                <td><button type="button" class="mybutton" id="8" onclick="addNumbers(8)">&nbsp;8&nbsp;</button> </td>
+                <td><button type="button" class="mybutton" id="9" onclick="addNumbers(9)">&nbsp;9&nbsp;</button></td>
+                <td><button type="button" class="mybutton" id="-" onclick="setNum1('-')">&nbsp;-&nbsp;</button></td>
+            </tr>
+            <tr>
+                <td><button type="button" class="mybutton" id="c" onclick="clearText()">&nbsp;C&nbsp;</button></td>
+                <td><button type="button" class="mybutton" id="0" onclick="addNumbers(0)">&nbsp;0&nbsp;</button> </td>
+                <td><button type="button" class="mybutton" id="=" onclick="setNum2()">&nbsp;=&nbsp;</button></td>
+                <td><button type="button" class="mybutton" id="+" onclick="setNum1('+')">&nbsp;+&nbsp;</button></td>
+            </tr>
+        </table>
+    </body>
+</body>
+
+</html>

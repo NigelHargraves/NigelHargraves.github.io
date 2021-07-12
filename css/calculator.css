@@ -1,0 +1,28 @@
+table,
+tr,
+td {
+    border: 5px solid black;
+    background: rgb(119, 200, 233);
+}
+
+.tablepos {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+button {
+    background: radial-gradient(#1bce8c, #03291b);
+    border: solid;
+    color: yellow;
+    padding: 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+.mybutton {
+    border-radius: 50%;
+}
