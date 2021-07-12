@@ -1,0 +1,33 @@
+body {
+    background-color: #95b7e4;
+}
+
+table {
+    width: 160px;
+    height: 160px;
+}
+
+.tablepos {
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 10px 10px 8px #586575;
+}
+
+div.container {
+    box-shadow: 10px 10px 8px 10px #6287b8;
+    background: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.3));
+    width: 600px;
+    height: 300px;
+    margin: auto;
+    border: 3px solid grey;
+}
+
+.box1 {
+    background: white;
+    max-width: 50px;
+    max-height: 50px;
+    min-width: 50px;
+    min-height: 50px;
+    text-align: center;
+    font-size: 175%;
+}
