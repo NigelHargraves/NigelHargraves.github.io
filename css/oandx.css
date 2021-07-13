@@ -1,5 +1,11 @@
+header {
+    background: linear-gradient( rgba(169, 209, 219, 0.842), rgba(111, 172, 187, 0.842));
+    box-shadow: 1px 1px 8px 10px #6287b8;
+}
+
 body {
-    background-color: #95b7e4;
+    height: 100vh;
+    background-image: linear-gradient(to top left, rgba(20, 83, 98, 0.842), rgba(111, 172, 187, 0.842));
 }
 
 table {
@@ -30,4 +36,12 @@ div.container {
     min-height: 50px;
     text-align: center;
     font-size: 175%;
+}
+
+.btn.btn-outline-primary {
+    border-radius: 45%;
+}
+
+.btn.btn-outline-success {
+    border-radius: 45%;
 }

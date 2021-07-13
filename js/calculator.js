@@ -17,18 +17,21 @@ let equationOps = [];
 //add to numbers to create larger numbers
 function addNumbers(newNum) {
     document.getElementById("display1").value += newNum;
+    document.getElementById("display1").style.fontWeight = "bold";
 }
 
 //set 1st number and operator
 function setNum1(symbol) {
     if (isFirstNum === true) {
-        document.getElementById("display2").value = symbol;
+        document.getElementById("display2").value = symbol; //display symbol
+        document.getElementById("display2").style.fontWeight = "bold";
         num1 = document.getElementById("display1").value;
         isFirstNum = false;
         equationOps.push(symbol);
         document.getElementById("display1").value = "";
     } else {
-        document.getElementById("display2").value = symbol;
+        document.getElementById("display2").value = symbol; //display symbol
+        document.getElementById("display2").style.fontWeight = "bold";
         equationNums.push(document.getElementById("display1").value);
         equationOps.push(symbol);
         document.getElementById("display1").value = "";
@@ -73,21 +76,26 @@ function setNum2() {
     }
 
     document.getElementById("display1").value = result; //display result
+    document.getElementById("display1").style.fontWeight = "bold";
 }
 
 function squaredNumber(symbol) {
-    document.getElementById("display2").value = symbol;
+    document.getElementById("display2").value = symbol; //display symbol
+    document.getElementById("display2").style.fontWeight = "bold";
     result =
         document.getElementById("display1").value *
         document.getElementById("display1").value;
     document.getElementById("display1").value = result; //display result
+    document.getElementById("display1").style.fontWeight = "bold";
 }
 
 function squareRootNumber(symbol) {
     number = document.getElementById("display1").value;
-    document.getElementById("display2").value = symbol;
+    document.getElementById("display2").value = symbol; //display symbol
+    document.getElementById("display2").style.fontWeight = "bold";
     result = Math.sqrt(number);
     document.getElementById("display1").value = result; //display result
+    document.getElementById("display1").style.fontWeight = "bold";
 }
 
 //clear all text and numbers to reset
