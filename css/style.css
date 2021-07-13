@@ -15,7 +15,7 @@ body {
     background: #8ba5c7;
 }
 
-h2 {
+h1 {
     text-align: center;
 }
 
@@ -39,6 +39,14 @@ h2 {
     margin: auto;
 }
 
-.btn.btn-success {
-    border-radius: 25%;
+.btn.btn-outline-primary {
+    border-radius: 45%;
+}
+
+.btn.btn-outline-success {
+    border-radius: 45%;
+}
+
+.para1 {
+    font-size: 150%;
 }
