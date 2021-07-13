@@ -38,3 +38,7 @@ h2 {
     max-width: 800px;
     margin: auto;
 }
+
+.btn.btn-success {
+    border-radius: 25%;
+}
