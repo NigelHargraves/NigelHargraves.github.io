@@ -11,14 +11,36 @@ let num1 = 0;
 let operator = "";
 let sum = "";
 let isFirstNum = true;
+let negNumber = false;
 let equationNums = [];
 let equationOps = [];
 
 //add to numbers to create larger numbers
 function addNumbers(newNum) {
-    document.getElementById("display1").value += newNum;
+    if (newNum == '-' && negNumber == false) {
+        negNumber = true;
+        document.getElementById("display1").value = '-' + document.getElementById("display1").value;
+        document.getElementById("display1").style.fontWeight = "bold";
+    } else if (newNum == '-' && negNumber == true) {
+        negNumber = false;
+        document.getElementById("display1").value = document.getElementById("display1").value.substring(1);
+        document.getElementById("display1").style.fontWeight = "bold";
+
+    } else {
+        document.getElementById("display1").value += newNum;
+        document.getElementById("display1").style.fontWeight = "bold";
+    }
+
+}
+
+//function to toggle negative & positive numbers.
+function negPosToggle(neg) {
+    document.getElementById("display1").value = neg + newNum;
     document.getElementById("display1").style.fontWeight = "bold";
 }
+
+
+
 
 //set 1st number and operator
 function setNum1(symbol) {
