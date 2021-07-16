@@ -26,44 +26,47 @@
 
 <body>
     <table class="tablepos">
-        <thead>
+        <tbody>
+            <thead>
+                <tr>
+                    <th colspan="3"><input type="textfield" class="myTextfield" size="17" id="display1" readonly></th>
+                    <th><input type="textfield" size="1" id="display2" readonly></th>
+
+                </tr>
+            </thead>
             <tr>
-                <th colspan="3"><input type="textfield" class="myTextfield" size="17" id="display1" readonly></th>
-                <th><input type="textfield" size="1" id="display2" readonly></th>
+                <td><button type="button" class="mybutton" id="point" onclick="addNumbers('.')">∙</button></td>
+                <td><button type="button" class="mybutton" id="sq" onclick="squaredNumber('sq')">x²</button> </td>
+                <td><button type="button" class="mybutton" id="sr" onclick="squareRootNumber('sr')">√x</button></td>
+                <td><button type="button" class="mybutton" id="N" onclick="addNumbers('-')">±</button></td>
             </tr>
-        </thead>
-        <tr>
-            <td><button type="button" class="mybutton" id="point" onclick="addNumbers('.')">∙</button></td>
-            <td><button type="button" class="mybutton" id="sq" onclick="squaredNumber('sq')">x²</button> </td>
-            <td><button type="button" class="mybutton" id="sr" onclick="squareRootNumber('sr')">√x</button></td>
-            <td><button type="button" class="mybutton" id="N" onclick="addNumbers('-')">±</button></td>
-        </tr>
 
 
-        <tr>
-            <td><button type="button" class="mybutton" id="1" onclick="addNumbers(1)">１</button></td>
-            <td><button type="button" class="mybutton" id="2" onclick="addNumbers(2)">２</button> </td>
-            <td><button type="button" class="mybutton" id="3" onclick="addNumbers(3)">３</button></td>
-            <td><button type="button" class="mybutton" id="/" onclick="setNum1('/')">÷</button></td>
-        </tr>
-        <tr>
-            <td><button type="button" class="mybutton" id="4" onclick="addNumbers(4)">４</button></td>
-            <td><button type="button" class="mybutton" id="5" onclick="addNumbers(5)">５</button> </td>
-            <td><button type="button" class="mybutton" id="6" onclick="addNumbers(6)">６</button></td>
-            <td><button type="button" class="mybutton" id="*" onclick="setNum1('*')">×</button></td>
-        </tr>
-        <tr>
-            <td><button type="button" class="mybutton" id="7" onclick="addNumbers(7)">７</button></td>
-            <td><button type="button" class="mybutton" id="8" onclick="addNumbers(8)">８</button> </td>
-            <td><button type="button" class="mybutton" id="9" onclick="addNumbers(9)">９</button></td>
-            <td><button type="button" class="mybutton" id="-" onclick="setNum1('-')">－</button></td>
-        </tr>
-        <tr>
-            <td><button type="button" class="mybutton" id="c" onclick="clearText()">𝘾</button></td>
-            <td><button type="button" class="mybutton" id="0" onclick="addNumbers(0)">０</button> </td>
-            <td><button type="button" class="mybutton" id="=" onclick="setNum2()">＝</button></td>
-            <td><button type="button" class="mybutton" id="+" onclick="setNum1('+')">＋</button></td>
-        </tr>
+            <tr>
+                <td><button type="button" class="mybutton" id="1" onclick="addNumbers(1)">１</button></td>
+                <td><button type="button" class="mybutton" id="2" onclick="addNumbers(2)">２</button> </td>
+                <td><button type="button" class="mybutton" id="3" onclick="addNumbers(3)">３</button></td>
+                <td><button type="button" class="mybutton" id="/" onclick="setNum1('/')">÷</button></td>
+            </tr>
+            <tr>
+                <td><button type="button" class="mybutton" id="4" onclick="addNumbers(4)">４</button></td>
+                <td><button type="button" class="mybutton" id="5" onclick="addNumbers(5)">５</button> </td>
+                <td><button type="button" class="mybutton" id="6" onclick="addNumbers(6)">６</button></td>
+                <td><button type="button" class="mybutton" id="*" onclick="setNum1('*')">×</button></td>
+            </tr>
+            <tr>
+                <td><button type="button" class="mybutton" id="7" onclick="addNumbers(7)">７</button></td>
+                <td><button type="button" class="mybutton" id="8" onclick="addNumbers(8)">８</button> </td>
+                <td><button type="button" class="mybutton" id="9" onclick="addNumbers(9)">９</button></td>
+                <td><button type="button" class="mybutton" id="-" onclick="setNum1('-')">－</button></td>
+            </tr>
+            <tr>
+                <td><button type="button" class="mybutton" id="c" onclick="clearText()">𝘾</button></td>
+                <td><button type="button" class="mybutton" id="0" onclick="addNumbers(0)">０</button> </td>
+                <td><button type="button" class="mybutton" id="=" onclick="setNum2()">＝</button></td>
+                <td><button type="button" class="mybutton" id="+" onclick="setNum1('+')">＋</button></td>
+            </tr>
+        </tbody>
     </table>
 </body>
 
