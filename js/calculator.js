@@ -45,6 +45,7 @@ function negPosToggle(neg) {
 //set 1st number and operator
 function setNum1(symbol) {
     if (isFirstNum === true) {
+        negNumber = false;
         document.getElementById("display2").value = symbol; //display symbol
         document.getElementById("display2").style.fontWeight = "bold";
         num1 = document.getElementById("display1").value;
@@ -122,6 +123,7 @@ function squareRootNumber(symbol) {
 
 //clear all text and numbers to reset
 function clearText() {
+    negNumber = false;
     document.getElementById("display1").value = "";
     document.getElementById("display2").value = "";
     result = 0;
