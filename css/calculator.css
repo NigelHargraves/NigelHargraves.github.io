@@ -50,11 +50,3 @@ button {
     max-width: 45px;
     min-width: 45px;
 }
-
-.btn.btn-outline-primary {
-    border-radius: 45%;
-}
-
-.btn.btn-outline-success {
-    border-radius: 45%;
-}

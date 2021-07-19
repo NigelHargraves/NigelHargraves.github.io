@@ -15,8 +15,6 @@ div.container {
     padding: 16px;
 }
 
-
-
 body {
     background: #8ba5c7;
 }
@@ -43,14 +41,6 @@ h1 {
     background: linear-gradient( rgba(219, 231, 231, 0.842), rgba(138, 221, 221, 0.3));
     max-width: 800px;
     margin: auto;
-}
-
-.btn.btn-outline-primary {
-    border-radius: 45%;
-}
-
-.btn.btn-outline-success {
-    border-radius: 45%;
 }
 
 .para1 {

@@ -37,11 +37,3 @@ div.container {
     text-align: center;
     font-size: 175%;
 }
-
-.btn.btn-outline-primary {
-    border-radius: 45%;
-}
-
-.btn.btn-outline-success {
-    border-radius: 45%;
-}
