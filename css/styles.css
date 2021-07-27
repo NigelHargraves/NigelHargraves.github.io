@@ -54,6 +54,7 @@ button:before {
 button:hover {
   -webkit-animation: squish 0.5s;
           animation: squish 0.5s;
+  z-index: 100;
 }
 
 button:hover:before {
