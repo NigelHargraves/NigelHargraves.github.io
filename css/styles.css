@@ -4,61 +4,92 @@
   box-sizing: border-box;
 }
 
-.container {
+.container1 {
+  margin: auto;
   box-shadow: 1px 1px 8px 10px #6287b8;
   max-width: 1200px;
   min-width: 200px;
   height: 100%;
-  margin: auto;
+  overflow-y: auto;
 }
 
-.header {
-  background: linear-gradient(rgba(169, 209, 219, 0.842), rgba(111, 172, 187, 0.842));
-  box-shadow: 1px 1px 8px 10px #6287b8;
+.container2 {
+  padding: 10px;
+  width: 1200px;
+  position: absolute;
+  display: flex;
+  justify-content: space-around;
 }
 
-body {
-  background: #8ba5c7;
-}
-
-h1 {
-  text-align: center;
-}
-
-p {
-  text-align: center;
-}
-
-.box1 {
-  max-width: 200px;
-  max-height: 200px;
-  margin: auto;
-}
-
-.box2 {
-  text-align: center;
-  max-width: 200px;
-  max-height: 200px;
-  margin: auto;
-}
-
-.para1 {
-  font-size: 150%;
-}
-
-.container {
-  box-shadow: 1px 1px 8px 10px #6287b8;
+.container3 {
+  padding: 70px;
   max-width: 1200px;
   min-width: 200px;
-  height: 100vh;
-  margin: auto;
+  height: 100%;
+  overflow-y: auto;
 }
 
-.header {
-  background: linear-gradient(rgba(169, 209, 219, 0.842), rgba(111, 172, 187, 0.842));
-  box-shadow: 1px 1px 8px 10px #6287b8;
+button {
+  font-family: impact;
+  position: relative;
+  border-radius: 10px;
+  background: none;
+  border: none;
+  outline: none;
+  font-size: 20px;
+  color: white;
 }
 
+button:before {
+  content: "";
+  background: blue;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  left: 0;
+}
+
+button:hover {
+  -webkit-animation: squish 0.5s;
+          animation: squish 0.5s;
+}
+
+button:hover:before {
+  background: linear-gradient(to right, #af2833, #211fcc);
+  filter: url("#wave");
+}
+
+@-webkit-keyframes squish {
+  0% {
+    transform: scaley(1);
+  }
+  60% {
+    transform: scaley(1.5);
+  }
+  80% {
+    transform: scaley(0.9);
+  }
+  100% {
+    transform: scaley(1);
+  }
+}
+
+@keyframes squish {
+  0% {
+    transform: scaley(1);
+  }
+  60% {
+    transform: scaley(1.5);
+  }
+  80% {
+    transform: scaley(0.9);
+  }
+  100% {
+    transform: scaley(1);
+  }
+}
 body {
   background: #8ba5c7;
 }
@@ -88,9 +119,9 @@ h1 {
   box-shadow: 10px 10px 8px 1px #b2c7e2;
   background: linear-gradient(rgba(211, 241, 236, 0.842), rgba(74, 95, 88, 0.3));
   width: 80%;
-  height: 28em;
+  height: 32em;
   overflow: hidden;
-  margin: 10em auto;
+  margin: 2em auto;
   position: relative;
 }
 
