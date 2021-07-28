@@ -19,6 +19,7 @@
     left: 0;
     width: 100%;
     height: 100%;
+    filter: blur(3px);
 }
 
 #audio1 {
@@ -36,6 +37,17 @@
 #a {
     left: 400px;
     top: 60px;
+    position: absolute;
+    color: white;
+}
+
+button {
+    width: 100px;
+    height: 50px;
+    background: rgb(148, 77, 77);
+    border-radius: 50%;
+    left: 500px;
+    top: 70px;
     position: absolute;
     color: white;
 }
