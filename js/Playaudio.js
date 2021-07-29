@@ -5,10 +5,18 @@ const file = document.getElementById('fileupload');
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 const ctx = canvas.getContext('2d');
-
+let red = 0;
+let blue = 0;
+let green = 0;
+let directionX2 = 20;
+let directionY2 = 20;
+let barWidth = 0;
+let barHeight = 20;
+let x2 = canvas.width / 2;
+let y2 = canvas.height / 2;
 let audioSource;
 let analyser;
-let numberOfSpirals = 4;
+let numberOfSpirals = 1;
 let barH = [],
     redH = [],
     greenH = [],
@@ -44,12 +52,12 @@ container.addEventListener('click', function() {
     analyser = audioContext.createAnalyser();
     audioSource.connect(analyser);
     analyser.connect(audioContext.destination);
-    analyser.fftSize = 1024;
+    analyser.fftSize = 512;
     const bufferLength = analyser.frequencyBinCount;
     const dataArray = new Uint8Array(bufferLength);
 
-    const barWidth = canvas.width / bufferLength;
-    let barHeight;
+    barWidth = canvas.width / bufferLength;
+
     let a;
 
 
@@ -57,7 +65,8 @@ container.addEventListener('click', function() {
         a = 0;
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         analyser.getByteFrequencyData(dataArray);
-        drawSpiral(bufferLength, a, barWidth, barHeight, dataArray);
+        drawSpiral1(bufferLength, a, barWidth, barHeight, dataArray);
+        drawSpiral2(bufferLength, barWidth, barHeight, dataArray);
         requestAnimationFrame(animate);
 
     }
@@ -83,19 +92,17 @@ function randomize() {
 
 }
 
-function drawSpiral(bufferLength, a, barWidth, barHeight, dataArray) {
+function drawSpiral1(bufferLength, a, barWidth, barHeight, dataArray) {
     for (let i = 1; i <= numberOfSpirals; i++) {
-
         for (let j = 0; j < bufferLength; j++) {
-
             barHeight = dataArray[j] * barH[i];
             ctx.save();
             ctx.translate(x[i], y[i]);
             ctx.rotate(j * Math.PI * rotate[i] / bufferLength);
-            const red = j * barHeight / redH[i];
+            red = j * barHeight / redH[i];
             console.log(barHeight);
-            const green = j / greenH[i];
-            const blue = barHeight * blueH[i];
+            green = j / greenH[i];
+            blue = barHeight * blueH[i];
             ctx.fillStyle = 'rgb(' + red + ',' + green + ',' + blue + ')';
             ctx.fillRect(0, 0, barWidth, barHeight);
             a += barWidth;
@@ -104,6 +111,38 @@ function drawSpiral(bufferLength, a, barWidth, barHeight, dataArray) {
     }
 }
 
+function drawSpiral2(bufferLength, barWidth, barHeight, dataArray) {
+    for (let i = 0; i < bufferLength; i++) {
+        barHeight = dataArray[i] * 2;
+        ctx.save();
+        ctx.translate(x2, y2);
+        ctx.rotate(Math.PI * (Math.random() * 2));
+        red = ((Math.random() * barHeight) / Math.random()) * 2;
+        green = ((Math.random() * barHeight) / Math.random()) * 2;
+        blue = ((Math.random() * barHeight) / Math.random()) * 2;
+        ctx.strokeStyle = "rgb(" + red + "," + green + "," + blue + ")";
+        ctx.beginPath();
+        ctx.arc(0, 0, (barWidth * barHeight) / 2, 0, Math.PI * 2, false);
+        ctx.moveTo(0, 0);
+        ctx.lineTo(canvas.width, canvas.height);
+        ctx.stroke();
+        ctx.restore();
+    }
+}
+
+function move() {
+    if (x2 >= canvas.width || x2 <= 0) {
+        directionX2 = -directionX2;
+    }
+    if (y2 >= canvas.height || y2 <= 0) {
+        directionY2 = -directionY2;
+    }
+
+    x2 += directionX2;
+    y2 += directionY2;
+}
+
+setInterval(move, 100);
 
 
 
