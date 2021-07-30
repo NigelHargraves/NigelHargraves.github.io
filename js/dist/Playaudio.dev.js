@@ -112,7 +112,7 @@ function drawSpiral2(bufferLength, barWidth, barHeight, dataArray) {
     blue = Math.random() * barHeight / Math.random() * 2;
     ctx.strokeStyle = "rgb(" + red + "," + green + "," + blue + ")";
     ctx.beginPath();
-    ctx.arc(0, 0, barWidth * barHeight / 2, 0, Math.PI * 2, false);
+    ctx.arc(0, 0, barWidth * barHeight / 4, 0, Math.PI * 2, false);
     ctx.moveTo(0, 0);
     ctx.lineTo(canvas.width, canvas.height);
     ctx.stroke();
