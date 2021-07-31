@@ -1,8 +1,16 @@
 "use strict";
 
+var canvas = document.getElementById("canvas1");
+var ctx = canvas.getContext("2d");
 var gunPos = 10;
 var moveLeft = false;
 var moveRight = false;
+var background = new Image();
+background.src = "images/SpaceBackground.jpg";
+
+background.onload = function () {
+  ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
+};
 
 function checkKey(e) {
   if (e.keyCode == 37 || e.keyCode == 65) {

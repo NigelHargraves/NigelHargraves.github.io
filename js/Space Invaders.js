@@ -1,6 +1,15 @@
+let canvas = document.getElementById("canvas1");
+let ctx = canvas.getContext("2d");
+
+
 let gunPos = 10;
 let moveLeft = false;
 let moveRight = false;
+let background = new Image();
+background.src = "images/SpaceBackground.jpg";
+background.onload = function() {
+    ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
+};
 
 function checkKey(e) {
     if (e.keyCode == 37 || e.keyCode == 65) {
