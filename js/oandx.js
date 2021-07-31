@@ -100,21 +100,21 @@ function checkStatus() {
             winner = true;
             moveComplete = true;
             document.getElementById("dropdownMenuButton3").disabled = false;
-            console.log(grid[0]);
+
         }
     }
 }
 
 //draw function.
 function draw(number) {
-    if (haveClicked[number] === false) {
+    if (haveClicked[number] == false) {
         haveClicked[number] = true;
         if (grid[number] == 0) {
             document.getElementById(number).innerHTML = userSide;
             document.getElementById(number).style.fontWeight = "bold";
             grid[number] = 2;
             checkStatus();
-            if (winner === true) {
+            if (winner == true) {
                 return;
             } else {
                 moveComplete = false;
@@ -334,6 +334,7 @@ function goFirst(choice) {
     for (var i = 0; i < 9; i++) {
         haveClicked.push(false);
     }
+    document.getElementById("dropdownMenuButton2").disabled = true;
     if (choice == "f") {
         turn = true;
     } else {
@@ -342,26 +343,26 @@ function goFirst(choice) {
     if (turn == false) {
         think();
     }
-    document.getElementById("dropdownMenuButton2").disabled = true;
+
 }
 
 function reset(choice) {
     if (choice == "yes") {
-        resetGame = true;
+
         userSide = "";
         compSide = "";
         moveComplete = false;
         winner = false;
         turn = true;
-        for (let i = 0; i <= 8; i++) {
+        haveClicked = [];
+        for (let i = 0; i < 9; i++) {
+            haveClicked.push(true);
             grid[i] = 0;
             document.getElementById(i).innerHTML = "" + "&nbsp;";
         }
         document.getElementById("display1").value = "";
-        haveClicked = [];
-        for (let i = 0; i < 9; i++) {
-            haveClicked.push(true);
-        }
+
+
         document.getElementById("dropdownMenuButton1").disabled = false;
         document.getElementById("dropdownMenuButton2").disabled = true;
         document.getElementById("dropdownMenuButton3").disabled = true;

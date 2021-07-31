@@ -97,14 +97,13 @@ function checkStatus() {
       winner = true;
       moveComplete = true;
       document.getElementById("dropdownMenuButton3").disabled = false;
-      console.log(grid[0]);
     }
   }
 } //draw function.
 
 
 function draw(number) {
-  if (haveClicked[number] === false) {
+  if (haveClicked[number] == false) {
     haveClicked[number] = true;
 
     if (grid[number] == 0) {
@@ -113,7 +112,7 @@ function draw(number) {
       grid[number] = 2;
       checkStatus();
 
-      if (winner === true) {
+      if (winner == true) {
         return;
       } else {
         moveComplete = false;
@@ -329,6 +328,8 @@ function goFirst(choice) {
     haveClicked.push(false);
   }
 
+  document.getElementById("dropdownMenuButton2").disabled = true;
+
   if (choice == "f") {
     turn = true;
   } else {
@@ -338,31 +339,24 @@ function goFirst(choice) {
   if (turn == false) {
     think();
   }
-
-  document.getElementById("dropdownMenuButton2").disabled = true;
 }
 
 function reset(choice) {
   if (choice == "yes") {
-    resetGame = true;
     userSide = "";
     compSide = "";
     moveComplete = false;
     winner = false;
     turn = true;
+    haveClicked = [];
 
-    for (var _i = 0; _i <= 8; _i++) {
+    for (var _i = 0; _i < 9; _i++) {
+      haveClicked.push(true);
       grid[_i] = 0;
       document.getElementById(_i).innerHTML = "" + "&nbsp;";
     }
 
     document.getElementById("display1").value = "";
-    haveClicked = [];
-
-    for (var _i2 = 0; _i2 < 9; _i2++) {
-      haveClicked.push(true);
-    }
-
     document.getElementById("dropdownMenuButton1").disabled = false;
     document.getElementById("dropdownMenuButton2").disabled = true;
     document.getElementById("dropdownMenuButton3").disabled = true;
