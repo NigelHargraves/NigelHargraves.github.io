@@ -83,7 +83,7 @@ function checkStatus() {
         }
     }
     //check for draw
-    if (winner === false) {
+    if (winner == false) {
         if (
             grid[0] != 0 &&
             grid[1] != 0 &&
@@ -100,6 +100,7 @@ function checkStatus() {
             winner = true;
             moveComplete = true;
             document.getElementById("dropdownMenuButton3").disabled = false;
+            console.log(grid[0]);
         }
     }
 }
@@ -255,7 +256,7 @@ function think() {
         if (i == 1) {
             checkStatus();
         } else {
-            if (moveComplete === false) {
+            if (moveComplete == false) {
                 //place first move in a corner.
                 if (
                     grid[0] == 0 &&
@@ -268,7 +269,7 @@ function think() {
                     grid[7] == 0 &&
                     grid[8] == 0
                 ) {
-                    let rndNum = Math.round(Math.random() * 4 - 1);
+                    let rndNum = Math.floor(Math.random() * 4);
                     if (rndNum == 0) {
                         grid[0] = 1;
                         document.getElementById(0).innerHTML = compSide;
@@ -304,7 +305,7 @@ function think() {
 }
 //make a random move function.
 function randomMove() {
-    let rndNum = Math.round(Math.random() * 9 - 1);
+    let rndNum = Math.floor(Math.random() * 9);
     if (grid[rndNum] == 0) {
         grid[rndNum] = 1;
         document.getElementById(rndNum).innerHTML = compSide;
