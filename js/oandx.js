@@ -85,15 +85,15 @@ function checkStatus() {
     //check for draw
     if (winner == false) {
         if (
-            grid[0] != 0 &&
-            grid[1] != 0 &&
-            grid[2] != 0 &&
-            grid[3] != 0 &&
-            grid[4] != 0 &&
-            grid[5] != 0 &&
-            grid[6] != 0 &&
-            grid[7] != 0 &&
-            grid[8] != 0
+            grid[0] !== 0 &&
+            grid[1] !== 0 &&
+            grid[2] !== 0 &&
+            grid[3] !== 0 &&
+            grid[4] !== 0 &&
+            grid[5] !== 0 &&
+            grid[6] !== 0 &&
+            grid[7] !== 0 &&
+            grid[8] !== 0
         ) {
             document.getElementById("display1").value = "It's a draw";
             document.getElementById("display1").style.fontWeight = "bold";
@@ -297,7 +297,7 @@ function think() {
                     }
                 }
             }
-            if (winner === true) {
+            if (winner == true) {
                 return;
             }
         }
