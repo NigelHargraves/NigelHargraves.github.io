@@ -7,12 +7,13 @@ image1.addEventListener('load', function() {
     const ctx = canvas.getContext('2d');
     canvas.width = 1130;
     canvas.height = 847;
+
     ctx.drawImage(image1, 0, 0, canvas.width, canvas.height);
     const pixels = ctx.getImageData(0, 0, canvas.width, canvas.height);
 
 
     let particalsArray = [];
-    const numberOfParticals = 10000;
+    const numberOfParticals = 5000;
 
     let mappedImage = [];
     for (let y = 0; y < canvas.height; y++) {
@@ -41,24 +42,22 @@ image1.addEventListener('load', function() {
         constructor() {
             this.x = Math.random() * canvas.width;
             this.y = 0;
-            this.speed = 10;
+            this.speed = 0.2;
             this.velocity = Math.random() * 0.5;
             this.size = Math.random() * 1.5 + 1;
             this.position1 = Math.floor(this.y);
             this.position2 = Math.floor(this.x);
-            this.angle = 0;
+
         }
         update() {
             this.position1 = Math.floor(this.y);
             this.position2 = Math.floor(this.x);
-            if ((mappedImage[this.position1]) && (mappedImage[this.position1][this.position2])) {
-                this.speed = mappedImage[this.position1][this.position2][0];
-            }
 
+            this.speed = mappedImage[this.position1][this.position2][0];
             let movement = this.speed + this.velocity;
-            this.angle += this.speed / 30;
-            this.y += movement + Math.sin(this.angle) * Math.random() * 6;
-            this.x += movement + Math.cos(this.angle) * Math.random() * 6;
+
+            this.y += movement
+            this.x += movement
             if (this.y >= canvas.height) {
                 this.y = 0;
                 this.x = Math.random() * canvas.width;
@@ -70,11 +69,11 @@ image1.addEventListener('load', function() {
         }
         draw() {
             ctx.beginPath();
-            if ((mappedImage[this.position1]) && (mappedImage[this.position1][this.position2])) {
-                ctx.fillStyle = mappedImage[this.position1][this.position2][1];
-            }
 
+            ctx.fillStyle = mappedImage[this.position1][this.position2][1];
             ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+
+
             ctx.fill();
         }
     }

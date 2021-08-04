@@ -20,7 +20,7 @@ image1.addEventListener('load', function () {
   ctx.drawImage(image1, 0, 0, canvas.width, canvas.height);
   var pixels = ctx.getImageData(0, 0, canvas.width, canvas.height);
   var particalsArray = [];
-  var numberOfParticals = 10000;
+  var numberOfParticals = 5000;
   var mappedImage = [];
 
   for (var y = 0; y < canvas.height; y++) {
@@ -50,12 +50,11 @@ image1.addEventListener('load', function () {
 
       this.x = Math.random() * canvas.width;
       this.y = 0;
-      this.speed = 10;
+      this.speed = 0.2;
       this.velocity = Math.random() * 0.5;
       this.size = Math.random() * 1.5 + 1;
       this.position1 = Math.floor(this.y);
       this.position2 = Math.floor(this.x);
-      this.angle = 0;
     }
 
     _createClass(partical, [{
@@ -63,15 +62,10 @@ image1.addEventListener('load', function () {
       value: function update() {
         this.position1 = Math.floor(this.y);
         this.position2 = Math.floor(this.x);
-
-        if (mappedImage[this.position1] && mappedImage[this.position1][this.position2]) {
-          this.speed = mappedImage[this.position1][this.position2][0];
-        }
-
+        this.speed = mappedImage[this.position1][this.position2][0];
         var movement = this.speed + this.velocity;
-        this.angle += this.speed / 30;
-        this.y += movement + Math.sin(this.angle) * Math.random() * 6;
-        this.x += movement + Math.cos(this.angle) * Math.random() * 6;
+        this.y += movement;
+        this.x += movement;
 
         if (this.y >= canvas.height) {
           this.y = 0;
@@ -87,11 +81,7 @@ image1.addEventListener('load', function () {
       key: "draw",
       value: function draw() {
         ctx.beginPath();
-
-        if (mappedImage[this.position1] && mappedImage[this.position1][this.position2]) {
-          ctx.fillStyle = mappedImage[this.position1][this.position2][1];
-        }
-
+        ctx.fillStyle = mappedImage[this.position1][this.position2][1];
         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
         ctx.fill();
       }
