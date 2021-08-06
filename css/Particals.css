@@ -1,8 +1,12 @@
 * {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
+    box-sizing: boarder=box;
+}
+
+body {
     background: black;
+    overflow: hidden;
 }
 
 #canvas1 {
@@ -13,4 +17,53 @@
     width: 1130px;
     height: 847px;
     transform: translate(-50%, -50%);
+}
+
+.buttons {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    text-align: center;
+}
+
+.button {
+    position: relative;
+    width: 10px;
+    height: 40px;
+    margin: 10px;
+    display: inline-block;
+    border-radius: 50px;
+    border: 2px solid #AFEEEE;
+    background: transparent;
+    transition: 0.2s;
+    font-size: 12px;
+    font-weight: 900;
+    color: #AFEEEE;
+    line-height: 30px;
+    min-width: 100px;
+}
+
+.button::before {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    border-radius: 50px;
+    transition: 0.2s;
+}
+
+.button:hover::before {
+    color: #7B68EE;
+    box-shadow: inset 10px 10px 15px #F0F8FF, inset -10px -10px 15px #F0F8FF, inset -10px 10px 15px #F0F8FF, inset 10px -10px 15px #F0F8FF;
+    background: #AFEEEE;
+    text-shadow: 10px 10px 15px #F0F8FF, -10px -10px 15px #F0F8FF, -10px 10px 15px #F0F8FF, 10px -10px 15px #F0F8FF;
+}
+
+.button:hover {
+    color: #7B68EE;
+    box-shadow: 10px 10px 15px #F0F8FF, -10px -10px 15px #F0F8FF, -10px 10px 15px #F0F8FF, 10px -10px 15px #F0F8FF;
+    border: 5px solid #F0F8FF;
+    background: #F0F8FF;
 }
