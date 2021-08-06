@@ -20,7 +20,6 @@
     padding: 70px;
     width: 1200px;
     height: 100%;
-    overflow-y: auto;
 }
 
 button {
@@ -71,6 +70,7 @@ button:hover:before {
 
 body {
     background: #8ba5c7;
+    overflow: hidden;
 }
 
 h1 {
