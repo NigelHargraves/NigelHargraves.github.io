@@ -22,6 +22,7 @@ var alienNumber = 0;
 var score = 0;
 var gunPos = 10;
 var blastX = 0;
+var level = 1;
 var blastY = canvas.height - 40;
 var moveLeft = false;
 var moveRight = false;
@@ -38,6 +39,13 @@ alienImage2.src = 'images/si2.png';
 var background = new Image();
 background.src = "https://wonderfulengineering.com/wp-content/uploads/2014/07/universe-backgrounds-141-610x343.jpg";
 
+for (var _i = 10000; _i > 0; _i--) {
+  ctx.font = "900 100px Arial";
+  ctx.fillStyle = "rgba(255, 0, 0, 1)";
+  ctx.textAlign = "center";
+  ctx.fillText("level - " + level, canvas.width / 2, canvas.height / 2);
+}
+
 var alien =
 /*#__PURE__*/
 function () {
@@ -46,9 +54,9 @@ function () {
     _classCallCheck(this, alien);
 
     this.x = Math.random() * (canvas.width / 2) + 200;
-    this.y = 0;
+    this.y = -50;
     this.speedX = Math.random() * 3 - 1.5;
-    this.speedY = Math.random() * 1.5;
+    this.speedY = Math.random() * 0.5;
     this.alien = alienNumber;
     alienNumber += 1;
   } //draw alien.
@@ -180,12 +188,15 @@ function laserBlast() {
   ctx.stroke();
   blastY -= 8; //check for alien hit.
 
-  for (var _i = 0; _i < aliens.length; _i++) {
-    if (blastX > aliens[_i].x + 50 || blastX < aliens[_i].x || blastY > aliens[_i].y + 50 || blastY < aliens[_i].y) {//no hit.
+  for (var _i2 = 0; _i2 < aliens.length; _i2++) {
+    if (blastX > aliens[_i2].x + 50 || blastX < aliens[_i2].x || blastY > aliens[_i2].y + 50 || blastY < aliens[_i2].y) {//no hit.
     } else {
       //hit
+      score += aliens[_i2].y / 2;
+      score = Math.floor(score);
+      document.getElementById("scoreBoard").innerHTML = 'SCORE:' + score;
       alienExplode.play();
-      aliens.splice(_i, 1);
+      aliens.splice(_i2, 1);
       shoot = false;
       blastY = canvas.height - 40;
     }

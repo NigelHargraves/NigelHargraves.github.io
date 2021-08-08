@@ -15,6 +15,7 @@ let alienNumber = 0;
 let score = 0;
 let gunPos = 10;
 let blastX = 0;
+let level = 1;
 let blastY = canvas.height - 40;
 let moveLeft = false;
 let moveRight = false;
@@ -32,13 +33,21 @@ let background = new Image();
 background.src =
     "https://wonderfulengineering.com/wp-content/uploads/2014/07/universe-backgrounds-141-610x343.jpg";
 
+for (let i = 10000; i > 0; i--) {
+    ctx.font = "900 100px Arial";
+    ctx.fillStyle = "rgba(255, 0, 0, 1)";
+    ctx.textAlign = "center";
+    ctx.fillText("level - " + level, canvas.width / 2, canvas.height / 2);
+}
+
+
 class alien {
     //construct alien.
     constructor() {
             this.x = Math.random() * (canvas.width / 2) + 200;
-            this.y = 0;
+            this.y = -50;
             this.speedX = Math.random() * 3 - 1.5;
-            this.speedY = Math.random() * 1.5;
+            this.speedY = Math.random() * 0.5;
             this.alien = alienNumber;
             alienNumber += 1;
         }
@@ -164,6 +173,9 @@ function laserBlast() {
             //no hit.
         } else {
             //hit
+            score += (aliens[i].y / 2);
+            score = Math.floor(score);
+            document.getElementById("scoreBoard").innerHTML = 'SCORE:' + score;
             alienExplode.play();
             aliens.splice(i, 1);
             shoot = false;
