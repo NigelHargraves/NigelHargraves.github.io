@@ -1,22 +1,24 @@
 * {
+    margin: 0;
+    padding: 0;
     box-sizing: border-box;
 }
 
-#canvas1 {
-    border: 5px solid black;
+#canvas {
+    background: url("https://wonderfulengineering.com/wp-content/uploads/2014/07/universe-backgrounds-141-610x343.jpg");
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 1000px;
-    height: 800px;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    z-index: -1;
 }
 
-div.gun {
+.gun {
     width: 75px;
-    height: 50px;
+    height: 40px;
     position: absolute;
-    top: 835px;
-    left: 500px;
+    bottom: 0px;
+    left: 10%;
+    background-position: center;
     background-size: cover;
+    background-repeat: no-repeat;
 }
