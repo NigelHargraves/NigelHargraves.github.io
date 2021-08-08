@@ -19,6 +19,7 @@ var loser = document.getElementById("audio5");
 var aliens = [];
 var waitTime = 1;
 var numberOfAliens = 10;
+var alienStartPosition = -50;
 var alienNumber = 0;
 var score = 0;
 var gameSpeed = 0.5;
@@ -52,7 +53,7 @@ function () {
     _classCallCheck(this, alien);
 
     this.x = Math.random() * (canvas.width / 2) + 200;
-    this.y = -50;
+    this.y = alienStartPosition;
     this.speedX = Math.random() * 3 - 1.5;
     this.speedY = Math.random() * gameSpeed;
     this.alien = alienNumber;
@@ -142,8 +143,9 @@ function animateAliens() {
       levelTF = false;
       playerWin = false;
       numberOfAliens += 2;
+      alienStartPosition += 10;
       alienNumber = 0;
-      gameSpeed += 0.1;
+      gameSpeed += 0.05;
       init();
       animateAliens();
     }
@@ -205,7 +207,7 @@ function laserBlast() {
     if (blastX > aliens[_i].x + 50 || blastX < aliens[_i].x || blastY > aliens[_i].y + 50 || blastY < aliens[_i].y) {//no hit.
     } else {
       //hit
-      score += aliens[_i].y / 2;
+      score += (canvas.height - aliens[_i].y) / 8;
       score = Math.floor(score);
       document.getElementById("scoreBoard").innerHTML = 'SCORE:' + score;
       alienExplode.play();

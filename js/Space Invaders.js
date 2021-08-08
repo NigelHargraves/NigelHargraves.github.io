@@ -12,6 +12,7 @@ let loser = document.getElementById("audio5");
 let aliens = [];
 let waitTime = 1;
 let numberOfAliens = 10;
+let alienStartPosition = -50;
 let alienNumber = 0;
 let score = 0;
 let gameSpeed = 0.5;
@@ -45,7 +46,7 @@ class alien {
     //construct alien.
     constructor() {
             this.x = Math.random() * (canvas.width / 2) + 200;
-            this.y = -50;
+            this.y = alienStartPosition;
             this.speedX = Math.random() * 3 - 1.5;
             this.speedY = Math.random() * gameSpeed;
             this.alien = alienNumber;
@@ -121,8 +122,9 @@ function animateAliens() {
             levelTF = false;
             playerWin = false;
             numberOfAliens += 2;
+            alienStartPosition += 10;
             alienNumber = 0;
-            gameSpeed += 0.1;
+            gameSpeed += 0.05;
             init();
             animateAliens();
         }
@@ -191,7 +193,7 @@ function laserBlast() {
             //no hit.
         } else {
             //hit
-            score += (aliens[i].y / 2);
+            score += ((canvas.height - aliens[i].y) / 8);
             score = Math.floor(score);
             document.getElementById("scoreBoard").innerHTML = 'SCORE:' + score;
             alienExplode.play();
