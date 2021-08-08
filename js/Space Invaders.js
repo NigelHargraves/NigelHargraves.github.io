@@ -15,12 +15,14 @@ let numberOfAliens = 10;
 let alienNumber = 0;
 let score = 0;
 let gameSpeed = 0.5;
-let gunPos = 10;
+let gunPos = 50;
 let blastX = 0;
 let level = 1;
 let blastY = canvas.height - 40;
 let moveLeft = false;
 let moveRight = false;
+let mobileLeft = false;
+let mobileRight = false;
 let shoot = false;
 let fired = false;
 let hit = false;
@@ -132,6 +134,8 @@ function animateAliens() {
 init();
 animateAliens();
 
+
+
 function checkKey(e) {
     if (e.keyCode == 37 || e.keyCode == 65) {
         moveLeft = true;
@@ -149,19 +153,19 @@ function checkKey(e) {
 
 function movePlayer() {
 
-    if (moveLeft == true && gunPos > 10) {
+    if (moveLeft == true && gunPos > 5) {
         gunPos -= 1;
         gun.style.left = gunPos + "%";
-    } else if (gunPos < 10) {
-        gunPos = 10;
+    } else if (gunPos < 5) {
+        gunPos = 5;
     }
-    if (moveRight == true && gunPos < 90) {
+    if (moveRight == true && gunPos < 92) {
         gunPos += 1;
         gun.style.left = gunPos + "%";
-    } else if (gunPos > 90) {
-        gunPos = 90;
+    } else if (gunPos > 92) {
+        gunPos = 92;
     }
-    if (fired === true) {
+    if (fired == true) {
         fired = false;
         playerShoot.play();
         laserBlast();
@@ -216,6 +220,29 @@ window.addEventListener("resize", function() {
     canvas.height = innerHeight;
 });
 
+
+buttonL.addEventListener("mousedown", function() {
+    moveLeft = true;
+})
+buttonR.addEventListener("mousedown", function() {
+    moveRight = true;
+})
+
+
+buttonL.addEventListener("mouseup", function() {
+    moveLeft = false;
+})
+buttonR.addEventListener("mouseup", function() {
+    moveRight = false;
+})
+
+canvas.addEventListener("click", function() {
+    fired = true;
+    shoot = true;
+    let elem = document.querySelector("div");
+    let rect = elem.getBoundingClientRect();
+    blastX = rect.x + 37;
+})
 document.onkeydown = checkKey;
 document.onkeyup = stopKey;
 
