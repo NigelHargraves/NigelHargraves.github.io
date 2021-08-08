@@ -21,10 +21,13 @@ let moveRight = false;
 let shoot = false;
 let fired = false;
 let hit = false;
+let changeImage = 0;
 let alienVictory = false;
 let playerWin = false;
-let alienImage = new Image();
-alienImage.src = 'images/si1.png';
+let alienImage1 = new Image();
+alienImage1.src = 'images/si1.png';
+let alienImage2 = new Image();
+alienImage2.src = 'images/si2.png';
 let background = new Image();
 background.src =
     "https://wonderfulengineering.com/wp-content/uploads/2014/07/universe-backgrounds-141-610x343.jpg";
@@ -41,8 +44,12 @@ class alien {
         }
         //draw alien.
     draw() {
+            if (changeImage < 25) {
+                ctx.drawImage(alienImage1, this.x, this.y, 50, 50);
+            } else {
+                ctx.drawImage(alienImage2, this.x, this.y, 50, 50);
+            }
 
-            ctx.drawImage(alienImage, this.x, this.y, 70, 40);
             /*ctx.beginPath();
             ctx.fillStyle = "purple";
             ctx.fillRect(this.x, this.y, 50, 50);*/
@@ -73,6 +80,11 @@ function animateAliens() {
     ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
     for (i = 0; i < aliens.length; i++) {
         aliens[i].update();
+    }
+    if (changeImage > 50) {
+        changeImage = 0;
+    } else {
+        changeImage += 1;
     }
     if (aliens.length < 1) playerWin = true;
     if (alienVictory == true || playerWin == true) {
