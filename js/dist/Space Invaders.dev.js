@@ -17,9 +17,11 @@ var alienExplode = document.getElementById("audio3");
 var winner = document.getElementById("audio4");
 var loser = document.getElementById("audio5");
 var aliens = [];
+var waitTime = 1;
 var numberOfAliens = 10;
 var alienNumber = 0;
 var score = 0;
+var gameSpeed = 0.5;
 var gunPos = 10;
 var blastX = 0;
 var level = 1;
@@ -29,6 +31,7 @@ var moveRight = false;
 var shoot = false;
 var fired = false;
 var hit = false;
+var levelTF = false;
 var changeImage = 0;
 var alienVictory = false;
 var playerWin = false;
@@ -38,13 +41,6 @@ var alienImage2 = new Image();
 alienImage2.src = 'images/si2.png';
 var background = new Image();
 background.src = "https://wonderfulengineering.com/wp-content/uploads/2014/07/universe-backgrounds-141-610x343.jpg";
-
-for (var _i = 10000; _i > 0; _i--) {
-  ctx.font = "900 100px Arial";
-  ctx.fillStyle = "rgba(255, 0, 0, 1)";
-  ctx.textAlign = "center";
-  ctx.fillText("level - " + level, canvas.width / 2, canvas.height / 2);
-}
 
 var alien =
 /*#__PURE__*/
@@ -56,7 +52,7 @@ function () {
     this.x = Math.random() * (canvas.width / 2) + 200;
     this.y = -50;
     this.speedX = Math.random() * 3 - 1.5;
-    this.speedY = Math.random() * 0.5;
+    this.speedY = Math.random() * gameSpeed;
     this.alien = alienNumber;
     alienNumber += 1;
   } //draw alien.
@@ -70,10 +66,6 @@ function () {
       } else {
         ctx.drawImage(alienImage2, this.x, this.y, 50, 50);
       }
-      /*ctx.beginPath();
-      ctx.fillStyle = "purple";
-      ctx.fillRect(this.x, this.y, 50, 50);*/
-
     } //move alien.
 
   }, {
@@ -100,12 +92,22 @@ function init() {
   for (i = 0; i < numberOfAliens; i++) {
     aliens.push(new alien());
   }
-
-  console.log(aliens);
 }
 
 function animateAliens() {
   ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
+
+  if (levelTF == false) {
+    waitTime -= 0.002;
+    ctx.font = "900 100px Arial";
+    ctx.fillStyle = "rgba(233, 212, 96," + waitTime + ")";
+    ctx.textAlign = "center";
+    ctx.fillText("level - " + level, canvas.width / 2, canvas.height / 2);
+
+    if (waitTime < 0) {
+      levelTF = true;
+    }
+  }
 
   for (i = 0; i < aliens.length; i++) {
     aliens[i].update();
@@ -132,7 +134,16 @@ function animateAliens() {
       ctx.font = "900 100px Arial";
       ctx.fillStyle = "green";
       ctx.textAlign = "center";
-      ctx.fillText("YOU WIN", canvas.width / 2, canvas.height / 2);
+      ctx.fillText("Level - " + level + " Cleared", canvas.width / 2, canvas.height / 2);
+      level += 1;
+      waitTime = 1;
+      levelTF = false;
+      playerWin = false;
+      numberOfAliens += 2;
+      alienNumber = 0;
+      gameSpeed += 0.1;
+      init();
+      animateAliens();
     }
   } else {
     requestAnimationFrame(animateAliens); //adjust to screen refresh rate and call next frame.
@@ -188,15 +199,15 @@ function laserBlast() {
   ctx.stroke();
   blastY -= 8; //check for alien hit.
 
-  for (var _i2 = 0; _i2 < aliens.length; _i2++) {
-    if (blastX > aliens[_i2].x + 50 || blastX < aliens[_i2].x || blastY > aliens[_i2].y + 50 || blastY < aliens[_i2].y) {//no hit.
+  for (var _i = 0; _i < aliens.length; _i++) {
+    if (blastX > aliens[_i].x + 50 || blastX < aliens[_i].x || blastY > aliens[_i].y + 50 || blastY < aliens[_i].y) {//no hit.
     } else {
       //hit
-      score += aliens[_i2].y / 2;
+      score += aliens[_i].y / 2;
       score = Math.floor(score);
       document.getElementById("scoreBoard").innerHTML = 'SCORE:' + score;
       alienExplode.play();
-      aliens.splice(_i2, 1);
+      aliens.splice(_i, 1);
       shoot = false;
       blastY = canvas.height - 40;
     }
