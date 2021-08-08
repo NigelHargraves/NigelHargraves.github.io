@@ -16,6 +16,7 @@ var playerShoot = document.getElementById("audio2");
 var alienExplode = document.getElementById("audio3");
 var winner = document.getElementById("audio4");
 var loser = document.getElementById("audio5");
+var death = document.getElementById("audio6");
 var aliens = [];
 var waitTime = 1;
 var numberOfAliens = 10;
@@ -38,6 +39,10 @@ var levelTF = false;
 var changeImage = 0;
 var alienVictory = false;
 var playerWin = false;
+var boom = new Image();
+boom.src = 'images/boom.png';
+var boom2 = new Image();
+boom2.src = 'images/boom2.png';
 var alienImage1 = new Image();
 alienImage1.src = 'images/si1.png';
 var alienImage2 = new Image();
@@ -126,6 +131,9 @@ function animateAliens() {
 
   if (alienVictory == true || playerWin == true) {
     if (alienVictory == true) {
+      death.play();
+      gun.style.backgroundImage = "url('images/boom2.png')";
+      clearInterval(playerMove);
       loser.play();
       shoot = false;
       ctx.font = "900 100px Arial";
@@ -207,6 +215,7 @@ function laserBlast() {
     if (blastX > aliens[_i].x + 50 || blastX < aliens[_i].x || blastY > aliens[_i].y + 50 || blastY < aliens[_i].y) {//no hit.
     } else {
       //hit
+      ctx.drawImage(boom, aliens[_i].x, aliens[_i].y, 50, 50);
       score += (canvas.height - aliens[_i].y) / 8;
       score = Math.floor(score);
       document.getElementById("scoreBoard").innerHTML = 'SCORE:' + score;
@@ -257,4 +266,4 @@ canvas.addEventListener("click", function () {
 });
 document.onkeydown = checkKey;
 document.onkeyup = stopKey;
-setInterval(movePlayer, 50);
+var playerMove = setInterval(movePlayer, 50);
