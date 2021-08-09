@@ -25,14 +25,18 @@ var alienNumber = 0;
 var score = 0;
 var gameSpeed = 0.5;
 var gunPos = 50;
-var blastX = 0;
 var level = 1;
+var alienBlastX = 0;
+var alienBlastY = 0;
+var blastX = 0;
 var blastY = canvas.height - 40;
 var moveLeft = false;
 var moveRight = false;
 var mobileLeft = false;
 var mobileRight = false;
 var shoot = false;
+var alienShooting = 0;
+var alienFired = false;
 var fired = false;
 var hit = false;
 var levelTF = false;
@@ -204,8 +208,10 @@ function movePlayer() {
 }
 
 function laserBlast() {
+  //laser fired.
   ctx.beginPath();
   ctx.strokeStyle = "red";
+  ctx.lineWidth = 2;
   ctx.moveTo(blastX, blastY);
   ctx.lineTo(blastX, blastY - 20);
   ctx.stroke();
@@ -258,11 +264,13 @@ buttonR.addEventListener("mouseup", function () {
   moveRight = false;
 });
 canvas.addEventListener("click", function () {
-  fired = true;
-  shoot = true;
-  var elem = document.querySelector("div");
-  var rect = elem.getBoundingClientRect();
-  blastX = rect.x + 37;
+  if (shoot == false) {
+    fired = true;
+    shoot = true;
+    var elem = document.querySelector("div");
+    var rect = elem.getBoundingClientRect();
+    blastX = rect.x + 37;
+  }
 });
 document.onkeydown = checkKey;
 document.onkeyup = stopKey;

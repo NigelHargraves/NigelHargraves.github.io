@@ -17,14 +17,18 @@ let alienNumber = 0;
 let score = 0;
 let gameSpeed = 0.5;
 let gunPos = 50;
-let blastX = 0;
 let level = 1;
+let alienBlastX = 0;
+let alienBlastY = 0;
+let blastX = 0;
 let blastY = canvas.height - 40;
 let moveLeft = false;
 let moveRight = false;
 let mobileLeft = false;
 let mobileRight = false;
 let shoot = false;
+let alienShooting = 0;
+let alienFired = false;
 let fired = false;
 let hit = false;
 let levelTF = false;
@@ -66,6 +70,9 @@ class alien {
         }
         //move alien.
     update() {
+
+
+
         alienMove.play();
         this.x += this.speedX;
         this.y += this.speedY;
@@ -85,6 +92,7 @@ function init() {
     }
 
 }
+
 
 function animateAliens() {
     ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
@@ -161,7 +169,6 @@ function checkKey(e) {
 }
 
 function movePlayer() {
-
     if (moveLeft == true && gunPos > 5) {
         gunPos -= 1;
         gun.style.left = gunPos + "%";
@@ -181,14 +188,14 @@ function movePlayer() {
     }
 }
 
-function laserBlast() {
+function laserBlast() { //laser fired.
     ctx.beginPath();
     ctx.strokeStyle = "red";
+    ctx.lineWidth = 2;
     ctx.moveTo(blastX, blastY);
     ctx.lineTo(blastX, blastY - 20);
     ctx.stroke();
     blastY -= 8;
-
     //check for alien hit.
     for (let i = 0; i < aliens.length; i++) {
         if (
@@ -210,7 +217,6 @@ function laserBlast() {
             blastY = canvas.height - 40;
         }
     }
-
     if (blastY <= 0) {
         shoot = false;
         blastY = canvas.height - 40;
@@ -247,11 +253,14 @@ buttonR.addEventListener("mouseup", function() {
 })
 
 canvas.addEventListener("click", function() {
-    fired = true;
-    shoot = true;
-    let elem = document.querySelector("div");
-    let rect = elem.getBoundingClientRect();
-    blastX = rect.x + 37;
+    if (shoot == false) {
+        fired = true;
+        shoot = true;
+        let elem = document.querySelector("div");
+        let rect = elem.getBoundingClientRect();
+        blastX = rect.x + 37;
+    }
+
 })
 document.onkeydown = checkKey;
 document.onkeyup = stopKey;
