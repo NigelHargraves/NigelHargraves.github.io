@@ -4,11 +4,13 @@ canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 const file = document.getElementById("fileupload");
 let alienMove = document.getElementById("audio1");
-let playerShoot = document.getElementById("audio2");
+let laser1 = document.getElementById("audio2");
 let alienExplode = document.getElementById("audio3");
 let winner = document.getElementById("audio4");
 let loser = document.getElementById("audio5");
 let death = document.getElementById("audio6");
+let dead = document.getElementById("audio7");
+let laser2 = document.getElementById("audio8");
 let aliens = [];
 let alienLaser = document.createElement("div");
 let waitTime = 1;
@@ -44,9 +46,9 @@ boom.src = 'images/boom.png';
 let boom2 = new Image();
 boom2.src = 'images/boom2.png';
 let alienImage1 = new Image();
-alienImage1.src = 'images/si1.png';
+alienImage1.src = 'images/alien ship 1.png';
 let alienImage2 = new Image();
-alienImage2.src = 'images/si2.png';
+alienImage2.src = 'images/alien ship 2.png';
 let background = new Image();
 background.src =
     "https://wonderfulengineering.com/wp-content/uploads/2014/07/universe-backgrounds-141-610x343.jpg";
@@ -67,9 +69,9 @@ class alien {
         //draw alien.
     draw() {
             if (changeImage < 25) {
-                ctx.drawImage(alienImage1, this.x, this.y, 50, 50);
+                ctx.drawImage(alienImage1, this.x, this.y, 50, 25);
             } else {
-                ctx.drawImage(alienImage2, this.x, this.y, 50, 50);
+                ctx.drawImage(alienImage2, this.x, this.y, 50, 25);
             }
         }
         //move alien.
@@ -80,7 +82,7 @@ class alien {
 
             if (alienShooting > 99.9) {
 
-                playerShoot.play();
+                laser1.play();
                 alienFired = true;
                 alienBlastX = this.x + 25;
                 alienBlastY = this.y + 50;
@@ -131,7 +133,7 @@ function alienShoot() {
         alienBlastY = 0;
         alienFired = false;
         lives -= 1
-        death.play();
+        dead.play();
         gun.style.backgroundImage = "url('images/boom2.png')";
         document.getElementById("lives").innerHTML = 'LIVES: ' + lives;
         alienLaser.remove();
@@ -194,6 +196,8 @@ function animateAliens() {
             ctx.fillStyle = "red";
             ctx.textAlign = "center";
             ctx.fillText("Game Over", canvas.width / 2, canvas.height / 2);
+            lives = 0;
+            document.getElementById("lives").innerHTML = 'LIVES: ' + lives;
         } else {
             winner.play();
             level += 1;
@@ -249,7 +253,7 @@ function movePlayer() {
     }
     if (fired == true) {
         fired = false;
-        playerShoot.play();
+        laser2.play();
         laserBlast();
     }
 }
