@@ -96,7 +96,7 @@ function () {
           laser1.play();
           alienFired = true;
           alienBlastX = this.x + 25;
-          alienBlastY = this.y + 50;
+          alienBlastY = this.y + 25;
           alienLaser.style.width = "3px";
           alienLaser.style.height = "20px";
           alienLaser.style.background = "white";
@@ -116,7 +116,7 @@ function () {
         this.speedX = -this.speedX;
       }
 
-      if (this.y + 50 >= canvas.height) alienVictory = true;
+      if (this.y + 25 >= canvas.height) alienVictory = true;
       this.draw(); //call draw function to draw in new position.
     }
   }]);
