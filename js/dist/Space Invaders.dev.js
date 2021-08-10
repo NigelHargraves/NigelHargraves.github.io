@@ -255,13 +255,13 @@ function movePlayer() {
     gunPosX = 50;
   }
 
-  if (moveRight == true && gunPosX < canvas.width - 100) {
+  if (moveRight == true && gunPosX < canvas.width - 125) {
     gunPosX += 10;
     gun.style.left = gunPosX + "px";
   }
 
   if (gunPosX >= canvas.width - 125) {
-    gunPosX = canvas.width - 15;
+    gunPosX = canvas.width - 125;
   }
 
   if (fired == true) {
