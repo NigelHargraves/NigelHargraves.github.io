@@ -149,16 +149,21 @@ function alienShoot() {
         gun.style.backgroundImage = "url('images/boom2.png')";
         document.getElementById("lives").innerHTML = 'LIVES: ' + lives;
         alienLaser.remove();
-
+        alienDestroyed = true;
+        alienDestroyedX = gunPosX + 37;
+        alienDestroyedY = gunPosY + 20;
+        boomExpand = true;
+        document.body.appendChild(alienLaser);
         clearInterval(playerMove);
+        gun.style.zIndex = -10;
         if (lives == 0) {
             alienVictory = true;
         } else {
             setTimeout(() => {
                 gun.style.backgroundImage = "url('images/laserhouse.png')";
                 playerMove = setInterval(movePlayer, 50);
-
-            }, 2000);
+                gun.style.zIndex = 1;
+            }, 500);
         }
     }
 
@@ -202,25 +207,25 @@ function animateAliens() {
         if (boomExpand == true) {
             alienBoom.style.width = expandBoom + "px";
             alienBoom.style.height = expandBoom + "px";
-            alienBoom.style.background = "radial-gradient(red, #9198e5)";
+            alienBoom.style.background = "radial-gradient(red,orange,#9198e5)";
             alienBoom.style.position = "absolute";
             alienBoom.style.left = (alienDestroyedX - (expandBoom / 2)) + "px";
             alienBoom.style.top = (alienDestroyedY - (expandBoom / 2)) + "px";
             alienBoom.style.borderRadius = "50%";
             document.body.appendChild(alienBoom);
-            expandBoom += 3;
+            expandBoom += 4;
             if (expandBoom > 50) boomExpand = false;
         }
         if (boomExpand == false) {
             alienBoom.style.width = expandBoom + "px";
             alienBoom.style.height = expandBoom + "px";
-            alienBoom.style.background = "radial-gradient(red, #9198e5)";
+            alienBoom.style.background = "radial-gradient(red,orange,#9198e5)";
             alienBoom.style.position = "absolute";
             alienBoom.style.left = (alienDestroyedX - (expandBoom / 2)) + "px";
             alienBoom.style.top = (alienDestroyedY - (expandBoom / 2)) + "px";
             alienBoom.style.borderRadius = "50%";
             document.body.appendChild(alienBoom);
-            expandBoom -= 3;
+            expandBoom -= 4;
             if (expandBoom <= 0) {
                 alienBoom.remove();
                 alienDestroyed = false;
