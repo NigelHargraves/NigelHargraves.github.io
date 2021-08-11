@@ -13,10 +13,16 @@ let dead = document.getElementById("audio7");
 let laser2 = document.getElementById("audio8");
 let aliens = [];
 let alienLaser = document.createElement("div");
+let alienBoom = document.createElement("div");
 let waitTime = 1;
 let numberOfAliens = 10;
 let alienStartPosition = -50;
 let alienNumber = 0;
+let alienDestroyed = false;
+let boomExpand = false;
+let alienDestroyedX = 0;
+let alienDestroyedY = 0;
+let expandBoom = 0;
 let score = 0;
 let lives = 3;
 let gameSpeed = 0.5;
@@ -81,12 +87,10 @@ class alien {
             alienShooting = Math.random() * 100;
 
             if (alienShooting > 99.9) {
-
                 laser1.play();
                 alienFired = true;
                 alienBlastX = this.x + 25;
                 alienBlastY = this.y + 25;
-
                 alienLaser.style.width = "3px";
                 alienLaser.style.height = "20px";
                 alienLaser.style.background = "white";
@@ -184,6 +188,37 @@ function animateAliens() {
     } else {
         changeImage += 1;
     }
+
+    if (alienDestroyed == true) {
+        if (boomExpand == true) {
+            alienBoom.style.width = expandBoom + "px";
+            alienBoom.style.height = expandBoom + "px";
+            alienBoom.style.background = "radial-gradient(red, #9198e5)";
+            alienBoom.style.position = "absolute";
+            alienBoom.style.left = (alienDestroyedX - (expandBoom / 2)) + "px";
+            alienBoom.style.top = (alienDestroyedY - (expandBoom / 2)) + "px";
+            alienBoom.style.borderRadius = "50%";
+            document.body.appendChild(alienBoom);
+            expandBoom += 3;
+            if (expandBoom > 50) boomExpand = false;
+        }
+        if (boomExpand == false) {
+            alienBoom.style.width = expandBoom + "px";
+            alienBoom.style.height = expandBoom + "px";
+            alienBoom.style.background = "radial-gradient(red, #9198e5)";
+            alienBoom.style.position = "absolute";
+            alienBoom.style.left = (alienDestroyedX - (expandBoom / 2)) + "px";
+            alienBoom.style.top = (alienDestroyedY - (expandBoom / 2)) + "px";
+            alienBoom.style.borderRadius = "50%";
+            document.body.appendChild(alienBoom);
+            expandBoom -= 3;
+            if (expandBoom <= 0) {
+                alienBoom.remove();
+                alienDestroyed = false;
+            }
+
+        }
+    }
     if (aliens.length < 1) playerWin = true;
     if (alienVictory == true || playerWin == true) {
         if (alienVictory == true) {
@@ -278,6 +313,11 @@ function laserBlast() { //laser fired.
         } else {
             //hit
             ctx.drawImage(boom, aliens[i].x, aliens[i].y, 50, 50);
+            alienDestroyed = true;
+            alienDestroyedX = aliens[i].x + 25;
+            alienDestroyedY = aliens[i].y + 12.5;
+            boomExpand = true;
+            document.body.appendChild(alienLaser);
             score += ((canvas.height - aliens[i].y) / 8);
             score = Math.floor(score);
             document.getElementById("scoreBoard").innerHTML = 'SCORE: ' + score;

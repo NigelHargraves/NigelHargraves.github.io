@@ -21,10 +21,16 @@ var dead = document.getElementById("audio7");
 var laser2 = document.getElementById("audio8");
 var aliens = [];
 var alienLaser = document.createElement("div");
+var alienBoom = document.createElement("div");
 var waitTime = 1;
 var numberOfAliens = 10;
 var alienStartPosition = -50;
 var alienNumber = 0;
+var alienDestroyed = false;
+var boomExpand = false;
+var alienDestroyedX = 0;
+var alienDestroyedY = 0;
+var expandBoom = 0;
 var score = 0;
 var lives = 3;
 var gameSpeed = 0.5;
@@ -193,6 +199,38 @@ function animateAliens() {
     changeImage += 1;
   }
 
+  if (alienDestroyed == true) {
+    if (boomExpand == true) {
+      alienBoom.style.width = expandBoom + "px";
+      alienBoom.style.height = expandBoom + "px";
+      alienBoom.style.background = "radial-gradient(red, #9198e5)";
+      alienBoom.style.position = "absolute";
+      alienBoom.style.left = alienDestroyedX - expandBoom / 2 + "px";
+      alienBoom.style.top = alienDestroyedY - expandBoom / 2 + "px";
+      alienBoom.style.borderRadius = "50%";
+      document.body.appendChild(alienBoom);
+      expandBoom += 3;
+      if (expandBoom > 50) boomExpand = false;
+    }
+
+    if (boomExpand == false) {
+      alienBoom.style.width = expandBoom + "px";
+      alienBoom.style.height = expandBoom + "px";
+      alienBoom.style.background = "radial-gradient(red, #9198e5)";
+      alienBoom.style.position = "absolute";
+      alienBoom.style.left = alienDestroyedX - expandBoom / 2 + "px";
+      alienBoom.style.top = alienDestroyedY - expandBoom / 2 + "px";
+      alienBoom.style.borderRadius = "50%";
+      document.body.appendChild(alienBoom);
+      expandBoom -= 3;
+
+      if (expandBoom <= 0) {
+        alienBoom.remove();
+        alienDestroyed = false;
+      }
+    }
+  }
+
   if (aliens.length < 1) playerWin = true;
 
   if (alienVictory == true || playerWin == true) {
@@ -286,6 +324,11 @@ function laserBlast() {
     } else {
       //hit
       ctx.drawImage(boom, aliens[_i].x, aliens[_i].y, 50, 50);
+      alienDestroyed = true;
+      alienDestroyedX = aliens[_i].x + 25;
+      alienDestroyedY = aliens[_i].y + 12.5;
+      boomExpand = true;
+      document.body.appendChild(alienLaser);
       score += (canvas.height - aliens[_i].y) / 8;
       score = Math.floor(score);
       document.getElementById("scoreBoard").innerHTML = 'SCORE: ' + score;
