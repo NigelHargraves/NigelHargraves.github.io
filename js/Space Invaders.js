@@ -1,3 +1,4 @@
+//get and set canvas
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 canvas.width = window.innerWidth;
@@ -11,42 +12,49 @@ let loser = document.getElementById("audio5");
 let death = document.getElementById("audio6");
 let dead = document.getElementById("audio7");
 let laser2 = document.getElementById("audio8");
-let aliens = [];
 let alienLaser = document.createElement("div");
 let alienBoom = document.createElement("div");
-let waitTime = 1;
-let numberOfAliens = 10;
-let alienStartPosition = -50;
-let alienNumber = 0;
-let alienDestroyed = false;
-let boomExpand = false;
-let alienDestroyedX = 0;
-let alienDestroyedY = 0;
-let expandBoom = 0;
-let score = 0;
-let lives = 3;
-let gameSpeed = 0.5;
-let gunPosX = 50;
-let gunPosY = canvas.height - 40;
-let level = 1;
-let alienBlastX = 0;
-let alienBlastY = 0;
-let blastX = 0;
-let blastY = canvas.height - 40;
-let stopGame = false;
-let moveLeft = false;
-let moveRight = false;
-let mobileLeft = false;
-let mobileRight = false;
-let shoot = false;
-let alienShooting = 0;
-let alienFired = false;
-let fired = false;
-let hit = false;
-let levelTF = false;
-let changeImage = 0;
-let alienVictory = false;
-let playerWin = false;
+
+let aliens = []; //alien array.
+
+//set variables.
+let numberOfAliens = 10,
+    alienStartPosition = -50,
+    alienNumber = 0,
+    alienDestroyedX = 0,
+    alienDestroyedY = 0,
+    alienBlastX = 0,
+    alienBlastY = 0,
+    alienShooting = 0,
+    expandBoom = 0,
+    changeImage = 0;
+let score = 0,
+    waitTime = 1,
+    lives = 3,
+    gameSpeed = 0.5,
+    gunPosX = 50,
+    gunPosY = canvas.height - 40,
+    blastX = 0,
+    blastY = canvas.height - 40,
+    level = 1,
+    gunSpeed = 8;
+
+let alienDestroyed = false,
+    boomExpand = false,
+    alienFired = false,
+    alienVictory = false,
+    stopGame = false,
+    moveLeft = false,
+    moveRight = false,
+    mobileLeft = false,
+    mobileRight = false,
+    fired = false,
+    hit = false,
+    levelTF = false,
+    playerWin = false,
+    shoot = false;
+
+//set images.
 let boom = new Image();
 boom.src = 'images/boom.png';
 let boom2 = new Image();
@@ -149,6 +157,7 @@ function alienShoot() {
             setTimeout(() => {
                 gun.style.backgroundImage = "url('images/laserhouse.png')";
                 playerMove = setInterval(movePlayer, 50);
+
             }, 2000);
         }
     }
@@ -234,6 +243,7 @@ function animateAliens() {
             lives = 0;
             document.getElementById("lives").innerHTML = 'LIVES: ' + lives;
         } else {
+            gunSpeed += 1;
             winner.play();
             level += 1;
             waitTime = 1;
@@ -273,14 +283,14 @@ function checkKey(e) {
 
 function movePlayer() {
     if (moveLeft == true && gunPosX > 10) {
-        gunPosX -= 10;
+        gunPosX -= gunSpeed;
         gun.style.left = gunPosX + "px";
     }
     if (gunPosX <= 50) {
         gunPosX = 50;
     }
     if (moveRight == true && gunPosX < canvas.width - 125) {
-        gunPosX += 10;
+        gunPosX += gunSpeed;
         gun.style.left = gunPosX + "px";
     }
     if (gunPosX >= canvas.width - 125) {

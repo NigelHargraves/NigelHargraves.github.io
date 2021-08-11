@@ -6,6 +6,7 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
+//get and set canvas
 var canvas = document.getElementById("canvas");
 var ctx = canvas.getContext("2d");
 canvas.width = window.innerWidth;
@@ -19,42 +20,46 @@ var loser = document.getElementById("audio5");
 var death = document.getElementById("audio6");
 var dead = document.getElementById("audio7");
 var laser2 = document.getElementById("audio8");
-var aliens = [];
 var alienLaser = document.createElement("div");
 var alienBoom = document.createElement("div");
-var waitTime = 1;
-var numberOfAliens = 10;
-var alienStartPosition = -50;
-var alienNumber = 0;
-var alienDestroyed = false;
-var boomExpand = false;
-var alienDestroyedX = 0;
-var alienDestroyedY = 0;
-var expandBoom = 0;
-var score = 0;
-var lives = 3;
-var gameSpeed = 0.5;
-var gunPosX = 50;
-var gunPosY = canvas.height - 40;
-var level = 1;
-var alienBlastX = 0;
-var alienBlastY = 0;
-var blastX = 0;
-var blastY = canvas.height - 40;
-var stopGame = false;
-var moveLeft = false;
-var moveRight = false;
-var mobileLeft = false;
-var mobileRight = false;
-var shoot = false;
-var alienShooting = 0;
-var alienFired = false;
-var fired = false;
-var hit = false;
-var levelTF = false;
-var changeImage = 0;
-var alienVictory = false;
-var playerWin = false;
+var aliens = []; //alien array.
+//set variables.
+
+var numberOfAliens = 10,
+    alienStartPosition = -50,
+    alienNumber = 0,
+    alienDestroyedX = 0,
+    alienDestroyedY = 0,
+    alienBlastX = 0,
+    alienBlastY = 0,
+    alienShooting = 0,
+    expandBoom = 0,
+    changeImage = 0;
+var score = 0,
+    waitTime = 1,
+    lives = 3,
+    gameSpeed = 0.5,
+    gunPosX = 50,
+    gunPosY = canvas.height - 40,
+    blastX = 0,
+    blastY = canvas.height - 40,
+    level = 1,
+    gunSpeed = 8;
+var alienDestroyed = false,
+    boomExpand = false,
+    alienFired = false,
+    alienVictory = false,
+    stopGame = false,
+    moveLeft = false,
+    moveRight = false,
+    mobileLeft = false,
+    mobileRight = false,
+    fired = false,
+    hit = false,
+    levelTF = false,
+    playerWin = false,
+    shoot = false; //set images.
+
 var boom = new Image();
 boom.src = 'images/boom.png';
 var boom2 = new Image();
@@ -247,6 +252,7 @@ function animateAliens() {
       lives = 0;
       document.getElementById("lives").innerHTML = 'LIVES: ' + lives;
     } else {
+      gunSpeed += 1;
       winner.play();
       level += 1;
       waitTime = 1;
@@ -285,7 +291,7 @@ function checkKey(e) {
 
 function movePlayer() {
   if (moveLeft == true && gunPosX > 10) {
-    gunPosX -= 10;
+    gunPosX -= gunSpeed;
     gun.style.left = gunPosX + "px";
   }
 
@@ -294,7 +300,7 @@ function movePlayer() {
   }
 
   if (moveRight == true && gunPosX < canvas.width - 125) {
-    gunPosX += 10;
+    gunPosX += gunSpeed;
     gun.style.left = gunPosX + "px";
   }
 
