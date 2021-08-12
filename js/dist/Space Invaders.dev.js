@@ -22,6 +22,7 @@ var dead = document.getElementById("audio7");
 var laser2 = document.getElementById("audio8");
 var alienLaser = document.createElement("div");
 var alienBoom = document.createElement("div");
+var speedBonus = document.createElement("div");
 var aliens = []; //alien array.
 //set variables.
 
@@ -32,7 +33,6 @@ var numberOfAliens = 10,
     alienDestroyedY = 0,
     alienBlastX = 0,
     alienBlastY = 0,
-    alienShooting = 0,
     expandBoom = 0,
     changeImage = 0;
 var score = 0,
@@ -44,7 +44,10 @@ var score = 0,
     blastX = 0,
     blastY = canvas.height - 40,
     level = 1,
-    gunSpeed = 8;
+    gunSpeed = 8,
+    bonusGunSpeed = 0,
+    bonusGunSpeedX = 0,
+    bonusGunSpeedY = 10;
 var alienDestroyed = false,
     boomExpand = false,
     alienFired = false,
@@ -58,7 +61,8 @@ var alienDestroyed = false,
     hit = false,
     levelTF = false,
     playerWin = false,
-    shoot = false; //set images.
+    shoot = false,
+    speedGunBonus = false; //set images.
 
 var boom = new Image();
 boom.src = 'images/boom.png';
@@ -100,8 +104,9 @@ function () {
   }, {
     key: "update",
     value: function update() {
+      //random alien will shoot.
       if (alienFired == false) {
-        alienShooting = Math.random() * 100;
+        var alienShooting = Math.random() * 100;
 
         if (alienShooting > 99.9) {
           laser1.play();
@@ -111,11 +116,36 @@ function () {
           alienLaser.style.width = "3px";
           alienLaser.style.height = "20px";
           alienLaser.style.background = "white";
+          alienLaser.style.boxShadow = "1px 1px 8px 3px #6287b8";
           alienLaser.style.position = "absolute";
           alienLaser.style.left = alienBlastX + "px";
           alienLaser.style.top = alienBlastY + "px";
           document.body.appendChild(alienLaser);
           alienShoot();
+        }
+      } //random extra gun speed bonus.
+
+
+      if (speedGunBonus == false && bonusGunSpeed == 0) {
+        var bonusSpeed = Math.random() * 4000;
+
+        if (bonusSpeed > 3999) {
+          speedGunBonus = true;
+          bonusGunSpeedX = Math.random() * (canvas.width - 200) + 100;
+          speedBonus.style.width = "50px";
+          speedBonus.style.height = "20px";
+          speedBonus.style.background = "green";
+          speedBonus.style.color = "black";
+          speedBonus.style.fontWeight = "bold";
+          speedBonus.textContent = "speed";
+          speedBonus.style.textAlign = "center";
+          speedBonus.style.borderRadius = "50px";
+          speedBonus.style.boxShadow = "1px 1px 8px 3px green";
+          speedBonus.style.position = "absolute";
+          speedBonus.style.left = bonusGunSpeedX + "px";
+          speedBonus.style.top = bonusGunSpeedY + "px";
+          document.body.appendChild(speedBonus);
+          bonusDrop();
         }
       }
 
@@ -127,7 +157,8 @@ function () {
         this.speedX = -this.speedX;
       }
 
-      if (this.y + 25 >= canvas.height) alienVictory = true;
+      if (this.y + 25 >= canvas.height) alienVictory = true; //end of game.
+
       this.draw(); //call draw function to draw in new position.
     }
   }]);
@@ -145,7 +176,7 @@ function init() {
 function alienShoot() {
   alienLaser.style.top = alienBlastY + "px";
 
-  if (alienBlastX > gunPosX + 75 || alienBlastX < gunPosX || alienBlastY + 20 < gunPosY) {//no hit.
+  if (alienBlastX > gunPosX + 75 || alienBlastX < gunPosX || alienBlastY + 20 < gunPosY) {//miss.
   } else {
     //hit
     alienBlastY = 0;
@@ -186,6 +217,33 @@ function alienShoot() {
   }
 }
 
+function bonusDrop() {
+  speedBonus.style.top = bonusGunSpeedY + "px";
+
+  if (bonusGunSpeedX > gunPosX + 75 || bonusGunSpeedX < gunPosX - 50 || bonusGunSpeedY + 20 < gunPosY) {//miss.
+  } else {
+    //hit.
+    bonusGunSpeed = 20;
+    speedBonus.remove();
+    bonusGunSpeedX = 0;
+    bonusGunSpeedY = 0;
+    speedGunBonus = false;
+  }
+
+  if (bonusGunSpeedY > canvas.height) {
+    speedBonus.remove();
+    bonusGunSpeedX = 0;
+    bonusGunSpeedY = 0;
+    speedGunBonus = false;
+  }
+
+  bonusGunSpeedY += 2;
+
+  if (speedGunBonus == true) {
+    requestAnimationFrame(bonusDrop);
+  }
+}
+
 function animateAliens() {
   ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
 
@@ -213,6 +271,7 @@ function animateAliens() {
 
   if (alienDestroyed == true) {
     if (boomExpand == true) {
+      alienBoom.style.filter = "blur(5px)";
       alienBoom.style.width = expandBoom + "px";
       alienBoom.style.height = expandBoom + "px";
       alienBoom.style.background = "radial-gradient(red,orange,#9198e5)";
@@ -226,6 +285,7 @@ function animateAliens() {
     }
 
     if (boomExpand == false) {
+      alienBoom.style.filter = "blur(5px)";
       alienBoom.style.width = expandBoom + "px";
       alienBoom.style.height = expandBoom + "px";
       alienBoom.style.background = "radial-gradient(red,orange,#9198e5)";
@@ -298,7 +358,7 @@ function checkKey(e) {
 
 function movePlayer() {
   if (moveLeft == true && gunPosX > 10) {
-    gunPosX -= gunSpeed;
+    gunPosX -= gunSpeed + bonusGunSpeed;
     gun.style.left = gunPosX + "px";
   }
 
@@ -307,7 +367,7 @@ function movePlayer() {
   }
 
   if (moveRight == true && gunPosX < canvas.width - 125) {
-    gunPosX += gunSpeed;
+    gunPosX += gunSpeed + bonusGunSpeed;
     gun.style.left = gunPosX + "px";
   }
 
@@ -319,6 +379,12 @@ function movePlayer() {
     fired = false;
     laser2.play();
     laserBlast();
+  }
+
+  if (bonusGunSpeed > 0) {
+    bonusGunSpeed -= 0.05;
+  } else {
+    bonusGunSpeed = 0;
   }
 }
 
@@ -341,7 +407,6 @@ function laserBlast() {
       alienDestroyedX = aliens[_i].x + 25;
       alienDestroyedY = aliens[_i].y + 12.5;
       boomExpand = true;
-      document.body.appendChild(alienLaser);
       score += (canvas.height - aliens[_i].y) / 8;
       score = Math.floor(score);
       document.getElementById("scoreBoard").innerHTML = 'SCORE: ' + score;
