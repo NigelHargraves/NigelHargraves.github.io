@@ -260,6 +260,7 @@ function animateAliens() {
             alienBoom.style.filter = "blur(5px)";
             alienBoom.style.width = expandBoom + "px";
             alienBoom.style.height = expandBoom + "px";
+
             alienBoom.style.background = "radial-gradient(red,orange,#9198e5)";
             alienBoom.style.position = "absolute";
             alienBoom.style.left = (alienDestroyedX - (expandBoom / 2)) + "px";
