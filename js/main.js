@@ -5,10 +5,10 @@ let redBool = false,
     greenBool = false,
     blueBool = false,
     trans = false;
-let r = 0,
-    g = 0,
-    b = 0,
-    t = 0,
+let r = Math.random() * 255,
+    g = Math.random() * 255,
+    b = Math.random() * 255,
+    t = Math.random(),
     verticalFrequency = 0.00001;
 
 turbulence.setAttribute('baseFrequency', verticalFrequency + '0.00001');
