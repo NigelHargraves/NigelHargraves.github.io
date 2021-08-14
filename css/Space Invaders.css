@@ -6,7 +6,7 @@
 }
 
 #canvas {
-    background: url("https://wonderfulengineering.com/wp-content/uploads/2014/07/universe-backgrounds-141-610x343.jpg");
+    background-image: url('images/back.png');
     position: absolute;
     background-size: 100% 100%;
     background-repeat: no-repeat;
