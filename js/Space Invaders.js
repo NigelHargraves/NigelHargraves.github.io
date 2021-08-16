@@ -221,7 +221,7 @@ function bonusDrop() {
     } else {
         //hit.
         speedAquired.play();
-        bonusGunSpeed = 20;
+        bonusGunSpeed += (30 * gunSpeed) / 100;
         speedBonus.remove();
         bonusGunSpeedX = 0;
         bonusGunSpeedY = 0;
@@ -268,7 +268,6 @@ function animateAliens() {
             alienBoom.style.filter = "blur(5px)";
             alienBoom.style.width = expandBoom + "px";
             alienBoom.style.height = expandBoom + "px";
-
             alienBoom.style.background = "radial-gradient(red,orange,#9198e5)";
             alienBoom.style.position = "absolute";
             alienBoom.style.left = (alienDestroyedX - (expandBoom / 2)) + "px";
@@ -378,7 +377,7 @@ function movePlayer() {
         laserBlast();
     }
     if (bonusGunSpeed > 0) {
-        bonusGunSpeed -= 0.05;
+        bonusGunSpeed -= 0.02;
     } else {
         bonusGunSpeed = 0;
     }
@@ -457,6 +456,14 @@ canvas.addEventListener("click", function() {
         let elem = document.querySelector("div");
         let rect = elem.getBoundingClientRect();
         blastX = rect.x + 37;
+        playerLaser.style.width = "3px";
+        playerLaser.style.height = "20px";
+        playerLaser.style.background = "red";
+        playerLaser.style.boxShadow = "0px 0px 8px 3px red";
+        playerLaser.style.position = "absolute";
+        playerLaser.style.left = blastX + "px";
+        playerLaser.style.top = blastY + "px";
+        document.body.appendChild(playerLaser);
     }
 
 })

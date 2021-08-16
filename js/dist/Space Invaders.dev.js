@@ -231,7 +231,7 @@ function bonusDrop() {
   } else {
     //hit.
     speedAquired.play();
-    bonusGunSpeed = 20;
+    bonusGunSpeed += 30 * gunSpeed / 100;
     speedBonus.remove();
     bonusGunSpeedX = 0;
     bonusGunSpeedY = 0;
@@ -399,7 +399,7 @@ function movePlayer() {
   }
 
   if (bonusGunSpeed > 0) {
-    bonusGunSpeed -= 0.05;
+    bonusGunSpeed -= 0.02;
   } else {
     bonusGunSpeed = 0;
   }
@@ -469,6 +469,14 @@ canvas.addEventListener("click", function () {
     var elem = document.querySelector("div");
     var rect = elem.getBoundingClientRect();
     blastX = rect.x + 37;
+    playerLaser.style.width = "3px";
+    playerLaser.style.height = "20px";
+    playerLaser.style.background = "red";
+    playerLaser.style.boxShadow = "0px 0px 8px 3px red";
+    playerLaser.style.position = "absolute";
+    playerLaser.style.left = blastX + "px";
+    playerLaser.style.top = blastY + "px";
+    document.body.appendChild(playerLaser);
   }
 });
 document.onkeydown = checkKey;
