@@ -335,6 +335,7 @@ function goFirst(choice) {
         haveClicked.push(false);
     }
     document.getElementById("dropdownMenuButton2").disabled = true;
+    document.getElementById("dropdownMenuButton3").disabled = false;
     if (choice == "f") {
         turn = true;
     } else {
@@ -365,7 +366,7 @@ function reset(choice) {
 
         document.getElementById("dropdownMenuButton1").disabled = false;
         document.getElementById("dropdownMenuButton2").disabled = true;
-        document.getElementById("dropdownMenuButton3").disabled = true;
+
     } else {
         document.getElementById("display1").value = "Ok Bye";
         document.getElementById("dropdownMenuButton3").disabled = true;
