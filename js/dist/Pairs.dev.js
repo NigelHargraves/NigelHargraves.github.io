@@ -10,8 +10,8 @@ var cleared = 0,
     moves = 0,
     clickOne = 0,
     clickTwo = 0;
-var firstCard = "";
-var secondCard = "";
+var firstCard = "",
+    secondCard = "";
 var firstClick = true,
     check = false,
     turnComplete = false;
@@ -30,15 +30,6 @@ function shuffleArray(array) {
   }
 
   return array;
-}
-
-arrayToUse = shuffleArray(numbers);
-console.log(arrayToUse);
-
-for (var _i = 0; _i < arrayToUse.length; _i++) {
-  if (arrayToUse[_i] > 9) {
-    arrayToUse[_i] -= 10;
-  }
 }
 
 function reply_click(number) {
@@ -80,13 +71,18 @@ function clear() {
       check = false;
       turnComplete = false;
     }
-  }
 
-  if (cleared == 10) {
-    document.getElementById("message").innerHTML = "complete it took " + moves + " moves";
+    if (cleared == 10) {
+      document.getElementById("message").innerHTML = "complete it took " + moves + " moves";
+    }
   }
-
-  clearTimeout(timer);
 }
 
 var timer = setTimeout(clear, 1);
+arrayToUse = shuffleArray(numbers);
+
+for (var _i = 0; _i < arrayToUse.length; _i++) {
+  if (arrayToUse[_i] > 9) {
+    arrayToUse[_i] -= 10;
+  }
+}
