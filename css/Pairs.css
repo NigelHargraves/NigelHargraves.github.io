@@ -1,0 +1,32 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizeing: border-box;
+    overflow: hidden;
+}
+
+.card {
+    position: relative;
+    display: table-cell;
+    vertical-align: middle;
+    color: yellow;
+    font-size: 30px;
+    text-weight: 900;
+    text-align: center;
+    width: 150px;
+    height: 150px;
+    background: blue;
+}
+
+.row {
+    position: relative;
+    width: 800px;
+    height: 160px;
+}
+
+#message {
+    color: yellow;
+    font-size: 50px;
+    text-weight: 900;
+    text-align: center;
+}
