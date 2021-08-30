@@ -450,16 +450,16 @@ window.addEventListener("resize", function () {
   canvas.width = innerWidth;
   canvas.height = innerHeight;
 });
-buttonL.addEventListener("mouseover", function () {
+buttonL.addEventListener("touchstart", function () {
   moveLeft = true;
 });
-buttonR.addEventListener("mouseover", function () {
+buttonR.addEventListener("touchstart", function () {
   moveRight = true;
 });
-buttonL.addEventListener("mouseout", function () {
+buttonL.addEventListener("touchcancel", function () {
   moveLeft = false;
 });
-buttonR.addEventListener("mouseout", function () {
+buttonR.addEventListener("touchcancel", function () {
   moveRight = false;
 });
 canvas.addEventListener("click", function () {
