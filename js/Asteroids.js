@@ -13,13 +13,14 @@ const ship = document.querySelector(".player");
 //set images.
 let playerShip = new Image();
 playerShip.src = 'images/ship.png';
-
-
-player.style.top = canvas.height / 2 + "px";
-player.style.left = canvas.width / 2 + "px";
-
+let spaceHum = document.getElementById("audio1");
+let laser = document.getElementById("audio2");
+let explode = document.getElementById("audio3");
+let explode2 = document.getElementById("audio4");
+let explode3 = document.getElementById("audio5");
 let angle = 0,
     playerRadius = 10;
+document.getElementById("canvas1").style.cursor = "crosshair";
 
 function movePlayer(x, y) {
     angle = (Math.atan2(y - ship.offsetTop, x - ship.offsetLeft) * (180 / Math.PI)) + 90;
@@ -110,6 +111,7 @@ class Particle {
 }
 
 function animate() {
+    spaceHum.play();
     animationId = requestAnimationFrame(animate); //call next frame.
     ctx.fillStyle = "rgba(0,0,0,0.1)";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -139,8 +141,8 @@ function animate() {
     asteroids.forEach((asteroid, index) => {
         asteroid.update();
         const dist = Math.hypot(
-            canvas.width / 2 - asteroid.x,
-            canvas.height / 2 - asteroid.y
+            (canvas.width / 2 + 20) - asteroid.x,
+            (canvas.height / 2 + 20) - asteroid.y
         );
         if (dist - asteroid.radius - playerRadius < 1) {
             //game over.
@@ -166,6 +168,14 @@ function animate() {
                     );
                 }
                 if (asteroid.radius - 10 > 5) {
+                    if (asteroid.radius > 20) {
+                        explode.currentTime = 0;
+                        explode.play();
+                    } else {
+                        explode3.currentTime = 0;
+                        explode3.play();
+                    }
+
                     gsap.to(asteroid, {
                         radius: asteroid.radius - 10
                     });
@@ -173,6 +183,8 @@ function animate() {
                         bullets.splice(bulletIndex, 1);
                     }, 0);
                 } else {
+                    explode2.currentTime = 0;
+                    explode2.play();
                     setTimeout(() => {
                         asteroids.splice(index, 1);
                         bullets.splice(bulletIndex, 1);
@@ -208,22 +220,25 @@ function spawnAsteroid() {
 }
 
 function init() {
+    spaceHum.play();
     animate();
     spawnAsteroid();
 }
 
 addEventListener("click", (e) => {
     const angles = Math.atan2(
-        e.clientY - canvas.height / 2,
-        e.clientX - canvas.width / 2
+        e.clientY - canvas.height / 2 - 20,
+        e.clientX - canvas.width / 2 - 20
     );
     const velocity = {
         x: Math.cos(angles) * 5,
         y: Math.sin(angles) * 5
     };
     bullets.push(
-        new Bullet(canvas.width / 2, canvas.height / 2, 2, "white", velocity)
+        new Bullet(canvas.width / 2 + 20, canvas.height / 2 + 20, 2, "white", velocity)
     );
+    laser.currentTime = 0;
+    laser.play();
 });
 
 addEventListener("resize", () => {
@@ -235,6 +250,7 @@ addEventListener("resize", () => {
 addEventListener("mousemove", (e) => {
     mouse.x = e.clientX;
     mouse.y = e.clientY;
+
     movePlayer(mouse.x, mouse.y);
 });
 

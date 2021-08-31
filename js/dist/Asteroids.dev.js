@@ -24,10 +24,14 @@ var ship = document.querySelector(".player"); //set images.
 
 var playerShip = new Image();
 playerShip.src = 'images/ship.png';
-player.style.top = canvas.height / 2 + "px";
-player.style.left = canvas.width / 2 + "px";
+var spaceHum = document.getElementById("audio1");
+var laser = document.getElementById("audio2");
+var explode = document.getElementById("audio3");
+var explode2 = document.getElementById("audio4");
+var explode3 = document.getElementById("audio5");
 var angle = 0,
     playerRadius = 10;
+document.getElementById("canvas1").style.cursor = "crosshair";
 
 function movePlayer(x, y) {
   angle = Math.atan2(y - ship.offsetTop, x - ship.offsetLeft) * (180 / Math.PI) + 90;
@@ -153,6 +157,7 @@ function () {
 }();
 
 function animate() {
+  spaceHum.play();
   animationId = requestAnimationFrame(animate); //call next frame.
 
   ctx.fillStyle = "rgba(0,0,0,0.1)";
@@ -177,7 +182,7 @@ function animate() {
 
   asteroids.forEach(function (asteroid, index) {
     asteroid.update();
-    var dist = Math.hypot(canvas.width / 2 - asteroid.x, canvas.height / 2 - asteroid.y);
+    var dist = Math.hypot(canvas.width / 2 + 20 - asteroid.x, canvas.height / 2 + 20 - asteroid.y);
 
     if (dist - asteroid.radius - playerRadius < 1) {
       //game over.
@@ -198,6 +203,14 @@ function animate() {
         }
 
         if (asteroid.radius - 10 > 5) {
+          if (asteroid.radius > 20) {
+            explode.currentTime = 0;
+            explode.play();
+          } else {
+            explode3.currentTime = 0;
+            explode3.play();
+          }
+
           gsap.to(asteroid, {
             radius: asteroid.radius - 10
           });
@@ -205,6 +218,8 @@ function animate() {
             bullets.splice(bulletIndex, 1);
           }, 0);
         } else {
+          explode2.currentTime = 0;
+          explode2.play();
           setTimeout(function () {
             asteroids.splice(index, 1);
             bullets.splice(bulletIndex, 1);
@@ -241,17 +256,20 @@ function spawnAsteroid() {
 }
 
 function init() {
+  spaceHum.play();
   animate();
   spawnAsteroid();
 }
 
 addEventListener("click", function (e) {
-  var angles = Math.atan2(e.clientY - canvas.height / 2, e.clientX - canvas.width / 2);
+  var angles = Math.atan2(e.clientY - canvas.height / 2 - 20, e.clientX - canvas.width / 2 - 20);
   var velocity = {
     x: Math.cos(angles) * 5,
     y: Math.sin(angles) * 5
   };
-  bullets.push(new Bullet(canvas.width / 2, canvas.height / 2, 2, "white", velocity));
+  bullets.push(new Bullet(canvas.width / 2 + 20, canvas.height / 2 + 20, 2, "white", velocity));
+  laser.currentTime = 0;
+  laser.play();
 });
 addEventListener("resize", function () {
   canvas.width = window.innerWidth;
