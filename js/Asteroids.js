@@ -6,7 +6,7 @@ canvas.height = window.innerHeight;
 const friction = 0.99;
 let animationId;
 const bullets = [];
-const asteroids = [];
+let asteroids = [];
 const particles = [];
 let mouse = { x: 0, y: 0 };
 const ship = document.querySelector(".player");
@@ -19,7 +19,9 @@ let explode = document.getElementById("audio3");
 let explode2 = document.getElementById("audio4");
 let explode3 = document.getElementById("audio5");
 let angle = 0,
-    playerRadius = 10;
+    playerRadius = 10,
+    spawnRate = 3000,
+    score = 0;
 document.getElementById("canvas1").style.cursor = "crosshair";
 
 function movePlayer(x, y) {
@@ -110,6 +112,7 @@ class Particle {
     }
 }
 
+
 function animate() {
     spaceHum.play();
     animationId = requestAnimationFrame(animate); //call next frame.
@@ -146,7 +149,31 @@ function animate() {
         );
         if (dist - asteroid.radius - playerRadius < 1) {
             //game over.
-            cancelAnimationFrame(animationId);
+
+            ship.remove();
+            setTimeout(() => {
+                cancelAnimationFrame(animationId);
+                spaceHum.pause();
+            }, 3000);
+            explode2.currentTime = 0;
+            explode2.play();
+            setTimeout(() => {
+                asteroids = [];
+                for (i = 0; i < 80; i++) {
+                    particles.push(
+                        new Particle(
+                            canvas.width / 2 + 20,
+                            canvas.height / 2 + 20,
+                            Math.random() * 2,
+                            'white', {
+                                x: (Math.random() - 0.5) * (Math.random() * 6),
+                                y: (Math.random() - 0.5) * (Math.random() * 6)
+                            }
+                        )
+                    );
+                }
+
+            }, 0);
         }
         //detect bullet hitting asteroid and shrink or remove.
         bullets.forEach((bullet, bulletIndex) => {
@@ -168,6 +195,8 @@ function animate() {
                     );
                 }
                 if (asteroid.radius - 10 > 5) {
+                    score += 2;
+                    document.getElementById("scoreBoard").innerHTML = 'SCORE: ' + score;
                     if (asteroid.radius > 20) {
                         explode.currentTime = 0;
                         explode.play();
@@ -183,6 +212,8 @@ function animate() {
                         bullets.splice(bulletIndex, 1);
                     }, 0);
                 } else {
+                    score += 5;
+                    document.getElementById("scoreBoard").innerHTML = 'SCORE: ' + score;
                     explode2.currentTime = 0;
                     explode2.play();
                     setTimeout(() => {
@@ -197,8 +228,9 @@ function animate() {
 
 //create new asteroid.
 function spawnAsteroid() {
+
     setInterval(() => {
-        const radius = Math.random() * 20 + 10;
+        const radius = Math.random() * 30 + 10;
         let x;
         let y;
         if (Math.random() < 0.5) {
@@ -210,17 +242,22 @@ function spawnAsteroid() {
         }
 
         const color = `hsl(${Math.random() * 360},50%,50%)`;
-        const angle = Math.atan2(canvas.height / 2 - y, canvas.width / 2 - x);
+        const angle = Math.atan2(canvas.height / 2 - y + 20, canvas.width / 2 - x + 20);
         const velocity = {
             x: Math.cos(angle),
             y: Math.sin(angle)
         };
         asteroids.push(new Asteroid(x, y, radius, color, velocity));
-    }, 2000);
+        if (spawnRate <= 500) {
+            spawnRate = 500;
+        } else {
+            spawnRate -= 10;
+        }
+
+    }, spawnRate);
 }
 
 function init() {
-    spaceHum.play();
     animate();
     spawnAsteroid();
 }
