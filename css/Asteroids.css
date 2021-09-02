@@ -50,3 +50,7 @@
     text-align: center;
     z-index: -1;
 }
+
+.btn-primary {
+    border-radius: 50px;
+}
