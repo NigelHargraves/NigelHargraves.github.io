@@ -34,6 +34,16 @@ var angle = 0,
     spawnRate = 3000,
     score = 0;
 document.getElementById("canvas1").style.cursor = "crosshair";
+var stars = [];
+
+for (i = 0; i < 20; i++) {
+  stars.push({
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height
+  });
+}
+
+console.log(stars);
 
 function movePlayer(x, y) {
   angle = Math.atan2(y - ship.offsetTop, x - ship.offsetLeft) * (180 / Math.PI) + 90;
@@ -164,6 +174,14 @@ function animate() {
 
   ctx.fillStyle = "rgba(0,0,0,0.1)";
   ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  for (i = 0; i < stars.length; i++) {
+    ctx.beginPath();
+    ctx.arc(stars[i].x, stars[i].y, 1, 0, Math.PI * 2);
+    ctx.fillStyle = 'Cornsilk';
+    ctx.fill();
+  }
+
   particles.forEach(function (particle, index) {
     if (particle.alpha <= 0) {
       particles.splice(index, 1);
@@ -192,6 +210,7 @@ function animate() {
       setTimeout(function () {
         cancelAnimationFrame(animationId);
         spaceHum.pause();
+        document.getElementById("endBoard").style.zIndex = "1";
       }, 3000);
       explode2.currentTime = 0;
       explode2.play();

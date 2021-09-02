@@ -36,3 +36,17 @@
     pointer-events: none;
     user-select: none;
 }
+
+.endBoard {
+    position: absolute;
+    top: 40%;
+    left: 40%;
+    width: 400px;
+    height: 200px;
+    background: white;
+    font-size: 40px;
+    font-weight: 600;
+    color: black;
+    text-align: center;
+    z-index: -1;
+}
