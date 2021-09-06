@@ -1,0 +1,41 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+#canvas1 {
+    background: black;
+    position: absolute;
+    cursor: crosshair;
+}
+
+.silo {
+    background: rgba(0, 0, 0, 0);
+    text-align: center;
+    font-weight: bold;
+}
+
+#silo0 {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 30px;
+    height: 30px;
+}
+
+#silo1 {
+    position: absolute;
+    bottom: 0;
+    left: calc(50% - 15px);
+    width: 30px;
+    height: 30px;
+}
+
+#silo2 {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 30px;
+    height: 30px;
+}
