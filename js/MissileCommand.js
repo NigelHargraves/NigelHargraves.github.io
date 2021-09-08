@@ -19,8 +19,8 @@ let refillMissiles = [false, false, false];
 let launch = document.getElementById("audio1");
 let explode = document.getElementById("audio2");
 let alert = document.getElementById("audio3");
-
-let citiesLeft = 6;
+let endRadius = 1;
+let citiesLeft = [true, true, true, true, true, true];
 let citiesPos = [
     { x: canvas.width / 2 / 4 - 30, y: canvas.height - 60 },
     {
@@ -60,39 +60,45 @@ function startScreen() {
 
     //draw cities left.
     ctx.fillStyle = "brown";
-    ctx.fillRect(canvas.width / 2 / 4 - 30, canvas.height - 60, 60, 30);
-    ctx.fillRect(
-        canvas.width / 2 / 4 - 30 + canvas.width / 2 / 4,
-        canvas.height - 60,
-        60,
-        30
-    );
-    ctx.fillRect(
-        canvas.width / 2 / 4 - 30 + (canvas.width / 2 / 4) * 2,
-        canvas.height - 60,
-        60,
-        30
-    );
+    if (citiesLeft[0])
+        ctx.fillRect(canvas.width / 2 / 4 - 30, canvas.height - 60, 60, 30);
+    if (citiesLeft[1])
+        ctx.fillRect(
+            canvas.width / 2 / 4 - 30 + canvas.width / 2 / 4,
+            canvas.height - 60,
+            60,
+            30
+        );
+    if (citiesLeft[2])
+        ctx.fillRect(
+            canvas.width / 2 / 4 - 30 + (canvas.width / 2 / 4) * 2,
+            canvas.height - 60,
+            60,
+            30
+        );
+
     //draw cities right.
-    ctx.fillStyle = "brown";
-    ctx.fillRect(
-        canvas.width / 2 + canvas.width / 2 / 4 - 30,
-        canvas.height - 60,
-        60,
-        30
-    );
-    ctx.fillRect(
-        canvas.width / 2 + canvas.width / 2 / 4 - 30 + canvas.width / 2 / 4,
-        canvas.height - 60,
-        60,
-        30
-    );
-    ctx.fillRect(
-        canvas.width / 2 + canvas.width / 2 / 4 - 30 + (canvas.width / 2 / 4) * 2,
-        canvas.height - 60,
-        60,
-        30
-    );
+    if (citiesLeft[3])
+        ctx.fillRect(
+            canvas.width / 2 + canvas.width / 2 / 4 - 30,
+            canvas.height - 60,
+            60,
+            30
+        );
+    if (citiesLeft[4])
+        ctx.fillRect(
+            canvas.width / 2 + canvas.width / 2 / 4 - 30 + canvas.width / 2 / 4,
+            canvas.height - 60,
+            60,
+            30
+        );
+    if (citiesLeft[5])
+        ctx.fillRect(
+            canvas.width / 2 + canvas.width / 2 / 4 - 30 + (canvas.width / 2 / 4) * 2,
+            canvas.height - 60,
+            60,
+            30
+        );
 }
 
 //Missile class.
@@ -171,11 +177,42 @@ class Nuke {
     }
 }
 
+
+function endSequence() {
+    animId = requestAnimationFrame(endSequence);
+    ctx.beginPath();
+    ctx.arc(canvas.width / 2, canvas.height / 2, endRadius, 0, Math.PI * 2);
+    ctx.fillStyle = "yellow";
+    ctx.fill();
+    endRadius += 1;
+    if (endRadius > canvas.width / 2) {
+        cancelAnimationFrame(animId);
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.font = "90px Arial";
+        ctx.fillStyle = "red";
+        ctx.fillText("Game over", canvas.width / 4, canvas.height / 2);
+    }
+}
+
+
 function animate() {
     animationId = requestAnimationFrame(animate); //call next frame.
     ctx.fillStyle = "rgba(0,0,0,0.1)";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     startScreen();
+
+    if (!citiesLeft[0] &&
+        !citiesLeft[1] &&
+        !citiesLeft[2] &&
+        !citiesLeft[3] &&
+        !citiesLeft[4] &&
+        !citiesLeft[5]
+    ) {
+        //game over.
+        endSequence();
+        cancelAnimationFrame(animationId);
+    }
+
 
     //reload empty silo after 30 seconds.
     for (i = 0; i < 3; i++) {
@@ -191,14 +228,15 @@ function animate() {
         }
     }
 
-    //detect city hit by enemy & enemy caught in nuke blast.
+    //detect city hit by enemy & enemy caught in nuke blast & off screen.
     enemies.forEach((enemy, index) => {
-
+        if (enemy.x > canvas.width || enemy.x < 0) enemies.splice(index, 1);
         for (i = 0; i < 6; i++) {
             if (
                 enemy.x >= citiesPos[i].x &&
                 enemy.x <= citiesPos[i].x + 60 &&
-                enemy.y > canvas.height - 60
+                enemy.y > canvas.height - 60 &&
+                citiesLeft[i]
             ) {
                 explode.currentTime = 0;
                 explode.play();
@@ -212,6 +250,8 @@ function animate() {
             nukes.push(new Nuke(enemy.x, enemy.y, 5, "red"));
         }
         enemy.update();
+
+        //destroy enemy if in nuke range.
         nukes.forEach((nuke) => {
             const dist = Math.hypot(nuke.x - enemy.x, nuke.y - enemy.y);
             if (dist - 2 - nuke.radius < 1) {
@@ -221,6 +261,17 @@ function animate() {
                     nukes.push(new Nuke(enemy.x, enemy.y, 5, "red"));
                     enemies.splice(index, 1);
                 }, 0);
+            }
+
+            //remove city if nuked.
+            for (i = 0; i < 6; i++) {
+                if (
+                    nuke.x + nuke.radius >= citiesPos[i].x &&
+                    nuke.x - nuke.radius <= citiesPos[i].x + 60 &&
+                    nuke.y > canvas.height - 60 - nuke.radius
+                ) {
+                    citiesLeft[i] = false;
+                }
             }
         });
     });
@@ -352,7 +403,7 @@ for (i = 0; i < numberOfEnemies; i++) {
     const x =
         Math.random() * (canvas.width - canvas.width / 4) + canvas.width / 8;
     const y = Math.random() * 30 - 60;
-    const velocityX = (Math.random() - 0.5) / 40;
+    const velocityX = (Math.random() - 0.5) / 2;
     const velocityY = (Math.random() + 1) / 4;
     enemies.push(new Enemy(x, y, velocityX, velocityY));
 }
@@ -364,7 +415,7 @@ setInterval(() => {
         const x =
             Math.random() * (canvas.width - canvas.width / 4) + canvas.width / 8;
         const y = Math.random() * 30 - 60;
-        const velocityX = (Math.random() - 0.5) / 40;
+        const velocityX = (Math.random() - 0.5) / 2;
         const velocityY = (Math.random() + 1) / 4;
         enemies.push(new Enemy(x, y, velocityX, velocityY));
     }
