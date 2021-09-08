@@ -19,6 +19,9 @@ let refillMissiles = [false, false, false];
 let launch = document.getElementById("audio1");
 let explode = document.getElementById("audio2");
 let alert = document.getElementById("audio3");
+let endBoom = document.getElementById("audio4");
+
+let endGame = false;
 let endRadius = 1;
 let citiesLeft = [true, true, true, true, true, true];
 let citiesPos = [
@@ -179,12 +182,13 @@ class Nuke {
 
 
 function endSequence() {
+    endBoom.play();
     animId = requestAnimationFrame(endSequence);
     ctx.beginPath();
     ctx.arc(canvas.width / 2, canvas.height / 2, endRadius, 0, Math.PI * 2);
     ctx.fillStyle = "yellow";
     ctx.fill();
-    endRadius += 1;
+    endRadius += 1.5;
     if (endRadius > canvas.width / 2) {
         cancelAnimationFrame(animId);
         ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -201,6 +205,7 @@ function animate() {
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     startScreen();
 
+    //if all cities destroyed end game.
     if (!citiesLeft[0] &&
         !citiesLeft[1] &&
         !citiesLeft[2] &&
@@ -208,7 +213,8 @@ function animate() {
         !citiesLeft[4] &&
         !citiesLeft[5]
     ) {
-        //game over.
+        endGame = true;
+        clearInterval(spawnEnemies);
         endSequence();
         cancelAnimationFrame(animationId);
     }
@@ -305,6 +311,7 @@ function animate() {
 }
 
 addEventListener("click", (e) => {
+    if (endGame) return;
     //check missile stock if all are empty bad luck.
     if (
         availableMissiles[0] == 0 &&
@@ -408,7 +415,7 @@ for (i = 0; i < numberOfEnemies; i++) {
     enemies.push(new Enemy(x, y, velocityX, velocityY));
 }
 
-setInterval(() => {
+spawnEnemies = setInterval(() => {
     numberOfEnemies += 1;
     for (i = 0; i < numberOfEnemies; i++) {
         alert.play();

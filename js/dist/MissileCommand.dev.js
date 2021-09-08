@@ -31,6 +31,8 @@ var refillMissiles = [false, false, false];
 var launch = document.getElementById("audio1");
 var explode = document.getElementById("audio2");
 var alert = document.getElementById("audio3");
+var endBoom = document.getElementById("audio4");
+var endGame = false;
 var endRadius = 1;
 var citiesLeft = [true, true, true, true, true, true];
 var citiesPos = [{
@@ -186,12 +188,13 @@ function () {
 }();
 
 function endSequence() {
+  endBoom.play();
   animId = requestAnimationFrame(endSequence);
   ctx.beginPath();
   ctx.arc(canvas.width / 2, canvas.height / 2, endRadius, 0, Math.PI * 2);
   ctx.fillStyle = "yellow";
   ctx.fill();
-  endRadius += 1;
+  endRadius += 1.5;
 
   if (endRadius > canvas.width / 2) {
     cancelAnimationFrame(animId);
@@ -207,10 +210,11 @@ function animate() {
 
   ctx.fillStyle = "rgba(0,0,0,0.1)";
   ctx.fillRect(0, 0, canvas.width, canvas.height);
-  startScreen();
+  startScreen(); //if all cities destroyed end game.
 
   if (!citiesLeft[0] && !citiesLeft[1] && !citiesLeft[2] && !citiesLeft[3] && !citiesLeft[4] && !citiesLeft[5]) {
-    //game over.
+    endGame = true;
+    clearInterval(spawnEnemies);
     endSequence();
     cancelAnimationFrame(animationId);
   } //reload empty silo after 30 seconds.
@@ -295,7 +299,8 @@ function animate() {
 }
 
 addEventListener("click", function (e) {
-  //check missile stock if all are empty bad luck.
+  if (endGame) return; //check missile stock if all are empty bad luck.
+
   if (availableMissiles[0] == 0 && availableMissiles[1] == 0 && availableMissiles[2] == 0) {
     return;
   }
@@ -381,7 +386,7 @@ for (i = 0; i < numberOfEnemies; i++) {
   enemies.push(new Enemy(x, y, velocityX, velocityY));
 }
 
-setInterval(function () {
+spawnEnemies = setInterval(function () {
   numberOfEnemies += 1;
 
   for (i = 0; i < numberOfEnemies; i++) {
