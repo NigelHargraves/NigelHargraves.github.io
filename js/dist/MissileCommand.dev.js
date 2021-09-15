@@ -34,6 +34,7 @@ var alert = document.getElementById("audio3");
 var endBoom = document.getElementById("audio4");
 var endGame = false;
 var endRadius = 1;
+var silosLeft = [true, true, true];
 var citiesLeft = [true, true, true, true, true, true];
 var citiesPos = [{
   x: canvas.width / 2 / 4 - 30,
@@ -54,24 +55,33 @@ var citiesPos = [{
   x: canvas.width / 2 + canvas.width / 2 / 4 - 30 + canvas.width / 2 / 4 * 2,
   y: canvas.height - 60
 }];
+var silosPos = [{
+  x: 0,
+  y: canvas.height - 60
+}, {
+  x: canvas.width / 2 - 15,
+  y: canvas.height - 60
+}, {
+  x: canvas.width - 30,
+  y: canvas.height - 60
+}];
 
 function startScreen() {
   //draw start screen.
-  //draw missile silos.
   ctx.fillStyle = "green";
-  ctx.fillRect(0, canvas.height - 30, canvas.width, canvas.height);
-  ctx.fillRect(0, canvas.height - 60, 30, canvas.height - 30);
-  ctx.fillRect(canvas.width / 2 - 15, canvas.height - 60, 30, canvas.height - 30);
-  ctx.fillRect(canvas.width - 30, canvas.height - 60, 30, canvas.height - 30); //draw cities left.
+  ctx.fillRect(0, canvas.height - 30, canvas.width, canvas.height); //draw ground.
+  //draw missile silos.
+
+  for (i = 0; i < 3; i++) {
+    if (silosLeft[i] == true) ctx.fillRect(silosPos[i].x, silosPos[i].y, 30, canvas.height - 30);
+  } //draw cities.
+
 
   ctx.fillStyle = "brown";
-  if (citiesLeft[0]) ctx.fillRect(canvas.width / 2 / 4 - 30, canvas.height - 60, 60, 30);
-  if (citiesLeft[1]) ctx.fillRect(canvas.width / 2 / 4 - 30 + canvas.width / 2 / 4, canvas.height - 60, 60, 30);
-  if (citiesLeft[2]) ctx.fillRect(canvas.width / 2 / 4 - 30 + canvas.width / 2 / 4 * 2, canvas.height - 60, 60, 30); //draw cities right.
 
-  if (citiesLeft[3]) ctx.fillRect(canvas.width / 2 + canvas.width / 2 / 4 - 30, canvas.height - 60, 60, 30);
-  if (citiesLeft[4]) ctx.fillRect(canvas.width / 2 + canvas.width / 2 / 4 - 30 + canvas.width / 2 / 4, canvas.height - 60, 60, 30);
-  if (citiesLeft[5]) ctx.fillRect(canvas.width / 2 + canvas.width / 2 / 4 - 30 + canvas.width / 2 / 4 * 2, canvas.height - 60, 60, 30);
+  for (i = 0; i < 6; i++) {
+    if (citiesLeft[i] == true) ctx.fillRect(citiesPos[i].x, citiesPos[i].y, 60, 30);
+  }
 } //Missile class.
 
 
@@ -221,22 +231,22 @@ function animate() {
 
 
   for (i = 0; i < 3; i++) {
-    if (availableMissiles[i] === 0 && refillMissiles[i] === true) {
+    if (availableMissiles[i] == 0 && refillMissiles[i] == true && silosLeft[i]) {
       (function () {
         refillMissiles[i] = false;
         var fill = i;
         document.getElementById("silo" + fill).innerHTML = "RL";
         setTimeout(function () {
-          availableMissiles[fill] = 20;
+          if (silosLeft[fill]) availableMissiles[fill] = 20;
           document.getElementById("silo" + fill).innerHTML = availableMissiles[fill];
         }, 30000);
       })();
     }
-  } //detect city hit by enemy & enemy caught in nuke blast & off screen.
+  } //detect city & silo hit by enemy & enemy caught in nuke blast & off screen.
 
 
   enemies.forEach(function (enemy, index) {
-    if (enemy.x > canvas.width || enemy.x < 0) enemies.splice(index, 1);
+    if (enemy.x > canvas.width || enemy.x < 0) enemies.splice(index, 1); //detect enemy hit city.
 
     for (i = 0; i < 6; i++) {
       if (enemy.x >= citiesPos[i].x && enemy.x <= citiesPos[i].x + 60 && enemy.y > canvas.height - 60 && citiesLeft[i]) {
@@ -244,7 +254,17 @@ function animate() {
         explode.play();
         nukes.push(new Nuke(enemy.x, enemy.y, 5, "red"));
       }
-    }
+    } //detect enemy hit silo.
+
+
+    for (i = 0; i < 3; i++) {
+      if (enemy.x >= silosPos[i].x && enemy.x <= silosPos[i].x + 30 && enemy.y > canvas.height - 60 && silosLeft[i]) {
+        explode.currentTime = 0;
+        explode.play();
+        nukes.push(new Nuke(enemy.x, enemy.y, 5, "red"));
+      }
+    } //enemy hit ground.
+
 
     if (enemy.y > canvas.height - 30) {
       explode.currentTime = 0;
@@ -270,6 +290,15 @@ function animate() {
       for (i = 0; i < 6; i++) {
         if (nuke.x + nuke.radius >= citiesPos[i].x && nuke.x - nuke.radius <= citiesPos[i].x + 60 && nuke.y > canvas.height - 60 - nuke.radius) {
           citiesLeft[i] = false;
+        }
+      } //remove silo if nuked.
+
+
+      for (i = 0; i < 3; i++) {
+        if (nuke.x + nuke.radius >= silosPos[i].x && nuke.x - nuke.radius <= silosPos[i].x + 30 && nuke.y > canvas.height - 60 - nuke.radius) {
+          availableMissiles[i] = 0;
+          document.getElementById("silo" + i).innerHTML = availableMissiles[i];
+          silosLeft[i] = false;
         }
       }
     });
@@ -302,6 +331,11 @@ addEventListener("click", function (e) {
   if (endGame) return; //check missile stock if all are empty bad luck.
 
   if (availableMissiles[0] == 0 && availableMissiles[1] == 0 && availableMissiles[2] == 0) {
+    return;
+  } //check if all silos destroyed.
+
+
+  if (silosLeft[0] == false && silosLeft[1] == false && silosLeft[2] == false) {
     return;
   }
 
@@ -339,12 +373,12 @@ addEventListener("click", function (e) {
 
   function checkStock() {
     if (availableMissiles[num] < 1) {
-      refillMissiles[num] = true;
+      if (silosLeft[num]) refillMissiles[num] = true;
       num = Math.floor(Math.random() * 3);
       checkStock(num);
     } else {
       availableMissiles[num] -= 1;
-      document.getElementById("silo" + num).innerHTML = availableMissiles[num];
+      if (silosLeft[num]) document.getElementById("silo" + num).innerHTML = availableMissiles[num];
     }
   } //calculate angle and launch missle if available.
 

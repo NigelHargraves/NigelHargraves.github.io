@@ -23,6 +23,7 @@ let endBoom = document.getElementById("audio4");
 
 let endGame = false;
 let endRadius = 1;
+let silosLeft = [true, true, true];
 let citiesLeft = [true, true, true, true, true, true];
 let citiesPos = [
     { x: canvas.width / 2 / 4 - 30, y: canvas.height - 60 },
@@ -44,64 +45,35 @@ let citiesPos = [
         y: canvas.height - 60
     }
 ];
-
+let silosPos = [
+    { x: 0, y: canvas.height - 60 },
+    {
+        x: canvas.width / 2 - 15,
+        y: canvas.height - 60
+    },
+    {
+        x: canvas.width - 30,
+        y: canvas.height - 60
+    },
+];
 
 
 function startScreen() {
     //draw start screen.
-    //draw missile silos.
+
     ctx.fillStyle = "green";
-    ctx.fillRect(0, canvas.height - 30, canvas.width, canvas.height);
-    ctx.fillRect(0, canvas.height - 60, 30, canvas.height - 30);
-    ctx.fillRect(
-        canvas.width / 2 - 15,
-        canvas.height - 60,
-        30,
-        canvas.height - 30
-    );
-    ctx.fillRect(canvas.width - 30, canvas.height - 60, 30, canvas.height - 30);
+    ctx.fillRect(0, canvas.height - 30, canvas.width, canvas.height); //draw ground.
 
-    //draw cities left.
+    //draw missile silos.
+    for (i = 0; i < 3; i++) {
+        if (silosLeft[i] == true) ctx.fillRect(silosPos[i].x, silosPos[i].y, 30, canvas.height - 30);
+    }
+
+    //draw cities.
     ctx.fillStyle = "brown";
-    if (citiesLeft[0])
-        ctx.fillRect(canvas.width / 2 / 4 - 30, canvas.height - 60, 60, 30);
-    if (citiesLeft[1])
-        ctx.fillRect(
-            canvas.width / 2 / 4 - 30 + canvas.width / 2 / 4,
-            canvas.height - 60,
-            60,
-            30
-        );
-    if (citiesLeft[2])
-        ctx.fillRect(
-            canvas.width / 2 / 4 - 30 + (canvas.width / 2 / 4) * 2,
-            canvas.height - 60,
-            60,
-            30
-        );
-
-    //draw cities right.
-    if (citiesLeft[3])
-        ctx.fillRect(
-            canvas.width / 2 + canvas.width / 2 / 4 - 30,
-            canvas.height - 60,
-            60,
-            30
-        );
-    if (citiesLeft[4])
-        ctx.fillRect(
-            canvas.width / 2 + canvas.width / 2 / 4 - 30 + canvas.width / 2 / 4,
-            canvas.height - 60,
-            60,
-            30
-        );
-    if (citiesLeft[5])
-        ctx.fillRect(
-            canvas.width / 2 + canvas.width / 2 / 4 - 30 + (canvas.width / 2 / 4) * 2,
-            canvas.height - 60,
-            60,
-            30
-        );
+    for (i = 0; i < 6; i++) {
+        if (citiesLeft[i] == true) ctx.fillRect(citiesPos[i].x, citiesPos[i].y, 60, 30);
+    }
 }
 
 //Missile class.
@@ -222,21 +194,23 @@ function animate() {
 
     //reload empty silo after 30 seconds.
     for (i = 0; i < 3; i++) {
-        if (availableMissiles[i] === 0 && refillMissiles[i] === true) {
+        if (availableMissiles[i] == 0 && refillMissiles[i] == true && silosLeft[i]) {
             refillMissiles[i] = false;
             const fill = i;
             document.getElementById("silo" + fill).innerHTML = "RL";
             setTimeout(() => {
-                availableMissiles[fill] = 20;
+                if (silosLeft[fill]) availableMissiles[fill] = 20;
                 document.getElementById("silo" + fill).innerHTML =
                     availableMissiles[fill];
             }, 30000);
         }
     }
 
-    //detect city hit by enemy & enemy caught in nuke blast & off screen.
+    //detect city & silo hit by enemy & enemy caught in nuke blast & off screen.
     enemies.forEach((enemy, index) => {
         if (enemy.x > canvas.width || enemy.x < 0) enemies.splice(index, 1);
+
+        //detect enemy hit city.
         for (i = 0; i < 6; i++) {
             if (
                 enemy.x >= citiesPos[i].x &&
@@ -250,6 +224,21 @@ function animate() {
             }
         }
 
+        //detect enemy hit silo.
+        for (i = 0; i < 3; i++) {
+            if (
+                enemy.x >= silosPos[i].x &&
+                enemy.x <= silosPos[i].x + 30 &&
+                enemy.y > canvas.height - 60 &&
+                silosLeft[i]
+            ) {
+                explode.currentTime = 0;
+                explode.play();
+                nukes.push(new Nuke(enemy.x, enemy.y, 5, "red"));
+            }
+        }
+
+        //enemy hit ground.
         if (enemy.y > canvas.height - 30) {
             explode.currentTime = 0;
             explode.play();
@@ -277,6 +266,20 @@ function animate() {
                     nuke.y > canvas.height - 60 - nuke.radius
                 ) {
                     citiesLeft[i] = false;
+                }
+            }
+
+            //remove silo if nuked.
+            for (i = 0; i < 3; i++) {
+                if (
+                    nuke.x + nuke.radius >= silosPos[i].x &&
+                    nuke.x - nuke.radius <= silosPos[i].x + 30 &&
+                    nuke.y > canvas.height - 60 - nuke.radius
+                ) {
+
+                    availableMissiles[i] = 0;
+                    document.getElementById("silo" + i).innerHTML = availableMissiles[i];
+                    silosLeft[i] = false;
                 }
             }
         });
@@ -321,6 +324,15 @@ addEventListener("click", (e) => {
         return;
     }
 
+    //check if all silos destroyed.
+    if (
+        silosLeft[0] == false &&
+        silosLeft[1] == false &&
+        silosLeft[2] == false
+    ) {
+        return;
+    }
+
     const explodeX = e.clientX;
     const explodeY = e.clientY;
     let orig = [];
@@ -358,12 +370,12 @@ addEventListener("click", (e) => {
     //check missile stock.
     function checkStock() {
         if (availableMissiles[num] < 1) {
-            refillMissiles[num] = true;
+            if (silosLeft[num]) refillMissiles[num] = true;
             num = Math.floor(Math.random() * 3);
             checkStock(num);
         } else {
             availableMissiles[num] -= 1;
-            document.getElementById("silo" + num).innerHTML = availableMissiles[num];
+            if (silosLeft[num]) document.getElementById("silo" + num).innerHTML = availableMissiles[num];
         }
     }
 
