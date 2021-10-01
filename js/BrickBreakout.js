@@ -229,7 +229,7 @@ function init() {
 
     let count = 0;
     let brickColor;
-    for (let j = 50; j <= 110; j += 40) {
+    for (let j = 70; j <= 130; j += 40) {
         for (let i = 0; i < canvas.width; i += canvas.width / 20) {
             if (count % 2 == 0) brickColor = "blue";
             else brickColor = "red";

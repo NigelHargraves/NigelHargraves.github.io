@@ -252,7 +252,7 @@ function init() {
   var count = 0;
   var brickColor;
 
-  for (var j = 50; j <= 110; j += 40) {
+  for (var j = 70; j <= 130; j += 40) {
     for (var i = 0; i < canvas.width; i += canvas.width / 20) {
       if (count % 2 == 0) brickColor = "blue";else brickColor = "red";
       bricks.push(new Brick(i, j, canvas.width / 20, 20, brickColor, true));
