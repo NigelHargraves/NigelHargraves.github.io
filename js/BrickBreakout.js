@@ -5,15 +5,16 @@ canvas.height = window.innerHeight;
 let paddle, ball;
 let moveLeft = false,
     moveRight = false,
-    ballExists = true,
+    gameOver = false,
     ballHitPaddle = false;
 let bricks = [];
-brickX = 50;
+brickX = 50, score = 0, lives = 3;
 
 let miss = document.getElementById("audio1");
 let wallBounce = document.getElementById("audio2");
 let brickHit = document.getElementById("audio3");
 let slice = document.getElementById("audio4");
+let gameWin = document.getElementById("audio5");
 
 //create Paddle class.
 class Paddle {
@@ -57,8 +58,8 @@ class Ball {
             this.r = radius;
             this.c = color;
             this.velocity = {
-                x: 3,
-                y: -3
+                x: 6,
+                y: -6
             };
         }
         //draw ball.
@@ -90,8 +91,14 @@ class Ball {
         }
         if (this.y + this.r > canvas.height) {
             miss.play();
-            ballExists = false;
-
+            if (lives < 2) gameOver = true;
+            else ball = new Ball(
+                Math.random() * canvas.width,
+                canvas.height - 100,
+                8,
+                "green"
+            );
+            lives -= 1;
         }
 
         if (this.y - this.r < 0) {
@@ -135,8 +142,14 @@ class Brick {
 function animate() {
     let animateID = requestAnimationFrame(animate); //call next frame.
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.font = "25px Arial";
+    ctx.fillStyle = "yellow";
+    ctx.textAlign = "right";
+    ctx.fillText("Score = " + score, canvas.width - 100, canvas.height - 10);
+    ctx.textAlign = "left";
+    ctx.fillText(" Lives = " + lives, 0, canvas.height - 10);
     paddle.update();
-    if (!ballExists) {
+    if (gameOver) {
         cancelAnimationFrame(animateID);
         ctx.font = "900 100px Arial";
         ctx.fillStyle = "red";
@@ -144,13 +157,14 @@ function animate() {
         ctx.fillText("Game Over", canvas.width / 2, canvas.height / 2);
     }
     if (bricks.length < 1) {
+        gameWin.play();
         cancelAnimationFrame(animateID);
         ctx.font = "900 100px Arial";
         ctx.fillStyle = "green";
         ctx.textAlign = "center";
         ctx.fillText("Winner!!!!", canvas.width / 2, canvas.height / 2);
     }
-    if (ballExists) ball.update();
+    if (!gameOver) ball.update();
 
 
     //check ball hits brick.
@@ -174,6 +188,7 @@ function animate() {
             brickHit.currentTime = 0;
             brickHit.play();
             bricks.splice(index, 1); //remove brick.
+            score += 10;
         }
         brick.update();
     });
@@ -193,14 +208,14 @@ function animate() {
                 slice.play();
                 ballHitPaddle = true;
                 if (ball.velocity.y > 1) {
-                    ball.velocity.y -= 0.5;
+                    ball.velocity.y -= 1;
                 }
             } else {
                 wallBounce.currentTime = 0;
                 wallBounce.play();
                 ballHitPaddle = true;
-                if (ball.velocity.y < 3) {
-                    ball.velocity.y += 0.5;
+                if (ball.velocity.y < 6) {
+                    ball.velocity.y += 1;
                 }
             }
         }
@@ -252,18 +267,20 @@ function init() {
 
 function movePaddle() {
     if (moveLeft == true) {
-        paddle.x -= 10;
+        paddle.x -= 20;
     } else if (moveRight == true) {
-        paddle.x += 10;
+        paddle.x += 20;
     }
     paddle.update();
 }
 
 function checkKey(e) {
-    if (e.keyCode == 37 || e.keyCode == 65) {
-        moveLeft = true;
-    } else if (e.keyCode == 39 || e.keyCode == 68) {
-        moveRight = true;
+    if (!gameOver) {
+        if (e.keyCode == 37 || e.keyCode == 65) {
+            moveLeft = true;
+        } else if (e.keyCode == 39 || e.keyCode == 68) {
+            moveRight = true;
+        }
     }
 }
 
@@ -286,6 +303,6 @@ window.addEventListener("resize", function() {
 
 
 init();
-setTimeout(animate, 500);
+setTimeout(animate, 1000);
 
 setInterval(movePaddle, 50);
