@@ -286,9 +286,9 @@ function init() {
 
 function movePaddle() {
   if (moveLeft == true) {
-    paddle.x -= 20;
+    paddle.x -= 4;
   } else if (moveRight == true) {
-    paddle.x += 20;
+    paddle.x += 4;
   }
 
   paddle.update();
@@ -319,5 +319,5 @@ window.addEventListener("resize", function () {
   init();
 });
 init();
-setTimeout(animate, 1000);
-setInterval(movePaddle, 50);
+setTimeout(animate, 2000);
+setInterval(movePaddle, 10);
