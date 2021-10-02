@@ -14,6 +14,7 @@ var paddle, ball;
 var moveLeft = false,
     moveRight = false,
     gameOver = false,
+    gameWinner = false,
     ballHitPaddle = false;
 var bricks = [];
 brickX = 50, score = 0, lives = 3;
@@ -196,6 +197,7 @@ function animate() {
 
   if (bricks.length < 1) {
     gameWin.play();
+    gameWinner = true;
     cancelAnimationFrame(animateID);
     ctx.font = "900 100px Arial";
     ctx.fillStyle = "green";
@@ -293,7 +295,7 @@ function movePaddle() {
 }
 
 function checkKey(e) {
-  if (!gameOver) {
+  if (!gameOver || !gameWinner) {
     if (e.keyCode == 37 || e.keyCode == 65) {
       moveLeft = true;
     } else if (e.keyCode == 39 || e.keyCode == 68) {
