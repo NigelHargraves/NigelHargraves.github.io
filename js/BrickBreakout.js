@@ -143,7 +143,7 @@ class Brick {
 function animate() {
     let animateID = requestAnimationFrame(animate); //call next frame.
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.font = "25px Arial";
+    ctx.font = "100 " + canvas.width / 10 + "% Arial";
     ctx.fillStyle = "yellow";
     ctx.textAlign = "right";
     ctx.fillText("Score = " + score, canvas.width - 100, canvas.height - 10);
@@ -151,20 +151,20 @@ function animate() {
     ctx.fillText(" Lives = " + lives, 0, canvas.height - 10);
     paddle.update();
     if (gameOver) {
-        cancelAnimationFrame(animateID);
-        ctx.font = "900 100px Arial";
+        ctx.font = "900 " + canvas.width / 2 + "% Arial";
         ctx.fillStyle = "red";
         ctx.textAlign = "center";
         ctx.fillText("Game Over", canvas.width / 2, canvas.height / 2);
+        cancelAnimationFrame(animateID);
     }
     if (bricks.length < 1) {
         gameWin.play();
         gameWinner = true;
-        cancelAnimationFrame(animateID);
-        ctx.font = "900 100px Arial";
+        ctx.font = "900 " + canvas.width / 2 + "% Arial";
         ctx.fillStyle = "green";
         ctx.textAlign = "center";
         ctx.fillText("Winner!!!!", canvas.width / 2, canvas.height / 2);
+        cancelAnimationFrame(animateID);
     }
     if (!gameOver) ball.update();
 
