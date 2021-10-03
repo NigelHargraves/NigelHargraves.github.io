@@ -283,11 +283,15 @@ function checkKey(e) {
         } else if (e.keyCode == 39 || e.keyCode == 68) {
             moveRight = true;
         }
+        if (e.clientx > paddle.x + paddle.w) {
+            moveRight = true;
+        } else if (e.clientx < paddle.x) {
+            moveLeft = true;
+        }
     }
 }
 
-document.onkeydown = checkKey;
-document.onkeyup = stopKey;
+
 
 function stopKey() {
     moveLeft = false;
@@ -302,6 +306,9 @@ window.addEventListener("resize", function() {
 });
 
 
+document.ontouch = checkKey;
+document.onkeydown = checkKey;
+document.onkeyup = stopKey;
 
 
 init();
