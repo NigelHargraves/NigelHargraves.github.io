@@ -322,7 +322,11 @@ window.addEventListener("resize", function () {
   init();
 });
 window.addEventListener("touchstart", function (e) {
-  paddle.x = e.clientX;
+  if (paddle.x > e.clientX) moveLeft = true;
+  if (paddle.x < e.clientX) moveRight = true;
+});
+window.addEventListener("touchend", function () {
+  stopKey();
 });
 document.onkeydown = checkKey;
 document.onkeyup = stopKey;
