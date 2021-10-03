@@ -179,7 +179,7 @@ function animate() {
   var animateID = requestAnimationFrame(animate); //call next frame.
 
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  ctx.font = "100 " + canvas.width / 12 + "% Arial";
+  ctx.font = "100 " + 180 + "% Arial";
   ctx.fillStyle = "yellow";
   ctx.textAlign = "right";
   ctx.fillText("Score = " + score, canvas.width - canvas.width / 10, canvas.height - canvas.height / 80);
