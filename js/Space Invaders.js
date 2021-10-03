@@ -82,7 +82,7 @@ background.src = 'images/backg.png';
 class alien {
     //construct alien.
     constructor() {
-            this.x = Math.random() * (canvas.width / 2) + 200;
+            this.x = Math.random() * (canvas.width / 2) + (canvas.width / 4);
             this.y = alienStartPosition;
             this.speedX = Math.random() * 3 - 1.5;
             this.speedY = Math.random() * gameSpeed;
