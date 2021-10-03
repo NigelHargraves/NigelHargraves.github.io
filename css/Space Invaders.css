@@ -27,22 +27,22 @@
 
 .box1 {
     position: absolute;
-    width: 200px;
-    height: 50px;
+    width: 20%;
+    height: 5%;
     background: rgba(0, 0, 0, 0);
     left: 0;
-    font-size: 40px;
+    font-size: 100%;
     font-weight: 600;
     color: white;
 }
 
 .box2 {
     position: absolute;
-    width: 400px;
-    height: 50px;
+    width: 20%;
+    height: 5%;
     background: rgba(0, 0, 0, 0);
     right: 0;
-    font-size: 40px;
+    font-size: 100%;
     font-weight: 600;
     color: white;
     text-align: center;
