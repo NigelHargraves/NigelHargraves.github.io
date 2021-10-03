@@ -143,12 +143,12 @@ class Brick {
 function animate() {
     let animateID = requestAnimationFrame(animate); //call next frame.
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.font = "100 " + canvas.width / 10 + "% Arial";
+    ctx.font = "100 " + canvas.width / 12 + "% Arial";
     ctx.fillStyle = "yellow";
     ctx.textAlign = "right";
-    ctx.fillText("Score = " + score, canvas.width - 100, canvas.height - 10);
+    ctx.fillText("Score = " + score, canvas.width - canvas.width / 10, canvas.height - canvas.height / 80);
     ctx.textAlign = "left";
-    ctx.fillText(" Lives = " + lives, 0, canvas.height - 10);
+    ctx.fillText(" Lives = " + lives, canvas.width / 10, canvas.height - canvas.height / 80);
     paddle.update();
     if (gameOver) {
         ctx.font = "900 " + canvas.width / 2 + "% Arial";
