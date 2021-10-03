@@ -306,10 +306,10 @@ window.addEventListener("resize", function() {
 });
 
 
-document.ontouch = checkKey;
+document.ontouchstart = checkKey;
 document.onkeydown = checkKey;
 document.onkeyup = stopKey;
-
+document.ontouchend = stopKey;
 
 init();
 setTimeout(animate, 2000);

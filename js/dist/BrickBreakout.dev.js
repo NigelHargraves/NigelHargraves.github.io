@@ -321,9 +321,10 @@ window.addEventListener("resize", function () {
   canvas.height = window.innerHeight;
   init();
 });
-document.ontouch = checkKey;
+document.ontouchstart = checkKey;
 document.onkeydown = checkKey;
 document.onkeyup = stopKey;
+document.ontouchend = stopKey;
 init();
 setTimeout(animate, 2000);
 setInterval(movePaddle, 10);
