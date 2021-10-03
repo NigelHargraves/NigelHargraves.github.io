@@ -442,10 +442,10 @@ buttonR.addEventListener("touchstart", function() {
 })
 
 
-buttonL.addEventListener("touchcancel", function() {
+buttonL.addEventListener("touchend", function() {
     moveLeft = false;
 })
-buttonR.addEventListener("touchcancel", function() {
+buttonR.addEventListener("touchend", function() {
     moveRight = false;
 })
 

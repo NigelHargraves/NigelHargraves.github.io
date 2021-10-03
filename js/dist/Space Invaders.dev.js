@@ -456,10 +456,10 @@ buttonL.addEventListener("touchstart", function () {
 buttonR.addEventListener("touchstart", function () {
   moveRight = true;
 });
-buttonL.addEventListener("touchcancel", function () {
+buttonL.addEventListener("touchend", function () {
   moveLeft = false;
 });
-buttonR.addEventListener("touchcancel", function () {
+buttonR.addEventListener("touchend", function () {
   moveRight = false;
 });
 canvas.addEventListener("click", function () {
