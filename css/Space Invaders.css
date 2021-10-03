@@ -58,6 +58,7 @@
     font-weight: 600;
     color: white;
     text-align: center;
+    user-select: none;
 }
 
 .buttonR {
@@ -71,4 +72,5 @@
     font-weight: 600;
     color: white;
     text-align: center;
+    user-select: none;
 }
