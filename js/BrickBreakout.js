@@ -305,11 +305,13 @@ window.addEventListener("resize", function() {
     init();
 });
 
+window.addEventListener("touchstart", function(e) {
+    paddle.x = e.clientX;
+})
 
-document.ontouchstart = checkKey;
 document.onkeydown = checkKey;
 document.onkeyup = stopKey;
-document.ontouchend = stopKey;
+
 
 init();
 setTimeout(animate, 2000);
