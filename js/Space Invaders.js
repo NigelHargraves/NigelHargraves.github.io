@@ -246,7 +246,7 @@ function animateAliens() {
     ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
     if (levelTF == false) {
         waitTime -= 0.002;
-        ctx.font = "900 100px Arial";
+        ctx.font = "900 200% Arial";
         ctx.fillStyle = "rgba(233, 212, 96," + waitTime + ")";
         ctx.textAlign = "center";
         ctx.fillText("level - " + level, canvas.width / 2, canvas.height / 2);
@@ -303,7 +303,7 @@ function animateAliens() {
             clearInterval(playerMove);
             loser.play();
             shoot = false;
-            ctx.font = "900 100px Arial";
+            ctx.font = "900 400% Arial";
             ctx.fillStyle = "red";
             ctx.textAlign = "center";
             ctx.fillText("Game Over", canvas.width / 2, canvas.height / 2);
