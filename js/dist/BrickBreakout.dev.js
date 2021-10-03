@@ -302,9 +302,9 @@ function checkKey(e) {
       moveRight = true;
     }
 
-    if (e.clientx > paddle.x + paddle.w) {
+    if (e > paddle.x + paddle.w) {
       moveRight = true;
-    } else if (e.clientx < paddle.x) {
+    } else if (e < paddle.x) {
       moveLeft = true;
     }
   }
