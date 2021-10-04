@@ -230,8 +230,8 @@ function init() {
     paddle = new Paddle(
         canvas.width / 2 - 50,
         canvas.height - 40,
-        100,
-        10,
+        canvas.width / 25,
+        canvas.height / 100,
         "white"
     );
     paddle.update();

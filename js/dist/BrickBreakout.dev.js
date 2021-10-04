@@ -258,7 +258,7 @@ function animate() {
 }
 
 function init() {
-  paddle = new Paddle(canvas.width / 2 - 50, canvas.height - 40, 100, 10, "white");
+  paddle = new Paddle(canvas.width / 2 - 50, canvas.height - 40, canvas.width / 25, canvas.height / 100, "white");
   paddle.update();
   ball = new Ball(Math.random() * canvas.width, canvas.height - 100, 8, "green");
   ball.update();
