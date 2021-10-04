@@ -312,12 +312,12 @@ window.addEventListener("mousedown", function(e) {
     if (paddle.x < e.clientX) moveRight = true;
 })
 
-document.addEventListener("ontouchstart", function(e) {
+window.addEventListener("touchstart", function(e) {
     if (paddle.x > e.pageX) moveLeft = true;
     if (paddle.x < e.pageX) moveRight = true;
 })
 
-document.addEventListener("ontouchend", function() {
+window.addEventListener("touchend", function() {
     stopKey();
 })
 
