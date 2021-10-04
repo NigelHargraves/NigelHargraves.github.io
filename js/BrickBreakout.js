@@ -95,8 +95,8 @@ class Ball {
             if (lives < 2) gameOver = true;
             else ball = new Ball(
                 Math.random() * canvas.width,
-                canvas.height - 100,
-                8,
+                canvas.height - canvas.height / 20,
+                canvas.width / 200,
                 "green"
             );
             lives -= 1;
@@ -238,8 +238,8 @@ function init() {
 
     ball = new Ball(
         Math.random() * canvas.width,
-        canvas.height - 100,
-        8,
+        canvas.height - canvas.height / 20,
+        canvas.width / 200,
         "green"
     );
     ball.update();

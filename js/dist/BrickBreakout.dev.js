@@ -120,7 +120,7 @@ function () {
 
       if (this.y + this.r > canvas.height) {
         miss.play();
-        if (lives < 2) gameOver = true;else ball = new Ball(Math.random() * canvas.width, canvas.height - 100, 8, "green");
+        if (lives < 2) gameOver = true;else ball = new Ball(Math.random() * canvas.width, canvas.height - canvas.height / 20, canvas.width / 200, "green");
         lives -= 1;
       }
 
@@ -260,7 +260,7 @@ function animate() {
 function init() {
   paddle = new Paddle(canvas.width / 2 - 50, canvas.height - 40, canvas.width / 25, canvas.height / 100, "white");
   paddle.update();
-  ball = new Ball(Math.random() * canvas.width, canvas.height - 100, 8, "green");
+  ball = new Ball(Math.random() * canvas.width, canvas.height - canvas.height / 20, canvas.width / 200, "green");
   ball.update();
   var count = 0;
   var brickColor;
