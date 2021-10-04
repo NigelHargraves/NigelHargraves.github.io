@@ -313,8 +313,8 @@ window.addEventListener("mousedown", function(e) {
 })
 
 window.addEventListener("touchstart", function(e) {
-    if (paddle.x > e.pageX) moveLeft = true;
-    if (paddle.x < e.pageX) moveRight = true;
+    if (paddle.x > e.touches[0].clientX) moveLeft = true;
+    if (paddle.x < e.touches[0].clientX) moveRight = true;
 })
 
 window.addEventListener("touchend", function() {
