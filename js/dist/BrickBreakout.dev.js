@@ -321,11 +321,18 @@ window.addEventListener("resize", function () {
   canvas.height = window.innerHeight;
   init();
 });
-window.addEventListener("touchstart", function (e) {
+window.addEventListener("mousedown", function (e) {
   if (paddle.x > e.clientX) moveLeft = true;
   if (paddle.x < e.clientX) moveRight = true;
 });
-window.addEventListener("touchend", function () {
+window.addEventListener("ontouchstart", function (e) {
+  if (paddle.x > e.clientX) moveLeft = true;
+  if (paddle.x < e.clientX) moveRight = true;
+});
+window.addEventListener("ontouchend", function () {
+  stopKey();
+});
+window.addEventListener("mouseup", function () {
   stopKey();
 });
 document.onkeydown = checkKey;
