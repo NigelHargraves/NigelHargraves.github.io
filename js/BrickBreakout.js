@@ -5,7 +5,7 @@ window.addEventListener("load", function() {
     canvas.height = window.innerHeight;
 
     let paddleWidth, speed;
-    if (canvas.width < 750) {
+    if (canvas.width < 1000) {
         paddleWidth = 50;
         speed = canvas.width / 400;
     } else {
