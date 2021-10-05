@@ -11,9 +11,16 @@ window.addEventListener("load", function () {
   var ctx = canvas.getContext("2d");
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
-  var speed = canvas.width / 300;
-  var paddleWidth;
-  if (canvas.width < 500) paddleWidth = 50;else paddleWidth = 100;
+  var paddleWidth, speed;
+
+  if (canvas.width < 500) {
+    paddleWidth = 50;
+    speed = canvas.width / 100;
+  } else {
+    paddleWidth = 100;
+    speed = canvas.width / 300;
+  }
+
   var paddle, ball;
   var moveLeft = false,
       moveRight = false,
