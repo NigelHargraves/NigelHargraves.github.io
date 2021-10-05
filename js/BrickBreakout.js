@@ -4,15 +4,14 @@ window.addEventListener("load", function() {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 
-    let paddleWidth = 50,
-        speed = 1;
-    /*if (canvas.width < 1000) {
+    let paddleWidth, speed;
+    if (canvas.width < 500) {
         paddleWidth = 50;
-        speed = canvas.width / 400;
+        speed = canvas.width / 150;
     } else {
         paddleWidth = 100;
         speed = canvas.width / 300;
-    }*/
+    }
     let paddle, ball;
     let moveLeft = false,
         moveRight = false,
