@@ -1,0 +1,26 @@
+* {
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+#c {
+    background: black;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+#myProgress {
+    position: fixed;
+    bottom: 0px;
+    width: 100%;
+    background-color: grey;
+}
+
+#myBar {
+    width: 0%;
+    height: 10px;
+    background-color: blue;
+}
