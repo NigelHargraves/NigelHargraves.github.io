@@ -9,6 +9,21 @@ let texts = [];
 let guidedMissiles = [];
 let deaths = [];
 let levelGains = [];
+
+let bounce = document.getElementById("audio1");
+let levelUp = document.getElementById("audio2");
+let hit = document.getElementById("audio3");
+let food = document.getElementById("audio4");
+let eatFood = document.getElementById("audio5");
+let misFire = document.getElementById("audio6");
+let bombDrop = document.getElementById("audio7");
+let bonusP = document.getElementById("audio8");
+let bonusRelease = document.getElementById("audio9");
+let losingBeep = document.getElementById("audio10");
+let levelRelease = document.getElementById("audio11");
+
+
+
 let KP = {}; //Keyspressed array
 let elem = document.getElementById("myBar");
 let gravity = 0.03,
@@ -209,6 +224,8 @@ class Player {
             this.y = c.height - this.r - 11;
             this.velocity.y = -this.velocity.y;
             eyesSquint = true;
+            bounce.currentTime = 0;
+            bounce.play();
         }
 
         //increase bounce off floor.
@@ -221,10 +238,14 @@ class Player {
         if (this.x + this.r > c.width) {
             this.x = c.width - this.r - 1;
             this.velocity.x = -this.velocity.x;
+            bounce.currentTime = 0;
+            bounce.play();
         }
         if (this.x - this.r < 0) {
             this.x = 1 + this.r;
             this.velocity.x = -this.velocity.x;
+            bounce.currentTime = 0;
+            bounce.play();
         }
 
         this.draw(); //call draw function to draw in new position.
@@ -440,6 +461,8 @@ class Death {
 }
 
 function reset() {
+    hit.currentTime = 0;
+    hit.play();
     foodVelocity = 1;
     velocityAmount = 0.02;
     levelBonus = 8000;
@@ -452,6 +475,8 @@ function reset() {
 }
 
 function levelJump() {
+    levelUp.currentTime = 0;
+    levelUp.play();
     if (controlLevel > 2) {
         velocityAmount += 0.02;
     }
@@ -485,6 +510,8 @@ function init() {
     player = new Player(60, c.height / 2, 20, "blue");
     enemies.push(new Enemy(Math.random() * c.width, 0, 0, 1, 4));
     foods.push(new Food(c.width, Math.random() * c.height, -1, 0, 4));
+    food.currentTime = 0;
+    food.play();
 }
 
 function animate() {
@@ -517,6 +544,8 @@ function animate() {
         //fire enemy.
         let enemyFire = Math.random();
         if (enemyFire > skillLevel) {
+            bombDrop.currentTime = 0;
+            bombDrop.play();
             enemies.push(
                 new Enemy(Math.random() * c.width, -20, 0, enemyVelocity, enemyRadius)
             );
@@ -526,6 +555,8 @@ function animate() {
         if (controlLevel > 5 || score > 50000) {
             let fireMissile = Math.random();
             if (fireMissile > missileFire) {
+                misFire.currentTime = 0;
+                misFire.play();
                 const startPos = Math.random() * c.width;
                 const angles = Math.atan2(player.y, player.x - startPos);
                 const velocity = {
@@ -541,6 +572,8 @@ function animate() {
         //create food.
         let createFood = Math.random();
         if (createFood > 0.998) {
+            food.currentTime = 0;
+            food.play();
             foods.push(
                 new Food(c.width, Math.random() * c.height, -foodVelocity, 0, 4)
             );
@@ -549,6 +582,8 @@ function animate() {
         //create levelGain.
         let gainLevel = Math.random();
         if (gainLevel > 0.9999) {
+            levelRelease.currentTime = 0;
+            levelRelease.play();
             levelGains.push(
                 new LevelGain(c.width, (Math.random() * c.height) / 2, -1, 0, 8)
             );
@@ -557,6 +592,8 @@ function animate() {
         //create bonusPoints.
         let bp = Math.random();
         if (bp > 0.9999) {
+            bonusRelease.currentTime = 0;
+            bonusRelease.play();
             bonusPoints.push(new BonusPoints(Math.random() * c.width, 0, 0, 1, 8));
         }
 
@@ -622,6 +659,8 @@ function animate() {
             ) {
                 //add to progress bar if size is greater than 20.
                 if (player.r >= 20) {
+                    eatFood.currentTime = 0;
+                    eatFood.play();
                     width += 10;
                     elem.style.width = width + "%";
                     fadeText = true;
@@ -685,6 +724,8 @@ function animate() {
                 bonusPoint.y - bonusPoint.r < player.y + player.r &&
                 bonusPoint.y + bonusPoint.r > player.y - player.r
             ) {
+                bonusP.currentTime = 0;
+                bonusP.play();
                 bonus = Math.trunc(Math.random() * 500) + 300;
                 texts.push(
                     new Text(player.x, player.y, 0, -1, bonus, "25px Arial", "green", 1)
@@ -707,6 +748,7 @@ function animate() {
             text.update();
         });
     } else {
+        losingBeep.play();
         levelBonus = 0;
         friction = 0.99;
         gravity = 0.003;
@@ -730,6 +772,12 @@ function animate() {
             if (colour == "blue") {
                 colour = "white";
             }
+
+            function end() {
+                cancelAnimationFrame(animationId);
+            }
+            setTimeout(end, 2000);
+
         }
 
         deaths.forEach((death, index) => {
