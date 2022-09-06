@@ -552,7 +552,7 @@ function animate() {
         }
 
         //fire guidedMissile.
-        if (controlLevel > 5 || score > 50000) {
+        if (controlLevel > 0 || score > 50000) {
             let fireMissile = Math.random();
             if (fireMissile > missileFire) {
                 misFire.currentTime = 0;
