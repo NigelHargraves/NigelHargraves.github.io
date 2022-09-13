@@ -661,7 +661,7 @@ function animate() {
     } //fire guidedMissile.
 
 
-    if (controlLevel > 5 || score > 50000) {
+    if (controlLevel > 4 || score > 50000) {
       var fireMissile = Math.random();
 
       if (fireMissile > missileFire) {
