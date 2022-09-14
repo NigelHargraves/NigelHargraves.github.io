@@ -25,6 +25,7 @@ var moonZones = [];
 var lzcords = new Array();
 var lemEngine = document.getElementById("audio1");
 var thrusters = document.getElementById("audio2");
+var lunarImpact = document.getElementById("audio3");
 var lemX,
     lemY,
     gravity = 0.001,
@@ -305,6 +306,7 @@ function landerPosition() {
       if ((data.data[0] != 0 || data.data[1] != 0 || data.data[2] != 0) && !overlz) {
         lemEngine.pause();
         lemEngine.currentTime = 0;
+        lunarImpact.play();
         thrusters.pause();
         thrusters.currentTime = 0;
         messageBoard.textContent = "Ooops! you crashed!";
@@ -354,6 +356,7 @@ function landCheck() {
         lemEngine.currentTime = 0;
         thrusters.pause();
         thrusters.currentTime = 0;
+        lunarImpact.play();
         messageBoard.textContent = "Ooops! you crashed!";
         messageBoard.style.visibility = "visible";
         button1.style.visibility = "visible";

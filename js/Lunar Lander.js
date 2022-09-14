@@ -18,6 +18,7 @@ let lzcords = new Array();
 
 let lemEngine = document.getElementById("audio1");
 let thrusters = document.getElementById("audio2");
+let lunarImpact = document.getElementById("audio3");
 
 let lemX,
     lemY,
@@ -271,6 +272,7 @@ function landerPosition() {
             ) {
                 lemEngine.pause();
                 lemEngine.currentTime = 0;
+                lunarImpact.play();
                 thrusters.pause();
                 thrusters.currentTime = 0;
                 messageBoard.textContent = "Ooops! you crashed!";
@@ -338,6 +340,7 @@ function landCheck() {
                 lemEngine.currentTime = 0;
                 thrusters.pause();
                 thrusters.currentTime = 0;
+                lunarImpact.play();
                 messageBoard.textContent = "Ooops! you crashed!";
                 messageBoard.style.visibility = "visible";
                 button1.style.visibility = "visible";
