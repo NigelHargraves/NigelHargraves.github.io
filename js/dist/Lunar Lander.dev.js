@@ -303,6 +303,10 @@ function landerPosition() {
       var data = ctx2.getImageData(lander.x - landerSize / 2 + i, lander.y + landerSize / 2, 1, 1);
 
       if ((data.data[0] != 0 || data.data[1] != 0 || data.data[2] != 0) && !overlz) {
+        lemEngine.pause();
+        lemEngine.currentTime = 0;
+        thrusters.pause();
+        thrusters.currentTime = 0;
         messageBoard.textContent = "Ooops! you crashed!";
         messageBoard.style.visibility = "visible";
         button1.style.visibility = "visible";
@@ -323,6 +327,8 @@ function landCheck() {
   if (lemAlive) {
     for (var i = 0; i < 4; i++) {
       if (lander.x > lzcords[i][0] && lander.x + landerSize / 2 < lzcords[i][2] && lander.y + landerSize / 2 > lzcords[i][1] && lander.velocity.y * 100 <= 10 && lander.velocity.x * 10 > -0.2 && rotation > -3 && rotation < 3 && lander.velocity.x * 10 < 0.2) {
+        thrusters.pause();
+        thrusters.currentTime = 0;
         lander.y = lzcords[i][1] - landerSize / 2;
         rotation = 0;
         lander.velocity.x = 0;
@@ -344,6 +350,10 @@ function landCheck() {
         cancelAnimationFrame(animationId);
         break;
       } else if (lander.x > lzcords[i][0] && lander.x + landerSize / 2 < lzcords[i][2] && lander.y + landerSize / 2 > lzcords[i][1] && (lander.velocity.y * 100 > 10 || lander.velocity.x * 10 < -0.2 || rotation > 3 || rotation < -3 || lander.velocity.x * 10 > 0.2)) {
+        lemEngine.pause();
+        lemEngine.currentTime = 0;
+        thrusters.pause();
+        thrusters.currentTime = 0;
         messageBoard.textContent = "Ooops! you crashed!";
         messageBoard.style.visibility = "visible";
         button1.style.visibility = "visible";

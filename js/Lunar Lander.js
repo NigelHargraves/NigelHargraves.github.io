@@ -269,6 +269,10 @@ function landerPosition() {
                 (data.data[0] != 0 || data.data[1] != 0 || data.data[2] != 0) &&
                 !overlz
             ) {
+                lemEngine.pause();
+                lemEngine.currentTime = 0;
+                thrusters.pause();
+                thrusters.currentTime = 0;
                 messageBoard.textContent = "Ooops! you crashed!";
                 messageBoard.style.visibility = "visible";
                 button1.style.visibility = "visible";
@@ -300,6 +304,8 @@ function landCheck() {
                 rotation < 3 &&
                 lander.velocity.x * 10 < 0.2
             ) {
+                thrusters.pause();
+                thrusters.currentTime = 0;
                 lander.y = lzcords[i][1] - landerSize / 2;
                 rotation = 0;
                 lander.velocity.x = 0;
@@ -328,6 +334,10 @@ function landCheck() {
                     rotation < -3 ||
                     lander.velocity.x * 10 > 0.2)
             ) {
+                lemEngine.pause();
+                lemEngine.currentTime = 0;
+                thrusters.pause();
+                thrusters.currentTime = 0;
                 messageBoard.textContent = "Ooops! you crashed!";
                 messageBoard.style.visibility = "visible";
                 button1.style.visibility = "visible";
