@@ -1,0 +1,96 @@
+* {
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+#c {
+    background: black;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+#c2 {
+    background: transparent;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+#myProgress {
+    position: fixed;
+    bottom: 5%;
+    width: 25%;
+    left: 70%;
+    height: 30px;
+    background-color: grey;
+    color: black;
+}
+
+#myBar {
+    text-align: center;
+    line-height: 30px;
+    font-size: 30px;
+    width: 100%;
+    height: 30px;
+    background-color: green;
+}
+
+#lander {
+    background-size: contain;
+    background-image: url('../images/Lunar Lander engine off.png');
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    top: 40px;
+    left: 10px;
+}
+
+#message {
+    background: transparent;
+    position: absolute;
+    left: 34%;
+    top: 22%;
+    width: 30%;
+    height: 5%;
+    font-size: 30px;
+    text-align: center;
+    color: white;
+    visibility: hidden;
+}
+
+#button1 {
+    background: green;
+    position: absolute;
+    border-radius: 12px;
+    left: 60%;
+    top: 20%;
+    width: 10%;
+    height: 5%;
+    visibility: hidden;
+}
+
+#button2 {
+    background: green;
+    position: absolute;
+    border-radius: 12px;
+    left: 60%;
+    top: 20%;
+    width: 10%;
+    height: 5%;
+    visibility: hidden;
+}
+
+#score {
+    background: transparent;
+    position: absolute;
+    left: 0px;
+    bottom: 20px;
+    width: 20%;
+    height: 5%;
+    font-size: 30px;
+    text-align: center;
+    color: white;
+}
