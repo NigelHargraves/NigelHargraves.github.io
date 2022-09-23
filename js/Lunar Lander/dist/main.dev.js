@@ -55,7 +55,7 @@ function animate() {
 
   if (fuel <= 0) {
     thrustForce = 0;
-    lem.style.background = "red";
+    lem.style.background = "url('images/Lunar Lander engine off.png')";
   }
 
   ctx.font = "20px Arial";
