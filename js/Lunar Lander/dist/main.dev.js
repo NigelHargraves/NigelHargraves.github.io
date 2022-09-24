@@ -22,7 +22,10 @@ var lzcords = new Array(); //set audio to variables.
 
 var lemEngine = document.getElementById("audio1");
 var thrusters = document.getElementById("audio2");
-var lunarImpact = document.getElementById("audio3"); //set global variables.
+var lunarImpact = document.getElementById("audio3");
+var eagleLanded = document.getElementById("audio4");
+var comBeep = document.getElementById("audio5");
+var liftOff = document.getElementById("audio6"); //set global variables.
 
 var lemX,
     lemY,
@@ -50,6 +53,8 @@ var rotateLeft = false,
 function animate() {
   //call next frame.
   animationId = requestAnimationFrame(animate);
+  var beep = Math.random();
+  if (beep > 0.999 && lemAlive) comBeep.play();
   fuelLeft.style.width = fuel + "%";
   fuel -= thrustForce * 10;
 

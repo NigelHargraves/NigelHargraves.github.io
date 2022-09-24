@@ -77,6 +77,7 @@ function landCheck() {
         landingZones[i].used = true;
         scoreBoard.textContent = "Score: " + score;
         messageBoard.textContent = "The Eagle has Landed";
+        eagleLanded.play();
         messageBoard.style.visibility = "visible";
         button2.style.visibility = "visible";
         cancelAnimationFrame(animationId);
@@ -112,6 +113,7 @@ function launch() {
     button2.style.visibility = "hidden";
     lander.y -= 1;
     thrustForce = 0.002;
+    liftOff.play();
   }
 
   animate();
