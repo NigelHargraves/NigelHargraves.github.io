@@ -42,8 +42,8 @@
     background-size: contain;
     background-image: url('../images/Lunar Lander engine off.png');
     position: absolute;
-    width: 20px;
-    height: 20px;
+    width: 30px;
+    height: 30px;
     top: 40px;
     left: 10px;
 }

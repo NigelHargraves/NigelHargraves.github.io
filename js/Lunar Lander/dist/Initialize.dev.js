@@ -38,7 +38,7 @@ function init() {
     level = c.height / 2 + Math.random() * c.height / 2 - 100;
     moonZones.push(new MZ(spaced - c.width / 5 + length, oldLevel, spaced, level, "white"));
     oldLength = length;
-    length = Math.random() * skillLevel + 30;
+    length = Math.random() * skillLevel + 40;
     var point = Math.abs(Math.round(150 - length));
     landingZones.push(new LZ(spaced, level, length, "green", point, false, "green"));
     lzcords[i] = new Array(spaced, level, spaced + length, point);

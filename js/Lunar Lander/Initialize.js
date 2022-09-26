@@ -39,7 +39,7 @@ function init() {
         );
 
         oldLength = length;
-        length = Math.random() * skillLevel + 30;
+        length = Math.random() * skillLevel + 40;
         let point = Math.abs(Math.round(150 - length));
         landingZones.push(
             new LZ(spaced, level, length, "green", point, false, "green")

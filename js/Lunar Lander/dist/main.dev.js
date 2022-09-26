@@ -37,7 +37,7 @@ var lemX,
     thrustForce = 0,
     friction = 0.99,
     skillLevel = 100,
-    landerSize = 20,
+    landerSize = 30,
     moonScapeSize = 10,
     fuel; //create Keyspressed array.
 
