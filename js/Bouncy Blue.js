@@ -573,6 +573,8 @@ function animate() {
                 enemy.y - enemy.r < player.y + player.r &&
                 enemy.y + enemy.r > player.y - player.r
             ) {
+                hit.currentTime = 0;
+                hit.play();
                 //reduce player size/reset variables.
                 if (player.r > 20) {
                     player.r = 20;
@@ -617,6 +619,8 @@ function animate() {
                 gm.y - gm.r < player.y + player.r &&
                 gm.y + gm.r > player.y - player.r
             ) {
+                hit.currentTime = 0;
+                hit.play();
                 //reduce player size/reset variables.
                 if (player.r > 20) {
                     player.r = 20;
@@ -652,10 +656,10 @@ function animate() {
                 food.y - food.r < player.y + player.r &&
                 food.y + food.r > player.y - player.r
             ) {
+                eatFood.currentTime = 0;
+                eatFood.play();
                 //add to progress bar if size is greater than 20.
                 if (player.r >= 20) {
-                    eatFood.currentTime = 0;
-                    eatFood.play();
                     width += 10;
                     elem.style.width = width + "%";
                     fadeText = true;

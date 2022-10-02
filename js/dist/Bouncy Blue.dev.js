@@ -662,7 +662,9 @@ function animate() {
     enemies.forEach(function (enemy, index) {
       //bullet hits player.
       if (enemy.x - enemy.r < x + player.r && enemy.x + enemy.r > x - player.r && enemy.y - enemy.r < player.y + player.r && enemy.y + enemy.r > player.y - player.r) {
-        //reduce player size/reset variables.
+        hit.currentTime = 0;
+        hit.play(); //reduce player size/reset variables.
+
         if (player.r > 20) {
           player.r = 20;
         } else {
@@ -701,7 +703,9 @@ function animate() {
     guidedMissiles.forEach(function (gm, index) {
       //guidedmissile hits player.
       if (gm.x - gm.r < x + player.r && gm.x + gm.r > x - player.r && gm.y - gm.r < player.y + player.r && gm.y + gm.r > player.y - player.r) {
-        //reduce player size/reset variables.
+        hit.currentTime = 0;
+        hit.play(); //reduce player size/reset variables.
+
         if (player.r > 20) {
           player.r = 20;
         } else {
@@ -732,10 +736,10 @@ function animate() {
     foods.forEach(function (food, index) {
       //player eats food.
       if (food.x - food.r < x + player.r && food.x + food.r > x - player.r && food.y - food.r < player.y + player.r && food.y + food.r > player.y - player.r) {
-        //add to progress bar if size is greater than 20.
+        eatFood.currentTime = 0;
+        eatFood.play(); //add to progress bar if size is greater than 20.
+
         if (player.r >= 20) {
-          eatFood.currentTime = 0;
-          eatFood.play();
           width += 10;
           elem.style.width = width + "%";
           fadeText = true;
