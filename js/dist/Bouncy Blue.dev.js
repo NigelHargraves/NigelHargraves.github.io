@@ -12,20 +12,10 @@ c.width = window.innerWidth;
 c.height = window.innerHeight;
 var ctx2 = c2.getContext("2d");
 c2.width = window.innerWidth;
-var background = new Image();
-background.src = 'images/grass1.jpg';
-
-background.onload = function () {
-  ctx.drawImage(background, 0, 0, c.width, c.height);
-};
-
+var background1 = new Image();
+background1.src = 'images/forest.jpg';
 var background2 = new Image();
-background2.src = 'images/forest.jpg';
-
-background.onload = function () {
-  ctx2.drawImage(background, 0, 0, c.width, c.height);
-};
-
+background2.src = 'images/grass1.jpg';
 var enemies = [];
 var foods = [];
 var bonusPoints = [];
@@ -33,6 +23,9 @@ var texts = [];
 var guidedMissiles = [];
 var deaths = [];
 var levelGains = [];
+var layers = [];
+var glows = [];
+var splats = [];
 var bounce = document.getElementById("audio1");
 var levelUp = document.getElementById("audio2");
 var hit = document.getElementById("audio3");
@@ -62,6 +55,9 @@ var gravity = 0.03,
     textFade = 1,
     bonus = 0,
     x = c.width / 2;
+var ang = 0,
+    x1 = 0,
+    y1 = 0;
 var moveLeft = false,
     moveRight = false,
     moveUp = false,
@@ -85,7 +81,73 @@ var leftEye = {
   y: 0
 },
     countBlink = 100,
-    countSquint = 100; //create player class.
+    countSquint = 100; //create layer class.
+
+var Layer =
+/*#__PURE__*/
+function () {
+  //construct layer data.
+  function Layer(image, y, height, speed) {
+    _classCallCheck(this, Layer);
+
+    this.x = 0;
+    this.y = y;
+    this.width = 6000;
+    this.height = height;
+    this.x2 = this.width;
+    this.image = image;
+    this.speed = speed;
+  } //draw layer.
+
+
+  _createClass(Layer, [{
+    key: "draw",
+    value: function draw() {
+      if (this.image == background1) {
+        ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
+        ctx.drawImage(this.image, this.x2, this.y, this.width, this.height);
+      } else {
+        ctx2.drawImage(this.image, this.x, this.y, this.width, this.height);
+        ctx2.drawImage(this.image, this.x2, this.y, this.width, this.height);
+      }
+    } //update layer.
+
+  }, {
+    key: "update",
+    value: function update() {
+      if (this.image == background1) {
+        this.speed = player.velocity.x;
+      } else {
+        this.speed = player.velocity.x * 1.25;
+      }
+
+      if (player.velocity.x >= 0) {
+        if (this.x <= -this.width) {
+          this.x = this.width;
+        }
+
+        if (this.x2 <= -this.width) {
+          this.x2 = this.width;
+        }
+      } else {
+        if (this.x >= this.width) {
+          this.x = -this.width;
+        }
+
+        if (this.x2 >= this.width) {
+          this.x2 = -this.width;
+        }
+      }
+
+      this.x -= this.speed;
+      this.x2 -= this.speed;
+      this.draw();
+    }
+  }]);
+
+  return Layer;
+}(); //create player class.
+
 
 var Player =
 /*#__PURE__*/
@@ -558,6 +620,95 @@ function () {
   }]);
 
   return Death;
+}(); //glow class.
+
+
+var Glow =
+/*#__PURE__*/
+function () {
+  //construct glow data.
+  function Glow(x, y, radius, alpha) {
+    _classCallCheck(this, Glow);
+
+    this.x = x;
+    this.y = y;
+    this.r = radius;
+    this.alpha = alpha;
+  } //draw glow.
+
+
+  _createClass(Glow, [{
+    key: "draw",
+    value: function draw() {
+      ctx.globalAlpha = this.alpha;
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.r + 2, 0, Math.PI * 2);
+      ctx.strokeStyle = "white";
+      ctx.stroke();
+      ctx.globalAlpha = 1;
+    } //update glow.
+
+  }, {
+    key: "update",
+    value: function update() {
+      this.alpha -= 0.1;
+      this.x = x;
+      this.y = player.y;
+      this.draw();
+    }
+  }]);
+
+  return Glow;
+}(); //splat class.
+
+
+var Splat =
+/*#__PURE__*/
+function () {
+  //construct glow data.
+  function Splat(x, y, x1, y1, ang, radius) {
+    _classCallCheck(this, Splat);
+
+    this.x = x;
+    this.y = y;
+    this.x1 = x1;
+    this.y1 = y1;
+    this.ang = ang;
+    this.r = radius;
+  } //draw splat.
+
+
+  _createClass(Splat, [{
+    key: "draw",
+    value: function draw() {
+      for (var _i = 0; _i < 360; _i += 20) {
+        ctx.beginPath();
+        ctx.moveTo(this.x + this.x1, this.y + this.y1);
+        this.x1 = (this.r + 10) * Math.cos(this.ang);
+        this.y1 = (this.r + 10) * Math.sin(this.ang);
+        ctx.lineTo(this.x + this.x1, this.y + this.y1);
+        ctx.strokeStyle = "blue";
+        ctx.lineWidth = 6;
+        ctx.stroke(); //increment angle by PI/180.
+
+        this.ang += Math.PI / 180 * 20;
+        this.x1 = this.r * Math.cos(this.ang);
+        this.y1 = this.r * Math.sin(this.ang);
+      }
+
+      ctx.lineWidth = 1;
+    } //update splat.
+
+  }, {
+    key: "update",
+    value: function update() {
+      this.x = x;
+      this.y = player.y;
+      this.draw();
+    }
+  }]);
+
+  return Splat;
 }();
 
 function reset() {
@@ -610,22 +761,19 @@ function init() {
   gravity = 0.03;
   player = new Player(c.width / 2, c.height / 2, 20, "blue");
   enemies.push(new Enemy(Math.random() * c.width, 0, 0, 1, 4));
-  foods.push(new Food(c.width, Math.random() * c.height, -1, 0, 4));
+  foods.push(new Food(c.width, Math.random() * (c.height - 40) + 20, -1, 0, 4));
   food.currentTime = 0;
   food.play();
+  layers.push(new Layer(background1, 0, c.height, 0));
+  layers.push(new Layer(background2, 0, c2.height, 0));
 }
 
 function animate() {
   //call next frame.
   animationId = requestAnimationFrame(animate);
-  var picsize1 = c.width;
-  ctx.drawImage(background2, -player.x, 0, picsize1, c.height);
-  ctx.drawImage(background2, -player.x + picsize1, 0, picsize1, c.height);
-  if (player.x < 0) player.x = picsize1;
-  if (player.x > picsize1) player.x = 0;
-  var picsize2 = c2.width * 1.5;
-  ctx2.drawImage(background, -player.x * 1.5, 0, picsize2, c2.height);
-  ctx2.drawImage(background, -player.x * 1.5 + picsize2, 0, picsize2, c2.height);
+  layers.forEach(function (layer, index) {
+    layer.update();
+  });
   ctx.font = "20px Arial";
   ctx.fillStyle = "white";
   ctx.fillText("Control LV: " + controlLevel, 0, 20);
@@ -673,6 +821,7 @@ function animate() {
 
         reset();
         enemies.splice(index, 1);
+        splats.push(new Splat(x, player.y, x1, y1, ang, player.r));
       }
 
       if (player.r <= 14) {
@@ -682,6 +831,13 @@ function animate() {
 
       if (enemy.y > c.height) enemies.splice(index, 1);
       enemy.update();
+    });
+    splats.forEach(function (splat, index) {
+      splat.update();
+
+      if (splat.ang > 0) {
+        splats.splice(index, 1);
+      }
     }); //fire guidedMissile.
 
     if (controlLevel > 4 || score > 50000) {
@@ -714,6 +870,7 @@ function animate() {
 
         reset();
         guidedMissiles.splice(index, 1);
+        splats.push(new Splat(x, player.y, x1, y1, ang, player.r));
       }
 
       if (player.r <= 14) {
@@ -730,7 +887,7 @@ function animate() {
     if (createFood > 0.998) {
       food.currentTime = 0;
       food.play();
-      foods.push(new Food(c.width, Math.random() * c.height, -foodVelocity, 0, 4));
+      foods.push(new Food(c.width, Math.random() * (c.height - 40) + 20, -foodVelocity, 0, 4));
     }
 
     foods.forEach(function (food, index) {
@@ -752,6 +909,7 @@ function animate() {
 
 
         player.r += 1;
+        glows.push(new Glow(x, player.y, player.r, 1.1));
         foods.splice(index, 1); //player gets next level of control + bonus score/update variables.
 
         if (player.r == 30) {
@@ -762,6 +920,13 @@ function animate() {
 
       if (food.x < -3000) foods.splice(index, 1);
       food.update();
+    });
+    glows.forEach(function (glow, index) {
+      if (glow.alpha < 0.2) {
+        glows.splice(index, 1);
+      }
+
+      glow.update();
     }); //create levelGain.
 
     var gainLevel = Math.random();

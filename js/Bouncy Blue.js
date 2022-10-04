@@ -5,19 +5,13 @@ c.height = window.innerHeight;
 const ctx2 = c2.getContext("2d");
 c2.width = window.innerWidth;
 
-let background = new Image();
-background.src = 'images/grass1.jpg';
-
-background.onload = function() {
-    ctx.drawImage(background, 0, 0, c.width, c.height);
-};
+let background1 = new Image();
+background1.src = 'images/forest.jpg';
 
 let background2 = new Image();
-background2.src = 'images/forest.jpg';
+background2.src = 'images/grass1.jpg';
 
-background.onload = function() {
-    ctx2.drawImage(background, 0, 0, c.width, c.height);
-};
+
 
 let enemies = [];
 let foods = [];
@@ -26,6 +20,9 @@ let texts = [];
 let guidedMissiles = [];
 let deaths = [];
 let levelGains = [];
+let layers = [];
+let glows = [];
+let splats = [];
 
 
 let bounce = document.getElementById("audio1");
@@ -60,6 +57,10 @@ let gravity = 0.03,
     bonus = 0,
     x = c.width / 2;
 
+let ang = 0,
+    x1 = 0,
+    y1 = 0;
+
 let moveLeft = false,
     moveRight = false,
     moveUp = false,
@@ -76,6 +77,70 @@ let leftEye = { x: 8, y: 7 },
     bppos = { x: 0, y: 0 },
     countBlink = 100,
     countSquint = 100;
+
+//create layer class.
+class Layer {
+    //construct layer data.
+    constructor(image, y, height, speed) {
+        this.x = 0;
+        this.y = y;
+        this.width = 6000;
+        this.height = height;
+        this.x2 = this.width;
+        this.image = image;
+        this.speed = speed;
+    }
+
+    //draw layer.
+    draw() {
+        if (this.image == background1) {
+            ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
+            ctx.drawImage(this.image, this.x2, this.y, this.width, this.height);
+        } else {
+            ctx2.drawImage(this.image, this.x, this.y, this.width, this.height);
+            ctx2.drawImage(this.image, this.x2, this.y, this.width, this.height);
+        }
+    }
+
+    //update layer.
+    update() {
+        if (this.image == background1) {
+            this.speed = player.velocity.x;
+        } else {
+            this.speed = player.velocity.x * 1.25;
+        }
+
+        if (player.velocity.x >= 0) {
+            if (this.x <= -this.width) {
+                this.x = this.width;
+            }
+            if (this.x2 <= -this.width) {
+                this.x2 = this.width;
+            }
+        } else {
+            if (this.x >= this.width) {
+                this.x = -this.width;
+            }
+            if (this.x2 >= this.width) {
+                this.x2 = -this.width;
+            }
+        }
+
+        this.x -= this.speed;
+        this.x2 -= this.speed;
+
+        this.draw();
+    }
+}
+
+
+
+
+
+
+
+
+
 
 //create player class.
 class Player {
@@ -462,6 +527,72 @@ class Death {
     }
 }
 
+//glow class.
+class Glow {
+    //construct glow data.
+    constructor(x, y, radius, alpha) {
+            this.x = x;
+            this.y = y;
+            this.r = radius;
+            this.alpha = alpha;
+        }
+        //draw glow.
+    draw() {
+            ctx.globalAlpha = this.alpha;
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.r + 2, 0, Math.PI * 2);
+            ctx.strokeStyle = "white";
+            ctx.stroke();
+            ctx.globalAlpha = 1;
+        }
+        //update glow.
+    update() {
+        this.alpha -= 0.1;
+        this.x = x;
+        this.y = player.y;
+        this.draw();
+    }
+}
+
+//splat class.
+class Splat {
+    //construct glow data.
+    constructor(x, y, x1, y1, ang, radius) {
+            this.x = x;
+            this.y = y;
+            this.x1 = x1;
+            this.y1 = y1;
+            this.ang = ang;
+            this.r = radius;
+        }
+        //draw splat.
+    draw() {
+            for (let i = 0; i < 360; i += 20) {
+                ctx.beginPath();
+                ctx.moveTo(this.x + this.x1, this.y + this.y1);
+                this.x1 = (this.r + 10) * Math.cos(this.ang);
+                this.y1 = (this.r + 10) * Math.sin(this.ang);
+                ctx.lineTo(this.x + this.x1, this.y + this.y1);
+                ctx.strokeStyle = "blue";
+                ctx.lineWidth = 6;
+                ctx.stroke();
+                //increment angle by PI/180.
+                this.ang += (Math.PI / 180) * 20;
+                this.x1 = this.r * Math.cos(this.ang);
+                this.y1 = this.r * Math.sin(this.ang);
+            }
+            ctx.lineWidth = 1;
+        }
+        //update splat.
+    update() {
+        this.x = x;
+        this.y = player.y;
+        this.draw();
+    }
+}
+
+
+
 function reset() {
     foodVelocity = 1;
     velocityAmount = 0.02;
@@ -508,30 +639,20 @@ function init() {
     gravity = 0.03;
     player = new Player(c.width / 2, c.height / 2, 20, "blue");
     enemies.push(new Enemy(Math.random() * c.width, 0, 0, 1, 4));
-    foods.push(new Food(c.width, Math.random() * c.height, -1, 0, 4));
+    foods.push(new Food(c.width, Math.random() * (c.height - 40) + 20, -1, 0, 4));
     food.currentTime = 0;
     food.play();
+    layers.push(new Layer(background1, 0, c.height, 0));
+    layers.push(new Layer(background2, 0, c2.height, 0));
 }
 
 function animate() {
     //call next frame.
     animationId = requestAnimationFrame(animate);
 
-    let picsize1 = c.width;
-    ctx.drawImage(background2, -player.x, 0, picsize1, c.height);
-    ctx.drawImage(background2, -player.x + picsize1, 0, picsize1, c.height);
-
-    if (player.x < 0) player.x = picsize1;
-    if (player.x > picsize1) player.x = 0;
-
-    let picsize2 = c2.width * 1.5;
-    ctx2.drawImage(background, -player.x * 1.5, 0, picsize2, c2.height);
-    ctx2.drawImage(
-        background, -player.x * 1.5 + picsize2,
-        0,
-        picsize2,
-        c2.height
-    );
+    layers.forEach((layer, index) => {
+        layer.update();
+    });
 
     ctx.font = "20px Arial";
     ctx.fillStyle = "white";
@@ -583,6 +704,7 @@ function animate() {
                 }
                 reset();
                 enemies.splice(index, 1);
+                splats.push(new Splat(x, player.y, x1, y1, ang, player.r));
             }
             if (player.r <= 14) {
                 playerAlive = false;
@@ -592,6 +714,14 @@ function animate() {
             if (enemy.y > c.height) enemies.splice(index, 1);
             enemy.update();
         });
+
+        splats.forEach((splat, index) => {
+            splat.update();
+            if (splat.ang > 0) {
+                splats.splice(index, 1);
+            }
+        });
+
 
         //fire guidedMissile.
         if (controlLevel > 4 || score > 50000) {
@@ -629,6 +759,7 @@ function animate() {
                 }
                 reset();
                 guidedMissiles.splice(index, 1);
+                splats.push(new Splat(x, player.y, x1, y1, ang, player.r));
             }
             if (player.r <= 14) {
                 playerAlive = false;
@@ -644,7 +775,7 @@ function animate() {
             food.currentTime = 0;
             food.play();
             foods.push(
-                new Food(c.width, Math.random() * c.height, -foodVelocity, 0, 4)
+                new Food(c.width, Math.random() * (c.height - 40) + 20, -foodVelocity, 0, 4)
             );
         }
 
@@ -674,6 +805,7 @@ function animate() {
                 //increase player size/add to score.
 
                 player.r += 1;
+                glows.push(new Glow(x, player.y, player.r, 1.1));
                 foods.splice(index, 1);
                 //player gets next level of control + bonus score/update variables.
                 if (player.r == 30) {
@@ -684,6 +816,13 @@ function animate() {
             //food goes far left.
             if (food.x < -3000) foods.splice(index, 1);
             food.update();
+        });
+
+        glows.forEach((glow, index) => {
+            if (glow.alpha < 0.2) {
+                glows.splice(index, 1);
+            }
+            glow.update();
         });
 
         //create levelGain.
