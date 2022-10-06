@@ -6,16 +6,18 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-// Set the canvas element to a variable.
+// Set the canvas elements to  var.
 var ctx = c.getContext("2d");
 c.width = window.innerWidth;
 c.height = window.innerHeight;
 var ctx2 = c2.getContext("2d");
-c2.width = window.innerWidth;
+c2.width = window.innerWidth; //backgrounds to var.
+
 var background1 = new Image();
 background1.src = 'images/forest.jpg';
 var background2 = new Image();
-background2.src = 'images/grass1.jpg';
+background2.src = 'images/grass1.jpg'; //arrays to var.
+
 var enemies = [];
 var foods = [];
 var bonusPoints = [];
@@ -26,6 +28,8 @@ var levelGains = [];
 var layers = [];
 var glows = [];
 var splats = [];
+var mines = []; //audio to var.animationId
+
 var bounce = document.getElementById("audio1");
 var levelUp = document.getElementById("audio2");
 var hit = document.getElementById("audio3");
@@ -37,9 +41,12 @@ var bonusP = document.getElementById("audio8");
 var bonusRelease = document.getElementById("audio9");
 var losingBeep = document.getElementById("audio10");
 var levelRelease = document.getElementById("audio11");
-var KP = {}; //Keyspressed array
+var mineExplode = document.getElementById("audio12");
+var KP = {}; //Keyspressed array.
+//element to var.
 
-var elem = document.getElementById("myBar");
+var elem = document.getElementById("myBar"); //vars.
+
 var gravity = 0.03,
     friction = 0.002,
     controlLevel = 1,
@@ -49,15 +56,17 @@ var gravity = 0.03,
     levelBonus = 8000,
     skillLevel = 0.998,
     missileFire = 0.999,
+    minePlant = 0.999,
     enemyVelocity = 1,
     foodVelocity = 1,
     enemyRadius = 4,
     textFade = 1,
     bonus = 0,
-    x = c.width / 2;
-var ang = 0,
+    x = c.width / 2,
+    ang = 0,
     x1 = 0,
-    y1 = 0;
+    y1 = 0; //boolean vars.
+
 var moveLeft = false,
     moveRight = false,
     moveUp = false,
@@ -67,7 +76,8 @@ var moveLeft = false,
     increaseBounce = false,
     fadeText = false,
     missile = false,
-    playerAlive = true;
+    playerAlive = true,
+    minesToPlant = false;
 var leftEye = {
   x: 8,
   y: 7
@@ -609,6 +619,7 @@ function () {
   }, {
     key: "update",
     value: function update() {
+      friction = 0.99;
       this.v.x *= friction;
       this.v.y *= friction;
       this.v.y += gravity * 4;
@@ -616,6 +627,7 @@ function () {
       this.y += this.v.y;
       this.alpha -= 0.01;
       this.draw();
+      friction = 0.002;
     }
   }]);
 
@@ -709,6 +721,60 @@ function () {
   }]);
 
   return Splat;
+}(); //mine class.
+
+
+var Mine =
+/*#__PURE__*/
+function () {
+  //construct mine data.
+  function Mine(x, y, radius, countdown) {
+    _classCallCheck(this, Mine);
+
+    this.x = x;
+    this.y = y;
+    this.r = radius;
+    this.countdown = countdown;
+    this.alpha = 0;
+    this.glow = false;
+  } //draw mine.
+
+
+  _createClass(Mine, [{
+    key: "draw",
+    value: function draw() {
+      ctx.globalAlpha = this.alpha;
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+      ctx.fillStyle = "red";
+      ctx.fill();
+      ctx.globalAlpha = 1;
+    } //update mine.
+
+  }, {
+    key: "update",
+    value: function update() {
+      if (this.alpha <= 0.2) {
+        this.glow = true;
+      }
+
+      if (this.alpha >= 1) {
+        this.glow = false;
+      }
+
+      if (this.glow) {
+        this.alpha += 0.01;
+      } else {
+        this.alpha -= 0.01;
+      }
+
+      this.countdown -= 0.01;
+      this.x += -player.velocity.x * 1.25;
+      this.draw();
+    }
+  }]);
+
+  return Mine;
 }();
 
 function reset() {
@@ -728,6 +794,10 @@ function levelJump() {
 
   if (controlLevel > 2) {
     velocityAmount += 0.02;
+  }
+
+  if (controlLevel > 4) {
+    minePlant -= 0.001;
   }
 
   player.r = 20;
@@ -761,7 +831,7 @@ function init() {
   gravity = 0.03;
   player = new Player(c.width / 2, c.height / 2, 20, "blue");
   enemies.push(new Enemy(Math.random() * c.width, 0, 0, 1, 4));
-  foods.push(new Food(c.width, Math.random() * (c.height - 40) + 20, -1, 0, 4));
+  foods.push(new Food(c.width, Math.random() * (c.height - 40) + 20, -foodVelocity, 0, 4));
   food.currentTime = 0;
   food.play();
   layers.push(new Layer(background1, 0, c.height, 0));
@@ -796,8 +866,54 @@ function animate() {
 
     if (blink > 0.998 && countBlink == 100) {
       eyesBlink = true;
-    } //fire enemy.
+    } //plant mine.
 
+
+    if (controlLevel > 3) {
+      minesToPlant = true;
+    }
+
+    if (minesToPlant) {
+      var plantMine = Math.random();
+
+      if (plantMine > minePlant) {
+        mines.push(new Mine(Math.random() * 6000 - 3000, c.height, 30, 25));
+      }
+    }
+
+    mines.forEach(function (mine, index) {
+      //player hits mine.
+      if (x + player.r > mine.x - mine.r && x - player.r < mine.x + mine.r && player.y + player.r > mine.y - mine.r && player.y - player.r < mine.y + mine.r) {
+        mines.splice(index, 1);
+        playerAlive = false;
+      } //countdown = 0
+
+
+      if (mine.countdown <= 0) {
+        if (mine.x > 0 - mine.r && mine.x < c.width + mine.r) {
+          mineExplode.currentTime = 0;
+          mineExplode.play();
+        }
+
+        for (i = 0; i < 30; i++) {
+          deaths.push(new Death(mine.x, mine.y - 30, Math.random() * 2, "red", {
+            x: (Math.random() - 0.5) * 8,
+            y: (Math.random() - 0.5) * 8
+          }));
+        }
+
+        mines.splice(index, 1);
+      }
+
+      mine.update();
+    });
+    deaths.forEach(function (death, index) {
+      if (death.alpha <= 0.01) {
+        deaths.splice(index, 1);
+      } else {
+        death.update();
+      }
+    }); //fire enemy.
 
     var enemyFire = Math.random();
 
@@ -984,9 +1100,9 @@ function animate() {
       text.update();
     });
   } else {
+    player.velocity.x = 0;
     losingBeep.play();
     levelBonus = 0;
-    friction = 0.99;
     gravity = 0.003;
     ctx.fillText("Player size: DEAD", c.width / 2, 20);
     ctx.font = "50px Arial";
