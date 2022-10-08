@@ -24,6 +24,9 @@ let layers = [];
 let glows = [];
 let splats = [];
 let mines = [];
+let wanderingMines = [];
+let projectiles = [];
+let kills = [];
 
 
 //audio to var.animationId
@@ -39,7 +42,7 @@ let bonusRelease = document.getElementById("audio9");
 let losingBeep = document.getElementById("audio10");
 let levelRelease = document.getElementById("audio11");
 let mineExplode = document.getElementById("audio12");
-
+let killEverything = document.getElementById("audio13");
 
 let KP = {}; //Keyspressed array.
 //element to var.
@@ -118,6 +121,107 @@ function animate() {
             eyesBlink = true;
         }
 
+        //kill all.
+        if (controlLevel > 11) {
+            let killAll = Math.random();
+            if (killAll > 0.998) {
+                kills.push(new Kill(Math.random() * 6000 - 3000, Math.random() * c.height, 8, 25))
+            }
+
+            kills.forEach((kill, index) => {
+                if (
+                    kill.x - kill.r < x + player.r &&
+                    kill.x + kill.r > x - player.r &&
+                    kill.y - kill.r < player.y + player.r &&
+                    kill.y + kill.r > player.y - player.r
+                ) {
+                    kills.splice(index, 1);
+                    killEverything.currentTime = 0;
+                    killEverything.play();
+                    ctx.fillStyle = "white";
+                    ctx.fillRect(0, 0, c.width, c.height);
+
+                    enemies = [];
+                    guidedMissiles = [];
+                    mines = [];
+                    wanderingMines = [];
+
+                }
+
+                if (kill.countdown <= 0) {
+                    kills.splice(index, 1);
+                }
+                kill.update();
+            });
+        }
+
+        //create wandering mine.
+        if (controlLevel > 9) {
+            let wm = Math.random();
+            if (wm > 0.999) {
+                wanderingMines.push(new WanderingMine(c.width + 100, Math.random() * c.height, 10, { x: -1, y: Math.random() - 0.5 }, 25));
+            }
+
+            wm = Math.random();
+            if (wm > 0.999) {
+                wanderingMines.push(new WanderingMine(-100, Math.random() * c.height, 10, { x: -1, y: Math.random() - 0.5 }, 25));
+            }
+        }
+
+        wanderingMines.forEach((wmine, index) => {
+            if (
+                wmine.x - (wmine.r * 10) < x + player.r &&
+                wmine.x + (wmine.r * 10) > x - player.r &&
+                wmine.y - (wmine.r * 10) < player.y + player.r &&
+                wmine.y + (wmine.r * 10) > player.y - player.r
+            ) {
+                mineExplode.currentTime = 0;
+                mineExplode.play();
+                for (let i = 0; i < 10; i++) {
+                    projectiles.push(new Projectile(wmine.x, wmine.y, 2, { x: (Math.random() - 0.5) * 20, y: (Math.random() - 0.5) * 20 }, 25));
+                }
+                wanderingMines.splice(index, 1);
+            }
+            if (wmine.countdown <= 0) {
+                wanderingMines.splice(index, 1);
+            }
+
+            wmine.update();
+        });
+
+
+        projectiles.forEach((pro, index) => {
+            if (
+                pro.x - pro.r < x + player.r &&
+                pro.x + pro.r > x - player.r &&
+                pro.y - pro.r < player.y + player.r &&
+                pro.y + pro.r > player.y - player.r
+            ) {
+                hit.currentTime = 0;
+                hit.play();
+                //reduce player size/reset variables.
+                if (player.r > 20) {
+                    player.r = 20;
+                } else {
+                    player.r -= 2;
+                }
+                reset();
+                projectiles.splice(index, 1);
+                splats.push(new Splat(x, player.y, x1, y1, ang, player.r));
+            }
+            if (player.r <= 14) {
+                playerAlive = false;
+            }
+            if (this.countdown <= 0) {
+                projectiles.splice(index, 1);
+            }
+
+
+            pro.update();
+
+        });
+
+
         //plant mine.
         if (controlLevel > 3) {
             minesToPlant = true;
@@ -143,6 +247,24 @@ function animate() {
             //countdown = 0
             if (mine.countdown <= 0) {
                 if (mine.x > 0 - mine.r && mine.x < c.width + mine.r) {
+                    //player is close to mine as it explodes.
+                    if (
+                        mine.x - (mine.r * 3) < x + player.r &&
+                        mine.x + (mine.r * 3) > x - player.r &&
+                        mine.y - (mine.r * 3) < player.y + player.r &&
+                        mine.y + (mine.r * 3) > player.y - player.r
+                    ) {
+                        hit.currentTime = 0;
+                        hit.play();
+                        //reduce player size/reset variables.
+                        if (player.r > 20) {
+                            player.r = 20;
+                        } else {
+                            player.r -= 2;
+                        }
+                        reset();
+                        splats.push(new Splat(x, player.y, x1, y1, ang, player.r));
+                    }
                     mineExplode.currentTime = 0;
                     mineExplode.play();
                 }
