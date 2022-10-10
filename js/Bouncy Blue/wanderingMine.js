@@ -16,7 +16,7 @@ class WanderingMine {
             ctx.globalAlpha = this.alpha;
             ctx.beginPath();
             ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
-            ctx.fillStyle = "red";
+            ctx.fillStyle = "white";
             ctx.fill();
             ctx.globalAlpha = 1;
         }

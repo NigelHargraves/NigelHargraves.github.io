@@ -25,7 +25,8 @@ var splats = [];
 var mines = [];
 var wanderingMines = [];
 var projectiles = [];
-var kills = []; //audio to var.animationId
+var kills = [];
+var flowers = []; //audio to var.animationId
 
 var bounce = document.getElementById("audio1");
 var levelUp = document.getElementById("audio2");
@@ -121,13 +122,49 @@ function animate() {
 
     if (blink > 0.998 && countBlink == 100) {
       eyesBlink = true;
-    } //kill all.
+    } //create flower.
 
+
+    if (controlLevel > 5) {
+      var createFlower = Math.random();
+
+      if (createFlower > 0.999) {
+        flowers.push(new Flower(c.width + 100 + Math.random() * c.width, c.height - 200, 20, 25));
+      }
+
+      createFlower = Math.random();
+
+      if (createFlower > 0.999) {
+        flowers.push(new Flower(-100 - Math.random() * c.width, c.height - 200, 20, 25));
+      }
+    }
+
+    flowers.forEach(function (flower, index) {
+      if (flower.x - flower.r * 10 < x + player.r && flower.x + flower.r * 10 > x - player.r && flower.y - flower.r * 10 < player.y + player.r && flower.y + flower.r * 10 > player.y - player.r) {
+        mineExplode.currentTime = 0;
+        mineExplode.play();
+
+        for (var _i = 0; _i < 10; _i++) {
+          projectiles.push(new Projectile(flower.x, flower.y, 2, {
+            x: (Math.random() - 0.5) * 20,
+            y: (Math.random() - 0.5) * 20
+          }, 25));
+        }
+
+        flowers.splice(index, 1);
+      }
+
+      if (flower.countdown <= 0) {
+        flowers.splice(index, 1);
+      }
+
+      flower.update();
+    }); //kill all.
 
     if (controlLevel > 11) {
       var killAll = Math.random();
 
-      if (killAll > 0.998) {
+      if (killAll > 0.999) {
         kills.push(new Kill(Math.random() * 6000 - 3000, Math.random() * c.height, 8, 25));
       }
 
@@ -136,12 +173,14 @@ function animate() {
           kills.splice(index, 1);
           killEverything.currentTime = 0;
           killEverything.play();
-          ctx.fillStyle = "white";
-          ctx.fillRect(0, 0, c.width, c.height);
+          enemies.forEach(function (enemy, index) {
+            ctx.beginPath();
+            ctx.moveTo(x, player.y);
+            ctx.lineTo(enemy.x, enemy.y);
+            ctx.strokeStyle = "white";
+            ctx.stroke();
+          });
           enemies = [];
-          guidedMissiles = [];
-          mines = [];
-          wanderingMines = [];
         }
 
         if (kill.countdown <= 0) {
@@ -178,7 +217,7 @@ function animate() {
         mineExplode.currentTime = 0;
         mineExplode.play();
 
-        for (var _i = 0; _i < 10; _i++) {
+        for (var _i2 = 0; _i2 < 10; _i2++) {
           projectiles.push(new Projectile(wmine.x, wmine.y, 2, {
             x: (Math.random() - 0.5) * 20,
             y: (Math.random() - 0.5) * 20

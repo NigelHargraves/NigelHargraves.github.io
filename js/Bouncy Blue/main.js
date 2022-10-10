@@ -27,6 +27,7 @@ let mines = [];
 let wanderingMines = [];
 let projectiles = [];
 let kills = [];
+let flowers = [];
 
 
 //audio to var.animationId
@@ -121,10 +122,44 @@ function animate() {
             eyesBlink = true;
         }
 
+        //create flower.
+        if (controlLevel > 5) {
+            let createFlower = Math.random();
+            if (createFlower > 0.999) {
+                flowers.push(new Flower(c.width + 100 + Math.random() * c.width, c.height - 200, 20, 25));
+            }
+
+            createFlower = Math.random();
+            if (createFlower > 0.999) {
+                flowers.push(new Flower(-100 - Math.random() * c.width, c.height - 200, 20, 25));
+            }
+
+        }
+
+        flowers.forEach((flower, index) => {
+            if (
+                flower.x - (flower.r * 10) < x + player.r &&
+                flower.x + (flower.r * 10) > x - player.r &&
+                flower.y - (flower.r * 10) < player.y + player.r &&
+                flower.y + (flower.r * 10) > player.y - player.r
+            ) {
+                mineExplode.currentTime = 0;
+                mineExplode.play();
+                for (let i = 0; i < 10; i++) {
+                    projectiles.push(new Projectile(flower.x, flower.y, 2, { x: (Math.random() - 0.5) * 20, y: (Math.random() - 0.5) * 20 }, 25));
+                }
+                flowers.splice(index, 1);
+            }
+            if (flower.countdown <= 0) {
+                flowers.splice(index, 1);
+            }
+            flower.update();
+        });
+
         //kill all.
         if (controlLevel > 11) {
             let killAll = Math.random();
-            if (killAll > 0.998) {
+            if (killAll > 0.999) {
                 kills.push(new Kill(Math.random() * 6000 - 3000, Math.random() * c.height, 8, 25))
             }
 
@@ -138,14 +173,14 @@ function animate() {
                     kills.splice(index, 1);
                     killEverything.currentTime = 0;
                     killEverything.play();
-                    ctx.fillStyle = "white";
-                    ctx.fillRect(0, 0, c.width, c.height);
-
+                    enemies.forEach((enemy, index) => {
+                        ctx.beginPath();
+                        ctx.moveTo(x, player.y);
+                        ctx.lineTo(enemy.x, enemy.y);
+                        ctx.strokeStyle = "white";
+                        ctx.stroke();
+                    });
                     enemies = [];
-                    guidedMissiles = [];
-                    mines = [];
-                    wanderingMines = [];
-
                 }
 
                 if (kill.countdown <= 0) {
