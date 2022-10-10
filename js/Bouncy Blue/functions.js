@@ -28,6 +28,7 @@ function levelJump() {
     }
     if (controlLevel > 4) {
         foodVelocity += 0.1;
+        foodAmount -= 0.0001
         minePlant -= 0.0005;
     }
     if (controlLevel > 5) {
@@ -51,9 +52,23 @@ function levelJump() {
 }
 
 function init() {
+    button.style.visibility = "hidden";
     enemies = [];
     foods = [];
     bonusPoints = [];
+    texts = [];
+    guidedMissiles = [];
+    deaths = [];
+    levelGains = [];
+    layers = [];
+    glows = [];
+    splats = [];
+    mines = [];
+    wanderingMines = [];
+    projectiles = [];
+    kills = [];
+    flowers = [];
+    playerAlive = true;
     controlLevel = 1;
     levelBonus = 8000;
     score = 0;

@@ -44,11 +44,12 @@ let losingBeep = document.getElementById("audio10");
 let levelRelease = document.getElementById("audio11");
 let mineExplode = document.getElementById("audio12");
 let killEverything = document.getElementById("audio13");
+let flowerFire = document.getElementById("audio14");
 
 let KP = {}; //Keyspressed array.
-//element to var.
+//elements to vars.
 let elem = document.getElementById("myBar");
-
+let button = document.getElementById("button");
 //vars.
 let gravity = 0.03,
     friction = 0.002,
@@ -62,6 +63,7 @@ let gravity = 0.03,
     minePlant = 0.999,
     enemyVelocity = 1,
     foodVelocity = 1,
+    foodAmount = 0.998,
     enemyRadius = 4,
     textFade = 1,
     bonus = 0,
@@ -82,7 +84,8 @@ let moveLeft = false,
     fadeText = false,
     missile = false,
     playerAlive = true,
-    minesToPlant = false;
+    minesToPlant = false,
+    endGameSound = false;
 
 let leftEye = { x: 8, y: 7 },
     rightEye = { x: 8, y: 7 },
@@ -126,14 +129,13 @@ function animate() {
         if (controlLevel > 5) {
             let createFlower = Math.random();
             if (createFlower > 0.999) {
-                flowers.push(new Flower(c.width + 100 + Math.random() * c.width, c.height - 200, 20, 25));
+                flowers.push(new Flower(c.width + 100 + (Math.random() * c.width), c.height - 200, 20, 25));
             }
 
             createFlower = Math.random();
             if (createFlower > 0.999) {
-                flowers.push(new Flower(-100 - Math.random() * c.width, c.height - 200, 20, 25));
+                flowers.push(new Flower(-100 - (Math.random() * c.width), c.height - 200, 20, 25));
             }
-
         }
 
         flowers.forEach((flower, index) => {
@@ -143,11 +145,17 @@ function animate() {
                 flower.y - (flower.r * 10) < player.y + player.r &&
                 flower.y + (flower.r * 10) > player.y - player.r
             ) {
-                mineExplode.currentTime = 0;
-                mineExplode.play();
-                for (let i = 0; i < 10; i++) {
-                    projectiles.push(new Projectile(flower.x, flower.y, 2, { x: (Math.random() - 0.5) * 20, y: (Math.random() - 0.5) * 20 }, 25));
-                }
+                flowerFire.currentTime = 0;
+                flowerFire.play();
+                const startPos = flower.x;
+                const angles = Math.atan2(player.y - flower.y, x - startPos);
+                const velocity = {
+                    x: Math.cos(angles) * 5,
+                    y: Math.sin(angles) * 5
+                };
+                guidedMissiles.push(
+                    new GuidedMissile(startPos, flower.y, velocity.x, velocity.y, 4, false)
+                );
                 flowers.splice(index, 1);
             }
             if (flower.countdown <= 0) {
@@ -387,7 +395,7 @@ function animate() {
                     y: Math.sin(angles) * 5
                 };
                 guidedMissiles.push(
-                    new GuidedMissile(startPos, 0, velocity.x, velocity.y, 4)
+                    new GuidedMissile(startPos, 0, velocity.x, velocity.y, 4, true)
                 );
             }
         }
@@ -416,13 +424,15 @@ function animate() {
                 playerAlive = false;
             }
             //guidedmissile falls off screen.
-            if (gm.y > c.height) guidedMissiles.splice(index, 1);
+            if (gm.y > c.height || gm.countdown <= 0) {
+                guidedMissiles.splice(index, 1);
+            }
             gm.update();
         });
 
         //create food.
         let createFood = Math.random();
-        if (createFood > 0.998) {
+        if (createFood > foodAmount) {
             food.currentTime = 0;
             food.play();
             foods.push(
@@ -503,9 +513,9 @@ function animate() {
             ) {
                 //player gets next level of control + bonus score/update variables.
                 if (player.y > c.height / 2) {
-                    texts.push(new Text(x, player.y, 0, -1, "L+", "bold 25px Arial", "red", 1));
+                    texts.push(new Text(x, player.y, 0, -1, "L+", "bold 25px Arial", "yellow", 1));
                 } else {
-                    texts.push(new Text(x, player.y, 0, 1, "L+", "bold 25px Arial", "red", 1));
+                    texts.push(new Text(x, player.y, 0, 1, "L+", "bold 25px Arial", "yellow", 1));
                 }
 
                 levelGains.splice(index, 1);
@@ -560,14 +570,20 @@ function animate() {
             text.update();
         });
     } else {
+        button.style.visibility = "visible";
         player.velocity.x = 0;
-        losingBeep.play();
+        if (!endGameSound) {
+            losingBeep.play();
+            endGameSound = true;
+        }
         levelBonus = 0;
         gravity = 0.003;
         ctx.fillText("Player size: DEAD", c.width / 2, 20);
-        ctx.font = "50px Arial";
+        ctx.font = "bold 50px Arial";
         ctx.fillStyle = "red";
-        ctx.fillText("GAME OVER", c.width / 2 - c.width / 8, c.height / 2);
+        let str = "OH NO IT'S GAME OVER";
+        let width = ctx.measureText(str).width;
+        ctx.fillText(str, c.width / 2 - width / 2, c.height / 2);
         ctx.fillStyle = "rgb(0, 0, 0,0.1)";
         ctx.fillRect(0, 0, c.width, c.height);
         let colour = "blue";

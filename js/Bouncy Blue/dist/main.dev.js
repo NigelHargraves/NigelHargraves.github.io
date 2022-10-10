@@ -41,10 +41,12 @@ var losingBeep = document.getElementById("audio10");
 var levelRelease = document.getElementById("audio11");
 var mineExplode = document.getElementById("audio12");
 var killEverything = document.getElementById("audio13");
+var flowerFire = document.getElementById("audio14");
 var KP = {}; //Keyspressed array.
-//element to var.
+//elements to vars.
 
-var elem = document.getElementById("myBar"); //vars.
+var elem = document.getElementById("myBar");
+var button = document.getElementById("button"); //vars.
 
 var gravity = 0.03,
     friction = 0.002,
@@ -58,6 +60,7 @@ var gravity = 0.03,
     minePlant = 0.999,
     enemyVelocity = 1,
     foodVelocity = 1,
+    foodAmount = 0.998,
     enemyRadius = 4,
     textFade = 1,
     bonus = 0,
@@ -76,7 +79,8 @@ var moveLeft = false,
     fadeText = false,
     missile = false,
     playerAlive = true,
-    minesToPlant = false;
+    minesToPlant = false,
+    endGameSound = false;
 var leftEye = {
   x: 8,
   y: 7
@@ -141,16 +145,15 @@ function animate() {
 
     flowers.forEach(function (flower, index) {
       if (flower.x - flower.r * 10 < x + player.r && flower.x + flower.r * 10 > x - player.r && flower.y - flower.r * 10 < player.y + player.r && flower.y + flower.r * 10 > player.y - player.r) {
-        mineExplode.currentTime = 0;
-        mineExplode.play();
-
-        for (var _i = 0; _i < 10; _i++) {
-          projectiles.push(new Projectile(flower.x, flower.y, 2, {
-            x: (Math.random() - 0.5) * 20,
-            y: (Math.random() - 0.5) * 20
-          }, 25));
-        }
-
+        flowerFire.currentTime = 0;
+        flowerFire.play();
+        var startPos = flower.x;
+        var angles = Math.atan2(player.y - flower.y, x - startPos);
+        var velocity = {
+          x: Math.cos(angles) * 5,
+          y: Math.sin(angles) * 5
+        };
+        guidedMissiles.push(new GuidedMissile(startPos, flower.y, velocity.x, velocity.y, 4, false));
         flowers.splice(index, 1);
       }
 
@@ -217,7 +220,7 @@ function animate() {
         mineExplode.currentTime = 0;
         mineExplode.play();
 
-        for (var _i2 = 0; _i2 < 10; _i2++) {
+        for (var _i = 0; _i < 10; _i++) {
           projectiles.push(new Projectile(wmine.x, wmine.y, 2, {
             x: (Math.random() - 0.5) * 20,
             y: (Math.random() - 0.5) * 20
@@ -374,7 +377,7 @@ function animate() {
           x: Math.cos(angles) * 5,
           y: Math.sin(angles) * 5
         };
-        guidedMissiles.push(new GuidedMissile(startPos, 0, velocity.x, velocity.y, 4));
+        guidedMissiles.push(new GuidedMissile(startPos, 0, velocity.x, velocity.y, 4, true));
       }
     }
 
@@ -400,13 +403,16 @@ function animate() {
       } //guidedmissile falls off screen.
 
 
-      if (gm.y > c.height) guidedMissiles.splice(index, 1);
+      if (gm.y > c.height || gm.countdown <= 0) {
+        guidedMissiles.splice(index, 1);
+      }
+
       gm.update();
     }); //create food.
 
     var createFood = Math.random();
 
-    if (createFood > 0.998) {
+    if (createFood > foodAmount) {
       food.currentTime = 0;
       food.play();
       foods.push(new Food(c.width, Math.random() * (c.height - 40) + 20, -foodVelocity, 0, 4));
@@ -469,9 +475,9 @@ function animate() {
       if (LG.x - LG.r < x + player.r && LG.x + LG.r > x - player.r && LG.y - LG.r < player.y + player.r && LG.y + LG.r > player.y - player.r) {
         //player gets next level of control + bonus score/update variables.
         if (player.y > c.height / 2) {
-          texts.push(new Text(x, player.y, 0, -1, "L+", "bold 25px Arial", "red", 1));
+          texts.push(new Text(x, player.y, 0, -1, "L+", "bold 25px Arial", "yellow", 1));
         } else {
-          texts.push(new Text(x, player.y, 0, 1, "L+", "bold 25px Arial", "red", 1));
+          texts.push(new Text(x, player.y, 0, 1, "L+", "bold 25px Arial", "yellow", 1));
         }
 
         levelGains.splice(index, 1);
@@ -522,14 +528,22 @@ function animate() {
       text.update();
     });
   } else {
+    button.style.visibility = "visible";
     player.velocity.x = 0;
-    losingBeep.play();
+
+    if (!endGameSound) {
+      losingBeep.play();
+      endGameSound = true;
+    }
+
     levelBonus = 0;
     gravity = 0.003;
     ctx.fillText("Player size: DEAD", c.width / 2, 20);
-    ctx.font = "50px Arial";
+    ctx.font = "bold 50px Arial";
     ctx.fillStyle = "red";
-    ctx.fillText("GAME OVER", c.width / 2 - c.width / 8, c.height / 2);
+    var str = "OH NO IT'S GAME OVER";
+    var _width = ctx.measureText(str).width;
+    ctx.fillText(str, c.width / 2 - _width / 2, c.height / 2);
     ctx.fillStyle = "rgb(0, 0, 0,0.1)";
     ctx.fillRect(0, 0, c.width, c.height);
     var colour = "blue";
