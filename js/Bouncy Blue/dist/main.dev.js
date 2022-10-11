@@ -46,7 +46,8 @@ var KP = {}; //Keyspressed array.
 //elements to vars.
 
 var elem = document.getElementById("myBar");
-var button = document.getElementById("button"); //vars.
+var button = document.getElementById("button");
+var textName = document.getElementById("display"); //vars.
 
 var gravity = 0.03,
     friction = 0.002,
@@ -95,7 +96,7 @@ var leftEye = {
 },
     countBlink = 100,
     countSquint = 100;
-var bestScore = localStorage.getItem("bestScore");
+var topScore = JSON.parse(localStorage.getItem("bestScore"));
 
 function animate() {
   var _this = this;
@@ -115,7 +116,7 @@ function animate() {
   }
 
   levelBonus -= 1;
-  ctx.fillText("Score: " + score + "   Top Score: " + bestScore, c.width - c.width / 4, 20);
+  ctx.fillText("Score: " + score + "          Top Score: " + topScore.name + ": " + topScore.score, c.width - c.width / 4, 20);
 
   if (playerAlive) {
     ctx.font = "20px Arial";
@@ -561,7 +562,12 @@ function animate() {
       text.update();
     });
   } else {
-    store(score);
+    if (score > topScore.score) {
+      textName.style.visibility = "visible";
+      var name = textName.value;
+      store(name, score);
+    }
+
     button.style.visibility = "visible";
     player.velocity.x = 0;
 

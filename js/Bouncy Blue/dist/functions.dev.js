@@ -65,6 +65,8 @@ function levelJump() {
 }
 
 function init() {
+  topScore = JSON.parse(localStorage.getItem("bestScore"));
+  display.style.visibility = "hidden";
   button.style.visibility = "hidden";
   enemies = [];
   foods = [];
@@ -94,6 +96,10 @@ function init() {
   layers.push(new Layer(background2, 0, c2.height, 0));
 }
 
-function store(thisScore) {
-  localStorage.setItem("BestScore", JSON.stringify(thisScore));
+function store(name, score) {
+  var thisScore = {
+    name: name,
+    score: score
+  };
+  window.localStorage.setItem('bestScore', JSON.stringify(thisScore));
 }
