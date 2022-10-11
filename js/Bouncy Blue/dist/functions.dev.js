@@ -101,5 +101,5 @@ function store(name, score) {
     name: name,
     score: score
   };
-  window.localStorage.setItem('bestScore', JSON.stringify(thisScore));
+  localStorage.setItem('bestScore', JSON.stringify(thisScore));
 }
