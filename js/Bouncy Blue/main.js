@@ -100,7 +100,7 @@ let leftEye = { x: 8, y: 7 },
 
 
 
-let topScore = JSON.parse(localStorage.getItem("bestScore"));
+let topScore = JSON.parse(localStorage.getItem('bestScore'));
 
 
 

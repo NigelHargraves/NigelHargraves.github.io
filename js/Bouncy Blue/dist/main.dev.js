@@ -96,7 +96,7 @@ var leftEye = {
 },
     countBlink = 100,
     countSquint = 100;
-var topScore = JSON.parse(localStorage.getItem("bestScore"));
+var topScore = JSON.parse(localStorage.getItem('bestScore'));
 
 function animate() {
   var _this = this;
