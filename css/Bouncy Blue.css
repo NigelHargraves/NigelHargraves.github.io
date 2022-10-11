@@ -37,6 +37,9 @@
     background: green;
     position: absolute;
     border-radius: 12px;
+    padding: 5px 5px 7px 5px;
+    margin: 2px;
+    cursor: pointer;
     left: calc(50% - 10%/2);
     top: 60%;
     width: 10%;

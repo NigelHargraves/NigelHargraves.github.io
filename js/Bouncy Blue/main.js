@@ -73,6 +73,7 @@ let gravity = 0.03,
     y1 = 0;
 
 
+
 //boolean vars.
 let moveLeft = false,
     moveRight = false,
@@ -95,6 +96,15 @@ let leftEye = { x: 8, y: 7 },
 
 
 
+
+
+
+
+
+
+let bestScore = localStorage.getItem("bestScore");
+
+
 function animate() {
     //call next frame.
     animationId = requestAnimationFrame(animate);
@@ -112,7 +122,8 @@ function animate() {
     }
     levelBonus -= 1;
 
-    ctx.fillText("Score: " + score, c.width - c.width / 4, 20);
+    ctx.fillText("Score: " + score + "   Top Score: " + bestScore, c.width - c.width / 4, 20);
+
     if (playerAlive) {
         ctx.font = "20px Arial";
         ctx.fillStyle = "white";
@@ -165,7 +176,7 @@ function animate() {
         });
 
         //kill all.
-        if (controlLevel > 11) {
+        if (controlLevel > 9) {
             let killAll = Math.random();
             if (killAll > 0.999) {
                 kills.push(new Kill(Math.random() * 6000 - 3000, Math.random() * c.height, 8, 25))
@@ -181,6 +192,7 @@ function animate() {
                     kills.splice(index, 1);
                     killEverything.currentTime = 0;
                     killEverything.play();
+
                     enemies.forEach((enemy, index) => {
                         ctx.beginPath();
                         ctx.moveTo(x, player.y);
@@ -188,7 +200,45 @@ function animate() {
                         ctx.strokeStyle = "white";
                         ctx.stroke();
                     });
+
+                    mines.forEach((mine, index) => {
+                        ctx.beginPath();
+                        ctx.moveTo(x, player.y);
+                        ctx.lineTo(mine.x, mine.y);
+                        ctx.strokeStyle = "white";
+                        ctx.stroke();
+                    });
+
+                    wanderingMines.forEach((wm, index) => {
+                        ctx.beginPath();
+                        ctx.moveTo(x, player.y);
+                        ctx.lineTo(wm.x, wm.y);
+                        ctx.strokeStyle = "white";
+                        ctx.stroke();
+                    });
+
+                    flowers.forEach((flower, index) => {
+                        ctx.beginPath();
+                        ctx.moveTo(x, player.y);
+                        ctx.lineTo(flower.x, flower.y);
+                        ctx.strokeStyle = "white";
+                        ctx.stroke();
+                    });
+
+                    guidedMissiles.forEach((gm, index) => {
+                        ctx.beginPath();
+                        ctx.moveTo(x, player.y);
+                        ctx.lineTo(gm.x, gm.y);
+                        ctx.strokeStyle = "white";
+                        ctx.stroke();
+                    });
+
+
                     enemies = [];
+                    mines = [];
+                    wanderingMines = [];
+                    flowers = [];
+                    guidedMissiles = [];
                 }
 
                 if (kill.countdown <= 0) {
@@ -570,6 +620,11 @@ function animate() {
             text.update();
         });
     } else {
+
+        store(score);
+
+
+
         button.style.visibility = "visible";
         player.velocity.x = 0;
         if (!endGameSound) {

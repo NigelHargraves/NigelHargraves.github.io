@@ -95,6 +95,7 @@ var leftEye = {
 },
     countBlink = 100,
     countSquint = 100;
+var bestScore = localStorage.getItem("bestScore");
 
 function animate() {
   var _this = this;
@@ -114,7 +115,7 @@ function animate() {
   }
 
   levelBonus -= 1;
-  ctx.fillText("Score: " + score, c.width - c.width / 4, 20);
+  ctx.fillText("Score: " + score + "   Top Score: " + bestScore, c.width - c.width / 4, 20);
 
   if (playerAlive) {
     ctx.font = "20px Arial";
@@ -164,7 +165,7 @@ function animate() {
       flower.update();
     }); //kill all.
 
-    if (controlLevel > 11) {
+    if (controlLevel > 9) {
       var killAll = Math.random();
 
       if (killAll > 0.999) {
@@ -183,7 +184,39 @@ function animate() {
             ctx.strokeStyle = "white";
             ctx.stroke();
           });
+          mines.forEach(function (mine, index) {
+            ctx.beginPath();
+            ctx.moveTo(x, player.y);
+            ctx.lineTo(mine.x, mine.y);
+            ctx.strokeStyle = "white";
+            ctx.stroke();
+          });
+          wanderingMines.forEach(function (wm, index) {
+            ctx.beginPath();
+            ctx.moveTo(x, player.y);
+            ctx.lineTo(wm.x, wm.y);
+            ctx.strokeStyle = "white";
+            ctx.stroke();
+          });
+          flowers.forEach(function (flower, index) {
+            ctx.beginPath();
+            ctx.moveTo(x, player.y);
+            ctx.lineTo(flower.x, flower.y);
+            ctx.strokeStyle = "white";
+            ctx.stroke();
+          });
+          guidedMissiles.forEach(function (gm, index) {
+            ctx.beginPath();
+            ctx.moveTo(x, player.y);
+            ctx.lineTo(gm.x, gm.y);
+            ctx.strokeStyle = "white";
+            ctx.stroke();
+          });
           enemies = [];
+          mines = [];
+          wanderingMines = [];
+          flowers = [];
+          guidedMissiles = [];
         }
 
         if (kill.countdown <= 0) {
@@ -528,6 +561,7 @@ function animate() {
       text.update();
     });
   } else {
+    store(score);
     button.style.visibility = "visible";
     player.velocity.x = 0;
 
