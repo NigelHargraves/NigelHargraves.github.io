@@ -627,14 +627,14 @@ function animate() {
         });
     } else {
 
+        textName.style.visibility = "visible";
+        let name = textName.value;
+        store(name, score);
 
 
-
-        if (score > topScore.score) {
-            textName.style.visibility = "visible";
-            let name = textName.value;
-            store(name, score);
-        }
+        /*if (score > topScore.score) {
+          
+        }*/
 
 
 

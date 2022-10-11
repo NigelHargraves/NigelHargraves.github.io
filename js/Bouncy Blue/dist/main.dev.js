@@ -567,11 +567,12 @@ function animate() {
       text.update();
     });
   } else {
-    if (score > topScore.score) {
-      textName.style.visibility = "visible";
-      var name = textName.value;
-      store(name, score);
-    }
+    textName.style.visibility = "visible";
+    var name = textName.value;
+    store(name, score);
+    /*if (score > topScore.score) {
+      
+    }*/
 
     button.style.visibility = "visible";
     player.velocity.x = 0;
