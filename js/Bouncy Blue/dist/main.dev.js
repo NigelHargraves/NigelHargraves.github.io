@@ -116,7 +116,12 @@ function animate() {
   }
 
   levelBonus -= 1;
-  ctx.fillText("Score: " + score + "          Top Score: " + topScore.name + ": " + topScore.score, c.width - c.width / 4, 20);
+
+  if (topScore !== null) {
+    ctx.fillText("Score: " + score + "          Top Score: " + topScore.name + ": " + topScore.score, c.width - c.width / 4, 20);
+  } else {
+    ctx.fillText("Score: " + score + "          Top Score: ", c.width - c.width / 4, 20);
+  }
 
   if (playerAlive) {
     ctx.font = "20px Arial";

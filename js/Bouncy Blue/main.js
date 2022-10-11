@@ -98,8 +98,9 @@ let leftEye = { x: 8, y: 7 },
 
 
 
-let topScore = JSON.parse(localStorage.getItem("bestScore"));
 
+
+let topScore = JSON.parse(localStorage.getItem("bestScore"));
 
 
 
@@ -122,8 +123,12 @@ function animate() {
         levelBonus = 1;
     }
     levelBonus -= 1;
+    if (topScore !== null) {
+        ctx.fillText("Score: " + score + "          Top Score: " + topScore.name + ": " + topScore.score, c.width - c.width / 4, 20);
+    } else {
+        ctx.fillText("Score: " + score + "          Top Score: ", c.width - c.width / 4, 20);
+    }
 
-    ctx.fillText("Score: " + score + "          Top Score: " + topScore.name + ": " + topScore.score, c.width - c.width / 4, 20);
 
     if (playerAlive) {
         ctx.font = "20px Arial";
