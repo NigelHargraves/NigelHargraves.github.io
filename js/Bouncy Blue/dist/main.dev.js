@@ -96,13 +96,15 @@ var leftEye = {
 },
     countBlink = 100,
     countSquint = 100;
-var topScore = {
-  Name: null,
-  Score: 0
-};
+var topScore;
 
-if (localStorage.getItem('bestScore')) {
-  topScore = JSON.parse(localStorage.getItem('bestScore'));
+if (localStorage.getItem("bestScore")) {
+  topScore = JSON.parse(localStorage.getItem("bestScore"));
+} else {
+  topScore = {
+    name: "",
+    score: 0
+  };
 }
 
 function animate() {
@@ -123,12 +125,7 @@ function animate() {
   }
 
   levelBonus -= 1;
-
-  if (topScore !== null) {
-    ctx.fillText("Score: " + score + "          Top Score: " + topScore.name + ": " + topScore.score, c.width - c.width / 4, 20);
-  } else {
-    ctx.fillText("Score: " + score + "          Top Score: ", c.width - c.width / 4, 20);
-  }
+  ctx.fillText("Score: " + score + "          Top Score: " + topScore.name + ": " + topScore.score, c.width - c.width / 4, 20);
 
   if (playerAlive) {
     ctx.font = "20px Arial";

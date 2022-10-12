@@ -100,11 +100,11 @@ let leftEye = { x: 8, y: 7 },
 
 
 
-let topScore = { Name: null, Score: 0 };
-
-
-if (localStorage.getItem('bestScore')) {
-    topScore = JSON.parse(localStorage.getItem('bestScore'));
+let topScore;
+if (localStorage.getItem("bestScore")) {
+    topScore = JSON.parse(localStorage.getItem("bestScore"));
+} else {
+    topScore = { name: "", score: 0 };
 }
 
 
@@ -129,11 +129,10 @@ function animate() {
         levelBonus = 1;
     }
     levelBonus -= 1;
-    if (topScore !== null) {
-        ctx.fillText("Score: " + score + "          Top Score: " + topScore.name + ": " + topScore.score, c.width - c.width / 4, 20);
-    } else {
-        ctx.fillText("Score: " + score + "          Top Score: ", c.width - c.width / 4, 20);
-    }
+
+
+    ctx.fillText("Score: " + score + "          Top Score: " + topScore.name + ": " + topScore.score, c.width - c.width / 4, 20);
+
 
 
     if (playerAlive) {
