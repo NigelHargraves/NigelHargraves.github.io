@@ -100,7 +100,15 @@ let leftEye = { x: 8, y: 7 },
 
 
 
-let topScore = JSON.parse(localStorage.getItem('bestScore'));
+let topScore;
+
+
+if (localStorage.getItem('bestScore')) {
+    topScore = JSON.parse(localStorage.getItem('bestScore'));
+} else {
+    topScore = 0;
+}
+
 
 
 
@@ -176,6 +184,13 @@ function animate() {
                 flowers.splice(index, 1);
             }
             if (flower.countdown <= 0) {
+                if (flower.x > 0 - flower.r && flower.x < c.width + flower.r) {
+                    mineExplode.currentTime = 0;
+                    mineExplode.play();
+                    for (let i = 0; i < 10; i++) {
+                        projectiles.push(new Projectile(flower.x, flower.y, 2, { x: (Math.random() - 0.5) * 20, y: (Math.random() - 0.5) * 20 }, 25));
+                    }
+                }
                 flowers.splice(index, 1);
             }
             flower.update();
@@ -274,10 +289,12 @@ function animate() {
                 wmine.y - (wmine.r * 10) < player.y + player.r &&
                 wmine.y + (wmine.r * 10) > player.y - player.r
             ) {
-                mineExplode.currentTime = 0;
-                mineExplode.play();
-                for (let i = 0; i < 10; i++) {
-                    projectiles.push(new Projectile(wmine.x, wmine.y, 2, { x: (Math.random() - 0.5) * 20, y: (Math.random() - 0.5) * 20 }, 25));
+                if (wmine.x > 0 - wmine.r && wmine.x < c.width + wmine.r) {
+                    mineExplode.currentTime = 0;
+                    mineExplode.play();
+                    for (let i = 0; i < 10; i++) {
+                        projectiles.push(new Projectile(wmine.x, wmine.y, 2, { x: (Math.random() - 0.5) * 20, y: (Math.random() - 0.5) * 20 }, 25));
+                    }
                 }
                 wanderingMines.splice(index, 1);
             }
