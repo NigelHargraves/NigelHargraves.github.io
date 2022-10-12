@@ -96,12 +96,13 @@ var leftEye = {
 },
     countBlink = 100,
     countSquint = 100;
-var topScore;
+var topScore = {
+  Name: null,
+  Score: 0
+};
 
 if (localStorage.getItem('bestScore')) {
   topScore = JSON.parse(localStorage.getItem('bestScore'));
-} else {
-  topScore = 0;
 }
 
 function animate() {
