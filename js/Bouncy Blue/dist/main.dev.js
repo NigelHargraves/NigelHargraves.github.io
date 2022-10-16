@@ -102,9 +102,10 @@ if (localStorage.getItem("bestScore")) {
   topScore = JSON.parse(localStorage.getItem("bestScore"));
 } else {
   topScore = {
-    name: "Blank",
+    name: "",
     score: 0
   };
+  localStorage.setItem('bestScore', JSON.stringify(topScore));
 }
 
 function animate() {
