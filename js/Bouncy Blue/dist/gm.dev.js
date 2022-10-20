@@ -49,8 +49,9 @@ function () {
   }, {
     key: "update",
     value: function update() {
+      this.countdown -= 0.02;
+
       if (!this.dumb) {
-        this.countdown -= 0.02;
         var startPos = this.x;
         var angles = Math.atan2(player.y - this.y, x - startPos);
         this.velocityX = Math.cos(angles) * 5;

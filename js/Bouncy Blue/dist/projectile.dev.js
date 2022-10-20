@@ -11,7 +11,7 @@ var Projectile =
 /*#__PURE__*/
 function () {
   //construct projectile data.
-  function Projectile(x, y, radius, velocity, countdown) {
+  function Projectile(x, y, radius, velocity, countdown, color) {
     _classCallCheck(this, Projectile);
 
     this.x = x;
@@ -19,6 +19,7 @@ function () {
     this.r = radius;
     this.v = velocity;
     this.countdown = countdown;
+    this.color = color;
   } //draw projectile.
 
 
@@ -27,7 +28,7 @@ function () {
     value: function draw() {
       ctx.beginPath();
       ctx.arc(this.x, this.y, 2, 0, Math.PI * 2);
-      ctx.fillStyle = "white";
+      ctx.fillStyle = this.color;
       ctx.fill();
     } //update projectile.
 

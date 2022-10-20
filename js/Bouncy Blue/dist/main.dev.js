@@ -343,23 +343,15 @@ function animate() {
 
       if (mine.countdown <= 0) {
         if (mine.x > 0 - mine.r && mine.x < c.width + mine.r) {
-          //player is close to mine as it explodes.
-          if (mine.x - mine.r * 3 < x + player.r && mine.x + mine.r * 3 > x - player.r && mine.y - mine.r * 3 < player.y + player.r && mine.y + mine.r * 3 > player.y - player.r) {
-            hit.currentTime = 0;
-            hit.play(); //reduce player size/reset variables.
-
-            if (player.r > 20) {
-              player.r = 20;
-            } else {
-              player.r -= 2;
-            }
-
-            reset();
-            splats.push(new Splat(x, player.y, x1, y1, ang, player.r));
-          }
-
           mineExplode.currentTime = 0;
           mineExplode.play();
+
+          for (var _i3 = 0; _i3 < 10; _i3++) {
+            projectiles.push(new Projectile(mine.x, mine.y, 2, {
+              x: (Math.random() - 0.5) * 20,
+              y: (Math.random() - 0.5) * 20
+            }, 25, "red"));
+          }
         }
 
         for (i = 0; i < 30; i++) {
@@ -441,23 +433,37 @@ function animate() {
 
     guidedMissiles.forEach(function (gm, index) {
       //guidedmissile hits player.
-      if (gm.x - gm.r < x + player.r && gm.x + gm.r > x - player.r && gm.y - gm.r < player.y + player.r && gm.y + gm.r > player.y - player.r) {
-        hit.currentTime = 0;
-        hit.play(); //reduce player size/reset variables.
+      if (gm.x - (gm.r + 40) < x + player.r && gm.x + (gm.r + 40) > x - player.r && gm.y - (gm.r + 40) < player.y + player.r && gm.y + (gm.r + 40) > player.y - player.r) {
+        mineExplode.currentTime = 0;
+        mineExplode.play();
 
-        if (player.r > 20) {
-          player.r = 20;
-        } else {
-          player.r -= 2;
+        for (var _i4 = 0; _i4 < 10; _i4++) {
+          projectiles.push(new Projectile(gm.x, gm.y, 2, {
+            x: (Math.random() - 0.5) * 20,
+            y: (Math.random() - 0.5) * 20
+          }, 25, "white"));
         }
 
-        reset();
         guidedMissiles.splice(index, 1);
-        splats.push(new Splat(x, player.y, x1, y1, ang, player.r));
       }
 
       if (player.r <= 14) {
         playerAlive = false;
+      } //countdown = 0 and missile still on screen.
+
+
+      if (gm.countdown <= 0) {
+        mineExplode.currentTime = 0;
+        mineExplode.play();
+
+        for (var _i5 = 0; _i5 < 10; _i5++) {
+          projectiles.push(new Projectile(gm.x, gm.y, 2, {
+            x: (Math.random() - 0.5) * 20,
+            y: (Math.random() - 0.5) * 20
+          }, 25, "yellow"));
+        }
+
+        guidedMissiles.splice(index, 1);
       } //guidedmissile falls off screen.
 
 

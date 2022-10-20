@@ -32,9 +32,8 @@ class GuidedMissile {
         }
         //update GuidedMissile.
     update() {
-
+        this.countdown -= 0.02;
         if (!this.dumb) {
-            this.countdown -= 0.02;
             let startPos = this.x;
             let angles = Math.atan2(player.y - this.y, x - startPos);
             this.velocityX = Math.cos(angles) * 5;
