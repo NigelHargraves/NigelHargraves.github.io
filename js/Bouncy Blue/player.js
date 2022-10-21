@@ -10,9 +10,23 @@ class Player {
                 x: 0,
                 y: 0
             };
+            this.alpha = 0.2;
+            this.glow = false;
         }
         //draw player.
     draw() {
+
+            if (playerSheild) {
+                ctx.globalAlpha = this.alpha;
+                ctx.beginPath();
+                ctx.arc(x, this.y, this.r + 4, 0, Math.PI * 2);
+                ctx.fillStyle = "yellow";
+                ctx.fill();
+                ctx.globalAlpha = 1;
+            }
+
+
+
             ctx.beginPath();
             ctx.arc(x, this.y, this.r, 0, Math.PI * 2);
             ctx.fillStyle = this.c;
@@ -119,6 +133,20 @@ class Player {
         //update position.
         this.x += this.velocity.x;
         this.y += this.velocity.y;
+
+        if (playerSheild) {
+            if (this.alpha <= 0.2) {
+                this.glow = true;
+            }
+            if (this.alpha >= 1) {
+                this.glow = false;
+            }
+            if (this.glow) {
+                this.alpha += 0.02;
+            } else {
+                this.alpha -= 0.02;
+            }
+        }
 
         if (moveLeft) {
             leftEye.x = 11;

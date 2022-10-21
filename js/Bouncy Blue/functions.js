@@ -1,23 +1,29 @@
 function reset() {
-    if (velocityAmount > 0.02) {
-        velocityAmount -= 0.02;
-    }
-    levelBonus = 8000;
-    if (controlLevel > 1) {
-        controlLevel -= 1;
-    }
-    if (controlLevel == 1) {
-        gravity = 0.03;
+    if (!playerSheild) {
+        splats.push(new Splat(x, player.y, x1, y1, ang, player.r));
+        if (velocityAmount > 0.02) {
+            velocityAmount -= 0.02;
+        }
+        levelBonus = 8000;
+        if (controlLevel > 1) {
+            controlLevel -= 1;
+        }
+        if (controlLevel == 1) {
+            gravity = 0.03;
+        } else {
+            gravity = 0;
+        }
+        if (controlLevel == 2) {
+            friction = 0;
+        } else {
+            friction = 0.002;
+        }
+        width = 0;
+        elem.style.width = width + "%";
     } else {
-        gravity = 0;
+        sheildHit.currentTime = 0;
+        sheildHit.play();
     }
-    if (controlLevel == 2) {
-        friction = 0;
-    } else {
-        friction = 0.002;
-    }
-    width = 0;
-    elem.style.width = width + "%";
 }
 
 function levelJump() {

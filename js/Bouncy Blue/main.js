@@ -28,6 +28,7 @@ let wanderingMines = [];
 let projectiles = [];
 let kills = [];
 let flowers = [];
+let sheilds = [];
 
 
 //audio to var.animationId
@@ -45,6 +46,9 @@ let levelRelease = document.getElementById("audio11");
 let mineExplode = document.getElementById("audio12");
 let killEverything = document.getElementById("audio13");
 let flowerFire = document.getElementById("audio14");
+let sheildHit = document.getElementById("audio15");
+let sheildGain = document.getElementById("audio16");
+let sheildLoss = document.getElementById("audio17");
 
 let KP = {}; //Keyspressed array.
 //elements to vars.
@@ -72,7 +76,8 @@ let gravity = 0.03,
     x = c.width / 2,
     ang = 0,
     x1 = 0,
-    y1 = 0;
+    y1 = 0,
+    sheildTime = 30;
 
 
 
@@ -88,7 +93,8 @@ let moveLeft = false,
     missile = false,
     playerAlive = true,
     minesToPlant = false,
-    endGameSound = false;
+    endGameSound = false,
+    playerSheild = false;
 
 let leftEye = { x: 8, y: 7 },
     rightEye = { x: 8, y: 7 },
@@ -147,6 +153,46 @@ function animate() {
             eyesBlink = true;
         }
 
+        //create sheild icon.
+        if (!playerSheild && controlLevel > 5) {
+            let createSheild = Math.random();
+            if (createSheild > 0.999) {
+                sheilds.push(new Sheild(Math.random() * 6000 - 3000, Math.random() * c.height, 8, 25))
+            }
+        }
+
+        sheilds.forEach((sheild, index) => {
+            if (
+                sheild.x - sheild.r < x + player.r &&
+                sheild.x + sheild.r > x - player.r &&
+                sheild.y - sheild.r < player.y + player.r &&
+                sheild.y + sheild.r > player.y - player.r
+            ) {
+
+                sheilds = [];
+                playerSheild = true;
+                sheildGain.currentTime = 0;
+                sheildGain.play();
+
+            }
+            if (sheild.countdown <= 0) {
+                sheilds.splice(index, 1);
+            }
+            sheild.update();
+        });
+
+        if (playerSheild) {
+            sheildTime -= 0.01;
+            if (sheildTime <= 0) {
+                playerSheild = false;
+                sheildLoss.currentTime = 0;
+                sheildLoss.play();
+                sheildTime = 30;
+            }
+        }
+
+
+
         //create flower.
         if (controlLevel > 5) {
             let createFlower = Math.random();
@@ -194,7 +240,7 @@ function animate() {
         });
 
         //kill all.
-        if (controlLevel > 9) {
+        if (controlLevel > 7) {
             let killAll = Math.random();
             if (killAll > 0.999) {
                 kills.push(new Kill(Math.random() * 6000 - 3000, Math.random() * c.height, 8, 25))
@@ -267,7 +313,7 @@ function animate() {
         }
 
         //create wandering mine.
-        if (controlLevel > 9) {
+        if (controlLevel > 6) {
             let wm = Math.random();
             if (wm > 0.999) {
                 wanderingMines.push(new WanderingMine(c.width + 100, Math.random() * c.height, 10, { x: -1, y: Math.random() - 0.5 }, 25));
@@ -303,37 +349,6 @@ function animate() {
         });
 
 
-        projectiles.forEach((pro, index) => {
-            if (
-                pro.x - pro.r < x + player.r &&
-                pro.x + pro.r > x - player.r &&
-                pro.y - pro.r < player.y + player.r &&
-                pro.y + pro.r > player.y - player.r
-            ) {
-                hit.currentTime = 0;
-                hit.play();
-                //reduce player size/reset variables.
-                if (player.r > 20) {
-                    player.r = 20;
-                } else {
-                    player.r -= 2;
-                }
-                reset();
-                projectiles.splice(index, 1);
-                splats.push(new Splat(x, player.y, x1, y1, ang, player.r));
-            }
-            if (player.r <= 14) {
-                playerAlive = false;
-            }
-            if (this.countdown <= 0) {
-                projectiles.splice(index, 1);
-            }
-
-
-            pro.update();
-
-        });
-
 
         //plant mine.
         if (controlLevel > 3) {
@@ -354,8 +369,13 @@ function animate() {
                 player.y + player.r > mine.y - mine.r &&
                 player.y - player.r < mine.y + mine.r
             ) {
+                if (!playerSheild) {
+                    playerAlive = false;
+                } else {
+                    sheildHit.currentTime = 0;
+                    sheildHit.play();
+                }
                 mines.splice(index, 1);
-                playerAlive = false;
             }
             //countdown = 0
             if (mine.countdown <= 0) {
@@ -363,7 +383,7 @@ function animate() {
                     mineExplode.currentTime = 0;
                     mineExplode.play();
                     for (let i = 0; i < 10; i++) {
-                        projectiles.push(new Projectile(mine.x, mine.y, 2, { x: (Math.random() - 0.5) * 20, y: (Math.random() - 0.5) * 20 }, 25, "red"));
+                        projectiles.push(new Projectile(mine.x, mine.y, 2, { x: (Math.random() - 0.5) * 20, y: (Math.random() - 0.5) * 20 }, 25, "white"));
                     }
                 }
                 for (i = 0; i < 30; i++) {
@@ -408,17 +428,20 @@ function animate() {
                 enemy.y - enemy.r < player.y + player.r &&
                 enemy.y + enemy.r > player.y - player.r
             ) {
-                hit.currentTime = 0;
-                hit.play();
-                //reduce player size/reset variables.
-                if (player.r > 20) {
-                    player.r = 20;
-                } else {
-                    player.r -= 2;
+                if (!playerSheild) {
+                    hit.currentTime = 0;
+                    hit.play();
+                    //reduce player size/reset variables.
+                    if (player.r > 20) {
+                        player.r = 20;
+                    } else {
+                        player.r -= 2;
+                    }
+
                 }
                 reset();
                 enemies.splice(index, 1);
-                splats.push(new Splat(x, player.y, x1, y1, ang, player.r));
+
             }
             if (player.r <= 14) {
                 playerAlive = false;
@@ -630,6 +653,46 @@ function animate() {
 
             text.update();
         });
+
+
+        projectiles.forEach((pro, index) => {
+            if (
+                pro.x - pro.r < x + player.r &&
+                pro.x + pro.r > x - player.r &&
+                pro.y - pro.r < player.y + player.r &&
+                pro.y + pro.r > player.y - player.r
+            ) {
+                if (!playerSheild) {
+                    hit.currentTime = 0;
+                    hit.play();
+                    //reduce player size/reset variables.
+                    if (player.r > 20) {
+                        player.r = 20;
+                    } else {
+                        player.r -= 2;
+                    }
+                    splats.push(new Splat(x, player.y, x1, y1, ang, player.r));
+                }
+                reset();
+                projectiles.splice(index, 1);
+
+            }
+            if (player.r <= 14) {
+                playerAlive = false;
+            }
+            if (this.countdown <= 0) {
+                projectiles.splice(index, 1);
+            }
+            pro.update();
+        });
+
+
+
+
+
+
+
+
     } else {
 
 
