@@ -77,7 +77,9 @@ function init() {
     projectiles = [];
     kills = [];
     flowers = [];
-
+    flowers = [];
+    sheilds = [];
+    minesToPlant = false;
     gravity = 0.03,
         friction = 0.002,
         controlLevel = 1,

@@ -156,7 +156,7 @@ function animate() {
         //create sheild icon.
         if (!playerSheild && controlLevel > 5) {
             let createSheild = Math.random();
-            if (createSheild > 0.999) {
+            if (createSheild > 0.9991) {
                 sheilds.push(new Sheild(Math.random() * 6000 - 3000, Math.random() * c.height, 8, 25))
             }
         }
@@ -240,9 +240,9 @@ function animate() {
         });
 
         //kill all.
-        if (controlLevel > 7) {
+        if (controlLevel > 5) {
             let killAll = Math.random();
-            if (killAll > 0.999) {
+            if (killAll > 0.9991) {
                 kills.push(new Kill(Math.random() * 6000 - 3000, Math.random() * c.height, 8, 25))
             }
 
@@ -374,6 +374,17 @@ function animate() {
                 } else {
                     sheildHit.currentTime = 0;
                     sheildHit.play();
+                    let points = Math.trunc(mine.x / 10 + (c.height - mine.y) / 10);
+                    score += points;
+                    if (player.y > c.height / 2) {
+                        texts.push(
+                            new Text(x, player.y, 0, -1, points, "bold 20px Arial", "yellow", 1)
+                        );
+                    } else {
+                        texts.push(
+                            new Text(x, player.y, 0, 1, points, "bold 20px Arial", "yellow", 1)
+                        );
+                    }
                 }
                 mines.splice(index, 1);
             }
@@ -398,14 +409,6 @@ function animate() {
                 mines.splice(index, 1);
             }
             mine.update();
-        });
-
-        deaths.forEach((death, index) => {
-            if (death.alpha <= 0.01) {
-                deaths.splice(index, 1);
-            } else {
-                death.update();
-            }
         });
 
 
@@ -438,6 +441,20 @@ function animate() {
                         player.r -= 2;
                     }
 
+                } else {
+
+
+                    let points = Math.trunc(enemy.x / 10 + (c.height - enemy.y) / 10);
+                    score += points;
+                    if (player.y > c.height / 2) {
+                        texts.push(
+                            new Text(x, player.y, 0, -1, points, "bold 20px Arial", "yellow", 1)
+                        );
+                    } else {
+                        texts.push(
+                            new Text(x, player.y, 0, 1, points, "bold 20px Arial", "yellow", 1)
+                        );
+                    }
                 }
                 reset();
                 enemies.splice(index, 1);
@@ -672,6 +689,18 @@ function animate() {
                         player.r -= 2;
                     }
                     splats.push(new Splat(x, player.y, x1, y1, ang, player.r));
+                } else {
+                    let points = Math.trunc(pro.x / 10 + (c.height - pro.y) / 10);
+                    score += points;
+                    if (player.y > c.height / 2) {
+                        texts.push(
+                            new Text(x, player.y, 0, -1, points, "bold 20px Arial", "yellow", 1)
+                        );
+                    } else {
+                        texts.push(
+                            new Text(x, player.y, 0, 1, points, "bold 20px Arial", "yellow", 1)
+                        );
+                    }
                 }
                 reset();
                 projectiles.splice(index, 1);

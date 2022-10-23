@@ -150,7 +150,7 @@ function animate() {
     if (!playerSheild && controlLevel > 5) {
       var createSheild = Math.random();
 
-      if (createSheild > 0.999) {
+      if (createSheild > 0.9991) {
         sheilds.push(new Sheild(Math.random() * 6000 - 3000, Math.random() * c.height, 8, 25));
       }
     }
@@ -229,10 +229,10 @@ function animate() {
       flower.update();
     }); //kill all.
 
-    if (controlLevel > 7) {
+    if (controlLevel > 5) {
       var killAll = Math.random();
 
-      if (killAll > 0.999) {
+      if (killAll > 0.9991) {
         kills.push(new Kill(Math.random() * 6000 - 3000, Math.random() * c.height, 8, 25));
       }
 
@@ -356,6 +356,14 @@ function animate() {
         } else {
           sheildHit.currentTime = 0;
           sheildHit.play();
+          var points = Math.trunc(mine.x / 10 + (c.height - mine.y) / 10);
+          score += points;
+
+          if (player.y > c.height / 2) {
+            texts.push(new Text(x, player.y, 0, -1, points, "bold 20px Arial", "yellow", 1));
+          } else {
+            texts.push(new Text(x, player.y, 0, 1, points, "bold 20px Arial", "yellow", 1));
+          }
         }
 
         mines.splice(index, 1);
@@ -386,13 +394,6 @@ function animate() {
       }
 
       mine.update();
-    });
-    deaths.forEach(function (death, index) {
-      if (death.alpha <= 0.01) {
-        deaths.splice(index, 1);
-      } else {
-        death.update();
-      }
     }); //fire enemy.
 
     var enemyFire = Math.random();
@@ -414,6 +415,15 @@ function animate() {
             player.r = 20;
           } else {
             player.r -= 2;
+          }
+        } else {
+          var points = Math.trunc(enemy.x / 10 + (c.height - enemy.y) / 10);
+          score += points;
+
+          if (player.y > c.height / 2) {
+            texts.push(new Text(x, player.y, 0, -1, points, "bold 20px Arial", "yellow", 1));
+          } else {
+            texts.push(new Text(x, player.y, 0, 1, points, "bold 20px Arial", "yellow", 1));
           }
         }
 
@@ -626,6 +636,15 @@ function animate() {
           }
 
           splats.push(new Splat(x, player.y, x1, y1, ang, player.r));
+        } else {
+          var points = Math.trunc(pro.x / 10 + (c.height - pro.y) / 10);
+          score += points;
+
+          if (player.y > c.height / 2) {
+            texts.push(new Text(x, player.y, 0, -1, points, "bold 20px Arial", "yellow", 1));
+          } else {
+            texts.push(new Text(x, player.y, 0, 1, points, "bold 20px Arial", "yellow", 1));
+          }
         }
 
         reset();
