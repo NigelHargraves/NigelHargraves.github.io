@@ -318,7 +318,7 @@ function animate() {
           mineExplode.currentTime = 0;
           mineExplode.play();
 
-          for (var _i2 = 0; _i2 < 10; _i2++) {
+          for (var _i2 = 0; _i2 < 20; _i2++) {
             projectiles.push(new Projectile(wmine.x, wmine.y, 2, {
               x: (Math.random() - 0.5) * 20,
               y: (Math.random() - 0.5) * 20

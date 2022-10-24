@@ -335,7 +335,7 @@ function animate() {
                 if (wmine.x > 0 - wmine.r && wmine.x < c.width + wmine.r) {
                     mineExplode.currentTime = 0;
                     mineExplode.play();
-                    for (let i = 0; i < 10; i++) {
+                    for (let i = 0; i < 20; i++) {
                         projectiles.push(new Projectile(wmine.x, wmine.y, 2, { x: (Math.random() - 0.5) * 20, y: (Math.random() - 0.5) * 20 }, 25));
                     }
                 }
