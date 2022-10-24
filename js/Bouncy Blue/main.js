@@ -358,8 +358,16 @@ function animate() {
         if (minesToPlant) {
             let plantMine = Math.random();
             if (plantMine > minePlant) {
-                mines.push(new Mine(Math.random() * 6000 - 3000, c.height, 30, 25));
+                mines.push(new Mine(Math.random() * 3000 + c.width, c.height, 30, 25));
             }
+
+            plantMine = Math.random();
+            if (plantMine > minePlant) {
+                mines.push(new Mine(Math.random() * -3000, c.height, 30, 25));
+            }
+
+
+
         }
         mines.forEach((mine, index) => {
             //player hits mine.

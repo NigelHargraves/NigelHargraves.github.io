@@ -77,7 +77,6 @@ function init() {
     projectiles = [];
     kills = [];
     flowers = [];
-    flowers = [];
     sheilds = [];
     minesToPlant = false;
     gravity = 0.03,
