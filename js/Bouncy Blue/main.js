@@ -168,12 +168,10 @@ function animate() {
                 sheild.y - sheild.r < player.y + player.r &&
                 sheild.y + sheild.r > player.y - player.r
             ) {
-
                 sheilds = [];
                 playerSheild = true;
                 sheildGain.currentTime = 0;
                 sheildGain.play();
-
             }
             if (sheild.countdown <= 0) {
                 sheilds.splice(index, 1);
@@ -185,7 +183,6 @@ function animate() {
             sheildTime -= 0.01;
             if (sheildTime <= 0) {
                 playerSheild = false;
-                sheildLoss.currentTime = 0;
                 sheildLoss.play();
                 sheildTime = 30;
             }

@@ -175,7 +175,6 @@ function animate() {
 
       if (sheildTime <= 0) {
         playerSheild = false;
-        sheildLoss.currentTime = 0;
         sheildLoss.play();
         sheildTime = 30;
       }
