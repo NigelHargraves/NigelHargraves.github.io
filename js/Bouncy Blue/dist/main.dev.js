@@ -150,7 +150,7 @@ function animate() {
     if (!playerSheild && controlLevel > 5) {
       var createSheild = Math.random();
 
-      if (createSheild > 0.991) {
+      if (createSheild > 0.9991) {
         sheilds.push(new Sheild(Math.random() * 6000 - 3000, Math.random() * c.height, 8, 25));
       }
     }
