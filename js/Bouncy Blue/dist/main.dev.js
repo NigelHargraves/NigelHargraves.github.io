@@ -147,7 +147,7 @@ function animate() {
     } //create sheild icon.
 
 
-    if (!playerSheild && controlLevel > 0) {
+    if (!playerSheild && controlLevel > 5) {
       var createSheild = Math.random();
 
       if (createSheild > 0.991) {
@@ -173,9 +173,12 @@ function animate() {
     if (playerSheild) {
       sheildTime -= 0.01;
 
+      if (sheildTime < 5) {
+        sheildLoss.play();
+      }
+
       if (sheildTime <= 0) {
         playerSheild = false;
-        sheildLoss.play();
         sheildTime = 30;
       }
     } //create flower.
@@ -237,7 +240,7 @@ function animate() {
 
       kills.forEach(function (kill, index) {
         if (kill.x - kill.r < x + player.r && kill.x + kill.r > x - player.r && kill.y - kill.r < player.y + player.r && kill.y + kill.r > player.y - player.r) {
-          kills.splice(index, 1);
+          kills = [];
           killEverything.currentTime = 0;
           killEverything.play();
           enemies.forEach(function (enemy, index) {

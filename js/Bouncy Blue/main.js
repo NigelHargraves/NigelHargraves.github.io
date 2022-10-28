@@ -154,7 +154,7 @@ function animate() {
         }
 
         //create sheild icon.
-        if (!playerSheild && controlLevel > 0) {
+        if (!playerSheild && controlLevel > 5) {
             let createSheild = Math.random();
             if (createSheild > 0.991) {
                 sheilds.push(new Sheild(Math.random() * 6000 - 3000, Math.random() * c.height, 8, 25))
@@ -181,9 +181,11 @@ function animate() {
 
         if (playerSheild) {
             sheildTime -= 0.01;
+            if (sheildTime < 5) {
+                sheildLoss.play();
+            }
             if (sheildTime <= 0) {
                 playerSheild = false;
-                sheildLoss.play();
                 sheildTime = 30;
             }
         }
@@ -250,7 +252,7 @@ function animate() {
                     kill.y - kill.r < player.y + player.r &&
                     kill.y + kill.r > player.y - player.r
                 ) {
-                    kills.splice(index, 1);
+                    kills = [];
                     killEverything.currentTime = 0;
                     killEverything.play();
 
