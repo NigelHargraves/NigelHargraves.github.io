@@ -10,6 +10,10 @@ let background1 = new Image();
 background1.src = 'images/forest.jpg';
 let background2 = new Image();
 background2.src = 'images/grass1.jpg';
+let mushroomImage = new Image();
+mushroomImage.src = 'images/mushroom.png';
+
+
 
 
 //arrays to var.
@@ -29,6 +33,7 @@ let projectiles = [];
 let kills = [];
 let flowers = [];
 let sheilds = [];
+let mushrooms = [];
 
 
 //audio to var.animationId
@@ -49,6 +54,8 @@ let flowerFire = document.getElementById("audio14");
 let sheildHit = document.getElementById("audio15");
 let sheildGain = document.getElementById("audio16");
 let sheildLoss = document.getElementById("audio17");
+let mushroomEat = document.getElementById("audio18");
+let cheer = document.getElementById("audio19");
 
 let KP = {}; //Keyspressed array.
 //elements to vars.
@@ -77,7 +84,9 @@ let gravity = 0.03,
     ang = 0,
     x1 = 0,
     y1 = 0,
-    sheildTime = 30;
+    sheildTime = 30,
+    mushroomCount = 0,
+    mushroomSize = 50;
 
 
 
@@ -102,9 +111,6 @@ let leftEye = { x: 8, y: 7 },
     countBlink = 100,
     countSquint = 100;
 
-
-
-
 let topScore;
 if (localStorage.getItem("bestScore")) {
     topScore = JSON.parse(localStorage.getItem("bestScore"));
@@ -112,12 +118,6 @@ if (localStorage.getItem("bestScore")) {
     topScore = { name: "", score: 0 };
     localStorage.setItem('bestScore', JSON.stringify(topScore));
 }
-
-
-
-
-
-
 
 function animate() {
     //call next frame.
@@ -130,6 +130,8 @@ function animate() {
     ctx.font = "20px Arial";
     ctx.fillStyle = "white";
     ctx.fillText("Control LV: " + controlLevel, 0, 20);
+    ctx.drawImage(mushroomImage, c.width / 8, 0, 20, 20);
+    ctx.fillText("= " + mushroomCount, c.width / 7.3, 20);
     ctx.fillText("LV Bonus: " + levelBonus, c.width / 4, 20);
     if (levelBonus <= 0) {
         levelBonus = 1;
@@ -153,6 +155,51 @@ function animate() {
             eyesBlink = true;
         }
 
+
+        //create mushroom.
+        if (controlLevel > 2) {
+            let createMushroom = Math.random();
+            if (createMushroom > 0.9991) {
+                mushrooms.push(new Mushroom((Math.random() * 3000) + c.width, c.height - (mushroomSize + 20)))
+            }
+            createMushroom = Math.random();
+            if (createMushroom > 0.9991) {
+                mushrooms.push(new Mushroom((Math.random() * -3000), c.height - (mushroomSize + 20)))
+            }
+        }
+
+        mushrooms.forEach((mroom, index) => {
+            if (
+                mroom.x < x + player.r &&
+                mroom.x + mushroomSize > x - player.r &&
+                mroom.y < player.y + player.r &&
+                mroom.y + mushroomSize > player.y - player.r
+            ) {
+                mushroomEat.currentTime = 0;
+                mushroomEat.play();
+                score += 100;
+                mushroomCount += 1;
+                texts.push(
+                    new Text(x, player.y, 0, -1, 100, "bold 20px Arial", "yellow", 1)
+                );
+                mushrooms.splice(index, 1);
+            }
+            if (mushroomCount >= 20) {
+                cheer.currentTime = 0;
+                cheer.play();
+                score += 10000;
+                texts.push(
+                    new Text(x, player.y, 0, -1, 10000, "bold 50px Arial", "yellow", 1)
+                );
+                mushrooms = [];
+                mushroomCount = 0;
+            }
+            mroom.update();
+        });
+
+
+
+
         //create sheild icon.
         if (!playerSheild && controlLevel > 5) {
             let createSheild = Math.random();
@@ -162,12 +209,8 @@ function animate() {
         }
 
         sheilds.forEach((sheild, index) => {
-            if (
-                sheild.x - sheild.r < x + player.r &&
-                sheild.x + sheild.r > x - player.r &&
-                sheild.y - sheild.r < player.y + player.r &&
-                sheild.y + sheild.r > player.y - player.r
-            ) {
+            let colide = collisionDetection(sheild.x, sheild.y, sheild.r);
+            if (colide) {
                 sheilds = [];
                 playerSheild = true;
                 sheildGain.currentTime = 0;
@@ -178,7 +221,6 @@ function animate() {
             }
             sheild.update();
         });
-
         if (playerSheild) {
             sheildTime -= 0.01;
             if (sheildTime < 5) {
@@ -189,9 +231,6 @@ function animate() {
                 sheildTime = 30;
             }
         }
-
-
-
         //create flower.
         if (controlLevel > 5) {
             let createFlower = Math.random();
@@ -206,12 +245,8 @@ function animate() {
         }
 
         flowers.forEach((flower, index) => {
-            if (
-                flower.x - (flower.r * 10) < x + player.r &&
-                flower.x + (flower.r * 10) > x - player.r &&
-                flower.y - (flower.r * 10) < player.y + player.r &&
-                flower.y + (flower.r * 10) > player.y - player.r
-            ) {
+            let colide = collisionDetection(flower.x, flower.y, flower.r * 10);
+            if (colide) {
                 flowerFire.currentTime = 0;
                 flowerFire.play();
                 const startPos = flower.x;
@@ -225,6 +260,7 @@ function animate() {
                 );
                 flowers.splice(index, 1);
             }
+
             if (flower.countdown <= 0) {
                 if (flower.x > 0 - flower.r && flower.x < c.width + flower.r) {
                     mineExplode.currentTime = 0;
@@ -246,16 +282,11 @@ function animate() {
             }
 
             kills.forEach((kill, index) => {
-                if (
-                    kill.x - kill.r < x + player.r &&
-                    kill.x + kill.r > x - player.r &&
-                    kill.y - kill.r < player.y + player.r &&
-                    kill.y + kill.r > player.y - player.r
-                ) {
+                let colide = collisionDetection(kill.x, kill.y, kill.r);
+                if (colide) {
                     kills = [];
                     killEverything.currentTime = 0;
                     killEverything.play();
-
                     enemies.forEach((enemy, index) => {
                         ctx.beginPath();
                         ctx.moveTo(x, player.y);
@@ -263,7 +294,6 @@ function animate() {
                         ctx.strokeStyle = "white";
                         ctx.stroke();
                     });
-
                     mines.forEach((mine, index) => {
                         ctx.beginPath();
                         ctx.moveTo(x, player.y);
@@ -271,7 +301,6 @@ function animate() {
                         ctx.strokeStyle = "white";
                         ctx.stroke();
                     });
-
                     wanderingMines.forEach((wm, index) => {
                         ctx.beginPath();
                         ctx.moveTo(x, player.y);
@@ -279,7 +308,6 @@ function animate() {
                         ctx.strokeStyle = "white";
                         ctx.stroke();
                     });
-
                     flowers.forEach((flower, index) => {
                         ctx.beginPath();
                         ctx.moveTo(x, player.y);
@@ -287,7 +315,6 @@ function animate() {
                         ctx.strokeStyle = "white";
                         ctx.stroke();
                     });
-
                     guidedMissiles.forEach((gm, index) => {
                         ctx.beginPath();
                         ctx.moveTo(x, player.y);
@@ -295,15 +322,12 @@ function animate() {
                         ctx.strokeStyle = "white";
                         ctx.stroke();
                     });
-
-
                     enemies = [];
                     mines = [];
                     wanderingMines = [];
                     flowers = [];
                     guidedMissiles = [];
                 }
-
                 if (kill.countdown <= 0) {
                     kills.splice(index, 1);
                 }
@@ -325,12 +349,8 @@ function animate() {
         }
 
         wanderingMines.forEach((wmine, index) => {
-            if (
-                wmine.x - (wmine.r * 10) < x + player.r &&
-                wmine.x + (wmine.r * 10) > x - player.r &&
-                wmine.y - (wmine.r * 10) < player.y + player.r &&
-                wmine.y + (wmine.r * 10) > player.y - player.r
-            ) {
+            let colide = collisionDetection(wmine.x, wmine.y, wmine.r * 10);
+            if (colide) {
                 if (wmine.x > 0 - wmine.r && wmine.x < c.width + wmine.r) {
                     mineExplode.currentTime = 0;
                     mineExplode.play();
@@ -343,39 +363,25 @@ function animate() {
             if (wmine.countdown <= 0) {
                 wanderingMines.splice(index, 1);
             }
-
             wmine.update();
         });
-
-
-
         //plant mine.
         if (controlLevel > 3) {
             minesToPlant = true;
         }
-
         if (minesToPlant) {
             let plantMine = Math.random();
             if (plantMine > minePlant) {
                 mines.push(new Mine(Math.random() * 3000 + c.width, c.height, 30, 25));
             }
-
             plantMine = Math.random();
             if (plantMine > minePlant) {
                 mines.push(new Mine(Math.random() * -3000, c.height, 30, 25));
             }
-
-
-
         }
         mines.forEach((mine, index) => {
-            //player hits mine.
-            if (
-                x + player.r > mine.x - mine.r &&
-                x - player.r < mine.x + mine.r &&
-                player.y + player.r > mine.y - mine.r &&
-                player.y - player.r < mine.y + mine.r
-            ) {
+            let colide = collisionDetection(mine.x, mine.y, mine.r);
+            if (colide) {
                 if (!playerSheild) {
                     playerAlive = false;
                 } else {
@@ -417,10 +423,7 @@ function animate() {
             }
             mine.update();
         });
-
-
-
-        //fire enemy.
+        //enemy fires.
         let enemyFire = Math.random();
         if (enemyFire > skillLevel) {
             bombDrop.currentTime = 0;
@@ -431,13 +434,8 @@ function animate() {
         }
 
         enemies.forEach((enemy, index) => {
-            //bullet hits player.
-            if (
-                enemy.x - enemy.r < x + player.r &&
-                enemy.x + enemy.r > x - player.r &&
-                enemy.y - enemy.r < player.y + player.r &&
-                enemy.y + enemy.r > player.y - player.r
-            ) {
+            let colide = collisionDetection(enemy.x, enemy.y, enemy.r);
+            if (colide) {
                 if (!playerSheild) {
                     hit.currentTime = 0;
                     hit.play();
@@ -447,10 +445,7 @@ function animate() {
                     } else {
                         player.r -= 2;
                     }
-
                 } else {
-
-
                     let points = Math.trunc(enemy.x / 10 + (c.height - enemy.y) / 10);
                     score += points;
                     if (player.y > c.height / 2) {
@@ -465,12 +460,10 @@ function animate() {
                 }
                 reset();
                 enemies.splice(index, 1);
-
             }
             if (player.r <= 14) {
                 playerAlive = false;
             }
-
             //enemy falls off screen.
             if (enemy.y > c.height) enemies.splice(index, 1);
             enemy.update();
@@ -503,13 +496,8 @@ function animate() {
         }
 
         guidedMissiles.forEach((gm, index) => {
-            //guidedmissile hits player.
-            if (
-                gm.x - (gm.r + 40) < x + player.r &&
-                gm.x + (gm.r + 40) > x - player.r &&
-                gm.y - (gm.r + 40) < player.y + player.r &&
-                gm.y + (gm.r + 40) > player.y - player.r
-            ) {
+            let colide = collisionDetection(gm.x, gm.y, gm.r + 40);
+            if (colide) {
                 mineExplode.currentTime = 0;
                 mineExplode.play();
                 for (let i = 0; i < 10; i++) {
@@ -520,7 +508,6 @@ function animate() {
             if (player.r <= 14) {
                 playerAlive = false;
             }
-
             //countdown = 0 and missile still on screen.
             if (gm.countdown <= 0) {
                 mineExplode.currentTime = 0;
@@ -530,7 +517,6 @@ function animate() {
                 }
                 guidedMissiles.splice(index, 1);
             }
-
             //guidedmissile falls off screen.
             if (gm.y > c.height || gm.countdown <= 0) {
                 guidedMissiles.splice(index, 1);
@@ -550,12 +536,8 @@ function animate() {
 
         //player eats food.
         foods.forEach((food, index) => {
-            if (
-                food.x - food.r < x + player.r &&
-                food.x + food.r > x - player.r &&
-                food.y - food.r < player.y + player.r &&
-                food.y + food.r > player.y - player.r
-            ) {
+            let colide = collisionDetection(food.x, food.y, food.r);
+            if (colide) {
                 eatFood.currentTime = 0;
                 eatFood.play();
                 //add to progress bar if size is greater than 20.
@@ -576,10 +558,8 @@ function animate() {
                             new Text(x, player.y, 0, 1, points, "bold 20px Arial", "yellow", 1)
                         );
                     }
-
                 }
                 //increase player size/add to score.
-
                 player.r += 1;
                 glows.push(new Glow(x, player.y, player.r, 1.1));
                 foods.splice(index, 1);
@@ -588,7 +568,6 @@ function animate() {
                     levelJump();
                 }
             }
-
             //food goes far left.
             if (food.x < -3000) foods.splice(index, 1);
             food.update();
@@ -612,13 +591,9 @@ function animate() {
         }
 
         levelGains.forEach((LG, index) => {
-            //player gains level.
-            if (
-                LG.x - LG.r < x + player.r &&
-                LG.x + LG.r > x - player.r &&
-                LG.y - LG.r < player.y + player.r &&
-                LG.y + LG.r > player.y - player.r
-            ) {
+            let colide = collisionDetection(LG.x, LG.y, LG.r);
+            if (colide) {
+                //player gains level.
                 //player gets next level of control + bonus score/update variables.
                 if (player.y > c.height / 2) {
                     texts.push(new Text(x, player.y, 0, -1, "L+", "bold 25px Arial", "yellow", 1));
@@ -629,7 +604,6 @@ function animate() {
                 levelGains.splice(index, 1);
                 levelJump();
             }
-
             //levelGain goes off screen.
             if (LG.x < -3000) levelGains.splice(index, 1);
             LG.update();
@@ -644,13 +618,9 @@ function animate() {
         }
 
         bonusPoints.forEach((bonusPoint, index) => {
-            //player gets bonusPoints.
-            if (
-                bonusPoint.x - bonusPoint.r < x + player.r &&
-                bonusPoint.x + bonusPoint.r > x - player.r &&
-                bonusPoint.y - bonusPoint.r < player.y + player.r &&
-                bonusPoint.y + bonusPoint.r > player.y - player.r
-            ) {
+            let colide = collisionDetection(bonusPoint.x, bonusPoint.y, bonusPoint.r);
+            if (colide) {
+                //player gets bonusPoints.
                 bonusP.currentTime = 0;
                 bonusP.play();
                 bonus = Math.trunc(Math.random() * 500) + 300;
@@ -659,11 +629,10 @@ function animate() {
                 } else {
                     texts.push(new Text(x, player.y, 0, 1, bonus, "bold 25px Arial ", "green", 1));
                 }
-
                 bonusPoints.splice(index, 1);
                 score += bonus;
             }
-            //bonusPoints goes far left.
+            //bonusPoints goes off screen.
             if (bonusPoint.y > c.height) bonusPoints.splice(index, 1);
             bonusPoint.update();
         });
@@ -680,12 +649,8 @@ function animate() {
 
 
         projectiles.forEach((pro, index) => {
-            if (
-                pro.x - pro.r < x + player.r &&
-                pro.x + pro.r > x - player.r &&
-                pro.y - pro.r < player.y + player.r &&
-                pro.y + pro.r > player.y - player.r
-            ) {
+            let colide = collisionDetection(pro.x, pro.y, pro.r);
+            if (colide) {
                 if (!playerSheild) {
                     hit.currentTime = 0;
                     hit.play();
@@ -711,7 +676,6 @@ function animate() {
                 }
                 reset();
                 projectiles.splice(index, 1);
-
             }
             if (player.r <= 14) {
                 playerAlive = false;
@@ -721,27 +685,12 @@ function animate() {
             }
             pro.update();
         });
-
-
-
-
-
-
-
-
     } else {
-
-
-
-
         if (score > topScore.score) {
             textName.style.visibility = "visible";
             let name = textName.value;
             store(name, score);
         }
-
-
-
         button.style.visibility = "visible";
         player.velocity.x = 0;
         if (!endGameSound) {
@@ -773,7 +722,6 @@ function animate() {
                 colour = "white";
             }
         }
-
         deaths.forEach((death, index) => {
             if (death.alpha <= 0.01) {
                 deaths.splice(index, 1);

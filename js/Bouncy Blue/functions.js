@@ -26,6 +26,18 @@ function reset() {
     }
 }
 
+function collisionDetection(objectX, objectY, radius) {
+    if (
+        objectX - radius < x + player.r &&
+        objectX + radius > x - player.r &&
+        objectY - radius < player.y + player.r &&
+        objectY + radius > player.y - player.r
+    ) {
+        return true;
+    }
+}
+
+
 function levelJump() {
     levelUp.currentTime = 0;
     levelUp.play();
@@ -58,7 +70,6 @@ function levelJump() {
 }
 
 function init() {
-
     topScore = JSON.parse(localStorage.getItem("bestScore"));
     display.style.visibility = "hidden";
     button.style.visibility = "hidden";
@@ -78,6 +89,7 @@ function init() {
     kills = [];
     flowers = [];
     sheilds = [];
+    mushrooms = [];
     minesToPlant = false;
     gravity = 0.03,
         friction = 0.002,
@@ -98,7 +110,8 @@ function init() {
         x = c.width / 2,
         ang = 0,
         x1 = 0,
-        y1 = 0;
+        y1 = 0,
+        mushroomCount = 0;
     playerAlive = true;
     player = new Player(c.width / 2, c.height / 2, 20, "blue");
     enemies.push(new Enemy(Math.random() * c.width, 0, 0, 1, 4));
@@ -113,17 +126,11 @@ function init() {
 
 
 
-
-
-
-
 function store(name, score) {
-
     const thisScore = {
         name: name,
         score: score,
     }
-
     localStorage.setItem('bestScore', JSON.stringify(thisScore));
 
 }
