@@ -783,38 +783,55 @@ function animate() {
       }
     });
   }
-}
-
-onkeydown = onkeyup = function onkeyup(e) {
-  e = e || event; // to deal with IE
-
-  KP[e.keyCode] = e.type == "keydown";
-  /* insert conditional here */
-
-  if (KP[37] || KP[65]) {
-    moveLeft = true;
-  } else if (KP[39] || KP[68]) {
-    moveRight = true;
-  } else if (KP[87] || KP[38] && controlLevel != 1) {
-    moveUp = true;
-  } else if (KP[83] || KP[40] && controlLevel != 1) {
-    moveDown = true;
-  } else if (KP[32]) {
-    increaseBounce = true;
-  } else {
-    moveLeft = false;
-    moveRight = false;
-    moveUp = false;
-    moveDown = false;
-    increaseBounce = false;
-  }
-}; //adjust canvas on screen resize.
+} //adjust canvas on screen resize.
 
 
 window.addEventListener("resize", function () {
   c.width = window.innerWidth;
   c.height = window.innerHeight;
   init();
+});
+window.addEventListener("keydown", function (e) {
+  if (e.keyCode == 37 || e.keyCode == 65) {
+    moveLeft = true;
+  }
+
+  if (e.keyCode == 39 || e.keyCode == 68) {
+    moveRight = true;
+  }
+
+  if (e.keyCode == 83 || e.keyCode == 40 && controlLevel > 1) {
+    moveDown = true;
+  }
+
+  if (e.keyCode == 87 || e.keyCode == 38 && controlLevel > 1) {
+    moveUp = true;
+  }
+
+  if (e.keyCode == 32) {
+    increaseBounce = true;
+  }
+});
+window.addEventListener("keyup", function (e) {
+  if (e.keyCode == 37 || e.keyCode == 65) {
+    moveLeft = false;
+  }
+
+  if (e.keyCode == 39 || e.keyCode == 68) {
+    moveRight = false;
+  }
+
+  if (e.keyCode == 83 || e.keyCode == 40) {
+    moveDown = false;
+  }
+
+  if (e.keyCode == 87 || e.keyCode == 38) {
+    moveUp = false;
+  }
+
+  if (e.keyCode == 32) {
+    increaseBounce = false;
+  }
 });
 init();
 animate();
