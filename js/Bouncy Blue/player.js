@@ -28,7 +28,6 @@ class Player {
             ctx.drawImage(faceLeft, x - player.r, player.y - player.r, player.r * 2, this.r * 2);
         } else if (moveRight) {
             ctx.drawImage(faceRight, x - player.r, player.y - player.r, player.r * 2, this.r * 2);
-
         } else if (moveUp) {
             ctx.drawImage(faceUp, x - player.r, player.y - player.r, player.r * 2, this.r * 2);
 
@@ -38,6 +37,22 @@ class Player {
         } else {
             ctx.drawImage(faceForward, x - player.r, player.y - player.r, player.r * 2, this.r * 2);
         }
+
+        if (moveLeft && moveDown) {
+            ctx.drawImage(faceDownLeft, x - player.r, player.y - player.r, player.r * 2, this.r * 2);
+        } else if (moveRight && moveDown) {
+            ctx.drawImage(faceDownRight, x - player.r, player.y - player.r, player.r * 2, this.r * 2);
+        } else if (moveLeft && moveUp) {
+            ctx.drawImage(faceUpLeft, x - player.r, player.y - player.r, player.r * 2, this.r * 2);
+        } else if (moveRight && moveUp) {
+            ctx.drawImage(faceUpRight, x - player.r, player.y - player.r, player.r * 2, this.r * 2);
+        }
+
+
+
+
+
+
     }
 
     update() {

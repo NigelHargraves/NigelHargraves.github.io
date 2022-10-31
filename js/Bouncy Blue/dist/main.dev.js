@@ -22,7 +22,15 @@ faceRight.src = 'images/faceRight.png';
 var faceUp = new Image();
 faceUp.src = 'images/faceUp.png';
 var faceDown = new Image();
-faceDown.src = 'images/faceDown.png'; //arrays to var.
+faceDown.src = 'images/faceDown.png';
+var faceDownLeft = new Image();
+faceDownLeft.src = 'images/faceDownLeft.png';
+var faceDownRight = new Image();
+faceDownRight.src = 'images/faceDownRight.png';
+var faceUpLeft = new Image();
+faceUpLeft.src = 'images/faceUpLeft.png';
+var faceUpRight = new Image();
+faceUpRight.src = 'images/faceUpRight.png'; //arrays to var.
 
 var enemies = [];
 var foods = [];
