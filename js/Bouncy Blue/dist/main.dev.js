@@ -12,7 +12,17 @@ background1.src = 'images/forest.jpg';
 var background2 = new Image();
 background2.src = 'images/grass1.jpg';
 var mushroomImage = new Image();
-mushroomImage.src = 'images/mushroom.png'; //arrays to var.
+mushroomImage.src = 'images/mushroom.png';
+var faceForward = new Image();
+faceForward.src = 'images/faceForward.png';
+var faceLeft = new Image();
+faceLeft.src = 'images/faceLeft.png';
+var faceRight = new Image();
+faceRight.src = 'images/faceRight.png';
+var faceUp = new Image();
+faceUp.src = 'images/faceUp.png';
+var faceDown = new Image();
+faceDown.src = 'images/faceDown.png'; //arrays to var.
 
 var enemies = [];
 var foods = [];
@@ -147,14 +157,7 @@ function animate() {
     ctx.font = "20px Arial";
     ctx.fillStyle = "white";
     ctx.fillText("Player size: " + player.r, c.width / 2, 20);
-    player.update(); //blink eyes.
-
-    var blink = Math.random();
-
-    if (blink > 0.998 && countBlink == 100) {
-      eyesBlink = true;
-    } //create mushroom.
-
+    player.update(); //create mushroom.
 
     if (controlLevel > 2) {
       var createMushroom = Math.random();

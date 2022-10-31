@@ -12,8 +12,16 @@ let background2 = new Image();
 background2.src = 'images/grass1.jpg';
 let mushroomImage = new Image();
 mushroomImage.src = 'images/mushroom.png';
-
-
+let faceForward = new Image();
+faceForward.src = 'images/faceForward.png';
+let faceLeft = new Image();
+faceLeft.src = 'images/faceLeft.png';
+let faceRight = new Image();
+faceRight.src = 'images/faceRight.png';
+let faceUp = new Image();
+faceUp.src = 'images/faceUp.png';
+let faceDown = new Image();
+faceDown.src = 'images/faceDown.png';
 
 
 //arrays to var.
@@ -149,11 +157,8 @@ function animate() {
         ctx.fillText("Player size: " + player.r, c.width / 2, 20);
 
         player.update();
-        //blink eyes.
-        let blink = Math.random();
-        if (blink > 0.998 && countBlink == 100) {
-            eyesBlink = true;
-        }
+
+
 
 
         //create mushroom.

@@ -101,7 +101,7 @@ function init() {
   minesToPlant = false;
   gravity = 0.03, friction = 0.002, controlLevel = 1, velocityAmount = 0.02, width = 0, score = 0, levelBonus = 8000, skillLevel = 0.998, missileFire = 0.999, minePlant = 0.999, enemyVelocity = 1, foodVelocity = 1, foodAmount = 0.998, enemyRadius = 4, textFade = 1, bonus = 0, x = c.width / 2, ang = 0, x1 = 0, y1 = 0, mushroomCount = 0;
   playerAlive = true;
-  player = new Player(c.width / 2, c.height / 2, 20, "blue");
+  player = new Player(c.width / 2, c.height / 2, 20);
   enemies.push(new Enemy(Math.random() * c.width, 0, 0, 1, 4));
   bombDrop.currentTime = 0;
   bombDrop.play();

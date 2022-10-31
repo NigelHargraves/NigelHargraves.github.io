@@ -113,7 +113,7 @@ function init() {
         y1 = 0,
         mushroomCount = 0;
     playerAlive = true;
-    player = new Player(c.width / 2, c.height / 2, 20, "blue");
+    player = new Player(c.width / 2, c.height / 2, 20);
     enemies.push(new Enemy(Math.random() * c.width, 0, 0, 1, 4));
     bombDrop.currentTime = 0;
     bombDrop.play();
