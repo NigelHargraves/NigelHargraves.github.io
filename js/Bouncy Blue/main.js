@@ -33,6 +33,7 @@ faceUpRight.src = 'images/faceUpRight.png';
 
 
 
+
 //arrays to var.
 let enemies = [];
 let foods = [];
