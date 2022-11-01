@@ -49,9 +49,9 @@ function levelJump() {
         foodAmount -= 0.0001
         minePlant -= 0.0005;
     }
-    if (controlLevel > 5) {
+    if (controlLevel > 2) {
         missileFire -= 0.0001;
-        enemyRadius += 0.5;
+        enemyRadius += 1;
     }
     player.r = 20;
     gravity = 0;
@@ -104,7 +104,7 @@ function init() {
         enemyVelocity = 1,
         foodVelocity = 1,
         foodAmount = 0.998,
-        enemyRadius = 4,
+        enemyRadius = 8,
         textFade = 1,
         bonus = 0,
         x = c.width / 2,
@@ -114,7 +114,7 @@ function init() {
         mushroomCount = 0;
     playerAlive = true;
     player = new Player(c.width / 2, c.height / 2, 20);
-    enemies.push(new Enemy(Math.random() * c.width, 0, 0, 1, 4));
+    enemies.push(new Enemy(Math.random() * c.width, 0, 0, 1, 8));
     bombDrop.currentTime = 0;
     bombDrop.play();
     foods.push(new Food(c.width, Math.random() * (c.height - 40) + 20, -foodVelocity, 0, 10));

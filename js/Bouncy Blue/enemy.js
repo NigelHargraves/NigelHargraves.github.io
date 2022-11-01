@@ -10,15 +10,7 @@ class Enemy {
         }
         //draw enemy.
     draw() {
-            ctx.beginPath();
-            ctx.arc(this.x, this.y, this.r + 2, 0, Math.PI * 2);
-            ctx.strokeStyle = "#FDFEFF";
-            ctx.stroke();
-
-            ctx.beginPath();
-            ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
-            ctx.fillStyle = "red";
-            ctx.fill();
+            ctx.drawImage(fangs, this.x - this.r, this.y - this.r, this.r * 2, this.r * 2);
         }
         //update enemy.
     update() {

@@ -14,6 +14,12 @@ let mushroomImage = new Image();
 mushroomImage.src = 'images/mushroom.png';
 let blueberry = new Image();
 blueberry.src = 'images/blueberry.png';
+let fangs = new Image();
+fangs.src = 'images/fangs.png';
+
+
+
+
 let faceForward = new Image();
 faceForward.src = 'images/faceForward.png';
 let faceLeft = new Image();
@@ -99,7 +105,7 @@ let gravity = 0.03,
     enemyVelocity = 1,
     foodVelocity = 1,
     foodAmount = 0.998,
-    enemyRadius = 4,
+    enemyRadius = 8,
     textFade = 1,
     bonus = 0,
     x = c.width / 2,
