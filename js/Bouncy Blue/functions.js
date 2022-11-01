@@ -93,7 +93,7 @@ function init() {
     minesToPlant = false;
     gravity = 0.03,
         friction = 0.002,
-        controlLevel = 2,
+        controlLevel = 1,
         velocityAmount = 0.02,
         width = 0,
         score = 0,
@@ -117,7 +117,7 @@ function init() {
     enemies.push(new Enemy(Math.random() * c.width, 0, 0, 1, 4));
     bombDrop.currentTime = 0;
     bombDrop.play();
-    foods.push(new Food(c.width, Math.random() * (c.height - 40) + 20, -foodVelocity, 0, 4));
+    foods.push(new Food(c.width, Math.random() * (c.height - 40) + 20, -foodVelocity, 0, 10));
     food.currentTime = 0;
     food.play();
     layers.push(new Layer(background1, 0, c.height, 0));

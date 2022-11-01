@@ -10,7 +10,13 @@ class Food {
         }
         //draw food.
     draw() {
-            ctx.beginPath();
+
+            ctx.drawImage(blueberry, this.x - this.r, this.y - this.r, this.r * 2, this.r * 2);
+
+
+
+
+            /*ctx.beginPath();
             ctx.arc(this.x, this.y, this.r + 2, 0, Math.PI * 2);
             ctx.strokeStyle = "#FDFEFF";
             ctx.stroke();
@@ -18,7 +24,7 @@ class Food {
             ctx.beginPath();
             ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
             ctx.fillStyle = "darkblue";
-            ctx.fill();
+            ctx.fill();*/
         }
         //update food.
     update() {

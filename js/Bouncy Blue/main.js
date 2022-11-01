@@ -12,6 +12,8 @@ let background2 = new Image();
 background2.src = 'images/grass1.jpg';
 let mushroomImage = new Image();
 mushroomImage.src = 'images/mushroom.png';
+let blueberry = new Image();
+blueberry.src = 'images/blueberry.png';
 let faceForward = new Image();
 faceForward.src = 'images/faceForward.png';
 let faceLeft = new Image();
@@ -86,7 +88,7 @@ let textName = document.getElementById("display");
 //vars.
 let gravity = 0.03,
     friction = 0.002,
-    controlLevel = 1,
+    controlLevel,
     velocityAmount = 0.02,
     width = 0,
     score = 0,
@@ -155,7 +157,6 @@ function animate() {
     ctx.drawImage(mushroomImage, c.width / 8, 0, 20, 20);
     ctx.fillText("= " + mushroomCount, c.width / 7.3, 20);
     ctx.fillText("LV Bonus: " + levelBonus, c.width / 4, 20);
-    ctx.drawImage(mushroomImage, 0, 0, 50, 50);
     if (levelBonus <= 0) {
         levelBonus = 1;
     }
@@ -575,7 +576,7 @@ function animate() {
             food.currentTime = 0;
             food.play();
             foods.push(
-                new Food(c.width, Math.random() * (c.height - 40) + 20, -foodVelocity, 0, 4)
+                new Food(c.width, Math.random() * (c.height - 40) + 20, -foodVelocity, 0, 10)
             );
         }
 
