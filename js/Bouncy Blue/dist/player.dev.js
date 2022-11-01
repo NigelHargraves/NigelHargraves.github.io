@@ -39,31 +39,31 @@ function () {
       }
 
       if (moveLeft && moveDown) {
-        ctx.drawImage(faceDownLeft, x - player.r, player.y - player.r, player.r * 2, this.r * 2);
+        ctx.drawImage(faceDownLeft, x - player.r, player.y - player.r, player.r * 2, player.r * 2);
       } else if (moveRight && moveDown) {
-        ctx.drawImage(faceDownRight, x - player.r, player.y - player.r, player.r * 2, this.r * 2);
+        ctx.drawImage(faceDownRight, x - player.r, player.y - player.r, player.r * 2, player.r * 2);
       } else if (moveLeft && moveUp) {
-        ctx.drawImage(faceUpLeft, x - player.r, player.y - player.r, player.r * 2, this.r * 2);
+        ctx.drawImage(faceUpLeft, x - player.r, player.y - player.r, player.r * 2, player.r * 2);
       } else if (moveRight && moveUp) {
-        ctx.drawImage(faceUpRight, x - player.r, player.y - player.r, player.r * 2, this.r * 2);
+        ctx.drawImage(faceUpRight, x - player.r, player.y - player.r, player.r * 2, player.r * 2);
       } else if (moveLeft) {
-        ctx.drawImage(faceLeft, x - player.r, player.y - player.r, player.r * 2, this.r * 2);
+        ctx.drawImage(faceLeft, x - player.r, player.y - player.r, player.r * 2, player.r * 2);
       } else if (moveRight) {
-        ctx.drawImage(faceRight, x - player.r, player.y - player.r, player.r * 2, this.r * 2);
+        ctx.drawImage(faceRight, x - player.r, player.y - player.r, player.r * 2, player.r * 2);
       } else if (moveUp) {
-        ctx.drawImage(faceUp, x - player.r, player.y - player.r, player.r * 2, this.r * 2);
+        ctx.drawImage(faceUp, x - player.r, player.y - player.r, player.r * 2, player.r * 2);
       } else if (moveDown) {
-        ctx.drawImage(faceDown, x - player.r, player.y - player.r, player.r * 2, this.r * 2);
+        ctx.drawImage(faceDown, x - player.r, player.y - player.r, player.r * 2, player.r * 2);
       } else {
         if (eyesBlink) {
-          ctx.drawImage(faceBlink, x - player.r, player.y - player.r, player.r * 2, this.r * 2);
+          ctx.drawImage(faceBlink, x - player.r, player.y - player.r, player.r * 2, player.r * 2);
         } else {
-          ctx.drawImage(faceForward, x - player.r, player.y - player.r, player.r * 2, this.r * 2);
+          ctx.drawImage(faceForward, x - player.r, player.y - player.r, player.r * 2, player.r * 2);
         }
       }
 
       if (eyesSquint) {
-        ctx.drawImage(faceSquint, x - player.r, player.y - player.r, player.r * 2, this.r * 2);
+        ctx.drawImage(faceSquint, x - player.r, player.y - player.r, player.r * 2, player.r * 2);
       }
     }
   }, {
