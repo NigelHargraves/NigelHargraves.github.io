@@ -84,7 +84,7 @@ let textName = document.getElementById("display");
 //vars.
 let gravity = 0.03,
     friction = 0.002,
-    controlLevel = 1,
+    controlLevel = 2,
     velocityAmount = 0.02,
     width = 0,
     score = 0,
