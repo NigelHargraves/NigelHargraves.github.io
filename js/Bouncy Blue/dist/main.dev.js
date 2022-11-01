@@ -22,7 +22,7 @@ faceRight.src = 'images/faceRight.png';
 var faceUp = new Image();
 faceUp.src = 'images/faceUp.png';
 var faceDown = new Image();
-faceDown.src = 'images/faceUp.png';
+faceDown.src = 'images/faceDown.png';
 var faceDownLeft = new Image();
 faceDownLeft.src = 'images/faceDownLeft.png';
 var faceDownRight = new Image();
@@ -30,7 +30,9 @@ faceDownRight.src = 'images/faceDownRight.png';
 var faceUpLeft = new Image();
 faceUpLeft.src = 'images/faceUpLeft.png';
 var faceUpRight = new Image();
-faceUpRight.src = 'images/faceUpRight.png'; //arrays to var.
+faceUpRight.src = 'images/faceUpRight.png';
+var faceBlink = new Image();
+faceBlink.src = 'images/faceBlink.png'; //arrays to var.
 
 var enemies = [];
 var foods = [];
@@ -78,7 +80,7 @@ var textName = document.getElementById("display"); //vars.
 
 var gravity = 0.03,
     friction = 0.002,
-    controlLevel = 2,
+    controlLevel = 1,
     velocityAmount = 0.02,
     width = 0,
     score = 0,
@@ -98,7 +100,8 @@ var gravity = 0.03,
     y1 = 0,
     sheildTime = 30,
     mushroomCount = 0,
-    mushroomSize = 50; //boolean vars.
+    mushroomSize = 50,
+    blink = 4; //boolean vars.
 
 var moveLeft = false,
     moveRight = false,
@@ -165,6 +168,21 @@ function animate() {
     ctx.font = "20px Arial";
     ctx.fillStyle = "white";
     ctx.fillText("Player size: " + player.r, c.width / 2, 20);
+    var blinkEyes = Math.random();
+
+    if (blinkEyes > 0.998 && !eyesBlink) {
+      eyesBlink = true;
+    }
+
+    if (eyesBlink) {
+      blink -= 0.2;
+    }
+
+    if (blink <= 0) {
+      eyesBlink = false;
+      blink = 4;
+    }
+
     player.update(); //create mushroom.
 
     if (controlLevel > 2) {

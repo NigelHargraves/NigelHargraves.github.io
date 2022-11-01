@@ -55,7 +55,11 @@ function () {
       } else if (moveDown) {
         ctx.drawImage(faceDown, x - player.r, player.y - player.r, player.r * 2, this.r * 2);
       } else {
-        ctx.drawImage(faceForward, x - player.r, player.y - player.r, player.r * 2, this.r * 2);
+        if (eyesBlink) {
+          ctx.drawImage(faceBlink, x - player.r, player.y - player.r, player.r * 2, this.r * 2);
+        } else {
+          ctx.drawImage(faceForward, x - player.r, player.y - player.r, player.r * 2, this.r * 2);
+        }
       }
     }
   }, {

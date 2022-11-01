@@ -93,7 +93,7 @@ function init() {
     minesToPlant = false;
     gravity = 0.03,
         friction = 0.002,
-        controlLevel = 2,
+        controlLevel = 1,
         velocityAmount = 0.02,
         width = 0,
         score = 0,
