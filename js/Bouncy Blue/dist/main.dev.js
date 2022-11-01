@@ -159,6 +159,7 @@ function animate() {
   ctx.drawImage(mushroomImage, c.width / 8, 0, 20, 20);
   ctx.fillText("= " + mushroomCount, c.width / 7.3, 20);
   ctx.fillText("LV Bonus: " + levelBonus, c.width / 4, 20);
+  ctx.drawImage(mushroomImage, 0, 0, 50, 50);
 
   if (levelBonus <= 0) {
     levelBonus = 1;
