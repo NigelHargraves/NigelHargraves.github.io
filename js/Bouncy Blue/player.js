@@ -47,6 +47,9 @@ class Player {
                 ctx.drawImage(faceForward, x - player.r, player.y - player.r, player.r * 2, this.r * 2);
             }
         }
+        if (eyesSquint) {
+            ctx.drawImage(faceSquint, x - player.r, player.y - player.r, player.r * 2, this.r * 2);
+        }
     }
 
     update() {

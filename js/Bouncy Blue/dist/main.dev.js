@@ -32,7 +32,9 @@ faceUpLeft.src = 'images/faceUpLeft.png';
 var faceUpRight = new Image();
 faceUpRight.src = 'images/faceUpRight.png';
 var faceBlink = new Image();
-faceBlink.src = 'images/faceBlink.png'; //arrays to var.
+faceBlink.src = 'images/faceBlink.png';
+var faceSquint = new Image();
+faceSquint.src = 'images/faceSquint.png'; //arrays to var.
 
 var enemies = [];
 var foods = [];
@@ -101,7 +103,8 @@ var gravity = 0.03,
     sheildTime = 30,
     mushroomCount = 0,
     mushroomSize = 50,
-    blink = 4; //boolean vars.
+    blink = 4,
+    squint = 2; //boolean vars.
 
 var moveLeft = false,
     moveRight = false,
@@ -170,7 +173,7 @@ function animate() {
     ctx.fillText("Player size: " + player.r, c.width / 2, 20);
     var blinkEyes = Math.random();
 
-    if (blinkEyes > 0.998 && !eyesBlink) {
+    if (blinkEyes > 0.998 && !eyesBlink && !eyesSquint) {
       eyesBlink = true;
     }
 
@@ -181,6 +184,15 @@ function animate() {
     if (blink <= 0) {
       eyesBlink = false;
       blink = 4;
+    }
+
+    if (eyesSquint) {
+      squint -= 0.2;
+    }
+
+    if (squint <= 0) {
+      eyesSquint = false;
+      squint = 2;
     }
 
     player.update(); //create mushroom.

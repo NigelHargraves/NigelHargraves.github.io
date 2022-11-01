@@ -32,7 +32,8 @@ let faceUpRight = new Image();
 faceUpRight.src = 'images/faceUpRight.png';
 let faceBlink = new Image();
 faceBlink.src = 'images/faceBlink.png';
-
+let faceSquint = new Image();
+faceSquint.src = 'images/faceSquint.png';
 
 
 //arrays to var.
@@ -106,7 +107,8 @@ let gravity = 0.03,
     sheildTime = 30,
     mushroomCount = 0,
     mushroomSize = 50,
-    blink = 4;
+    blink = 4,
+    squint = 2;
 
 
 
@@ -169,7 +171,7 @@ function animate() {
         ctx.fillText("Player size: " + player.r, c.width / 2, 20);
 
         let blinkEyes = Math.random()
-        if (blinkEyes > 0.998 && !eyesBlink) {
+        if (blinkEyes > 0.998 && !eyesBlink && !eyesSquint) {
             eyesBlink = true;
         }
 
@@ -181,6 +183,16 @@ function animate() {
             eyesBlink = false;
             blink = 4;
         }
+
+        if (eyesSquint) {
+            squint -= 0.2;
+        }
+
+        if (squint <= 0) {
+            eyesSquint = false;
+            squint = 2;
+        }
+
 
         player.update();
 
