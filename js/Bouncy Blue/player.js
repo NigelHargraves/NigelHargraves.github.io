@@ -39,7 +39,7 @@ class Player {
         } else if (moveUp) {
             ctx.drawImage(faceUp, x - player.r, player.y - player.r, player.r * 2, player.r * 2);
         } else if (moveDown) {
-            ctx.drawImage(faceDown, x - player.r, player.y - player.r, player.r * 2, player.r * 2);
+            ctx.drawImage(lookDown, x - player.r, player.y - player.r, player.r * 2, player.r * 2);
         } else {
             if (eyesBlink) {
                 ctx.drawImage(faceBlink, x - player.r, player.y - player.r, player.r * 2, player.r * 2);
