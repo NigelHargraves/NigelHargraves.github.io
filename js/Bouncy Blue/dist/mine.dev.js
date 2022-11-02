@@ -6,30 +6,27 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-//flower class.
-var Flower =
+//mine class.
+var Mine =
 /*#__PURE__*/
 function () {
-  //construct flower data.
-  function Flower(x, y, radius, countdown) {
-    _classCallCheck(this, Flower);
+  //construct mine data.
+  function Mine(x, y, radius, countdown) {
+    _classCallCheck(this, Mine);
 
     this.x = x;
     this.y = y;
     this.r = radius;
-    this.x1 = 0;
-    this.y1 = 0;
-    this.ang = 0;
     this.countdown = countdown;
-  } //draw flower.
+    this.alpha = 0;
+  } //draw mine.
 
 
-  _createClass(Flower, [{
+  _createClass(Mine, [{
     key: "draw",
     value: function draw() {
-      ctx.drawImage(flowerStalk, this.x - this.r, this.y, this.r * 2, 200);
-      ctx.drawImage(sunflower, this.x - this.r, this.y - this.r, this.r * 2, this.r * 2);
-    } //update flower.
+      ctx.drawImage(landmine, this.x - this.r, this.y - this.r, this.r * 2, this.r * 2);
+    } //update mine.
 
   }, {
     key: "update",
@@ -40,5 +37,5 @@ function () {
     }
   }]);
 
-  return Flower;
+  return Mine;
 }();

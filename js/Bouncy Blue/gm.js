@@ -13,21 +13,9 @@ class GuidedMissile {
         //draw GuidedMissile.
     draw() {
             if (!this.dumb) {
-                ctx.globalAlpha = 0.2;
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.r + 2, 0, Math.PI * 2);
-                ctx.fillStyle = "white";
-                ctx.fill();
-                ctx.globalAlpha = 1;
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
-                ctx.fillStyle = "yellow";
-                ctx.fill();
+                ctx.drawImage(starMissile2, this.x - this.r, this.y - this.r, this.r * 2, this.r * 2)
             } else {
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
-                ctx.fillStyle = "#FDFEFF";
-                ctx.fill();
+                ctx.drawImage(starMissile, this.x - this.r, this.y - this.r, this.r * 2, this.r * 2)
             }
         }
         //update GuidedMissile.

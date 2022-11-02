@@ -38,7 +38,17 @@ faceUpRight.src = 'images/faceUpRight.png';
 var faceBlink = new Image();
 faceBlink.src = 'images/faceBlink.png';
 var faceSquint = new Image();
-faceSquint.src = 'images/faceSquint.png'; //arrays to var.
+faceSquint.src = 'images/faceSquint.png';
+var starMissile = new Image();
+starMissile.src = 'images/missile.png';
+var starMissile2 = new Image();
+starMissile2.src = 'images/missile2.png';
+var landmine = new Image();
+landmine.src = 'images/landmine.png';
+var sunflower = new Image();
+sunflower.src = 'images/sunflower.png';
+var flowerStalk = new Image();
+flowerStalk.src = 'images/flowerstalk.jpg'; //arrays to var.
 
 var enemies = [];
 var foods = [];
@@ -280,18 +290,18 @@ function animate() {
       var createFlower = Math.random();
 
       if (createFlower > 0.999) {
-        flowers.push(new Flower(c.width + 100 + Math.random() * c.width, c.height - 200, 20, 25));
+        flowers.push(new Flower(c.width + 100 + Math.random() * c.width, c.height - 200, 40, 25));
       }
 
       createFlower = Math.random();
 
       if (createFlower > 0.999) {
-        flowers.push(new Flower(-100 - Math.random() * c.width, c.height - 200, 20, 25));
+        flowers.push(new Flower(-100 - Math.random() * c.width, c.height - 200, 40, 25));
       }
     }
 
     flowers.forEach(function (flower, index) {
-      var colide = collisionDetection(flower.x, flower.y, flower.r * 10);
+      var colide = collisionDetection(flower.x, flower.y, flower.r * 4);
 
       if (colide) {
         flowerFire.currentTime = 0;
@@ -302,7 +312,7 @@ function animate() {
           x: Math.cos(angles) * 5,
           y: Math.sin(angles) * 5
         };
-        guidedMissiles.push(new GuidedMissile(startPos, flower.y, velocity.x, velocity.y, 4, false));
+        guidedMissiles.push(new GuidedMissile(startPos, flower.y, velocity.x, velocity.y, 10, false));
         flowers.splice(index, 1);
       }
 
@@ -436,7 +446,7 @@ function animate() {
       wmine.update();
     }); //plant mine.
 
-    if (controlLevel > 3) {
+    if (controlLevel > 2) {
       minesToPlant = true;
     }
 
@@ -444,13 +454,13 @@ function animate() {
       var plantMine = Math.random();
 
       if (plantMine > minePlant) {
-        mines.push(new Mine(Math.random() * 3000 + c.width, c.height, 30, 25));
+        mines.push(new Mine(Math.random() * 3000 + c.width, c.height - 20, 30, 25));
       }
 
       plantMine = Math.random();
 
       if (plantMine > minePlant) {
-        mines.push(new Mine(Math.random() * -3000, c.height, 30, 25));
+        mines.push(new Mine(Math.random() * -3000, c.height - 20, 30, 25));
       }
     }
 
@@ -567,12 +577,12 @@ function animate() {
           x: Math.cos(angles) * 5,
           y: Math.sin(angles) * 5
         };
-        guidedMissiles.push(new GuidedMissile(startPos, 0, velocity.x, velocity.y, 4, true));
+        guidedMissiles.push(new GuidedMissile(startPos, 0, velocity.x, velocity.y, 50, true));
       }
     }
 
     guidedMissiles.forEach(function (gm, index) {
-      var colide = collisionDetection(gm.x, gm.y, gm.r + 40);
+      var colide = collisionDetection(gm.x, gm.y, gm.r + 20);
 
       if (colide) {
         mineExplode.currentTime = 0;

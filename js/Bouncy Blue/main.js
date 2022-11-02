@@ -16,10 +16,6 @@ let blueberry = new Image();
 blueberry.src = 'images/blueberry.png';
 let fangs = new Image();
 fangs.src = 'images/fangs.png';
-
-
-
-
 let faceForward = new Image();
 faceForward.src = 'images/faceForward.png';
 let faceLeft = new Image();
@@ -42,7 +38,16 @@ let faceBlink = new Image();
 faceBlink.src = 'images/faceBlink.png';
 let faceSquint = new Image();
 faceSquint.src = 'images/faceSquint.png';
-
+let starMissile = new Image();
+starMissile.src = 'images/missile.png';
+let starMissile2 = new Image();
+starMissile2.src = 'images/missile2.png';
+let landmine = new Image();
+landmine.src = 'images/landmine.png';
+let sunflower = new Image();
+sunflower.src = 'images/sunflower.png';
+let flowerStalk = new Image();
+flowerStalk.src = 'images/flowerstalk.jpg';
 
 //arrays to var.
 let enemies = [];
@@ -287,17 +292,17 @@ function animate() {
         if (controlLevel > 5) {
             let createFlower = Math.random();
             if (createFlower > 0.999) {
-                flowers.push(new Flower(c.width + 100 + (Math.random() * c.width), c.height - 200, 20, 25));
+                flowers.push(new Flower(c.width + 100 + (Math.random() * c.width), c.height - 200, 40, 25));
             }
 
             createFlower = Math.random();
             if (createFlower > 0.999) {
-                flowers.push(new Flower(-100 - (Math.random() * c.width), c.height - 200, 20, 25));
+                flowers.push(new Flower(-100 - (Math.random() * c.width), c.height - 200, 40, 25));
             }
         }
 
         flowers.forEach((flower, index) => {
-            let colide = collisionDetection(flower.x, flower.y, flower.r * 10);
+            let colide = collisionDetection(flower.x, flower.y, flower.r * 4);
             if (colide) {
                 flowerFire.currentTime = 0;
                 flowerFire.play();
@@ -308,7 +313,7 @@ function animate() {
                     y: Math.sin(angles) * 5
                 };
                 guidedMissiles.push(
-                    new GuidedMissile(startPos, flower.y, velocity.x, velocity.y, 4, false)
+                    new GuidedMissile(startPos, flower.y, velocity.x, velocity.y, 10, false)
                 );
                 flowers.splice(index, 1);
             }
@@ -418,17 +423,17 @@ function animate() {
             wmine.update();
         });
         //plant mine.
-        if (controlLevel > 3) {
+        if (controlLevel > 2) {
             minesToPlant = true;
         }
         if (minesToPlant) {
             let plantMine = Math.random();
             if (plantMine > minePlant) {
-                mines.push(new Mine(Math.random() * 3000 + c.width, c.height, 30, 25));
+                mines.push(new Mine(Math.random() * 3000 + c.width, c.height - 20, 30, 25));
             }
             plantMine = Math.random();
             if (plantMine > minePlant) {
-                mines.push(new Mine(Math.random() * -3000, c.height, 30, 25));
+                mines.push(new Mine(Math.random() * -3000, c.height - 20, 30, 25));
             }
         }
         mines.forEach((mine, index) => {
@@ -542,13 +547,13 @@ function animate() {
                     y: Math.sin(angles) * 5
                 };
                 guidedMissiles.push(
-                    new GuidedMissile(startPos, 0, velocity.x, velocity.y, 4, true)
+                    new GuidedMissile(startPos, 0, velocity.x, velocity.y, 50, true)
                 );
             }
         }
 
         guidedMissiles.forEach((gm, index) => {
-            let colide = collisionDetection(gm.x, gm.y, gm.r + 40);
+            let colide = collisionDetection(gm.x, gm.y, gm.r + 20);
             if (colide) {
                 mineExplode.currentTime = 0;
                 mineExplode.play();
