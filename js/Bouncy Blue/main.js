@@ -48,6 +48,8 @@ let sunflower = new Image();
 sunflower.src = 'images/sunflower.png';
 let flowerStalk = new Image();
 flowerStalk.src = 'images/flowerstalk.jpg';
+let drone = new Image();
+drone.src = 'images/drone.png';
 
 //arrays to var.
 let enemies = [];
@@ -396,17 +398,19 @@ function animate() {
         if (controlLevel > 6) {
             let wm = Math.random();
             if (wm > 0.999) {
-                wanderingMines.push(new WanderingMine(c.width + 100, Math.random() * c.height, 10, { x: -1, y: Math.random() - 0.5 }, 25));
+                wanderingMines.push(new WanderingMine(c.width + 100, Math.random() * c.height / 2, 20, { x: -1, y: Math.random() - 0.5 }, 25));
             }
 
             wm = Math.random();
             if (wm > 0.999) {
-                wanderingMines.push(new WanderingMine(-100, Math.random() * c.height, 10, { x: -1, y: Math.random() - 0.5 }, 25));
+                wanderingMines.push(new WanderingMine(-100, Math.random() * c.height / 2, 20, { x: -1, y: Math.random() - 0.5 }, 25));
             }
         }
 
+
+
         wanderingMines.forEach((wmine, index) => {
-            let colide = collisionDetection(wmine.x, wmine.y, wmine.r * 10);
+            let colide = collisionDetection(wmine.x, wmine.y, wmine.r * 5);
             if (colide) {
                 if (wmine.x > 0 - wmine.r && wmine.x < c.width + wmine.r) {
                     mineExplode.currentTime = 0;
@@ -422,6 +426,10 @@ function animate() {
             }
             wmine.update();
         });
+        wmmove = 10;
+
+
+
         //plant mine.
         if (controlLevel > 2) {
             minesToPlant = true;

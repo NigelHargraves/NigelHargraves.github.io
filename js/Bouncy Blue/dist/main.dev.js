@@ -48,7 +48,9 @@ landmine.src = 'images/landmine.png';
 var sunflower = new Image();
 sunflower.src = 'images/sunflower.png';
 var flowerStalk = new Image();
-flowerStalk.src = 'images/flowerstalk.jpg'; //arrays to var.
+flowerStalk.src = 'images/flowerstalk.jpg';
+var drone = new Image();
+drone.src = 'images/drone.png'; //arrays to var.
 
 var enemies = [];
 var foods = [];
@@ -404,7 +406,7 @@ function animate() {
       var wm = Math.random();
 
       if (wm > 0.999) {
-        wanderingMines.push(new WanderingMine(c.width + 100, Math.random() * c.height, 10, {
+        wanderingMines.push(new WanderingMine(c.width + 100, Math.random() * c.height / 2, 20, {
           x: -1,
           y: Math.random() - 0.5
         }, 25));
@@ -413,7 +415,7 @@ function animate() {
       wm = Math.random();
 
       if (wm > 0.999) {
-        wanderingMines.push(new WanderingMine(-100, Math.random() * c.height, 10, {
+        wanderingMines.push(new WanderingMine(-100, Math.random() * c.height / 2, 20, {
           x: -1,
           y: Math.random() - 0.5
         }, 25));
@@ -421,7 +423,7 @@ function animate() {
     }
 
     wanderingMines.forEach(function (wmine, index) {
-      var colide = collisionDetection(wmine.x, wmine.y, wmine.r * 10);
+      var colide = collisionDetection(wmine.x, wmine.y, wmine.r * 5);
 
       if (colide) {
         if (wmine.x > 0 - wmine.r && wmine.x < c.width + wmine.r) {
@@ -444,7 +446,8 @@ function animate() {
       }
 
       wmine.update();
-    }); //plant mine.
+    });
+    wmmove = 10; //plant mine.
 
     if (controlLevel > 2) {
       minesToPlant = true;
