@@ -10,8 +10,7 @@ class Mine {
         }
         //draw mine.
     draw() {
-
-            ctx.drawImage(landmine, this.x - this.r, this.y - this.r, this.r * 2, this.r * 2)
+            ctx.drawImage(landmine, this.x - this.r, this.y - this.r, this.r * 2, this.r * 2);
         }
         //update mine.
     update() {

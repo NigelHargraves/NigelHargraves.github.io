@@ -24,13 +24,7 @@ function () {
   _createClass(Kill, [{
     key: "draw",
     value: function draw() {
-      ctx.beginPath();
-      ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
-      ctx.fillStyle = "green";
-      ctx.fill();
-      ctx.font = "10px Arial";
-      ctx.fillStyle = "black";
-      ctx.fillText("K", this.x - 3, this.y + 2);
+      ctx.drawImage(lightningBolt, this.x - this.r, this.y - this.r, this.r * 2, this.r * 2);
     } //update kill.
 
   }, {

@@ -52,7 +52,11 @@ flowerStalk.src = 'images/flowerstalk.jpg';
 var drone = new Image();
 drone.src = 'images/drone.png';
 var sheild = new Image();
-sheild.src = 'images/sheild.png'; //arrays to var.
+sheild.src = 'images/sheild.png';
+var lightningBolt = new Image();
+lightningBolt.src = 'images/lightningBolt.png';
+var lightningBall = new Image();
+lightningBall.src = 'images/lightningBall.png'; //arrays to var.
 
 var enemies = [];
 var foods = [];
@@ -122,7 +126,8 @@ var gravity = 0.03,
     mushroomCount = 0,
     mushroomSize = 50,
     blink = 4,
-    squint = 2; //boolean vars.
+    squint = 2,
+    boltCount = 5; //boolean vars.
 
 var moveLeft = false,
     moveRight = false,
@@ -136,7 +141,8 @@ var moveLeft = false,
     playerAlive = true,
     minesToPlant = false,
     endGameSound = false,
-    playerSheild = false;
+    playerSheild = false,
+    LBall = false;
 var leftEye = {
   x: 8,
   y: 7
@@ -343,13 +349,14 @@ function animate() {
       var killAll = Math.random();
 
       if (killAll > 0.9991) {
-        kills.push(new Kill(Math.random() * 6000 - 3000, Math.random() * c.height, 8, 25));
+        kills.push(new Kill(Math.random() * 6000 - 3000, Math.random() * c.height, 40, 25));
       }
 
       kills.forEach(function (kill, index) {
         var colide = collisionDetection(kill.x, kill.y, kill.r);
 
         if (colide) {
+          LBall = true;
           kills = [];
           killEverything.currentTime = 0;
           killEverything.play();
@@ -401,6 +408,16 @@ function animate() {
 
         kill.update();
       });
+    }
+
+    if (LBall) {
+      ctx.drawImage(lightningBall, x - 200, player.y - 200, 400, 400);
+      boltCount -= 1;
+
+      if (boltCount <= 0) {
+        boltCount = 5;
+        LBall = false;
+      }
     } //create wandering mine.
 
 

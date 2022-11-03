@@ -52,6 +52,10 @@ let drone = new Image();
 drone.src = 'images/drone.png';
 let sheild = new Image();
 sheild.src = 'images/sheild.png';
+let lightningBolt = new Image();
+lightningBolt.src = 'images/lightningBolt.png';
+let lightningBall = new Image();
+lightningBall.src = 'images/lightningBall.png';
 
 //arrays to var.
 let enemies = [];
@@ -125,7 +129,8 @@ let gravity = 0.03,
     mushroomCount = 0,
     mushroomSize = 50,
     blink = 4,
-    squint = 2;
+    squint = 2,
+    boltCount = 5;
 
 
 
@@ -142,7 +147,8 @@ let moveLeft = false,
     playerAlive = true,
     minesToPlant = false,
     endGameSound = false,
-    playerSheild = false;
+    playerSheild = false,
+    LBall = false;
 
 let leftEye = { x: 8, y: 7 },
     rightEye = { x: 8, y: 7 },
@@ -339,12 +345,13 @@ function animate() {
         if (controlLevel > 5) {
             let killAll = Math.random();
             if (killAll > 0.9991) {
-                kills.push(new Kill(Math.random() * 6000 - 3000, Math.random() * c.height, 8, 25))
+                kills.push(new Kill(Math.random() * 6000 - 3000, Math.random() * c.height, 40, 25))
             }
 
             kills.forEach((kill, index) => {
                 let colide = collisionDetection(kill.x, kill.y, kill.r);
                 if (colide) {
+                    LBall = true;
                     kills = [];
                     killEverything.currentTime = 0;
                     killEverything.play();
@@ -394,6 +401,15 @@ function animate() {
                 }
                 kill.update();
             });
+        }
+
+        if (LBall) {
+            ctx.drawImage(lightningBall, x - 200, player.y - 200, 400, 400);
+            boltCount -= 1;
+            if (boltCount <= 0) {
+                boltCount = 5;
+                LBall = false;
+            }
         }
 
         //create wandering mine.

@@ -98,9 +98,10 @@ function init() {
   flowers = [];
   sheilds = [];
   mushrooms = [];
-  minesToPlant = false;
-  gravity = 0.03, friction = 0.002, controlLevel = 1, velocityAmount = 0.02, width = 0, score = 0, levelBonus = 8000, skillLevel = 0.998, missileFire = 0.999, minePlant = 0.999, enemyVelocity = 1, foodVelocity = 1, foodAmount = 0.998, enemyRadius = 8, textFade = 1, bonus = 0, x = c.width / 2, ang = 0, x1 = 0, y1 = 0, mushroomCount = 0;
-  playerAlive = true;
+  gravity = 0.03, friction = 0.002, controlLevel = 1, velocityAmount = 0.02, width = 0, score = 0, levelBonus = 8000, skillLevel = 0.998, missileFire = 0.999, minePlant = 0.999, enemyVelocity = 1, foodVelocity = 1, foodAmount = 0.998, enemyRadius = 8, textFade = 1, bonus = 0, x = c.width / 2, ang = 0, x1 = 0, y1 = 0, mushroomCount = 0, mushroomSize = 50, blink = 4, squint = 2, boltCount = 5;
+  moveLeft = false, moveRight = false, moveUp = false, moveDown = false, eyesBlink = false, eyesSquint = false, increaseBounce = false, fadeText = false, missile = false, playerAlive = true, minesToPlant = false, endGameSound = false, playerSheild = false, LBall = false;
+  width = 0;
+  elem.style.width = width + "%";
   player = new Player(c.width / 2, c.height / 2, 20);
   enemies.push(new Enemy(Math.random() * c.width, 0, 0, 1, 8));
   bombDrop.currentTime = 0;
