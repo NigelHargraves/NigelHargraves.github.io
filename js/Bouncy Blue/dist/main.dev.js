@@ -50,7 +50,9 @@ sunflower.src = 'images/sunflower.png';
 var flowerStalk = new Image();
 flowerStalk.src = 'images/flowerstalk.jpg';
 var drone = new Image();
-drone.src = 'images/drone.png'; //arrays to var.
+drone.src = 'images/drone.png';
+var sheild = new Image();
+sheild.src = 'images/sheild.png'; //arrays to var.
 
 var enemies = [];
 var foods = [];
@@ -253,7 +255,7 @@ function animate() {
       var createSheild = Math.random();
 
       if (createSheild > 0.9991) {
-        sheilds.push(new Sheild(Math.random() * 6000 - 3000, Math.random() * c.height, 8, 25));
+        sheilds.push(new Sheild(Math.random() * 6000 - 3000, Math.random() * (c.height - 20), 20, 25));
       }
     }
 

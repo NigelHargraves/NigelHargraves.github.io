@@ -50,6 +50,8 @@ let flowerStalk = new Image();
 flowerStalk.src = 'images/flowerstalk.jpg';
 let drone = new Image();
 drone.src = 'images/drone.png';
+let sheild = new Image();
+sheild.src = 'images/sheild.png';
 
 //arrays to var.
 let enemies = [];
@@ -263,7 +265,7 @@ function animate() {
         if (!playerSheild && controlLevel > 5) {
             let createSheild = Math.random();
             if (createSheild > 0.9991) {
-                sheilds.push(new Sheild(Math.random() * 6000 - 3000, Math.random() * c.height, 8, 25))
+                sheilds.push(new Sheild(Math.random() * 6000 - 3000, Math.random() * (c.height - 20), 20, 25))
             }
         }
 

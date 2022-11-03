@@ -23,13 +23,7 @@ function () {
   _createClass(Sheild, [{
     key: "draw",
     value: function draw() {
-      ctx.beginPath();
-      ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
-      ctx.fillStyle = "green";
-      ctx.fill();
-      ctx.font = "10px Arial";
-      ctx.fillStyle = "black";
-      ctx.fillText("S", this.x - 3, this.y + 2);
+      ctx.drawImage(sheild, this.x - this.r, this.y - this.r, this.r * 2, this.r * 2);
     }
   }, {
     key: "update",
