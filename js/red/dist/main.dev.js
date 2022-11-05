@@ -16,21 +16,61 @@ var layers = [];
 var KP = {}; //Keyspressed array
 
 var KR = {}; //Keysreleased array
+//boolean.
 
 var moveLeft = false,
     moveRight = false,
     jump = false,
-    sit = false;
-var gravity = 0.03,
-    friction = 0.006,
-    velocityAmount = 0.02,
-    groundPosition = 677;
+    sit = false,
+    lookRight = true,
+    standingStill = true;
+var gravity, friction, velocityAmount, groundPosition, x, y, timerStand, timerSlide, timerRun;
 var background1 = new Image();
-background1.src = "https://img.freepik.com/free-vector/cartoon-nature-landscape-with-mountain-forest-deciduous-trees-trunks-clearance_107791-3706.jpg?w=1380&t=st=1664548409~exp=1664549009~hmac=1db2c723702f96a80b9fca1dbb0063bdbc4b05541455b5950ff9d2e649ceee37";
+background1.src = 'images/red/darkwood.png';
 var background2 = new Image();
-background2.src = "https://img.freepik.com/free-photo/top-view-bright-green-grass-texture-background_93675-134844.jpg?w=1380&t=st=1664550289~exp=1664550889~hmac=44ed39c3e4ec6343139f783c716acaf925366e8e8871506a4fcdf7cba28fd09b";
-var playerImage = new Image();
-playerImage.src = 'images/red/player/Idle1.png'; //create layer class.
+background2.src = 'images/red/grass.jpg';
+var IdleRight = [];
+
+for (var i = 1; i < 11; i++) {
+  IdleRight[i] = new Image();
+  IdleRight[i].src = 'images/red/player/IdleRight' + i + '.png';
+}
+
+var IdleLeft = [];
+
+for (var _i = 1; _i < 11; _i++) {
+  IdleLeft[_i] = new Image();
+  IdleLeft[_i].src = 'images/red/player/IdleLeft' + _i + '.png';
+}
+
+var RunRight = [];
+
+for (var _i2 = 1; _i2 < 9; _i2++) {
+  RunRight[_i2] = new Image();
+  RunRight[_i2].src = 'images/red/player/RunRight' + _i2 + '.png';
+}
+
+var RunLeft = [];
+
+for (var _i3 = 1; _i3 < 9; _i3++) {
+  RunLeft[_i3] = new Image();
+  RunLeft[_i3].src = 'images/red/player/RunLeft' + _i3 + '.png';
+}
+
+var SlideRight = [];
+
+for (var _i4 = 1; _i4 < 6; _i4++) {
+  SlideRight[_i4] = new Image();
+  SlideRight[_i4].src = 'images/red/player/SlideRight' + _i4 + '.png';
+}
+
+var SlideLeft = [];
+
+for (var _i5 = 1; _i5 < 6; _i5++) {
+  SlideLeft[_i5] = new Image();
+  SlideLeft[_i5].src = 'images/red/player/SlideLeft' + _i5 + '.png';
+} //create layer class.
+
 
 var Layer =
 /*#__PURE__*/
@@ -60,7 +100,7 @@ function () {
         ctx2.drawImage(this.image, this.x2, this.y, this.width, this.height);
       }
 
-      c2.style.top = groundPosition + 100 + (groundPosition - player.y) + "px";
+      c2.style.top = groundPosition + 90 + (groundPosition - player.y) + "px";
     } //update layer.
 
   }, {
@@ -119,7 +159,61 @@ function () {
   _createClass(Player, [{
     key: "draw",
     value: function draw() {
-      ctx.drawImage(playerImage, this.x, this.y, 100, 100);
+      if (!moveLeft && !moveRight && !sit && lookRight && groundPosition <= player.y && this.velocity.x > 0.1) {
+        ctx.drawImage(SlideRight[Math.round(timerSlide)], x, y, 100, 100);
+        this.velocity.x -= 0.1;
+        timerSlide += 0.1;
+
+        if (timerSlide >= 5.4) {
+          timerSlide = 0.5;
+        }
+      }
+
+      if (!moveLeft && !moveRight && !sit && !lookRight && groundPosition <= player.y && this.velocity.x < -0.1) {
+        ctx.drawImage(SlideLeft[Math.round(timerSlide)], x, y, 100, 100);
+        this.velocity.x += 0.1;
+        timerSlide += 0.1;
+
+        if (timerSlide >= 5.4) {
+          timerSlide = 0.5;
+        }
+      }
+
+      if (!moveLeft && !moveRight && !sit && lookRight && groundPosition <= player.y && player.velocity.x <= 0.1) {
+        ctx.drawImage(IdleRight[Math.round(timerStand)], x, y, 100, 100);
+        timerStand += 0.1;
+
+        if (timerStand >= 10.4) {
+          timerStand = 0.5;
+        }
+      }
+
+      if (!moveLeft && !moveRight && !sit && !lookRight && groundPosition <= player.y && player.velocity.x >= -0.1) {
+        ctx.drawImage(IdleLeft[Math.round(timerStand)], x, y, 100, 100);
+        timerStand += 0.1;
+
+        if (timerStand >= 10.4) {
+          timerStand = 0.5;
+        }
+      }
+
+      if (moveRight) {
+        ctx.drawImage(RunRight[Math.round(timerRun)], x, y, 100, 100);
+        timerRun += 0.1;
+
+        if (timerRun >= 8.4) {
+          timerRun = 0.5;
+        }
+      }
+
+      if (moveLeft) {
+        ctx.drawImage(RunLeft[Math.round(timerRun)], x, y, 100, 100);
+        timerRun += 0.1;
+
+        if (timerRun >= 8.4) {
+          timerRun = 0.5;
+        }
+      }
     }
   }, {
     key: "update",
@@ -139,26 +233,16 @@ function () {
       if (this.y > groundPosition - 1) {
         if (moveLeft) {
           this.velocity.x -= velocityAmount;
-        } else if (moveRight) {
+        }
+
+        if (moveRight) {
           this.velocity.x += velocityAmount;
         }
       }
 
       if (jump) {
         if (this.y > groundPosition - 1) {
-          this.velocity.y = -2;
-        }
-      } else if (sit) {
-        if (this.y > groundPosition - 1) {
-          if (this.velocity.x > 0.3 || this.velocity.x < -0.3) {
-            if (this.velocity.x < 0) {
-              this.velocity.x += 0.1;
-            } else {
-              this.velocity.x -= 0.1;
-            }
-          } else {
-            this.velocity.x = 0;
-          }
+          this.velocity.y = -3;
         }
       } //update position.
 
@@ -173,6 +257,14 @@ function () {
         this.y = groundPosition;
       }
 
+      if (this.velocity.x >= 3) {
+        this.velocity.x = 2.9;
+      }
+
+      if (this.velocity.x <= -3) {
+        this.velocity.x = -2.9;
+      }
+
       this.draw();
     }
   }]);
@@ -181,7 +273,8 @@ function () {
 }();
 
 function init() {
-  player = new Player(c.width / 2, c.height - 100);
+  gravity = 0.03, friction = 0.006, velocityAmount = 0.02, groundPosition = 800, x = c.width / 2, y = groundPosition, timerSlide = 0.5, timerStand = 0.5, timerRun = 0.5;
+  player = new Player(x, y);
   layers.push(new Layer(background1, 0, -c.height, c.height * 2, 0));
   layers.push(new Layer(background2, 0, 0, c2.height, 0));
 }
@@ -195,7 +288,7 @@ function animate() {
   player.update();
   ctx.font = "20px Arial";
   ctx.fillStyle = "white";
-  ctx.fillText("This.y = " + player.y, 0, 20);
+  ctx.fillText("variable = " + player.velocity.x, 0, 20);
 } //adjust canvas on screen resize.
 
 
@@ -207,17 +300,19 @@ window.addEventListener("resize", function () {
 window.addEventListener("keydown", function (e) {
   if (e.keyCode == 37 || e.keyCode == 65) {
     moveLeft = true;
+    lookRight = false;
   }
 
   if (e.keyCode == 39 || e.keyCode == 68) {
     moveRight = true;
+    lookRight = true;
   }
 
   if (e.keyCode == 83 || e.keyCode == 40) {
     sit = true;
   }
 
-  if (e.keyCode == 87 || e.keyCode == 38) {
+  if (e.keyCode == 32) {
     jump = true;
   }
 });
@@ -232,10 +327,9 @@ window.addEventListener("keyup", function (e) {
 
   if (e.keyCode == 83 || e.keyCode == 40) {
     sit = false;
-    player.style.background = "red";
   }
 
-  if (e.keyCode == 87 || e.keyCode == 38) {
+  if (e.keyCode == 32) {
     jump = false;
   }
 });
