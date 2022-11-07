@@ -1,34 +1,32 @@
 "use strict";
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
 // Set the canvas element to a variable.
 var ctx = c.getContext("2d");
 c.width = window.innerWidth;
 c.height = window.innerHeight;
 var ctx2 = c2.getContext("2d");
 c2.width = window.innerWidth;
-var layers = [];
+var layers = [],
+    ledges = [];
 var KP = {}; //Keyspressed array
 
 var KR = {}; //Keysreleased array
-//boolean.
+//declare boolean.
 
 var moveLeft = false,
     moveRight = false,
     jump = false,
     sit = false,
     lookRight = true,
-    standingStill = true;
-var gravity, friction, velocityAmount, groundPosition, x, y, timerStand, timerSlide, timerRun;
+    fall = true; //declare variable.
+
+var gravity, friction, velocityAmount, groundPosition, playerPosition, x, y, timerStand, timerSlide, timerRun, timerJump;
 var background1 = new Image();
 background1.src = 'images/red/darkwood.png';
 var background2 = new Image();
 background2.src = 'images/red/grass.jpg';
+var ledgeImage = new Image();
+ledgeImage.src = 'images/red/ledge.png';
 var IdleRight = [];
 
 for (var i = 1; i < 11; i++) {
@@ -69,214 +67,20 @@ var SlideLeft = [];
 for (var _i5 = 1; _i5 < 6; _i5++) {
   SlideLeft[_i5] = new Image();
   SlideLeft[_i5].src = 'images/red/player/SlideLeft' + _i5 + '.png';
-} //create layer class.
+}
 
+var JumpRight = [];
 
-var Layer =
-/*#__PURE__*/
-function () {
-  //construct layer data.
-  function Layer(image, x, y, height, speed) {
-    _classCallCheck(this, Layer);
+for (var _i6 = 1; _i6 < 10; _i6++) {
+  JumpRight[_i6] = new Image();
+  JumpRight[_i6].src = 'images/red/player/JumpRight' + _i6 + '.png';
+}
 
-    this.x = x;
-    this.y = y;
-    this.width = 6000;
-    this.height = height;
-    this.x2 = this.width;
-    this.image = image;
-    this.speed = speed;
-  } //draw layer.
+var JumpLeft = [];
 
-
-  _createClass(Layer, [{
-    key: "draw",
-    value: function draw() {
-      if (this.image == background1) {
-        ctx.drawImage(this.image, this.x, this.y + (groundPosition - player.y), this.width, this.height);
-        ctx.drawImage(this.image, this.x2, this.y + (groundPosition - player.y), this.width, this.height);
-      } else {
-        ctx2.drawImage(this.image, this.x, this.y, this.width, this.height);
-        ctx2.drawImage(this.image, this.x2, this.y, this.width, this.height);
-      }
-
-      c2.style.top = groundPosition + 90 + (groundPosition - player.y) + "px";
-    } //update layer.
-
-  }, {
-    key: "update",
-    value: function update() {
-      if (this.image == background1) {
-        this.speed = player.velocity.x;
-      } else {
-        this.speed = player.velocity.x * 1.25;
-      }
-
-      if (player.velocity.x >= 0) {
-        if (this.x <= -this.width) {
-          this.x = this.width;
-        }
-
-        if (this.x2 <= -this.width) {
-          this.x2 = this.width;
-        }
-      } else {
-        if (this.x >= this.width) {
-          this.x = -this.width;
-        }
-
-        if (this.x2 >= this.width) {
-          this.x2 = -this.width;
-        }
-      }
-
-      this.x -= this.speed;
-      this.x2 -= this.speed;
-      this.draw();
-    }
-  }]);
-
-  return Layer;
-}(); //create player class.
-
-
-var Player =
-/*#__PURE__*/
-function () {
-  //construct player data.
-  function Player(x, y) {
-    _classCallCheck(this, Player);
-
-    this.x = x;
-    this.y = y;
-    this.velocity = {
-      x: 0,
-      y: 0
-    };
-  } //draw player.
-
-
-  _createClass(Player, [{
-    key: "draw",
-    value: function draw() {
-      if (!moveLeft && !moveRight && !sit && lookRight && groundPosition <= player.y && this.velocity.x > 0.1) {
-        ctx.drawImage(SlideRight[Math.round(timerSlide)], x, y, 100, 100);
-        this.velocity.x -= 0.1;
-        timerSlide += 0.1;
-
-        if (timerSlide >= 5.4) {
-          timerSlide = 0.5;
-        }
-      }
-
-      if (!moveLeft && !moveRight && !sit && !lookRight && groundPosition <= player.y && this.velocity.x < -0.1) {
-        ctx.drawImage(SlideLeft[Math.round(timerSlide)], x, y, 100, 100);
-        this.velocity.x += 0.1;
-        timerSlide += 0.1;
-
-        if (timerSlide >= 5.4) {
-          timerSlide = 0.5;
-        }
-      }
-
-      if (!moveLeft && !moveRight && !sit && lookRight && groundPosition <= player.y && player.velocity.x <= 0.1) {
-        ctx.drawImage(IdleRight[Math.round(timerStand)], x, y, 100, 100);
-        timerStand += 0.1;
-
-        if (timerStand >= 10.4) {
-          timerStand = 0.5;
-        }
-      }
-
-      if (!moveLeft && !moveRight && !sit && !lookRight && groundPosition <= player.y && player.velocity.x >= -0.1) {
-        ctx.drawImage(IdleLeft[Math.round(timerStand)], x, y, 100, 100);
-        timerStand += 0.1;
-
-        if (timerStand >= 10.4) {
-          timerStand = 0.5;
-        }
-      }
-
-      if (moveRight) {
-        ctx.drawImage(RunRight[Math.round(timerRun)], x, y, 100, 100);
-        timerRun += 0.1;
-
-        if (timerRun >= 8.4) {
-          timerRun = 0.5;
-        }
-      }
-
-      if (moveLeft) {
-        ctx.drawImage(RunLeft[Math.round(timerRun)], x, y, 100, 100);
-        timerRun += 0.1;
-
-        if (timerRun >= 8.4) {
-          timerRun = 0.5;
-        }
-      }
-    }
-  }, {
-    key: "update",
-    value: function update() {
-      if (this.velocity.y > 0) {
-        this.velocity.y -= friction;
-      } else {
-        this.velocity.y += friction;
-      }
-
-      if (this.velocity.x > 0) {
-        this.velocity.x -= friction;
-      } else {
-        this.velocity.x += friction;
-      }
-
-      if (this.y > groundPosition - 1) {
-        if (moveLeft) {
-          this.velocity.x -= velocityAmount;
-        }
-
-        if (moveRight) {
-          this.velocity.x += velocityAmount;
-        }
-      }
-
-      if (jump) {
-        if (this.y > groundPosition - 1) {
-          this.velocity.y = -3;
-        }
-      } //update position.
-
-
-      this.x += this.velocity.x;
-      this.y += this.velocity.y; //add gravity.
-
-      if (this.y < groundPosition) {
-        this.velocity.y += gravity;
-      } else {
-        this.velocity.y = 0;
-        this.y = groundPosition;
-      }
-
-      if (this.velocity.x >= 3) {
-        this.velocity.x = 2.9;
-      }
-
-      if (this.velocity.x <= -3) {
-        this.velocity.x = -2.9;
-      }
-
-      this.draw();
-    }
-  }]);
-
-  return Player;
-}();
-
-function init() {
-  gravity = 0.03, friction = 0.006, velocityAmount = 0.02, groundPosition = 800, x = c.width / 2, y = groundPosition, timerSlide = 0.5, timerStand = 0.5, timerRun = 0.5;
-  player = new Player(x, y);
-  layers.push(new Layer(background1, 0, -c.height, c.height * 2, 0));
-  layers.push(new Layer(background2, 0, 0, c2.height, 0));
+for (var _i7 = 1; _i7 < 10; _i7++) {
+  JumpLeft[_i7] = new Image();
+  JumpLeft[_i7].src = 'images/red/player/JumpLeft' + _i7 + '.png';
 }
 
 function animate() {
@@ -285,10 +89,34 @@ function animate() {
   layers.forEach(function (layer, index) {
     layer.update();
   });
+
+  for (var _i8 = 0, _ledges = ledges; _i8 < _ledges.length; _i8++) {
+    var ledge = _ledges[_i8];
+
+    if (lookRight) {
+      if (x + 70 >= ledge.x && x + 40 < ledge.x + 600 && player.y + 80 <= ledge.y) {
+        playerPosition = ledge.y - 85;
+        break;
+      } else {
+        playerPosition = groundPosition;
+      }
+    } else if (!lookRight) {
+      if (x + 40 >= ledge.x && x + 20 < ledge.x + 600 && player.y + 80 <= ledge.y) {
+        playerPosition = ledge.y - 85;
+        break;
+      } else {
+        playerPosition = groundPosition;
+      }
+    }
+  }
+
+  ledges.forEach(function (ledge, index) {
+    ledge.update();
+  });
   player.update();
   ctx.font = "20px Arial";
   ctx.fillStyle = "white";
-  ctx.fillText("variable = " + player.velocity.x, 0, 20);
+  ctx.fillText("variable = " + playerPosition + '   ' + player.y, 0, 20);
 } //adjust canvas on screen resize.
 
 
@@ -327,10 +155,6 @@ window.addEventListener("keyup", function (e) {
 
   if (e.keyCode == 83 || e.keyCode == 40) {
     sit = false;
-  }
-
-  if (e.keyCode == 32) {
-    jump = false;
   }
 });
 init();
