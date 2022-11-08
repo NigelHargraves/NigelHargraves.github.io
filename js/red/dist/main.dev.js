@@ -18,9 +18,10 @@ var moveLeft = false,
     jump = false,
     sit = false,
     lookRight = true,
-    fall = true; //declare variable.
+    fall = true,
+    playerAlive = true; //declare variable.
 
-var gravity, friction, velocityAmount, groundPosition, playerPosition, x, y, timerStand, timerSlide, timerRun, timerJump;
+var gravity, friction, velocityAmount, groundPosition, playerPosition, x, y, timerStand, timerSlide, timerRun, timerJump, timerDead;
 var background1 = new Image();
 background1.src = 'images/red/darkwood.png';
 var background2 = new Image();
@@ -83,40 +84,33 @@ for (var _i7 = 1; _i7 < 10; _i7++) {
   JumpLeft[_i7].src = 'images/red/player/JumpLeft' + _i7 + '.png';
 }
 
+var DeadRight = [];
+
+for (var _i8 = 1; _i8 < 11; _i8++) {
+  DeadRight[_i8] = new Image();
+  DeadRight[_i8].src = 'images/red/player/DeadRight' + _i8 + '.png';
+}
+
+var DeadLeft = [];
+
+for (var _i9 = 1; _i9 < 11; _i9++) {
+  DeadLeft[_i9] = new Image();
+  DeadLeft[_i9].src = 'images/red/player/DeadLeft' + _i9 + '.png';
+}
+
 function animate() {
   //call next frame.
   animationId = requestAnimationFrame(animate);
   layers.forEach(function (layer, index) {
     layer.update();
   });
-
-  for (var _i8 = 0, _ledges = ledges; _i8 < _ledges.length; _i8++) {
-    var ledge = _ledges[_i8];
-
-    if (lookRight) {
-      if (x + 70 >= ledge.x && x + 40 < ledge.x + 600 && player.y + 80 <= ledge.y) {
-        playerPosition = ledge.y - 85;
-        break;
-      } else {
-        playerPosition = groundPosition;
-      }
-    } else if (!lookRight) {
-      if (x + 40 >= ledge.x && x + 20 < ledge.x + 600 && player.y + 80 <= ledge.y) {
-        playerPosition = ledge.y - 85;
-        break;
-      } else {
-        playerPosition = groundPosition;
-      }
-    }
-  }
-
   ledges.forEach(function (ledge, index) {
     ledge.update();
   });
   player.update();
   ctx.font = "20px Arial";
   ctx.fillStyle = "white";
-  ctx.fillText("variable = " + playerPosition + '   ' + player.y, 0, 20);
+  ctx.fillText("variable = " + playerPosition + '   ' + player.velocity.y, 0, 20);
 } //adjust canvas on screen resize.
 
 

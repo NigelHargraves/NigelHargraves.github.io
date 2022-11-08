@@ -19,7 +19,8 @@ let moveLeft = false,
     jump = false,
     sit = false,
     lookRight = true,
-    fall = true;
+    fall = true,
+    playerAlive = true;
 
 //declare variable.
 let gravity,
@@ -31,7 +32,8 @@ let gravity,
     timerStand,
     timerSlide,
     timerRun,
-    timerJump;
+    timerJump,
+    timerDead;
 
 
 
@@ -91,6 +93,16 @@ for (let i = 1; i < 10; i++) {
     JumpLeft[i] = new Image();
     JumpLeft[i].src = 'images/red/player/JumpLeft' + i + '.png';
 }
+let DeadRight = [];
+for (let i = 1; i < 11; i++) {
+    DeadRight[i] = new Image();
+    DeadRight[i].src = 'images/red/player/DeadRight' + i + '.png';
+}
+let DeadLeft = [];
+for (let i = 1; i < 11; i++) {
+    DeadLeft[i] = new Image();
+    DeadLeft[i].src = 'images/red/player/DeadLeft' + i + '.png';
+}
 
 
 function animate() {
@@ -105,29 +117,16 @@ function animate() {
     });
 
 
-    for (const ledge of ledges) {
 
-        if (lookRight) {
-            if (x + 70 >= ledge.x && x + 40 < ledge.x + 600 && player.y + 80 <= ledge.y) {
-                playerPosition = ledge.y - 85;
-                break;
-            } else {
-                playerPosition = groundPosition;
-            }
-        } else if (!lookRight) {
-            if (x + 40 >= ledge.x && x + 20 < ledge.x + 600 && player.y + 80 <= ledge.y) {
-                playerPosition = ledge.y - 85;
-                break;
-            } else {
-                playerPosition = groundPosition;
-            }
-        }
-
-
-
-    }
 
     ledges.forEach((ledge, index) => {
+
+
+
+
+
+
+
         ledge.update();
     });
 
@@ -140,7 +139,7 @@ function animate() {
 
     ctx.font = "20px Arial";
     ctx.fillStyle = "white";
-    ctx.fillText("variable = " + playerPosition + '   ' + player.y, 0, 20);
+    ctx.fillText("variable = " + playerPosition + '   ' + player.velocity.y, 0, 20);
 }
 
 //adjust canvas on screen resize.

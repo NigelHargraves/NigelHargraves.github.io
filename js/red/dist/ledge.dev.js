@@ -11,19 +11,20 @@ var Ledge =
 /*#__PURE__*/
 function () {
   //construct ledge data.
-  function Ledge(image, x, y) {
+  function Ledge(image, x, y, width) {
     _classCallCheck(this, Ledge);
 
     this.image = image;
     this.x = x;
     this.y = y;
+    this.width = width;
   } //draw ledge.
 
 
   _createClass(Ledge, [{
     key: "draw",
     value: function draw() {
-      ctx.drawImage(this.image, this.x, this.y + (groundPosition - player.y), 600, 20);
+      ctx.drawImage(this.image, this.x, this.y + (groundPosition - player.y), this.width, 20);
     } //update ledge.
 
   }, {

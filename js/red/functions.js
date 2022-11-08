@@ -9,10 +9,13 @@ function init() {
     timerStand = 0.5;
     timerRun = 0.5;
     timerJump = 0.5;
+    timerDead = 0.5;
     playerPosition = groundPosition;
     player = new Player(x, y);
     layers.push(new Layer(background1, 0, -c.height, c.height * 2, 0));
     layers.push(new Layer(background2, 0, 0, c2.height, 0));
-    ledges.push(new Ledge(ledgeImage, (c.width / 4) * 3, (c.height / 4) * 3.1));
-    ledges.push(new Ledge(ledgeImage, (c.width / 4) * 2, (c.height / 4) * 2.7));
+    ledges.push(new Ledge(ledgeImage, 1500, 760, 600));
+    ledges.push(new Ledge(ledgeImage, 700, 660, 550));
+    ledges.push(new Ledge(ledgeImage, -50, 560, 500));
+    ledges.push(new Ledge(ledgeImage, 500, 420, 100));
 }

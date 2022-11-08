@@ -1,10 +1,11 @@
 //create ledge class.
 class Ledge {
     //construct ledge data.
-    constructor(image, x, y) {
+    constructor(image, x, y, width) {
         this.image = image;
         this.x = x;
         this.y = y;
+        this.width = width;
     }
 
     //draw ledge.
@@ -12,7 +13,7 @@ class Ledge {
 
 
 
-        ctx.drawImage(this.image, this.x, this.y + (groundPosition - player.y), 600, 20);
+        ctx.drawImage(this.image, this.x, this.y + (groundPosition - player.y), this.width, 20);
 
 
     }
