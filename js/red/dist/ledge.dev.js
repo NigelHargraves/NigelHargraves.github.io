@@ -11,13 +11,14 @@ var Ledge =
 /*#__PURE__*/
 function () {
   //construct ledge data.
-  function Ledge(image, x, y, width) {
+  function Ledge(image, x, y, width, number) {
     _classCallCheck(this, Ledge);
 
     this.image = image;
     this.x = x;
     this.y = y;
     this.width = width;
+    this.number = number;
   } //draw ledge.
 
 

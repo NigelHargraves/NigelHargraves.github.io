@@ -7,7 +7,8 @@ c.height = window.innerHeight;
 var ctx2 = c2.getContext("2d");
 c2.width = window.innerWidth;
 var layers = [],
-    ledges = [];
+    ledges = [],
+    apples = [];
 var KP = {}; //Keyspressed array
 
 var KR = {}; //Keysreleased array
@@ -19,7 +20,8 @@ var moveLeft = false,
     sit = false,
     lookRight = true,
     fall = true,
-    playerAlive = true; //declare variable.
+    playerAlive = true,
+    onLedge = false; //declare variable.
 
 var gravity, friction, velocityAmount, groundPosition, playerPosition, x, y, timerStand, timerSlide, timerRun, timerJump, timerDead;
 var background1 = new Image();
@@ -28,6 +30,10 @@ var background2 = new Image();
 background2.src = 'images/red/grass.jpg';
 var ledgeImage = new Image();
 ledgeImage.src = 'images/red/ledge.png';
+var greenApple = new Image();
+greenApple.src = 'images/red/greenApple.png';
+var redApple = new Image();
+redApple.src = 'images/red/redApple.png';
 var IdleRight = [];
 
 for (var i = 1; i < 11; i++) {
@@ -104,13 +110,61 @@ function animate() {
   layers.forEach(function (layer, index) {
     layer.update();
   });
+  ctx.font = "20px Arial";
+  ctx.fillStyle = "white";
+  ctx.fillText("variable = " + playerPosition, 0, 20);
+
+  for (var _i10 = 0, _ledges = ledges; _i10 < _ledges.length; _i10++) {
+    var ledge = _ledges[_i10];
+
+    if (lookRight) {
+      if (x + 70 >= ledge.x && x + 50 <= ledge.x + ledge.width && player.y + 85 >= ledge.y && player.y <= ledge.y + 20) {
+        player.velocity.y = 2;
+        break;
+      }
+
+      if (x + 70 >= ledge.x && x + 50 <= ledge.x + ledge.width && player.y + 70 <= ledge.y && player.y >= ledge.y - 100) {
+        playerPosition = ledge.y - 85;
+        onLedge = true;
+        break;
+      }
+    } else {
+      if (x + 50 >= ledge.x && x + 30 <= ledge.x + ledge.width && player.y + 85 >= ledge.y && player.y <= ledge.y + 20) {
+        player.velocity.y = 2;
+        onLedge = true;
+        break;
+      }
+
+      if (x + 50 >= ledge.x && x + 50 <= ledge.x + ledge.width && player.y + 70 <= ledge.y && player.y >= ledge.y - 100) {
+        playerPosition = ledge.y - 85;
+        break;
+      }
+    }
+
+    if (ledge.number == ledges.length) {
+      playerPosition = groundPosition;
+    }
+  }
+
   ledges.forEach(function (ledge, index) {
     ledge.update();
   });
+  var createApple = Math.random();
+
+  if (createApple >= 0.999) {
+    apples.push(new Apple(Math.random() * c.width, Math.random() * c.height, "green"));
+  }
+
+  createApple = Math.random();
+
+  if (createApple >= 0.999) {
+    apples.push(new Apple(Math.random() * c.width, Math.random() * c.height, "red"));
+  }
+
+  apples.forEach(function (apple, index) {
+    apple.update();
+  });
   player.update();
-  ctx.font = "20px Arial";
-  ctx.fillStyle = "white";
-  ctx.fillText("variable = " + playerPosition + '   ' + player.velocity.y, 0, 20);
 } //adjust canvas on screen resize.
 
 

@@ -1,11 +1,12 @@
 //create ledge class.
 class Ledge {
     //construct ledge data.
-    constructor(image, x, y, width) {
+    constructor(image, x, y, width, number) {
         this.image = image;
         this.x = x;
         this.y = y;
         this.width = width;
+        this.number = number;
     }
 
     //draw ledge.

@@ -8,7 +8,8 @@ c2.width = window.innerWidth;
 
 
 let layers = [],
-    ledges = [];
+    ledges = [],
+    apples = [];
 
 let KP = {}; //Keyspressed array
 let KR = {}; //Keysreleased array
@@ -20,7 +21,8 @@ let moveLeft = false,
     sit = false,
     lookRight = true,
     fall = true,
-    playerAlive = true;
+    playerAlive = true,
+    onLedge = false;
 
 //declare variable.
 let gravity,
@@ -52,6 +54,18 @@ background2.src = 'images/red/grass.jpg';
 
 let ledgeImage = new Image();
 ledgeImage.src = 'images/red/ledge.png';
+
+let greenApple = new Image();
+greenApple.src = 'images/red/greenApple.png';
+
+let redApple = new Image();
+redApple.src = 'images/red/redApple.png';
+
+
+
+
+
+
 
 let IdleRight = [];
 for (let i = 1; i < 11; i++) {
@@ -116,19 +130,62 @@ function animate() {
         layer.update();
     });
 
+    ctx.font = "20px Arial";
+    ctx.fillStyle = "white";
+    ctx.fillText("variable = " + playerPosition, 0, 20);
 
+
+    for (let ledge of ledges) {
+        if (lookRight) {
+            if (x + 70 >= ledge.x && x + 50 <= ledge.x + ledge.width && player.y + 85 >= ledge.y && player.y <= ledge.y + 20) {
+                player.velocity.y = 2;
+                break;
+            }
+            if (x + 70 >= ledge.x && x + 50 <= ledge.x + ledge.width && player.y + 70 <= ledge.y && player.y >= ledge.y - 100) {
+                playerPosition = ledge.y - 85;
+                onLedge = true;
+                break;
+            }
+        } else {
+            if (x + 50 >= ledge.x && x + 30 <= ledge.x + ledge.width && player.y + 85 >= ledge.y && player.y <= ledge.y + 20) {
+                player.velocity.y = 2;
+                onLedge = true;
+                break;
+            }
+            if (x + 50 >= ledge.x && x + 50 <= ledge.x + ledge.width && player.y + 70 <= ledge.y && player.y >= ledge.y - 100) {
+                playerPosition = ledge.y - 85;
+                break;
+            }
+        }
+        if (ledge.number == ledges.length) {
+            playerPosition = groundPosition;
+        }
+    }
 
 
     ledges.forEach((ledge, index) => {
-
-
-
-
-
-
-
         ledge.update();
     });
+
+    let createApple = Math.random();
+
+    if (createApple >= 0.999) {
+        apples.push(new Apple(Math.random() * c.width, Math.random() * c.height, "green"));
+    }
+
+    createApple = Math.random();
+
+    if (createApple >= 0.999) {
+        apples.push(new Apple(Math.random() * c.width, Math.random() * c.height, "red"));
+    }
+
+
+
+    apples.forEach((apple, index) => {
+        apple.update();
+    });
+
+
 
 
 
@@ -137,9 +194,7 @@ function animate() {
 
     player.update();
 
-    ctx.font = "20px Arial";
-    ctx.fillStyle = "white";
-    ctx.fillText("variable = " + playerPosition + '   ' + player.velocity.y, 0, 20);
+
 }
 
 //adjust canvas on screen resize.
