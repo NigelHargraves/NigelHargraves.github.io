@@ -9,7 +9,7 @@ c2.width = window.innerWidth;
 
 let layers = [],
     ledges = [],
-    apples = [];
+    nasties = [];
 
 let KP = {}; //Keyspressed array
 let KR = {}; //Keysreleased array
@@ -61,7 +61,8 @@ greenApple.src = 'images/red/greenApple.png';
 let redApple = new Image();
 redApple.src = 'images/red/redApple.png';
 
-
+let nastyImage = new Image();
+nastyImage.src = 'images/red/nasty.png';
 
 
 
@@ -167,22 +168,31 @@ function animate() {
         ledge.update();
     });
 
-    let createApple = Math.random();
-
-    if (createApple >= 0.999) {
-        apples.push(new Apple(Math.random() * c.width, Math.random() * c.height, "green"));
+    let createNasty = Math.random();
+    let nastyDirection = Math.random();
+    if (createNasty >= 0.999) {
+        if (nastyDirection >= 0.5) {
+            nasties.push(new Nasty((Math.random() * 3000) + c.width, groundPosition, true));
+        } else {
+            nasties.push(new Nasty((Math.random() * 3000) + c.width, groundPosition, false));
+        }
     }
 
-    createApple = Math.random();
-
-    if (createApple >= 0.999) {
-        apples.push(new Apple(Math.random() * c.width, Math.random() * c.height, "red"));
+    createNasty = Math.random();
+    nastyDirection = Math.random();
+    if (createNasty >= 0.999) {
+        if (nastyDirection >= 0.5) {
+            nasties.push(new Nasty((Math.random() * -3000) - 100, groundPosition, true));
+        } else {
+            nasties.push(new Nasty((Math.random() * -3000) - 100, groundPosition, false));
+        }
     }
 
 
 
-    apples.forEach((apple, index) => {
-        apple.update();
+
+    nasties.forEach((nasty, index) => {
+        nasty.update();
     });
 
 

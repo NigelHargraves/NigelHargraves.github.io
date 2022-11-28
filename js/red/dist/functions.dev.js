@@ -2,7 +2,7 @@
 
 function init() {
   gravity = 0.05;
-  friction = 0.006;
+  friction = 0.004;
   velocityAmount = 0.2;
   groundPosition = 800;
   x = c.width / 2;

@@ -8,7 +8,7 @@ var ctx2 = c2.getContext("2d");
 c2.width = window.innerWidth;
 var layers = [],
     ledges = [],
-    apples = [];
+    nasties = [];
 var KP = {}; //Keyspressed array
 
 var KR = {}; //Keysreleased array
@@ -34,6 +34,8 @@ var greenApple = new Image();
 greenApple.src = 'images/red/greenApple.png';
 var redApple = new Image();
 redApple.src = 'images/red/redApple.png';
+var nastyImage = new Image();
+nastyImage.src = 'images/red/nasty.png';
 var IdleRight = [];
 
 for (var i = 1; i < 11; i++) {
@@ -149,20 +151,30 @@ function animate() {
   ledges.forEach(function (ledge, index) {
     ledge.update();
   });
-  var createApple = Math.random();
+  var createNasty = Math.random();
+  var nastyDirection = Math.random();
 
-  if (createApple >= 0.999) {
-    apples.push(new Apple(Math.random() * c.width, Math.random() * c.height, "green"));
+  if (createNasty >= 0.999) {
+    if (nastyDirection >= 0.5) {
+      nasties.push(new Nasty(Math.random() * 3000 + c.width, groundPosition, true));
+    } else {
+      nasties.push(new Nasty(Math.random() * 3000 + c.width, groundPosition, false));
+    }
   }
 
-  createApple = Math.random();
+  createNasty = Math.random();
+  nastyDirection = Math.random();
 
-  if (createApple >= 0.999) {
-    apples.push(new Apple(Math.random() * c.width, Math.random() * c.height, "red"));
+  if (createNasty >= 0.999) {
+    if (nastyDirection >= 0.5) {
+      nasties.push(new Nasty(Math.random() * -3000 - 100, groundPosition, true));
+    } else {
+      nasties.push(new Nasty(Math.random() * -3000 - 100, groundPosition, false));
+    }
   }
 
-  apples.forEach(function (apple, index) {
-    apple.update();
+  nasties.forEach(function (nasty, index) {
+    nasty.update();
   });
   player.update();
 } //adjust canvas on screen resize.
