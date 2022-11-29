@@ -19,7 +19,7 @@ class Player {
                     timerJump += 0.1;
 
                     if (this.velocity.x >= 0.1) {
-                        this.velocity.x -= 0.03;
+                        this.velocity.x -= 0.01;
                     }
                     if (timerJump >= 9.4) {
                         timerJump = 9;
@@ -33,7 +33,7 @@ class Player {
                     ctx.drawImage(JumpLeft[Math.round(timerJump)], x, y, 100, 100);
                     timerJump += 0.1;
                     if (this.velocity.x <= -0.1) {
-                        this.velocity.x += 0.03;
+                        this.velocity.x += 0.01;
                     }
                     if (timerJump >= 9.4) {
                         timerJump = 9;

@@ -34,7 +34,7 @@ function () {
             timerJump += 0.1;
 
             if (this.velocity.x >= 0.1) {
-              this.velocity.x -= 0.03;
+              this.velocity.x -= 0.01;
             }
 
             if (timerJump >= 9.4) {
@@ -50,7 +50,7 @@ function () {
             timerJump += 0.1;
 
             if (this.velocity.x <= -0.1) {
-              this.velocity.x += 0.03;
+              this.velocity.x += 0.01;
             }
 
             if (timerJump >= 9.4) {

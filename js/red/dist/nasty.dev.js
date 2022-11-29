@@ -11,11 +11,12 @@ var Nasty =
 /*#__PURE__*/
 function () {
   //construct nasty data.
-  function Nasty(x, y, direction) {
+  function Nasty(x, y, countdown, direction) {
     _classCallCheck(this, Nasty);
 
     this.x = x;
     this.y = y;
+    this.countdown = countdown;
     this.direction = direction;
     this.size = 100;
   }
@@ -36,6 +37,7 @@ function () {
         this.x += 0.5;
       }
 
+      this.countdown -= 0.1;
       this.draw();
     }
   }]);

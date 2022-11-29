@@ -23,7 +23,7 @@ var moveLeft = false,
     playerAlive = true,
     onLedge = false; //declare variable.
 
-var gravity, friction, velocityAmount, groundPosition, playerPosition, x, y, timerStand, timerSlide, timerRun, timerJump, timerDead;
+var gravity, friction, velocityAmount, groundPosition, playerPosition, x, y, timerStand, timerSlide, timerRun, timerJump, timerDead, farRight, farLeft;
 var background1 = new Image();
 background1.src = 'images/red/darkwood.png';
 var background2 = new Image();
@@ -36,6 +36,8 @@ var redApple = new Image();
 redApple.src = 'images/red/redApple.png';
 var nastyImage = new Image();
 nastyImage.src = 'images/red/nasty.png';
+var whiteBrickWall = new Image();
+whiteBrickWall.src = 'images/red/whiteBrickWall.png';
 var IdleRight = [];
 
 for (var i = 1; i < 11; i++) {
@@ -111,10 +113,13 @@ function animate() {
   animationId = requestAnimationFrame(animate);
   layers.forEach(function (layer, index) {
     layer.update();
-  });
+  }); //draw containing walls.
+
+  ctx.drawImage(whiteBrickWall, farRight -= player.velocity.x * 1.25, 0 - c.height + (groundPosition - player.y), 50, c.height * 2);
+  ctx.drawImage(whiteBrickWall, farLeft -= player.velocity.x * 1.25, 0 - c.height + (groundPosition - player.y), 50, c.height * 2);
   ctx.font = "20px Arial";
   ctx.fillStyle = "white";
-  ctx.fillText("variable = " + playerPosition, 0, 20);
+  ctx.fillText("variable = " + farRight + "      " + x, 0, 20);
 
   for (var _i10 = 0, _ledges = ledges; _i10 < _ledges.length; _i10++) {
     var ledge = _ledges[_i10];
@@ -156,9 +161,9 @@ function animate() {
 
   if (createNasty >= 0.999) {
     if (nastyDirection >= 0.5) {
-      nasties.push(new Nasty(Math.random() * 3000 + c.width, groundPosition, true));
+      nasties.push(new Nasty(Math.random() * 10000 + c.width, groundPosition, 250, true));
     } else {
-      nasties.push(new Nasty(Math.random() * 3000 + c.width, groundPosition, false));
+      nasties.push(new Nasty(Math.random() * 10000 + c.width, groundPosition, 250, false));
     }
   }
 
@@ -167,15 +172,24 @@ function animate() {
 
   if (createNasty >= 0.999) {
     if (nastyDirection >= 0.5) {
-      nasties.push(new Nasty(Math.random() * -3000 - 100, groundPosition, true));
+      nasties.push(new Nasty(Math.random() * -10000 - 100, groundPosition, 250, true));
     } else {
-      nasties.push(new Nasty(Math.random() * -3000 - 100, groundPosition, false));
+      nasties.push(new Nasty(Math.random() * -10000 - 100, groundPosition, 250, false));
     }
   }
 
   nasties.forEach(function (nasty, index) {
     nasty.update();
   });
+
+  if (farLeft + 30 >= x) {
+    player.velocity.x = 1;
+  }
+
+  if (farRight - 80 <= x) {
+    player.velocity.x = -1;
+  }
+
   player.update();
 } //adjust canvas on screen resize.
 

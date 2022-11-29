@@ -1,9 +1,10 @@
 //create nasty class.
 class Nasty {
     //construct nasty data.
-    constructor(x, y, direction) {
+    constructor(x, y, countdown, direction) {
         this.x = x;
         this.y = y;
+        this.countdown = countdown;
         this.direction = direction;
         this.size = 100;
     }
@@ -25,6 +26,7 @@ class Nasty {
         } else {
             this.x += 0.5;
         }
+        this.countdown -= 0.1;
 
 
         this.draw();

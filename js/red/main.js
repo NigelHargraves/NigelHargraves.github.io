@@ -35,7 +35,9 @@ let gravity,
     timerSlide,
     timerRun,
     timerJump,
-    timerDead;
+    timerDead,
+    farRight,
+    farLeft;
 
 
 
@@ -64,7 +66,8 @@ redApple.src = 'images/red/redApple.png';
 let nastyImage = new Image();
 nastyImage.src = 'images/red/nasty.png';
 
-
+let whiteBrickWall = new Image();
+whiteBrickWall.src = 'images/red/whiteBrickWall.png';
 
 
 
@@ -131,9 +134,16 @@ function animate() {
         layer.update();
     });
 
+    //draw containing walls.
+    ctx.drawImage(whiteBrickWall, farRight -= player.velocity.x * 1.25, (0 - c.height) + (groundPosition - player.y), 50, c.height * 2);
+    ctx.drawImage(whiteBrickWall, farLeft -= player.velocity.x * 1.25, (0 - c.height) + (groundPosition - player.y), 50, c.height * 2);
+
+
+
+
     ctx.font = "20px Arial";
     ctx.fillStyle = "white";
-    ctx.fillText("variable = " + playerPosition, 0, 20);
+    ctx.fillText("variable = " + farRight + "      " + x, 0, 20);
 
 
     for (let ledge of ledges) {
@@ -172,9 +182,9 @@ function animate() {
     let nastyDirection = Math.random();
     if (createNasty >= 0.999) {
         if (nastyDirection >= 0.5) {
-            nasties.push(new Nasty((Math.random() * 3000) + c.width, groundPosition, true));
+            nasties.push(new Nasty((Math.random() * 10000) + c.width, groundPosition, 250, true));
         } else {
-            nasties.push(new Nasty((Math.random() * 3000) + c.width, groundPosition, false));
+            nasties.push(new Nasty((Math.random() * 10000) + c.width, groundPosition, 250, false));
         }
     }
 
@@ -182,9 +192,9 @@ function animate() {
     nastyDirection = Math.random();
     if (createNasty >= 0.999) {
         if (nastyDirection >= 0.5) {
-            nasties.push(new Nasty((Math.random() * -3000) - 100, groundPosition, true));
+            nasties.push(new Nasty((Math.random() * -10000) - 100, groundPosition, 250, true));
         } else {
-            nasties.push(new Nasty((Math.random() * -3000) - 100, groundPosition, false));
+            nasties.push(new Nasty((Math.random() * -10000) - 100, groundPosition, 250, false));
         }
     }
 
@@ -192,14 +202,19 @@ function animate() {
 
 
     nasties.forEach((nasty, index) => {
+
         nasty.update();
     });
 
 
 
 
-
-
+    if (farLeft + 30 >= x) {
+        player.velocity.x = 1;
+    }
+    if (farRight - 80 <= x) {
+        player.velocity.x = -1;
+    }
 
 
     player.update();

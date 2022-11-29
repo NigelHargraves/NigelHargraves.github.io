@@ -2,7 +2,7 @@
 
 function init() {
   gravity = 0.05;
-  friction = 0.004;
+  friction = 0.006;
   velocityAmount = 0.2;
   groundPosition = 800;
   x = c.width / 2;
@@ -12,6 +12,8 @@ function init() {
   timerRun = 0.5;
   timerJump = 0.5;
   timerDead = 0.5;
+  farRight = 10000;
+  farLeft = -10000 + c.width / 2;
   playerPosition = groundPosition;
   player = new Player(x, y);
   layers.push(new Layer(background1, 0, -c.height, c.height * 2, 0));
