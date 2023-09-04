@@ -15,8 +15,10 @@ var mushroomImage = new Image();
 mushroomImage.src = 'images/BB/mushroom.png';
 var blueberry = new Image();
 blueberry.src = 'images/BB/blueberry.png';
-var fangs = new Image();
-fangs.src = 'images/BB/fangs.png';
+var beeLeft = new Image();
+beeLeft.src = 'images/BB/beeLeft.png';
+var beeRight = new Image();
+beeRight.src = 'images/BB/beeRight.png';
 var faceForward = new Image();
 faceForward.src = 'images/BB/faceForward.png';
 var faceLeft = new Image();
@@ -538,9 +540,16 @@ function animate() {
     var enemyFire = Math.random();
 
     if (enemyFire > skillLevel) {
+      var beeDirection = true;
       bombDrop.currentTime = 0;
       bombDrop.play();
-      enemies.push(new Enemy(Math.random() * c.width, -20, 0, enemyVelocity, enemyRadius));
+      var setDirection = Math.random();
+
+      if (setDirection > 0.5) {
+        beeDirection = false;
+      }
+
+      enemies.push(new Enemy(Math.random() * c.width, -20, 0, enemyVelocity, enemyRadius, beeDirection));
     }
 
     enemies.forEach(function (enemy, index) {
