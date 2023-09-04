@@ -553,7 +553,7 @@ function animate() {
         beeDirection = false;
       }
 
-      enemies.push(new Enemy(Math.random() * c.width, -20, 0, enemyVelocity, enemyRadius, beeDirection));
+      enemies.push(new Enemy(Math.random() * c.width, -20, enemyVelocity, enemyVelocity, enemyRadius, beeDirection));
     }
 
     enemies.forEach(function (enemy, index) {

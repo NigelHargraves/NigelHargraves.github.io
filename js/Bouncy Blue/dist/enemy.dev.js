@@ -47,13 +47,20 @@ function () {
       }
 
       if (this.beeDirection) {
-        this.x += 0.4;
+        this.x += enemyVelocity - 0.4;
       } else {
-        this.x -= 0.4;
+        this.x -= enemyVelocity - 0.4;
       }
 
       this.x += -player.velocity.x;
-      this.y += this.velocityY;
+      changeDirection = Math.random();
+
+      if (changeDirection > 0.7) {
+        this.y -= this.velocityY;
+      } else {
+        this.y += this.velocityY;
+      }
+
       this.draw();
     }
   }]);
