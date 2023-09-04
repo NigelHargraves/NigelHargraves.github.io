@@ -76,7 +76,7 @@ var projectiles = [];
 var kills = [];
 var flowers = [];
 var sheilds = [];
-var mushrooms = []; //audio to var.animationId
+var mushrooms = []; //audio to var.
 
 var bounce = document.getElementById("audio1");
 var levelUp = document.getElementById("audio2");

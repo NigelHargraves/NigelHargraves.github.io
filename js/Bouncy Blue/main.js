@@ -79,7 +79,7 @@ let sheilds = [];
 let mushrooms = [];
 
 
-//audio to var.animationId
+//audio to var.
 let bounce = document.getElementById("audio1");
 let levelUp = document.getElementById("audio2");
 let hit = document.getElementById("audio3");
