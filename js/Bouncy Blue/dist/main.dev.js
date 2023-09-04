@@ -97,6 +97,8 @@ var sheildGain = document.getElementById("audio16");
 var sheildLoss = document.getElementById("audio17");
 var mushroomEat = document.getElementById("audio18");
 var cheer = document.getElementById("audio19");
+var bigBeeBuzz = document.getElementById("audio20");
+var forestSounds = document.getElementById("audio21");
 var KP = {}; //Keyspressed array.
 //elements to vars.
 
@@ -427,6 +429,8 @@ function animate() {
       var wm = Math.random();
 
       if (wm > 0.999) {
+        bigBeeBuzz.currentTime = 0;
+        bigBeeBuzz.play();
         wanderingMines.push(new WanderingMine(c.width + 100, Math.random() * c.height / 2, 20, {
           x: -1,
           y: Math.random() - 0.5
@@ -878,6 +882,8 @@ window.addEventListener("resize", function () {
   init();
 });
 window.addEventListener("keydown", function (e) {
+  forestSounds.play();
+
   if (e.keyCode == 37 || e.keyCode == 65) {
     moveLeft = true;
   }

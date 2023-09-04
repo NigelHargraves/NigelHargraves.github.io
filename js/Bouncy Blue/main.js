@@ -99,6 +99,8 @@ let sheildGain = document.getElementById("audio16");
 let sheildLoss = document.getElementById("audio17");
 let mushroomEat = document.getElementById("audio18");
 let cheer = document.getElementById("audio19");
+let bigBeeBuzz = document.getElementById("audio20");
+let forestSounds = document.getElementById("audio21");
 
 let KP = {}; //Keyspressed array.
 //elements to vars.
@@ -165,6 +167,9 @@ if (localStorage.getItem("bestScore")) {
     topScore = { name: "", score: 0 };
     localStorage.setItem('bestScore', JSON.stringify(topScore));
 }
+
+
+
 
 function animate() {
     //call next frame.
@@ -418,6 +423,8 @@ function animate() {
         if (controlLevel > 6) {
             let wm = Math.random();
             if (wm > 0.999) {
+                bigBeeBuzz.currentTime = 0;
+                bigBeeBuzz.play();
                 wanderingMines.push(new WanderingMine(c.width + 100, Math.random() * c.height / 2, 20, { x: -1, y: Math.random() - 0.5 }, 25));
             }
 
@@ -833,6 +840,7 @@ window.addEventListener("resize", function() {
 
 
 window.addEventListener("keydown", (e) => {
+    forestSounds.play();
     if (e.keyCode == 37 || e.keyCode == 65) {
         moveLeft = true;
     }

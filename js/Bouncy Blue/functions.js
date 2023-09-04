@@ -140,9 +140,12 @@ function init() {
     enemies.push(new Enemy(Math.random() * c.width, 0, 0, 1, 8));
     bombDrop.currentTime = 0;
     bombDrop.play();
+
     foods.push(new Food(c.width, Math.random() * (c.height - 40) + 20, -foodVelocity, 0, 10));
     food.currentTime = 0;
     food.play();
+    forestSounds.currentTime = 0;
+    forestSounds.play();
     layers.push(new Layer(background1, 0, c.height, 0));
     layers.push(new Layer(background2, 0, c2.height, 0));
 }
