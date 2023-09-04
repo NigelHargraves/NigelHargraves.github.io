@@ -86,7 +86,7 @@ let hit = document.getElementById("audio3");
 let food = document.getElementById("audio4");
 let eatFood = document.getElementById("audio5");
 let misFire = document.getElementById("audio6");
-let beeBuzz = document.getElementById("audio7");
+let bombDrop = document.getElementById("audio7");
 let bonusP = document.getElementById("audio8");
 let bonusRelease = document.getElementById("audio9");
 let losingBeep = document.getElementById("audio10");
@@ -511,8 +511,8 @@ function animate() {
         //create bee.
         let enemyFire = Math.random();
         if (enemyFire > skillLevel) {
-            beeBuzz.currentTime = 0;
-            beeBuzz.play();
+            bombDrop.currentTime = 0;
+            bombDrop.play();
             let beeDirection = true;
             let setDirection = Math.random();
             if (setDirection > 0.5) {
