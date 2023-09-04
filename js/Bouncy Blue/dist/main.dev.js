@@ -84,7 +84,7 @@ var hit = document.getElementById("audio3");
 var food = document.getElementById("audio4");
 var eatFood = document.getElementById("audio5");
 var misFire = document.getElementById("audio6");
-var bombDrop = document.getElementById("audio7");
+var beeBuzz = document.getElementById("audio7");
 var bonusP = document.getElementById("audio8");
 var bonusRelease = document.getElementById("audio9");
 var losingBeep = document.getElementById("audio10");
@@ -535,14 +535,14 @@ function animate() {
       }
 
       mine.update();
-    }); //enemy fires.
+    }); //create bee.
 
     var enemyFire = Math.random();
 
     if (enemyFire > skillLevel) {
+      beeBuzz.currentTime = 0;
+      beeBuzz.play();
       var beeDirection = true;
-      bombDrop.currentTime = 0;
-      bombDrop.play();
       var setDirection = Math.random();
 
       if (setDirection > 0.5) {

@@ -86,7 +86,7 @@ let hit = document.getElementById("audio3");
 let food = document.getElementById("audio4");
 let eatFood = document.getElementById("audio5");
 let misFire = document.getElementById("audio6");
-let bombDrop = document.getElementById("audio7");
+let beeBuzz = document.getElementById("audio7");
 let bonusP = document.getElementById("audio8");
 let bonusRelease = document.getElementById("audio9");
 let losingBeep = document.getElementById("audio10");
@@ -508,12 +508,12 @@ function animate() {
             }
             mine.update();
         });
-        //enemy fires.
+        //create bee.
         let enemyFire = Math.random();
         if (enemyFire > skillLevel) {
+            beeBuzz.currentTime = 0;
+            beeBuzz.play();
             let beeDirection = true;
-            bombDrop.currentTime = 0;
-            bombDrop.play();
             let setDirection = Math.random();
             if (setDirection > 0.5) {
                 beeDirection = false;
@@ -867,18 +867,6 @@ window.addEventListener("keyup", (e) => {
         increaseBounce = false;
     }
 });
-
-
-
-
-
-
-
-
-
-
-
-
 
 init();
 animate();
