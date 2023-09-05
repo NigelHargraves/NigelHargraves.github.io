@@ -84,7 +84,7 @@ var hit = document.getElementById("audio3");
 var food = document.getElementById("audio4");
 var eatFood = document.getElementById("audio5");
 var misFire = document.getElementById("audio6");
-var bombDrop = document.getElementById("audio7");
+var beeBuzz = document.getElementById("audio7");
 var bonusP = document.getElementById("audio8");
 var bonusRelease = document.getElementById("audio9");
 var losingBeep = document.getElementById("audio10");
@@ -544,8 +544,8 @@ function animate() {
     var enemyFire = Math.random();
 
     if (enemyFire > skillLevel) {
-      bombDrop.currentTime = 0;
-      bombDrop.play();
+      beeBuzz.currentTime = 0;
+      beeBuzz.play();
       var beeDirection = true;
       var setDirection = Math.random();
 

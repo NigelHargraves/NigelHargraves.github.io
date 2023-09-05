@@ -65,7 +65,7 @@ function levelJump() {
     elem.style.width = width + "%";
     score += levelBonus;
     levelBonus = 8000;
-    skillLevel -= 0.0005;
+    skillLevel -= 0.0001;
     enemyVelocity += 0.1;
 }
 
@@ -138,8 +138,7 @@ function init() {
 
     player = new Player(c.width / 2, c.height / 2, 20);
     enemies.push(new Enemy(Math.random() * c.width, 0, 0, 1, 8));
-    bombDrop.currentTime = 0;
-    bombDrop.play();
+    beeBuzz.play();
 
     foods.push(new Food(c.width, Math.random() * (c.height - 40) + 20, -foodVelocity, 0, 10));
     food.currentTime = 0;
