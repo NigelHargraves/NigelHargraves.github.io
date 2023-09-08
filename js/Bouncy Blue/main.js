@@ -249,8 +249,6 @@ function animate() {
             }
             laserShot.currentTime = 0;
             laserShot.play();
-
-
         }
 
         if (fireGap) {
@@ -261,9 +259,6 @@ function animate() {
             fireGap = false;
             fireRateCount = 0;
         }
-
-
-
 
         bullets.forEach((bullet, index1) => {
             enemies.forEach((enemy, index2) => {
