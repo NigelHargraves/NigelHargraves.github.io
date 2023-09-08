@@ -77,6 +77,8 @@ let kills = [];
 let flowers = [];
 let sheilds = [];
 let mushrooms = [];
+let bullets = [];
+let bloodSplats = [];
 
 
 //audio to var.
@@ -101,6 +103,10 @@ let mushroomEat = document.getElementById("audio18");
 let cheer = document.getElementById("audio19");
 let bigBeeBuzz = document.getElementById("audio20");
 let forestSounds = document.getElementById("audio21");
+let laserShot = document.getElementById("audio22");
+let splat = document.getElementById("audio23");
+let pain = document.getElementById("audio24");
+
 
 let KP = {}; //Keyspressed array.
 //elements to vars.
@@ -134,7 +140,9 @@ let gravity = 0.03,
     mushroomSize = 50,
     blink = 4,
     squint = 2,
-    boltCount = 5;
+    boltCount = 5,
+    fireRate = 10,
+    fireRateCount = 0;
 
 
 
@@ -152,7 +160,10 @@ let moveLeft = false,
     minesToPlant = false,
     endGameSound = false,
     playerSheild = false,
-    LBall = false;
+    LBall = false,
+    fire = false,
+    fireGap = false,
+    fireRight = true;
 
 let leftEye = { x: 8, y: 7 },
     rightEye = { x: 8, y: 7 },
@@ -228,6 +239,82 @@ function animate() {
         player.update();
 
 
+        //create bullet.
+        if (fire && fireRateCount == 0) {
+            fireGap = true;
+            if (fireRight) {
+                bullets.push(new Bullet(x, player.y, 10, "yellow"));
+            } else {
+                bullets.push(new Bullet(x, player.y, -10, "yellow"));
+            }
+            laserShot.currentTime = 0;
+            laserShot.play();
+
+
+        }
+
+        if (fireGap) {
+            fireRateCount += 1;
+        }
+
+        if (fireRateCount >= fireRate) {
+            fireGap = false;
+            fireRateCount = 0;
+        }
+
+
+
+
+        bullets.forEach((bullet, index1) => {
+            enemies.forEach((enemy, index2) => {
+                let colide = collisionDetection(bullet.x + 5, bullet.y, 10, enemy.x, enemy.y, enemy.r);
+                if (colide) {
+                    splat.currentTime = 0;
+                    pain.currentTime = 0;
+                    splat.play();
+                    pain.play();
+                    for (i = 0; i < Math.random() * 30 + 30; i++) {
+                        bloodSplats.push(new BloodSplat(enemy.x, enemy.y, Math.random() * 2, {
+                            x: (Math.random() - 0.5) * (Math.random() * 6),
+                            y: (Math.random() - 0.5) * (Math.random() * 6)
+                        }));
+                    }
+                    enemies.splice(index2, 1);
+                    bullets.splice(index1, 1);
+
+                }
+            });
+
+            wanderingMines.forEach((wmine, index2) => {
+                let colide = collisionDetection(bullet.x + 5, bullet.y, 10, wmine.x, wmine.y, wmine.r);
+                if (colide) {
+                    splat.currentTime = 0;
+                    pain.currentTime = 0;
+                    splat.play();
+                    pain.play();
+                    for (i = 0; i < Math.random() * 30 + 30; i++) {
+                        bloodSplats.push(new BloodSplat(wmine.x, wmine.y, Math.random() * 2, {
+                            x: (Math.random() - 0.5) * (Math.random() * 6),
+                            y: (Math.random() - 0.5) * (Math.random() * 6)
+                        }));
+                    }
+                    wanderingMines.splice(index2, 1);
+                    bullets.splice(index1, 1);
+                }
+            });
+
+            if (bullet.x < 0 || bullet.x > c.width) {
+                bullets.splice(index1, 1);
+            }
+            bullet.update();
+        });
+
+        bloodSplats.forEach((bloodSplats, index) => {
+            if (bloodSplats.y > c.height) {
+                bloodSplats.splice, index;
+            }
+            bloodSplats.update();
+        });
 
 
         //create mushroom.
@@ -283,7 +370,7 @@ function animate() {
         }
 
         sheilds.forEach((sheild, index) => {
-            let colide = collisionDetection(sheild.x, sheild.y, sheild.r);
+            let colide = collisionDetection(sheild.x, sheild.y, sheild.r, x, player.y, player.r);
             if (colide) {
                 sheilds = [];
                 playerSheild = true;
@@ -319,7 +406,7 @@ function animate() {
         }
 
         flowers.forEach((flower, index) => {
-            let colide = collisionDetection(flower.x, flower.y, flower.r * 4);
+            let colide = collisionDetection(flower.x, flower.y, flower.r * 4, x, player.y, player.r);
             if (colide) {
                 flowerFire.currentTime = 0;
                 flowerFire.play();
@@ -356,7 +443,7 @@ function animate() {
             }
 
             kills.forEach((kill, index) => {
-                let colide = collisionDetection(kill.x, kill.y, kill.r);
+                let colide = collisionDetection(kill.x, kill.y, kill.r, x, player.y, player.r);
                 if (colide) {
                     LBall = true;
                     kills = [];
@@ -437,7 +524,7 @@ function animate() {
 
 
         wanderingMines.forEach((wmine, index) => {
-            let colide = collisionDetection(wmine.x, wmine.y, wmine.r * 5);
+            let colide = collisionDetection(wmine.x, wmine.y, wmine.r * 5, x, player.y, player.r);
             if (colide) {
                 if (wmine.x > 0 - wmine.r && wmine.x < c.width + wmine.r) {
                     mineExplode.currentTime = 0;
@@ -472,7 +559,7 @@ function animate() {
             }
         }
         mines.forEach((mine, index) => {
-            let colide = collisionDetection(mine.x, mine.y, mine.r);
+            let colide = collisionDetection(mine.x, mine.y, mine.r, x, player.y, player.r);
             if (colide) {
                 if (!playerSheild) {
                     playerAlive = false;
@@ -515,6 +602,7 @@ function animate() {
             }
             mine.update();
         });
+
         //create bee.
         let enemyFire = Math.random();
         if (enemyFire > skillLevel) {
@@ -531,7 +619,7 @@ function animate() {
         }
 
         enemies.forEach((enemy, index) => {
-            let colide = collisionDetection(enemy.x, enemy.y, enemy.r);
+            let colide = collisionDetection(enemy.x, enemy.y, enemy.r, x, player.y, player.r);
             if (colide) {
                 if (!playerSheild) {
                     hit.currentTime = 0;
@@ -593,7 +681,7 @@ function animate() {
         }
 
         guidedMissiles.forEach((gm, index) => {
-            let colide = collisionDetection(gm.x, gm.y, gm.r + 20);
+            let colide = collisionDetection(gm.x, gm.y, gm.r + 20, x, player.y, player.r);
             if (colide) {
                 mineExplode.currentTime = 0;
                 mineExplode.play();
@@ -633,7 +721,7 @@ function animate() {
 
         //player eats food.
         foods.forEach((food, index) => {
-            let colide = collisionDetection(food.x, food.y, food.r);
+            let colide = collisionDetection(food.x, food.y, food.r, x, player.y, player.r);
             if (colide) {
                 eatFood.currentTime = 0;
                 eatFood.play();
@@ -688,7 +776,7 @@ function animate() {
         }
 
         levelGains.forEach((LG, index) => {
-            let colide = collisionDetection(LG.x, LG.y, LG.r);
+            let colide = collisionDetection(LG.x, LG.y, LG.r, x, player.y, player.r);
             if (colide) {
                 //player gains level.
                 //player gets next level of control + bonus score/update variables.
@@ -715,7 +803,7 @@ function animate() {
         }
 
         bonusPoints.forEach((bonusPoint, index) => {
-            let colide = collisionDetection(bonusPoint.x, bonusPoint.y, bonusPoint.r);
+            let colide = collisionDetection(bonusPoint.x, bonusPoint.y, bonusPoint.r, x, player.y, player.r);
             if (colide) {
                 //player gets bonusPoints.
                 bonusP.currentTime = 0;
@@ -746,7 +834,7 @@ function animate() {
 
 
         projectiles.forEach((pro, index) => {
-            let colide = collisionDetection(pro.x, pro.y, pro.r);
+            let colide = collisionDetection(pro.x, pro.y, pro.r, x, player.y, player.r);
             if (colide) {
                 if (!playerSheild) {
                     hit.currentTime = 0;
@@ -843,9 +931,11 @@ window.addEventListener("keydown", (e) => {
     forestSounds.play();
     if (e.keyCode == 37 || e.keyCode == 65) {
         moveLeft = true;
+        fireRight = false;
     }
     if (e.keyCode == 39 || e.keyCode == 68) {
         moveRight = true;
+        fireRight = true;
     }
     if (e.keyCode == 83 || e.keyCode == 40 && controlLevel > 1) {
         moveDown = true;
@@ -853,9 +943,13 @@ window.addEventListener("keydown", (e) => {
     if (e.keyCode == 87 || e.keyCode == 38 && controlLevel > 1) {
         moveUp = true;
     }
-    if (e.keyCode == 32) {
+    if (e.keyCode == 66) {
         increaseBounce = true;
     }
+    if (e.keyCode == 161 || e.keyCode == 32) {
+        fire = true;
+    }
+
 });
 
 window.addEventListener("keyup", (e) => {
@@ -871,9 +965,14 @@ window.addEventListener("keyup", (e) => {
     if (e.keyCode == 87 || e.keyCode == 38) {
         moveUp = false;
     }
-    if (e.keyCode == 32) {
+    if (e.keyCode == 66) {
         increaseBounce = false;
     }
+    if (e.keyCode == 161 || e.keyCode == 32) {
+        fire = false;
+    }
+
+
 });
 
 init();

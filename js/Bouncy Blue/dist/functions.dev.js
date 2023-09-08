@@ -34,8 +34,8 @@ function reset() {
   }
 }
 
-function collisionDetection(objectX, objectY, radius) {
-  if (objectX - radius < x + player.r && objectX + radius > x - player.r && objectY - radius < player.y + player.r && objectY + radius > player.y - player.r) {
+function collisionDetection(object1X, object1Y, object1Radius, object2X, object2Y, object2Radius) {
+  if (object1X - object1Radius < object2X + object2Radius && object1X + object1Radius > object2X - object2Radius && object1Y - object1Radius < object2Y + object2Radius && object1Y + object1Radius > object2Y - object2Radius) {
     return true;
   }
 }
