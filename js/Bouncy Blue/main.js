@@ -272,7 +272,7 @@ function animate() {
                         bloodSplats.push(new BloodSplat(enemy.x, enemy.y, Math.random() * 2, {
                             x: (Math.random() - 0.5) * (Math.random() * 6),
                             y: (Math.random() - 0.5) * (Math.random() * 6)
-                        }));
+                        }, "yellow"));
                     }
                     enemies.splice(index2, 1);
                     bullets.splice(index1, 1);
@@ -291,11 +291,36 @@ function animate() {
                         bloodSplats.push(new BloodSplat(wmine.x, wmine.y, Math.random() * 2, {
                             x: (Math.random() - 0.5) * (Math.random() * 6),
                             y: (Math.random() - 0.5) * (Math.random() * 6)
-                        }));
+                        }, "yellow"));
                     }
                     wanderingMines.splice(index2, 1);
                     bullets.splice(index1, 1);
+
                 }
+            });
+
+            foods.forEach((food, index2) => {
+                let colide = collisionDetection(bullet.x + 5, bullet.y, 10, food.x, food.y, food.r);
+                if (colide) {
+                    splat.currentTime = 0;
+                    splat.play();
+                    for (i = 0; i < Math.random() * 30 + 30; i++) {
+                        bloodSplats.push(new BloodSplat(food.x, food.y, Math.random() * 2, {
+                            x: (Math.random() - 0.5) * (Math.random() * 6),
+                            y: (Math.random() - 0.5) * (Math.random() * 6)
+                        }, "blue"));
+                    }
+                    if (!playerSheild) {
+                        player.r -= 1;
+                        //splats.push(new Splat(x, player.y, x1, y1, ang, player.r));
+                    }
+                    foods.splice(index2, 1);
+                    bullets.splice(index1, 1);
+                }
+
+
+
+
             });
 
             if (bullet.x < 0 || bullet.x > c.width) {
@@ -941,7 +966,7 @@ window.addEventListener("keydown", (e) => {
     if (e.keyCode == 66) {
         increaseBounce = true;
     }
-    if (e.keyCode == 161 || e.keyCode == 32) {
+    if (e.keyCode == 32) {
         fire = true;
     }
 
@@ -963,7 +988,7 @@ window.addEventListener("keyup", (e) => {
     if (e.keyCode == 66) {
         increaseBounce = false;
     }
-    if (e.keyCode == 161 || e.keyCode == 32) {
+    if (e.keyCode == 32) {
         fire = false;
     }
 

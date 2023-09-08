@@ -11,13 +11,14 @@ var BloodSplat =
 /*#__PURE__*/
 function () {
   //construct bloodSplat data.
-  function BloodSplat(x, y, radius, velocity) {
+  function BloodSplat(x, y, radius, velocity, color) {
     _classCallCheck(this, BloodSplat);
 
     this.x = x;
     this.y = y;
     this.r = radius;
     this.v = velocity;
+    this.color = color;
   } //draw bloodSplat.
 
 
@@ -26,7 +27,7 @@ function () {
     value: function draw() {
       ctx.beginPath();
       ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
-      ctx.fillStyle = "yellow";
+      ctx.fillStyle = this.color;
       ctx.fill();
     } //update bloodSplat.
 

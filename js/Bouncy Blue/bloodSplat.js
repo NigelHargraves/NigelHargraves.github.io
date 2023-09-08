@@ -1,12 +1,12 @@
 //create bloodSplat class.
 class BloodSplat {
     //construct bloodSplat data.
-    constructor(x, y, radius, velocity) {
+    constructor(x, y, radius, velocity, color) {
         this.x = x;
         this.y = y;
         this.r = radius;
         this.v = velocity;
-
+        this.color = color;
     }
 
     //draw bloodSplat.
@@ -14,7 +14,7 @@ class BloodSplat {
 
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
-        ctx.fillStyle = "yellow";
+        ctx.fillStyle = this.color;
         ctx.fill();
 
     }
