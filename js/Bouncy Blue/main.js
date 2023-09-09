@@ -243,9 +243,9 @@ function animate() {
         if (fire && fireRateCount == 0) {
             fireGap = true;
             if (fireRight) {
-                bullets.push(new Bullet(x, player.y, 10, "yellow"));
+                bullets.push(new Bullet(x, player.y, player.velocity.x + 10, "yellow"));
             } else {
-                bullets.push(new Bullet(x, player.y, -10, "yellow"));
+                bullets.push(new Bullet(x, player.y, player.velocity.x + -10, "yellow"));
             }
             laserShot.currentTime = 0;
             laserShot.play();
@@ -321,8 +321,23 @@ function animate() {
                     foods.splice(index2, 1);
                     bullets.splice(index1, 1);
                 }
+            });
 
+            flowers.forEach((flower, index2) => {
+                let colide = collisionDetection(bullet.x + 5, bullet.y, 10, flower.x, flower.y, flower.r);
+                if (colide) {
+                    splat.currentTime = 0;
+                    splat.play();
+                    for (i = 0; i < Math.random() * 30 + 30; i++) {
+                        bloodSplats.push(new BloodSplat(flower.x, flower.y, Math.random() * 2, {
+                            x: (Math.random() - 0.5) * (Math.random() * 6),
+                            y: (Math.random() - 0.5) * (Math.random() * 6)
+                        }, "yellow"));
+                    }
 
+                    flowers.splice(index2, 1);
+                    bullets.splice(index1, 1);
+                }
 
 
             });
