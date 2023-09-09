@@ -313,7 +313,13 @@ function animate() {
           }
 
           if (!playerSheild) {
-            player.r -= 1; //splats.push(new Splat(x, player.y, x1, y1, ang, player.r));
+            if (width > 0) {
+              width -= 10;
+              elem.style.width = width + "%";
+            }
+
+            player.r -= 1;
+            splats.push(new Splat(x, player.y, x1, y1, ang, player.r));
           }
 
           foods.splice(index2, 1);
@@ -1016,7 +1022,7 @@ window.addEventListener("keydown", function (e) {
     increaseBounce = true;
   }
 
-  if (e.keyCode == 32) {
+  if (e.keyCode == 70) {
     fire = true;
   }
 });
@@ -1041,7 +1047,7 @@ window.addEventListener("keyup", function (e) {
     increaseBounce = false;
   }
 
-  if (e.keyCode == 32) {
+  if (e.keyCode == 70) {
     fire = false;
   }
 });
