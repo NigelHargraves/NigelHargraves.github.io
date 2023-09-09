@@ -334,12 +334,9 @@ function animate() {
                             y: (Math.random() - 0.5) * (Math.random() * 6)
                         }, "yellow"));
                     }
-
                     flowers.splice(index2, 1);
                     bullets.splice(index1, 1);
                 }
-
-
             });
 
             if (bullet.x < 0 || bullet.x > c.width) {
