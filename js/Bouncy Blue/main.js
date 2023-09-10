@@ -243,9 +243,9 @@ function animate() {
         if (fire && fireRateCount == 0) {
             fireGap = true;
             if (fireRight) {
-                bullets.push(new Bullet(x, player.y, player.velocity.x + 10, "yellow"));
+                bullets.push(new Bullet(x, player.y, player.velocity.x + 10, "white"));
             } else {
-                bullets.push(new Bullet(x, player.y, player.velocity.x + -10, "yellow"));
+                bullets.push(new Bullet(x, player.y, player.velocity.x + -10, "white"));
             }
             laserShot.currentTime = 0;
             laserShot.play();
