@@ -242,10 +242,9 @@ function animate() {
         bullets.push(new Bullet(x, player.y, player.velocity.x + 10, "yellow"));
       } else {
         bullets.push(new Bullet(x, player.y, player.velocity.x + -10, "yellow"));
-      }
+      } //laserShot.currentTime = 0;
+      //laserShot.play();
 
-      laserShot.currentTime = 0;
-      laserShot.play();
     }
 
     if (fireGap) {
