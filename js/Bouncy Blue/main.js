@@ -432,7 +432,7 @@ function animate() {
         //create sheild icon.
         if (!playerSheild && controlLevel > 5) {
             let createSheild = Math.random();
-            if (createSheild > 0.9991) {
+            if (createSheild > 0.9999) {
                 sheilds.push(new Sheild(Math.random() * 6000 - 3000, Math.random() * (c.height - 20), 20, 25))
             }
         }
@@ -506,7 +506,7 @@ function animate() {
         //kill all.
         if (controlLevel > 5) {
             let killAll = Math.random();
-            if (killAll > 0.9991) {
+            if (killAll > 0.9999) {
                 kills.push(new Kill(Math.random() * 6000 - 3000, Math.random() * c.height, 40, 25))
             }
 
