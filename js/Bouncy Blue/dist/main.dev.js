@@ -1063,12 +1063,12 @@ window.addEventListener("keydown", function (e) {
     moveDown = true;
   }
 
-  if (e.keyCode == 87 || e.keyCode == 38 && controlLevel > 1) {
-    moveUp = true;
+  if (e.keyCode == 83 || e.keyCode == 40) {
+    increaseBounce = true;
   }
 
-  if (e.keyCode == 66) {
-    increaseBounce = true;
+  if (e.keyCode == 87 || e.keyCode == 38 && controlLevel > 1) {
+    moveUp = true;
   }
 
   if (e.keyCode == 32) {
@@ -1086,14 +1086,11 @@ window.addEventListener("keyup", function (e) {
 
   if (e.keyCode == 83 || e.keyCode == 40) {
     moveDown = false;
+    increaseBounce = false;
   }
 
   if (e.keyCode == 87 || e.keyCode == 38) {
     moveUp = false;
-  }
-
-  if (e.keyCode == 66) {
-    increaseBounce = false;
   }
 
   if (e.keyCode == 32) {
