@@ -344,6 +344,24 @@ function animate() {
           bullets.splice(index1, 1);
         }
       });
+      mushrooms.forEach(function (mroom, index2) {
+        var colide = collisionDetection(bullet.x + 5, bullet.y, 10, mroom.x + mushroomSize / 2, mroom.y + mushroomSize / 2, mushroomSize / 2 + 10);
+
+        if (colide) {
+          splat.currentTime = 0;
+          splat.play();
+
+          for (i = 0; i < Math.random() * 30 + 30; i++) {
+            bloodSplats.push(new BloodSplat(mroom.x + mushroomSize / 2, mroom.y + mushroomSize / 2, Math.random() * 2, {
+              x: (Math.random() - 0.5) * (Math.random() * 6),
+              y: (Math.random() - 0.5) * (Math.random() * 6)
+            }, "white"));
+          }
+
+          mushrooms.splice(index2, 1);
+          bullets.splice(index1, 1);
+        }
+      });
 
       if (bullet.x < 0 || bullet.x > c.width) {
         bullets.splice(index1, 1);
