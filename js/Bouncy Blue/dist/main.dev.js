@@ -274,6 +274,15 @@ function animate() {
             }, "yellow"));
           }
 
+          var points = Math.trunc(enemy.x / 10 + (c.height - enemy.y) / 10);
+          score += points;
+
+          if (enemy.y > c.height / 2) {
+            texts.push(new Text(enemy.x, enemy.y, 0, -1, points, "bold 20px Arial", "yellow", 1));
+          } else {
+            texts.push(new Text(enemy.x, enemy.y, 0, 1, points, "bold 20px Arial", "yellow", 1));
+          }
+
           enemies.splice(index2, 1);
           bullets.splice(index1, 1);
         }
@@ -356,6 +365,10 @@ function animate() {
               x: (Math.random() - 0.5) * (Math.random() * 6),
               y: (Math.random() - 0.5) * (Math.random() * 6)
             }, "white"));
+          }
+
+          if (mushroomCount > 0) {
+            mushroomCount -= 1;
           }
 
           mushrooms.splice(index2, 1);
@@ -1058,7 +1071,7 @@ window.addEventListener("keydown", function (e) {
     increaseBounce = true;
   }
 
-  if (e.keyCode == 70) {
+  if (e.keyCode == 32) {
     fire = true;
   }
 });
@@ -1083,7 +1096,7 @@ window.addEventListener("keyup", function (e) {
     increaseBounce = false;
   }
 
-  if (e.keyCode == 70) {
+  if (e.keyCode == 32) {
     fire = false;
   }
 });
