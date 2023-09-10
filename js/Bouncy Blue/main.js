@@ -1000,12 +1000,10 @@ window.addEventListener("keydown", (e) => {
     if (e.keyCode == 37 || e.keyCode == 65) {
         moveLeft = true;
         fireRight = false;
-        fire = true;
     }
     if (e.keyCode == 39 || e.keyCode == 68) {
         moveRight = true;
         fireRight = true;
-        fire = true;
     }
     if (e.keyCode == 83 || e.keyCode == 40 && controlLevel > 1) {
         moveDown = true;
@@ -1017,7 +1015,7 @@ window.addEventListener("keydown", (e) => {
         moveUp = true;
     }
     if (e.keyCode == 32) {
-
+        fire = true;
     }
 
 });
@@ -1025,11 +1023,9 @@ window.addEventListener("keydown", (e) => {
 window.addEventListener("keyup", (e) => {
     if (e.keyCode == 37 || e.keyCode == 65) {
         moveLeft = false;
-        fire = false;
     }
     if (e.keyCode == 39 || e.keyCode == 68) {
         moveRight = false;
-        fire = false;
     }
     if (e.keyCode == 83 || e.keyCode == 40) {
         moveDown = false;
@@ -1039,10 +1035,8 @@ window.addEventListener("keyup", (e) => {
         moveUp = false;
     }
     if (e.keyCode == 32) {
-
+        fire = false;
     }
-
-
 });
 
 init();

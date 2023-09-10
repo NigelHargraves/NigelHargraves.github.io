@@ -1052,13 +1052,11 @@ window.addEventListener("keydown", function (e) {
   if (e.keyCode == 37 || e.keyCode == 65) {
     moveLeft = true;
     fireRight = false;
-    fire = true;
   }
 
   if (e.keyCode == 39 || e.keyCode == 68) {
     moveRight = true;
     fireRight = true;
-    fire = true;
   }
 
   if (e.keyCode == 83 || e.keyCode == 40 && controlLevel > 1) {
@@ -1073,17 +1071,17 @@ window.addEventListener("keydown", function (e) {
     moveUp = true;
   }
 
-  if (e.keyCode == 32) {}
+  if (e.keyCode == 32) {
+    fire = true;
+  }
 });
 window.addEventListener("keyup", function (e) {
   if (e.keyCode == 37 || e.keyCode == 65) {
     moveLeft = false;
-    fire = false;
   }
 
   if (e.keyCode == 39 || e.keyCode == 68) {
     moveRight = false;
-    fire = false;
   }
 
   if (e.keyCode == 83 || e.keyCode == 40) {
@@ -1095,7 +1093,9 @@ window.addEventListener("keyup", function (e) {
     moveUp = false;
   }
 
-  if (e.keyCode == 32) {}
+  if (e.keyCode == 32) {
+    fire = false;
+  }
 });
 init();
 animate();
