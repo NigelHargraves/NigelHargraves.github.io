@@ -124,7 +124,7 @@ let gravity = 0.03,
     levelBonus = 8000,
     skillLevel = 0.998,
     missileFire = 0.999,
-    minePlant = 0.999,
+    minePlant = 0.9999,
     enemyVelocity = 1,
     foodVelocity = 1,
     foodAmount = 0.998,
@@ -345,6 +345,9 @@ function animate() {
                             y: (Math.random() - 0.5) * (Math.random() * 6)
                         }, "yellow"));
                     }
+                    let points = 100;
+                    score += points;
+                    new Text(enemy.x, enemy.y, 0, -1, points, "bold 20px Arial", "yellow", 1)
                     flowers.splice(index2, 1);
                     bullets.splice(index1, 1);
                 }
@@ -432,7 +435,7 @@ function animate() {
         //create sheild icon.
         if (!playerSheild && controlLevel > 5) {
             let createSheild = Math.random();
-            if (createSheild > 0.9999) {
+            if (createSheild > 0.99999) {
                 sheilds.push(new Sheild(Math.random() * 6000 - 3000, Math.random() * (c.height - 20), 20, 25))
             }
         }
@@ -506,7 +509,7 @@ function animate() {
         //kill all.
         if (controlLevel > 5) {
             let killAll = Math.random();
-            if (killAll > 0.9999) {
+            if (killAll > 0.99999) {
                 kills.push(new Kill(Math.random() * 6000 - 3000, Math.random() * c.height, 40, 25))
             }
 
@@ -835,7 +838,7 @@ function animate() {
 
         //create levelGain.
         let gainLevel = Math.random();
-        if (gainLevel > 0.9999) {
+        if (gainLevel > 0.99999) {
             levelRelease.currentTime = 0;
             levelRelease.play();
             levelGains.push(
