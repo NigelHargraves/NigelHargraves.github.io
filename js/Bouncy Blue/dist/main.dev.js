@@ -58,7 +58,11 @@ sheild.src = 'images/BB/sheild.png';
 var lightningBolt = new Image();
 lightningBolt.src = 'images/BB/lightningBolt.png';
 var lightningBall = new Image();
-lightningBall.src = 'images/BB/lightningBall.png'; //arrays to var.
+lightningBall.src = 'images/BB/lightningBall.png';
+var bombImage = new Image();
+bombImage.src = 'images/BB/bomb.png';
+var explode = new Image();
+explode.src = 'images/BB/explode.png'; //arrays to var.
 
 var enemies = [];
 var foods = [];
@@ -78,7 +82,9 @@ var flowers = [];
 var sheilds = [];
 var mushrooms = [];
 var bullets = [];
-var bloodSplats = []; //audio to var.
+var bloodSplats = [];
+var bombs = [];
+var explodes = []; //audio to var.
 
 var bounce = document.getElementById("audio1");
 var levelUp = document.getElementById("audio2");
@@ -138,7 +144,9 @@ var gravity = 0.03,
     squint = 2,
     boltCount = 5,
     fireRate = 10,
-    fireRateCount = 0; //boolean vars.
+    fireRateCount = 0,
+    bombRate = 100,
+    bombRateCount = 0; //boolean vars.
 
 var moveLeft = false,
     moveRight = false,
@@ -156,7 +164,9 @@ var moveLeft = false,
     LBall = false,
     fire = false,
     fireGap = false,
-    fireRight = true;
+    fireRight = true,
+    bombDrop = false,
+    bombDropGap = false;
 var leftEye = {
   x: 8,
   y: 7
@@ -233,7 +243,37 @@ function animate() {
       squint = 2;
     }
 
-    player.update(); //create bullet.
+    player.update(); //create bomb.
+
+    if (bombDrop && bombRateCount == 0) {
+      bombDropGap = true;
+      bombs.push(new Bomb(x, player.y, 0));
+    }
+
+    if (bombDropGap) {
+      bombRateCount += 1;
+    }
+
+    if (bombRateCount >= bombRate) {
+      bombDropGap = false;
+      bombRateCount = 0;
+    }
+
+    bombs.forEach(function (bomb, index1) {
+      if (bomb.y >= c.height - 60) {
+        explodes.push(new Explode(bomb.x + 10, bomb.y + 20, 5));
+        bombs.splice(index1, 1);
+      }
+
+      bomb.update();
+    });
+    explodes.forEach(function (explode, index1) {
+      if (explode.s > 400) {
+        explodes.splice(index1, 1);
+      }
+
+      explode.update();
+    }); //create bullet.
 
     if (fire && fireRateCount == 0) {
       fireGap = true;
@@ -1077,6 +1117,10 @@ window.addEventListener("keydown", function (e) {
   if (e.keyCode == 32) {
     fire = true;
   }
+
+  if (e.keyCode == 66) {
+    bombDrop = true;
+  }
 });
 window.addEventListener("keyup", function (e) {
   if (e.keyCode == 37 || e.keyCode == 65) {
@@ -1098,6 +1142,10 @@ window.addEventListener("keyup", function (e) {
 
   if (e.keyCode == 32) {
     fire = false;
+  }
+
+  if (e.keyCode == 66) {
+    bombDrop = false;
   }
 });
 init();

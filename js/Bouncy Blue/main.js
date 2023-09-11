@@ -58,6 +58,10 @@ let lightningBolt = new Image();
 lightningBolt.src = 'images/BB/lightningBolt.png';
 let lightningBall = new Image();
 lightningBall.src = 'images/BB/lightningBall.png';
+let bombImage = new Image();
+bombImage.src = 'images/BB/bomb.png';
+let explode = new Image();
+explode.src = 'images/BB/explode.png';
 
 //arrays to var.
 let enemies = [];
@@ -79,6 +83,8 @@ let sheilds = [];
 let mushrooms = [];
 let bullets = [];
 let bloodSplats = [];
+let bombs = [];
+let explodes = [];
 
 
 //audio to var.
@@ -142,7 +148,9 @@ let gravity = 0.03,
     squint = 2,
     boltCount = 5,
     fireRate = 10,
-    fireRateCount = 0;
+    fireRateCount = 0,
+    bombRate = 100,
+    bombRateCount = 0;
 
 
 
@@ -163,7 +171,9 @@ let moveLeft = false,
     LBall = false,
     fire = false,
     fireGap = false,
-    fireRight = true;
+    fireRight = true,
+    bombDrop = false,
+    bombDropGap = false;
 
 let leftEye = { x: 8, y: 7 },
     rightEye = { x: 8, y: 7 },
@@ -237,6 +247,40 @@ function animate() {
 
 
         player.update();
+
+
+        //create bomb.
+        if (bombDrop && bombRateCount == 0) {
+            bombDropGap = true;
+            bombs.push(new Bomb(x, player.y, 0, ));
+        }
+
+        if (bombDropGap) {
+            bombRateCount += 1;
+        }
+
+        if (bombRateCount >= bombRate) {
+            bombDropGap = false;
+            bombRateCount = 0;
+        }
+
+        bombs.forEach((bomb, index1) => {
+
+
+            if (bomb.y >= c.height - 60) {
+                explodes.push(new Explode(bomb.x + 10, bomb.y + 20, 5));
+                bombs.splice(index1, 1);
+            }
+            bomb.update();
+        });
+
+
+        explodes.forEach((explode, index1) => {
+            if (explode.s > 400) {
+                explodes.splice(index1, 1);
+            }
+            explode.update();
+        });
 
 
         //create bullet.
@@ -1020,7 +1064,9 @@ window.addEventListener("keydown", (e) => {
     if (e.keyCode == 32) {
         fire = true;
     }
-
+    if (e.keyCode == 66) {
+        bombDrop = true;
+    }
 });
 
 window.addEventListener("keyup", (e) => {
@@ -1039,6 +1085,9 @@ window.addEventListener("keyup", (e) => {
     }
     if (e.keyCode == 32) {
         fire = false;
+    }
+    if (e.keyCode == 66) {
+        bombDrop = false;
     }
 });
 
