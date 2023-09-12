@@ -18,7 +18,7 @@ class Bomb {
         gravity = 0.03;
         this.v += gravity;
         this.y += this.v;
-        this.x += -player.velocity.x;
+        this.x += -player.velocity.x * 1.25;
         this.draw();
         if (controlLevel < 2) {
             gravity = 0.03;

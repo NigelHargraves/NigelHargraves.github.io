@@ -112,7 +112,8 @@ let forestSounds = document.getElementById("audio21");
 let laserShot = document.getElementById("audio22");
 let splat = document.getElementById("audio23");
 let pain = document.getElementById("audio24");
-
+let dropBomb = document.getElementById("audio25");
+let bombExplode = document.getElementById("audio26");
 
 let KP = {}; //Keyspressed array.
 //elements to vars.
@@ -253,6 +254,8 @@ function animate() {
         if (bombDrop && bombRateCount == 0) {
             bombDropGap = true;
             bombs.push(new Bomb(x, player.y, 0, ));
+            dropBomb.currentTime = 0;
+            dropBomb.play();
         }
 
         if (bombDropGap) {
@@ -268,20 +271,45 @@ function animate() {
 
 
             if (bomb.y >= c.height - 60) {
-                explodes.push(new Explode(bomb.x + 10, bomb.y + 20, 5));
+                if (!dropBomb.paused) {
+                    dropBomb.pause();
+                    dropBomb.currentTime = 0;
+                }
+                bombExplode.currentTime = 0;
+                bombExplode.play();
+                explodes.push(new Explode(bomb.x + 10, bomb.y + 20, 5, 1));
                 bombs.splice(index1, 1);
             }
             bomb.update();
         });
 
 
-        explodes.forEach((explode, index1) => {
-            if (explode.s > 400) {
+        explodes.forEach((exp, index1) => {
+            mines.forEach((mine, index2) => {
+                let colide = collisionDetection(exp.x, exp.y, exp.s / 4, mine.x, mine.y, mine.r);
+                if (colide) {
+                    for (i = 0; i < Math.random() * 100 + 30; i++) {
+                        bloodSplats.push(new BloodSplat(mine.x, mine.y, Math.random() * 2, {
+                            x: (Math.random() - 0.5) * (Math.random() * 6),
+                            y: (Math.random() - 1) * (Math.random() * 20)
+                        }, "silver"));
+                    }
+                    let points = 100;
+                    score += points;
+                    texts.push(
+                        new Text(mine.x, mine.y, 0, -1, points, "bold 20px Arial", "white", 1)
+                    );
+                    mines.splice(index2, 1);
+                }
+
+            });
+
+            if (exp.s >= 300 && exp.alpha <= 0.2) {
                 explodes.splice(index1, 1);
             }
-            explode.update();
-        });
 
+            exp.update();
+        });
 
         //create bullet.
         if (fire && fireRateCount == 0) {
@@ -391,7 +419,9 @@ function animate() {
                     }
                     let points = 100;
                     score += points;
-                    new Text(enemy.x, enemy.y, 0, -1, points, "bold 20px Arial", "yellow", 1)
+                    texts.push(
+                        new Text(flower.x, flower.y, 0, -1, points, "bold 20px Arial", "yellow", 1)
+                    );
                     flowers.splice(index2, 1);
                     bullets.splice(index1, 1);
                 }
@@ -660,7 +690,7 @@ function animate() {
 
 
         //plant mine.
-        if (controlLevel > 2) {
+        if (controlLevel >= 1) {
             minesToPlant = true;
         }
         if (minesToPlant) {
