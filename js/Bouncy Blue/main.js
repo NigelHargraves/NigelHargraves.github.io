@@ -690,7 +690,7 @@ function animate() {
 
 
         //plant mine.
-        if (controlLevel >= 1) {
+        if (controlLevel > 2) {
             minesToPlant = true;
         }
         if (minesToPlant) {

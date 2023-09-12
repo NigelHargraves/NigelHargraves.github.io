@@ -711,7 +711,7 @@ function animate() {
     });
     wmmove = 10; //plant mine.
 
-    if (controlLevel >= 1) {
+    if (controlLevel > 2) {
       minesToPlant = true;
     }
 
