@@ -213,42 +213,32 @@ function animate() {
 
     levelBonus -= 1;
 
-
     ctx.fillText("Score: " + score + "          Top Score: " + topScore.name + ": " + topScore.score, c.width - c.width / 4, 20);
-
-
 
     if (playerAlive) {
         ctx.font = "20px Arial";
         ctx.fillStyle = "white";
         ctx.fillText("Player size: " + player.r, c.width / 2, 20);
-
         let blinkEyes = Math.random()
         if (blinkEyes > 0.998 && !eyesBlink && !eyesSquint) {
             eyesBlink = true;
         }
-
         if (eyesBlink) {
             blink -= 0.2;
         }
-
         if (blink <= 0) {
             eyesBlink = false;
             blink = 4;
         }
-
         if (eyesSquint) {
             squint -= 0.2;
         }
-
         if (squint <= 0) {
             eyesSquint = false;
             squint = 2;
         }
 
-
         player.update();
-
 
         //create bomb.
         if (bombDrop && bombRateCount == 0) {
@@ -326,7 +316,6 @@ function animate() {
             bloodSplats.update();
         });
 
-
         //create mushroom.
         if (controlLevel > 2) {
             let createMushroom = Math.random();
@@ -340,12 +329,8 @@ function animate() {
         }
 
         mushrooms.forEach((mroom, index) => {
-            if (
-                mroom.x < x + player.r &&
-                mroom.x + mushroomSize > x - player.r &&
-                mroom.y < player.y + player.r &&
-                mroom.y + mushroomSize > player.y - player.r
-            ) {
+            let colide = collisionDetection(mroom.x + mushroomSize / 2, mroom.y + mushroomSize / 2, mushroomSize / 2, x, player.y, player.r);
+            if (colide) {
                 mushroomEat.currentTime = 0;
                 mushroomEat.play();
                 score += 100;
@@ -355,6 +340,7 @@ function animate() {
                 );
                 mushrooms.splice(index, 1);
             }
+
             if (mushroomCount >= 20) {
                 cheer.currentTime = 0;
                 cheer.play();
@@ -368,18 +354,15 @@ function animate() {
             mroom.update();
         });
 
-
-
-
         //create sheild icon.
-        if (!playerSheild && controlLevel > 5) {
+        if (!playerSheild && controlLevel > 5 && sheilds.length == 0) {
             let createSheild = Math.random();
             if (createSheild > 0.99999) {
                 sheilds.push(new Sheild(Math.random() * 6000 - 3000, Math.random() * (c.height - 20), 20, 25))
             }
         }
 
-        sheilds.forEach((sheild, index) => {
+        sheilds.forEach((sheild) => {
             let colide = collisionDetection(sheild.x, sheild.y, sheild.r, x, player.y, player.r);
             if (colide) {
                 sheilds = [];
@@ -388,7 +371,7 @@ function animate() {
                 sheildGain.play();
             }
             if (sheild.countdown <= 0) {
-                sheilds.splice(index, 1);
+                sheilds = [];
             }
             sheild.update();
         });
@@ -446,66 +429,20 @@ function animate() {
         });
 
         //kill all.
-        if (controlLevel > 5) {
+        if (controlLevel > 6 && kills.length == 0) {
             let killAll = Math.random();
-            if (killAll > 0.99999) {
-                kills.push(new Kill(Math.random() * 6000 - 3000, Math.random() * c.height, 40, 25))
+            if (killAll > 0.9) {
+                kills.push(new Kill(Math.random() * 600 - 300, Math.random() * c.height, 40, 25))
             }
-
-            kills.forEach((kill, index) => {
-                let colide = collisionDetection(kill.x, kill.y, kill.r, x, player.y, player.r);
-                if (colide) {
-                    LBall = true;
-                    kills = [];
-                    killEverything.currentTime = 0;
-                    killEverything.play();
-                    enemies.forEach((enemy, index) => {
-                        ctx.beginPath();
-                        ctx.moveTo(x, player.y);
-                        ctx.lineTo(enemy.x, enemy.y);
-                        ctx.strokeStyle = "white";
-                        ctx.stroke();
-                    });
-                    mines.forEach((mine, index) => {
-                        ctx.beginPath();
-                        ctx.moveTo(x, player.y);
-                        ctx.lineTo(mine.x, mine.y);
-                        ctx.strokeStyle = "white";
-                        ctx.stroke();
-                    });
-                    wanderingMines.forEach((wm, index) => {
-                        ctx.beginPath();
-                        ctx.moveTo(x, player.y);
-                        ctx.lineTo(wm.x, wm.y);
-                        ctx.strokeStyle = "white";
-                        ctx.stroke();
-                    });
-                    flowers.forEach((flower, index) => {
-                        ctx.beginPath();
-                        ctx.moveTo(x, player.y);
-                        ctx.lineTo(flower.x, flower.y);
-                        ctx.strokeStyle = "white";
-                        ctx.stroke();
-                    });
-                    guidedMissiles.forEach((gm, index) => {
-                        ctx.beginPath();
-                        ctx.moveTo(x, player.y);
-                        ctx.lineTo(gm.x, gm.y);
-                        ctx.strokeStyle = "white";
-                        ctx.stroke();
-                    });
-                    enemies = [];
-                    mines = [];
-                    wanderingMines = [];
-                    flowers = [];
-                    guidedMissiles = [];
-                }
-                if (kill.countdown <= 0) {
-                    kills.splice(index, 1);
-                }
-                kill.update();
-            });
         }
+
+        kills.forEach((kill) => {
+            killCheck(kill);
+            if (kill.countdown <= 0) {
+                kills = [];
+            }
+            kill.update();
+        });
 
         if (LBall) {
             ctx.drawImage(lightningBall, x - 200, player.y - 200, 400, 400);

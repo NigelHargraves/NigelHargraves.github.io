@@ -342,7 +342,9 @@ function animate() {
     }
 
     mushrooms.forEach(function (mroom, index) {
-      if (mroom.x < x + player.r && mroom.x + mushroomSize > x - player.r && mroom.y < player.y + player.r && mroom.y + mushroomSize > player.y - player.r) {
+      var colide = collisionDetection(mroom.x + mushroomSize / 2, mroom.y + mushroomSize / 2, mushroomSize / 2, x, player.y, player.r);
+
+      if (colide) {
         mushroomEat.currentTime = 0;
         mushroomEat.play();
         score += 100;
@@ -363,7 +365,7 @@ function animate() {
       mroom.update();
     }); //create sheild icon.
 
-    if (!playerSheild && controlLevel > 5) {
+    if (!playerSheild && controlLevel > 5 && sheilds.length == 0) {
       var createSheild = Math.random();
 
       if (createSheild > 0.99999) {
@@ -371,7 +373,7 @@ function animate() {
       }
     }
 
-    sheilds.forEach(function (sheild, index) {
+    sheilds.forEach(function (sheild) {
       var colide = collisionDetection(sheild.x, sheild.y, sheild.r, x, player.y, player.r);
 
       if (colide) {
@@ -382,7 +384,7 @@ function animate() {
       }
 
       if (sheild.countdown <= 0) {
-        sheilds.splice(index, 1);
+        sheilds = [];
       }
 
       sheild.update();
@@ -451,70 +453,23 @@ function animate() {
       flower.update();
     }); //kill all.
 
-    if (controlLevel > 5) {
+    if (controlLevel > 6 && kills.length == 0) {
       var killAll = Math.random();
 
-      if (killAll > 0.99999) {
-        kills.push(new Kill(Math.random() * 6000 - 3000, Math.random() * c.height, 40, 25));
+      if (killAll > 0.9) {
+        kills.push(new Kill(Math.random() * 600 - 300, Math.random() * c.height, 40, 25));
+      }
+    }
+
+    kills.forEach(function (kill) {
+      killCheck(kill);
+
+      if (kill.countdown <= 0) {
+        kills = [];
       }
 
-      kills.forEach(function (kill, index) {
-        var colide = collisionDetection(kill.x, kill.y, kill.r, x, player.y, player.r);
-
-        if (colide) {
-          LBall = true;
-          kills = [];
-          killEverything.currentTime = 0;
-          killEverything.play();
-          enemies.forEach(function (enemy, index) {
-            ctx.beginPath();
-            ctx.moveTo(x, player.y);
-            ctx.lineTo(enemy.x, enemy.y);
-            ctx.strokeStyle = "white";
-            ctx.stroke();
-          });
-          mines.forEach(function (mine, index) {
-            ctx.beginPath();
-            ctx.moveTo(x, player.y);
-            ctx.lineTo(mine.x, mine.y);
-            ctx.strokeStyle = "white";
-            ctx.stroke();
-          });
-          wanderingMines.forEach(function (wm, index) {
-            ctx.beginPath();
-            ctx.moveTo(x, player.y);
-            ctx.lineTo(wm.x, wm.y);
-            ctx.strokeStyle = "white";
-            ctx.stroke();
-          });
-          flowers.forEach(function (flower, index) {
-            ctx.beginPath();
-            ctx.moveTo(x, player.y);
-            ctx.lineTo(flower.x, flower.y);
-            ctx.strokeStyle = "white";
-            ctx.stroke();
-          });
-          guidedMissiles.forEach(function (gm, index) {
-            ctx.beginPath();
-            ctx.moveTo(x, player.y);
-            ctx.lineTo(gm.x, gm.y);
-            ctx.strokeStyle = "white";
-            ctx.stroke();
-          });
-          enemies = [];
-          mines = [];
-          wanderingMines = [];
-          flowers = [];
-          guidedMissiles = [];
-        }
-
-        if (kill.countdown <= 0) {
-          kills.splice(index, 1);
-        }
-
-        kill.update();
-      });
-    }
+      kill.update();
+    });
 
     if (LBall) {
       ctx.drawImage(lightningBall, x - 200, player.y - 200, 400, 400);
