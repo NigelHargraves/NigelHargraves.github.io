@@ -319,7 +319,7 @@ function animate() {
         //create mushroom.
         if (controlLevel > 2) {
             let createMushroom = Math.random();
-            if (createMushroom > 0.9991) {
+            if (createMushroom > 0.9995) {
                 mushrooms.push(new Mushroom((Math.random() * 3000) + c.width, c.height - (mushroomSize + 20)))
             }
             createMushroom = Math.random();
@@ -348,7 +348,6 @@ function animate() {
                 texts.push(
                     new Text(x, player.y, 0, -1, 10000, "bold 50px Arial", "yellow", 1)
                 );
-                mushrooms = [];
                 mushroomCount = 0;
             }
             mroom.update();
