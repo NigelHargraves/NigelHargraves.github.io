@@ -25,29 +25,60 @@ class Player {
         }
 
         if (moveLeft && moveDown) {
+            ctx.drawImage(stalkLeft, x - stalkSize / 2, player.y - player.r - stalkSize, stalkSize, stalkSize);
             ctx.drawImage(faceDownLeft, x - player.r, player.y - player.r, player.r * 2, player.r * 2);
         } else if (moveRight && moveDown) {
+            ctx.drawImage(stalkRight, x - stalkSize / 2, player.y - player.r - stalkSize, stalkSize, stalkSize);
             ctx.drawImage(faceDownRight, x - player.r, player.y - player.r, player.r * 2, player.r * 2);
         } else if (moveLeft && moveUp) {
+            ctx.drawImage(stalkLeft, x - stalkSize / 2, player.y - player.r - stalkSize, stalkSize, stalkSize);
             ctx.drawImage(faceUpLeft, x - player.r, player.y - player.r, player.r * 2, player.r * 2);
         } else if (moveRight && moveUp) {
+            ctx.drawImage(stalkRight, x - stalkSize / 2, player.y - player.r - stalkSize, stalkSize, stalkSize);
             ctx.drawImage(faceUpRight, x - player.r, player.y - player.r, player.r * 2, player.r * 2);
         } else if (moveLeft) {
+            ctx.drawImage(stalkLeft, x - stalkSize / 2, player.y - player.r - stalkSize, stalkSize, stalkSize);
             ctx.drawImage(faceLeft, x - player.r, player.y - player.r, player.r * 2, player.r * 2);
         } else if (moveRight) {
+            ctx.drawImage(stalkRight, x - stalkSize / 2, player.y - player.r - stalkSize, stalkSize, stalkSize);
             ctx.drawImage(faceRight, x - player.r, player.y - player.r, player.r * 2, player.r * 2);
         } else if (moveUp) {
+            if (fireRight) {
+                ctx.drawImage(stalkRight, x - stalkSize / 2, player.y - player.r - stalkSize, stalkSize, stalkSize);
+            } else {
+                ctx.drawImage(stalkLeft, x - stalkSize / 2, player.y - player.r - stalkSize, stalkSize, stalkSize);
+            }
             ctx.drawImage(faceUp, x - player.r, player.y - player.r, player.r * 2, player.r * 2);
         } else if (moveDown) {
+            if (fireRight) {
+                ctx.drawImage(stalkRight, x - stalkSize / 2, player.y - player.r - stalkSize, stalkSize, stalkSize);
+            } else {
+                ctx.drawImage(stalkLeft, x - stalkSize / 2, player.y - player.r - stalkSize, stalkSize, stalkSize);
+            }
             ctx.drawImage(lookDown, x - player.r, player.y - player.r, player.r * 2, player.r * 2);
         } else {
             if (eyesBlink) {
+                if (fireRight) {
+                    ctx.drawImage(stalkRight, x - stalkSize / 2, player.y - player.r - stalkSize, stalkSize, stalkSize);
+                } else {
+                    ctx.drawImage(stalkLeft, x - stalkSize / 2, player.y - player.r - stalkSize, stalkSize, stalkSize);
+                }
                 ctx.drawImage(faceBlink, x - player.r, player.y - player.r, player.r * 2, player.r * 2);
             } else {
+                if (fireRight) {
+                    ctx.drawImage(stalkRight, x - stalkSize / 2, player.y - player.r - stalkSize, stalkSize, stalkSize);
+                } else {
+                    ctx.drawImage(stalkLeft, x - stalkSize / 2, player.y - player.r - stalkSize, stalkSize, stalkSize);
+                }
                 ctx.drawImage(faceForward, x - player.r, player.y - player.r, player.r * 2, player.r * 2);
             }
         }
         if (eyesSquint) {
+            if (fireRight) {
+                ctx.drawImage(stalkRight, x - stalkSize / 2, player.y - player.r - stalkSize, stalkSize, stalkSize);
+            } else {
+                ctx.drawImage(stalkLeft, x - stalkSize / 2, player.y - player.r - stalkSize, stalkSize, stalkSize);
+            }
             ctx.drawImage(faceSquint, x - player.r, player.y - player.r, player.r * 2, player.r * 2);
         }
     }

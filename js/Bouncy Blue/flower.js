@@ -14,7 +14,7 @@ class Flower {
         }
         //draw flower.
     draw() {
-            ctx.drawImage(flowerStalk, this.x - this.r, this.y, this.r * 2, 200);
+            ctx.drawImage(flowerStalk, this.x - this.r, this.y, this.r * 2, c.height * 0.2);
             ctx.drawImage(sunflower, this.x - this.r, this.y - this.r, this.r * 2, this.r * 2);
         }
         //update flower.

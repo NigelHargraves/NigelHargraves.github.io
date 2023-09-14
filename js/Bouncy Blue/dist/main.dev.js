@@ -62,7 +62,11 @@ lightningBall.src = 'images/BB/lightningBall.png';
 var bombImage = new Image();
 bombImage.src = 'images/BB/bomb.png';
 var explode = new Image();
-explode.src = 'images/BB/explode.png'; //arrays to var.
+explode.src = 'images/BB/explode.png';
+var stalkRight = new Image();
+stalkRight.src = 'images/BB/stalkRight.png';
+var stalkLeft = new Image();
+stalkLeft.src = 'images/BB/stalkLeft.png'; //arrays to var.
 
 var enemies = [];
 var foods = [];
@@ -128,11 +132,12 @@ var gravity = 0.03,
     levelBonus = 8000,
     skillLevel = 0.998,
     missileFire = 0.999,
-    minePlant = 0.9999,
+    minePlant = 0.99999,
     enemyVelocity = 1,
     foodVelocity = 1,
     foodAmount = 0.998,
-    enemyRadius = 8,
+    enemyRadius = c.height * 0.008,
+    stalkSize = c.height * 0.01,
     textFade = 1,
     bonus = 0,
     x = c.width / 2,
@@ -141,7 +146,7 @@ var gravity = 0.03,
     y1 = 0,
     sheildTime = 30,
     mushroomCount = 0,
-    mushroomSize = 50,
+    mushroomSize = c.height * 0.05,
     blink = 4,
     squint = 2,
     boltCount = 5,
@@ -205,22 +210,22 @@ function animate() {
   });
   ctx.font = "20px Arial";
   ctx.fillStyle = "white";
-  ctx.fillText("Control LV: " + controlLevel, 0, 20);
-  ctx.drawImage(mushroomImage, c.width / 8, 0, 20, 20);
-  ctx.fillText("= " + mushroomCount, c.width / 7.3, 20);
-  ctx.fillText("LV Bonus: " + levelBonus, c.width / 4, 20);
+  ctx.fillText("Control LV: " + controlLevel, 0, c.height * 0.02);
+  ctx.drawImage(mushroomImage, c.width / 8, 0, c.height * 0.02, c.height * 0.02);
+  ctx.fillText("= " + mushroomCount, c.width / 7.3, c.height * 0.02);
+  ctx.fillText("LV Bonus: " + levelBonus, c.width / 4, c.height * 0.02);
 
   if (levelBonus <= 0) {
     levelBonus = 1;
   }
 
   levelBonus -= 1;
-  ctx.fillText("Score: " + score + "          Top Score: " + topScore.name + ": " + topScore.score, c.width - c.width / 4, 20);
+  ctx.fillText("Score: " + score + "          Top Score: " + topScore.name + ": " + topScore.score, c.width - c.width / 4, c.height * 0.02);
 
   if (playerAlive) {
     ctx.font = "20px Arial";
     ctx.fillStyle = "white";
-    ctx.fillText("Player size: " + player.r, c.width / 2, 20);
+    ctx.fillText("Player size: " + player.r, c.width / 2, c.height * 0.02);
     var blinkEyes = Math.random();
 
     if (blinkEyes > 0.998 && !eyesBlink && !eyesSquint) {
@@ -264,7 +269,7 @@ function animate() {
     }
 
     bombs.forEach(function (bomb, index1) {
-      if (bomb.y >= c.height - 60) {
+      if (bomb.y >= c.height - c.height * 0.06) {
         if (!dropBomb.paused) {
           dropBomb.pause();
           dropBomb.currentTime = 0;
@@ -272,7 +277,7 @@ function animate() {
 
         bombExplode.currentTime = 0;
         bombExplode.play();
-        explodes.push(new Explode(bomb.x + 10, bomb.y + 20, 5, 1));
+        explodes.push(new Explode(bomb.x + c.height * 0.01, bomb.y + c.height * 0.02, 5, 1));
         bombs.splice(index1, 1);
       }
 
@@ -281,7 +286,7 @@ function animate() {
     explodes.forEach(function (exp, index1) {
       explodesCheck(exp);
 
-      if (exp.s >= 300 && exp.alpha <= 0.2) {
+      if (exp.s >= c.height * 0.3 && exp.alpha <= 0.2) {
         explodes.splice(index1, 1);
       }
 
@@ -292,9 +297,9 @@ function animate() {
       fireGap = true;
 
       if (fireRight) {
-        bullets.push(new Bullet(x, player.y, player.velocity.x + 10, "white"));
+        bullets.push(new Bullet(x, player.y - player.r - stalkSize, player.velocity.x + c.height * 0.01, "white"));
       } else {
-        bullets.push(new Bullet(x, player.y, player.velocity.x + -10, "white"));
+        bullets.push(new Bullet(x, player.y - player.r - stalkSize, player.velocity.x + -c.height * 0.01, "white"));
       }
 
       laserShot.currentTime = 0;
@@ -331,13 +336,13 @@ function animate() {
       var createMushroom = Math.random();
 
       if (createMushroom > 0.9995) {
-        mushrooms.push(new Mushroom(Math.random() * 3000 + c.width, c.height - (mushroomSize + 20)));
+        mushrooms.push(new Mushroom(Math.random() * c.height * 3 + c.width, c.height - (mushroomSize + c.height * 0.02)));
       }
 
       createMushroom = Math.random();
 
       if (createMushroom > 0.9991) {
-        mushrooms.push(new Mushroom(Math.random() * -3000, c.height - (mushroomSize + 20)));
+        mushrooms.push(new Mushroom(Math.random() * -c.height * 3, c.height - (mushroomSize + c.height * 0.02)));
       }
     }
 
@@ -349,7 +354,7 @@ function animate() {
         mushroomEat.play();
         score += 100;
         mushroomCount += 1;
-        texts.push(new Text(x, player.y, 0, -1, 100, "bold 20px Arial", "yellow", 1));
+        texts.push(new Text(x, player.y, 0, -c.height * 0.001, 100, "bold 20px Arial", "yellow", 1));
         mushrooms.splice(index, 1);
       }
 
@@ -357,7 +362,7 @@ function animate() {
         cheer.currentTime = 0;
         cheer.play();
         score += 10000;
-        texts.push(new Text(x, player.y, 0, -1, 10000, "bold 50px Arial", "yellow", 1));
+        texts.push(new Text(x, player.y, 0, -c.height * 0.001, 10000, "bold 50px Arial", "yellow", 1));
         mushroomCount = 0;
       }
 
@@ -368,7 +373,7 @@ function animate() {
       var createSheild = Math.random();
 
       if (createSheild > 0.99999) {
-        sheilds.push(new Sheild(Math.random() * 6000 - 3000, Math.random() * (c.height - 20), 20, 25));
+        sheilds.push(new Sheild(Math.random() * (c.height * 6 - c.height * 3), Math.random() * (c.height - c.height * 0.02), c.height * 0.02, 25));
       }
     }
 
@@ -407,18 +412,18 @@ function animate() {
       var createFlower = Math.random();
 
       if (createFlower > 0.999) {
-        flowers.push(new Flower(c.width + 100 + Math.random() * c.width, c.height - 200, 40, 25));
+        flowers.push(new Flower(c.width + c.height * 0.1 + Math.random() * c.width, c.height - 200, c.height * 0.04, 25));
       }
 
       createFlower = Math.random();
 
       if (createFlower > 0.999) {
-        flowers.push(new Flower(-100 - Math.random() * c.width, c.height - 200, 40, 25));
+        flowers.push(new Flower(-c.height * 0.1 - Math.random() * c.width, c.height - 200, c.height * 0.04, 25));
       }
     }
 
     flowers.forEach(function (flower, index) {
-      var colide = collisionDetection(flower.x, flower.y, flower.r * 4, x, player.y, player.r);
+      var colide = collisionDetection(flower.x, flower.y, flower.r * (c.height * 0.004), x, player.y, player.r);
 
       if (colide) {
         flowerFire.currentTime = 0;
@@ -429,7 +434,7 @@ function animate() {
           x: Math.cos(angles) * 5,
           y: Math.sin(angles) * 5
         };
-        guidedMissiles.push(new GuidedMissile(startPos, flower.y, velocity.x, velocity.y, 10, false));
+        guidedMissiles.push(new GuidedMissile(startPos, flower.y, velocity.x, velocity.y, c.height * 0.01, false));
         flowers.splice(index, 1);
       }
 
@@ -721,7 +726,7 @@ function animate() {
     if (createFood > foodAmount) {
       food.currentTime = 0;
       food.play();
-      foods.push(new Food(c.width, Math.random() * (c.height - 40) + 20, -foodVelocity, 0, 10));
+      foods.push(new Food(c.width, Math.random() * (c.height * 0.8 + c.height * 0.1), -foodVelocity, 0, 10));
     } //player eats food.
 
 

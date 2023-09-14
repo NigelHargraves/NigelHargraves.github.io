@@ -80,6 +80,12 @@ function bulletCheck(bullet, index1) {
                     y: (Math.random() - 0.5) * (Math.random() * 6)
                 }, "yellow"));
             }
+            for (i = 0; i < Math.random() * 30 + 30; i++) {
+                bloodSplats.push(new BloodSplat(flower.x, flower.y + flower.r * 2, Math.random() * 2, {
+                    x: (Math.random() - 0.5) * (Math.random() * 6),
+                    y: (Math.random() - 0.5) * (Math.random() * 6)
+                }, "green"));
+            }
             let points = 100;
             score += points;
             texts.push(
