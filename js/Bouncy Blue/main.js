@@ -126,37 +126,37 @@ let button = document.getElementById("button");
 let textName = document.getElementById("display");
 
 //vars.
-let gravity = 0.03,
-    friction = 0.002,
+let gravity,
+    friction,
     controlLevel,
-    velocityAmount = 0.02,
-    width = 0,
-    score = 0,
-    levelBonus = 8000,
-    skillLevel = 0.998,
-    missileFire = 0.999,
-    minePlant = 0.99999,
-    enemyVelocity = 1,
-    foodVelocity = 1,
-    foodAmount = 0.998,
-    enemyRadius = c.height * 0.008,
-    stalkSize = c.height * 0.01,
-    textFade = 1,
-    bonus = 0,
-    x = c.width / 2,
-    ang = 0,
-    x1 = 0,
-    y1 = 0,
-    sheildTime = 30,
-    mushroomCount = 0,
-    mushroomSize = c.height * 0.05,
-    blink = 4,
-    squint = 2,
-    boltCount = 5,
-    fireRate = 10,
-    fireRateCount = 0,
-    bombRate = 100,
-    bombRateCount = 0;
+    velocityAmount,
+    width,
+    score,
+    levelBonus,
+    skillLevel,
+    missileFire,
+    minePlant,
+    enemyVelocity,
+    foodVelocity,
+    foodAmount,
+    enemyRadius,
+    stalkSize,
+    textFade,
+    bonus,
+    x,
+    ang,
+    x1,
+    y1,
+    sheildTime,
+    mushroomCount,
+    mushroomSize,
+    blink,
+    squint,
+    boltCount,
+    fireRate,
+    fireRateCount,
+    bombRate,
+    bombRateCount;
 
 
 
@@ -202,6 +202,10 @@ function animate() {
     //call next frame.
     animationId = requestAnimationFrame(animate);
 
+    if (forestSounds.paused) {
+        forestSounds.play();
+    }
+
     layers.forEach((layer, index) => {
         layer.update();
     });
@@ -223,7 +227,7 @@ function animate() {
     if (playerAlive) {
         ctx.font = "20px Arial";
         ctx.fillStyle = "white";
-        ctx.fillText("Player size: " + player.r, c.width / 2, c.height * 0.02);
+        ctx.fillText("Player size: " + Math.round(player.r), c.width / 2, c.height * 0.02);
 
         let blinkEyes = Math.random()
         if (blinkEyes > 0.998 && !eyesBlink && !eyesSquint) {
@@ -436,10 +440,12 @@ function animate() {
         //kill all.
         if (controlLevel > 6 && kills.length == 0) {
             let killAll = Math.random();
-            if (killAll > 0.9) {
+            if (killAll > 0.99999) {
                 kills.push(new Kill(Math.random() * 600 - 300, Math.random() * c.height, 40, 25))
             }
         }
+
+
 
         kills.forEach((kill) => {
             killCheck(kill);
@@ -667,7 +673,7 @@ function animate() {
             food.currentTime = 0;
             food.play();
             foods.push(
-                new Food(c.width, Math.random() * (c.height * 0.8 + c.height * 0.1), -foodVelocity, 0, 10)
+                new Food(c.width, Math.random() * (c.height * 0.8 + c.height * 0.1), -foodVelocity, 0, c.height * 0.01)
             );
         }
 
@@ -678,7 +684,7 @@ function animate() {
                 eatFood.currentTime = 0;
                 eatFood.play();
                 //add to progress bar if size is greater than 20.
-                if (player.r >= 20) {
+                if (player.r >= c.height * 0.02) {
                     width += 10;
                     elem.style.width = width + "%";
                     fadeText = true;
@@ -880,7 +886,6 @@ window.addEventListener("resize", function() {
 
 
 window.addEventListener("keydown", (e) => {
-    forestSounds.play();
     if (e.keyCode == 37 || e.keyCode == 65) {
         moveLeft = true;
         fireRight = false;

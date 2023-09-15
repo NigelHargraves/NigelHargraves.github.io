@@ -55,6 +55,12 @@ function levelJump() {
 
   player.r = 20;
   gravity = 0;
+
+  if (controlLevel == 1) {
+    player.velocity.x = 0;
+    player.velocity.y = 0;
+  }
+
   controlLevel += 1;
 
   if (controlLevel == 2) {
@@ -92,14 +98,14 @@ function init() {
   flowers = [];
   sheilds = [];
   mushrooms = [];
-  gravity = 0.03, friction = 0.002, controlLevel = 1, velocityAmount = 0.02, width = 0, score = 0, levelBonus = 8000, skillLevel = 0.998, missileFire = 0.999, minePlant = 0.999, enemyVelocity = 1, foodVelocity = 1, foodAmount = 0.998, enemyRadius = 8, textFade = 1, bonus = 0, x = c.width / 2, ang = 0, x1 = 0, y1 = 0, mushroomCount = 0, mushroomSize = 50, blink = 4, squint = 2, boltCount = 5;
+  gravity = 0.03, friction = 0.002, controlLevel = 1, velocityAmount = 0.02, width = 0, score = 0, levelBonus = 8000, skillLevel = 0.998, missileFire = 0.999, minePlant = 0.99999, enemyVelocity = 1, foodVelocity = 1, foodAmount = 0.998, enemyRadius = c.height * 0.008, stalkSize = c.height * 0.01, textFade = 1, bonus = 0, x = c.width / 2, ang = 0, x1 = 0, y1 = 0, sheildTime = 30, mushroomCount = 0, mushroomSize = c.height * 0.05, blink = 4, squint = 2, boltCount = 5, fireRate = 10, fireRateCount = 0, bombRate = 100, bombRateCount = 0;
   moveLeft = false, moveRight = false, moveUp = false, moveDown = false, eyesBlink = false, eyesSquint = false, increaseBounce = false, fadeText = false, missile = false, playerAlive = true, minesToPlant = false, endGameSound = false, playerSheild = false, LBall = false;
   width = 0;
   elem.style.width = width + "%";
   player = new Player(c.width / 2, c.height / 2, 20);
-  enemies.push(new Enemy(Math.random() * c.width, 0, 0, 1, 8));
+  enemies.push(new Enemy(Math.random() * c.width, 0, 0, 1, c.height * 0.008));
   beeBuzz.play();
-  foods.push(new Food(c.width, Math.random() * (c.height - 40) + 20, -foodVelocity, 0, 10));
+  foods.push(new Food(c.width, Math.random() * (c.height - 40) + 20, -foodVelocity, 0, c.height * 0.01));
   food.currentTime = 0;
   food.play();
   forestSounds.currentTime = 0;
