@@ -11,7 +11,7 @@ var Text =
 /*#__PURE__*/
 function () {
   //construct Text data.
-  function Text(x, y, velocityX, velocityY, points, size, color, opacity) {
+  function Text(x, y, velocityX, velocityY, points, size, color, opacity, still) {
     _classCallCheck(this, Text);
 
     this.x = x;
@@ -22,6 +22,7 @@ function () {
     this.size = size;
     this.color = color;
     this.opacity = opacity;
+    this.still = still;
   } //draw text.
 
 
@@ -38,7 +39,10 @@ function () {
   }, {
     key: "update",
     value: function update() {
-      this.x += -player.velocity.x;
+      if (!this.still) {
+        this.x += -player.velocity.x;
+      }
+
       this.y += this.velocityY;
       this.draw();
     }

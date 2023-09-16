@@ -12,6 +12,7 @@ function reset() {
 
     if (controlLevel > 1) {
       controlLevel -= 1;
+      texts.push(new Text(x - c.height * 0.330, c.height / 2, 0, 0, clText + controlLevel, "bold 80px Arial", "white", 1, true));
     }
 
     if (controlLevel == 1) {
@@ -57,8 +58,8 @@ function levelJump() {
   gravity = 0;
 
   if (controlLevel == 1) {
-    player.velocity.x = 0;
-    player.velocity.y = 0;
+    player.velocity.x /= 2;
+    player.velocity.y /= 2;
   }
 
   controlLevel += 1;
@@ -69,6 +70,7 @@ function levelJump() {
     friction = 0.002;
   }
 
+  texts.push(new Text(x - c.height * 0.330, c.height / 2, 0, 0, clText + controlLevel, "bold 80px Arial", "white", 1, true));
   width = 0;
   elem.style.width = width + "%";
   score += levelBonus;
@@ -98,7 +100,7 @@ function init() {
   flowers = [];
   sheilds = [];
   mushrooms = [];
-  gravity = 0.03, friction = 0.002, controlLevel = 1, velocityAmount = 0.02, width = 0, score = 0, levelBonus = 8000, skillLevel = 0.998, missileFire = 0.999, minePlant = 0.99999, enemyVelocity = 1, foodVelocity = 1, foodAmount = 0.998, enemyRadius = c.height * 0.008, stalkSize = c.height * 0.01, textFade = 1, bonus = 0, x = c.width / 2, ang = 0, x1 = 0, y1 = 0, sheildTime = 30, mushroomCount = 0, mushroomSize = c.height * 0.05, blink = 4, squint = 2, boltCount = 5, fireRate = 10, fireRateCount = 0, bombRate = 100, bombRateCount = 0;
+  gravity = 0.03, friction = 0.002, controlLevel = 1, velocityAmount = 0.02, width = 0, score = 0, levelBonus = 8000, skillLevel = 0.998, missileFire = 0.999, minePlant = 0.9999, enemyVelocity = 1, foodVelocity = 1, foodAmount = 0.998, enemyRadius = c.height * 0.008, stalkSize = c.height * 0.01, textFade = 1, bonus = 0, x = c.width / 2, ang = 0, x1 = 0, y1 = 0, sheildTime = 30, mushroomCount = 0, mushroomSize = c.height * 0.05, blink = 4, squint = 2, boltCount = 5, fireRate = 10, fireRateCount = 0, bombRate = 100, bombRateCount = 0;
   moveLeft = false, moveRight = false, moveUp = false, moveDown = false, eyesBlink = false, eyesSquint = false, increaseBounce = false, fadeText = false, missile = false, playerAlive = true, minesToPlant = false, endGameSound = false, playerSheild = false, LBall = false;
   width = 0;
   elem.style.width = width + "%";
@@ -112,6 +114,7 @@ function init() {
   forestSounds.play();
   layers.push(new Layer(background1, 0, c.height, 0));
   layers.push(new Layer(background2, 0, c2.height, 0));
+  texts.push(new Text(x - c.height * 0.330, c.height / 2, 0, 0, clText + controlLevel, "bold 80px Arial", "white", 1, true));
 }
 
 function store(name, score) {

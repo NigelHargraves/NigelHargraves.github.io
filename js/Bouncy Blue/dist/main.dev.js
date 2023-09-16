@@ -123,7 +123,9 @@ var elem = document.getElementById("myBar");
 var button = document.getElementById("button");
 var textName = document.getElementById("display"); //vars.
 
-var gravity, friction, controlLevel, velocityAmount, width, score, levelBonus, skillLevel, missileFire, minePlant, enemyVelocity, foodVelocity, foodAmount, enemyRadius, stalkSize, textFade, bonus, x, ang, x1, y1, sheildTime, mushroomCount, mushroomSize, blink, squint, boltCount, fireRate, fireRateCount, bombRate, bombRateCount; //boolean vars.
+var gravity, friction, controlLevel, velocityAmount, width, score, levelBonus, skillLevel, missileFire, minePlant, enemyVelocity, foodVelocity, foodAmount, enemyRadius, stalkSize, textFade, bonus, x, ang, x1, y1, sheildTime, mushroomCount, mushroomSize, blink, squint, boltCount, fireRate, fireRateCount, bombRate, bombRateCount; //var texts.
+
+var clText = "Control Level "; //boolean vars.
 
 var moveLeft = false,
     moveRight = false,
@@ -225,6 +227,15 @@ function animate() {
       squint = 2;
     }
 
+    ctx.font = " bold 80px Arial";
+    ctx.fillStyle = "white";
+
+    if (player.y < 0 && player.velocity.y < 0) {
+      ctx.fillText("⬆", c.width / 2, c.height / 2);
+    } else if (player.y < 0 && player.velocity.y > 0) {
+      ctx.fillText("⬇", c.width / 2, c.height / 2);
+    }
+
     player.update(); //create bomb.
 
     if (bombDrop && bombRateCount == 0) {
@@ -272,9 +283,9 @@ function animate() {
       fireGap = true;
 
       if (fireRight) {
-        bullets.push(new Bullet(x, player.y - player.r - stalkSize, player.velocity.x + c.height * 0.01, "white"));
+        bullets.push(new Bullet(x, player.y - player.r - stalkSize, player.velocity.x + c.height * 0.01, "greenyellow"));
       } else {
-        bullets.push(new Bullet(x, player.y - player.r - stalkSize, player.velocity.x + -c.height * 0.01, "white"));
+        bullets.push(new Bullet(x, player.y - player.r - stalkSize, player.velocity.x + -c.height * 0.01, "greenyellow"));
       }
 
       laserShot.currentTime = 0;
@@ -329,7 +340,7 @@ function animate() {
         mushroomEat.play();
         score += 100;
         mushroomCount += 1;
-        texts.push(new Text(x, player.y, 0, -c.height * 0.001, 100, "bold 20px Arial", "yellow", 1));
+        texts.push(new Text(x, player.y, 0, -c.height * 0.001, " 100 😃 ", "bold 20px Arial", "yellow", 1, false));
         mushrooms.splice(index, 1);
       }
 
@@ -337,7 +348,7 @@ function animate() {
         cheer.currentTime = 0;
         cheer.play();
         score += 10000;
-        texts.push(new Text(x, player.y, 0, -c.height * 0.001, 10000, "bold 50px Arial", "yellow", 1));
+        texts.push(new Text(x, player.y, 0, -c.height * 0.001, " 10000 😎", "bold 50px Arial", "yellow", 1, false));
         mushroomCount = 0;
       }
 
@@ -541,9 +552,9 @@ function animate() {
           score += points;
 
           if (player.y > c.height / 2) {
-            texts.push(new Text(x, player.y, 0, -1, points, "bold 20px Arial", "yellow", 1));
+            texts.push(new Text(x, player.y, 0, -1, points, "bold 20px Arial", "yellow", 1, false));
           } else {
-            texts.push(new Text(x, player.y, 0, 1, points, "bold 20px Arial", "yellow", 1));
+            texts.push(new Text(x, player.y, 0, 1, points, "bold 20px Arial", "yellow", 1, false));
           }
         }
 
@@ -605,14 +616,20 @@ function animate() {
           } else {
             player.r -= 2;
           }
+
+          if (player.y > c.height / 2) {
+            texts.push(new Text(x, player.y, 0, -1, "🤕", "bold 20px Arial", "yellow", 1, false));
+          } else {
+            texts.push(new Text(x, player.y, 0, 1, "🤕", "bold 20px Arial", "yellow", 1, false));
+          }
         } else {
           var points = Math.trunc(enemy.x / 10 + (c.height - enemy.y) / 10);
           score += points;
 
           if (player.y > c.height / 2) {
-            texts.push(new Text(x, player.y, 0, -1, points, "bold 20px Arial", "yellow", 1));
+            texts.push(new Text(x, player.y, 0, -1, points, "bold 20px Arial", "yellow", 1, false));
           } else {
-            texts.push(new Text(x, player.y, 0, 1, points, "bold 20px Arial", "yellow", 1));
+            texts.push(new Text(x, player.y, 0, 1, points, "bold 20px Arial", "yellow", 1, false));
           }
         }
 
@@ -722,9 +739,9 @@ function animate() {
           score += points;
 
           if (player.y > c.height / 2) {
-            texts.push(new Text(x, player.y, 0, -1, points, "bold 20px Arial", "yellow", 1));
+            texts.push(new Text(x, player.y, 0, -1, points + " 😃", "bold 20px Arial", "yellow", 1, false));
           } else {
-            texts.push(new Text(x, player.y, 0, 1, points, "bold 20px Arial", "yellow", 1));
+            texts.push(new Text(x, player.y, 0, 1, points + " 😃", "bold 20px Arial", "yellow", 1, false));
           }
         } //increase player size/add to score.
 
@@ -765,9 +782,9 @@ function animate() {
         //player gains level.
         //player gets next level of control + bonus score/update variables.
         if (player.y > c.height / 2) {
-          texts.push(new Text(x, player.y, 0, -1, "L+", "bold 25px Arial", "yellow", 1));
+          texts.push(new Text(x, player.y, 0, -1, "L+", "bold 25px Arial", "yellow", 1, false));
         } else {
-          texts.push(new Text(x, player.y, 0, 1, "L+", "bold 25px Arial", "yellow", 1));
+          texts.push(new Text(x, player.y, 0, 1, "L+", "bold 25px Arial", "yellow", 1, false));
         }
 
         levelGains.splice(index, 1);
@@ -797,9 +814,9 @@ function animate() {
         bonus = Math.trunc(Math.random() * 500) + 300;
 
         if (player.y > c.height / 2) {
-          texts.push(new Text(x, player.y, 0, -1, bonus, "bold 25px Arial ", "green", 1));
+          texts.push(new Text(x, player.y, 0, -1, bonus, "bold 25px Arial ", "green", 1, false));
         } else {
-          texts.push(new Text(x, player.y, 0, 1, bonus, "bold 25px Arial ", "green", 1));
+          texts.push(new Text(x, player.y, 0, 1, bonus, "bold 25px Arial ", "green", 1, false));
         }
 
         bonusPoints.splice(index, 1);
@@ -839,9 +856,9 @@ function animate() {
           score += points;
 
           if (player.y > c.height / 2) {
-            texts.push(new Text(x, player.y, 0, -1, points, "bold 20px Arial", "yellow", 1));
+            texts.push(new Text(x, player.y, 0, -1, points, "bold 20px Arial", "yellow", 1, false));
           } else {
-            texts.push(new Text(x, player.y, 0, 1, points, "bold 20px Arial", "yellow", 1));
+            texts.push(new Text(x, player.y, 0, 1, points, "bold 20px Arial", "yellow", 1, false));
           }
         }
 

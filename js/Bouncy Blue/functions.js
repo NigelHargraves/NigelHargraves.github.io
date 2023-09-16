@@ -7,6 +7,9 @@ function reset() {
         levelBonus = 8000;
         if (controlLevel > 1) {
             controlLevel -= 1;
+            texts.push(
+                new Text(x - c.height * 0.330, c.height / 2, 0, 0, clText + controlLevel, "bold 80px Arial", "white", 1, true)
+            );
         }
         if (controlLevel == 1) {
             gravity = 0.03;
@@ -45,8 +48,8 @@ function levelJump() {
     player.r = 20;
     gravity = 0;
     if (controlLevel == 1) {
-        player.velocity.x = 0;
-        player.velocity.y = 0;
+        player.velocity.x /= 2;
+        player.velocity.y /= 2;
     }
     controlLevel += 1;
     if (controlLevel == 2) {
@@ -54,6 +57,11 @@ function levelJump() {
     } else {
         friction = 0.002;
     }
+
+    texts.push(
+        new Text(x - c.height * 0.330, c.height / 2, 0, 0, clText + controlLevel, "bold 80px Arial", "white", 1, true)
+    );
+
     width = 0;
     elem.style.width = width + "%";
     score += levelBonus;
@@ -93,7 +101,7 @@ function init() {
         levelBonus = 8000,
         skillLevel = 0.998,
         missileFire = 0.999,
-        minePlant = 0.99999,
+        minePlant = 0.9999,
         enemyVelocity = 1,
         foodVelocity = 1,
         foodAmount = 0.998,
@@ -146,6 +154,9 @@ function init() {
     forestSounds.play();
     layers.push(new Layer(background1, 0, c.height, 0));
     layers.push(new Layer(background2, 0, c2.height, 0));
+    texts.push(
+        new Text(x - c.height * 0.330, c.height / 2, 0, 0, clText + controlLevel, "bold 80px Arial", "white", 1, true)
+    );
 }
 
 

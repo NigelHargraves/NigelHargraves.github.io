@@ -16,11 +16,11 @@ function bulletCheck(bullet, index1) {
             score += points;
             if (enemy.y > c.height / 2) {
                 texts.push(
-                    new Text(enemy.x, enemy.y, 0, -1, points, "bold 20px Arial", "yellow", 1)
+                    new Text(enemy.x, enemy.y, 0, -1, points + " 😃", "bold 20px Arial", "yellow", 1, false)
                 );
             } else {
                 texts.push(
-                    new Text(enemy.x, enemy.y, 0, 1, points, "bold 20px Arial", "yellow", 1)
+                    new Text(enemy.x, enemy.y, 0, 1, points + " 😃", "bold 20px Arial", "yellow", 1, false)
                 );
             }
             enemies.splice(index2, 1);
@@ -41,9 +41,19 @@ function bulletCheck(bullet, index1) {
                     y: (Math.random() - 0.5) * (Math.random() * 6)
                 }, "yellow"));
             }
+            let points = Math.trunc(wmine.x / 10 + (c.height - wmine.y) / 10) * 10;
+            score += points;
+            if (wmine.y > c.height / 2) {
+                texts.push(
+                    new Text(wmine.x, wmine.y, 0, -1, points + " 😃", "bold 20px Arial", "yellow", 1, false)
+                );
+            } else {
+                texts.push(
+                    new Text(wmine.x, wmine.y, 0, 1, points + " 😃", "bold 20px Arial", "yellow", 1, false)
+                );
+            }
             wanderingMines.splice(index2, 1);
             bullets.splice(index1, 1);
-
         }
     });
     foods.forEach((food, index2) => {
@@ -64,6 +74,15 @@ function bulletCheck(bullet, index1) {
                 }
                 player.r -= 1;
                 splats.push(new Splat(x, player.y, x1, y1, ang, player.r));
+            }
+            if (player.y > c.height / 2) {
+                texts.push(
+                    new Text(x, player.y, 0, -1, "🤕", "bold 20px Arial", "yellow", 1, false)
+                );
+            } else {
+                texts.push(
+                    new Text(x, player.y, 0, 1, "🤕", "bold 20px Arial", "yellow", 1, false)
+                );
             }
             foods.splice(index2, 1);
             bullets.splice(index1, 1);
@@ -89,7 +108,7 @@ function bulletCheck(bullet, index1) {
             let points = 100;
             score += points;
             texts.push(
-                new Text(flower.x, flower.y, 0, -1, points, "bold 20px Arial", "yellow", 1)
+                new Text(flower.x, flower.y, 0, -1, points + " 😃", "bold 20px Arial", "yellow", 1, false)
             );
             flowers.splice(index2, 1);
             bullets.splice(index1, 1);
@@ -108,6 +127,15 @@ function bulletCheck(bullet, index1) {
             }
             if (mushroomCount > 0) {
                 mushroomCount -= 1;
+            }
+            if (player.y > c.height / 2) {
+                texts.push(
+                    new Text(x, player.y, 0, -1, "😞", "bold 20px Arial", "yellow", 1, false)
+                );
+            } else {
+                texts.push(
+                    new Text(x, player.y, 0, 1, "😞", "bold 20px Arial", "yellow", 1, false)
+                );
             }
             mushrooms.splice(index2, 1);
             bullets.splice(index1, 1);

@@ -1,7 +1,7 @@
 //Text class.
 class Text {
     //construct Text data.
-    constructor(x, y, velocityX, velocityY, points, size, color, opacity) {
+    constructor(x, y, velocityX, velocityY, points, size, color, opacity, still) {
             this.x = x;
             this.y = y;
             this.velocityX = velocityX;
@@ -10,6 +10,7 @@ class Text {
             this.size = size;
             this.color = color;
             this.opacity = opacity;
+            this.still = still;
         }
         //draw text.
     draw() {
@@ -21,7 +22,9 @@ class Text {
         }
         //update text.
     update() {
-        this.x += -player.velocity.x;
+        if (!this.still) {
+            this.x += -player.velocity.x;
+        }
         this.y += this.velocityY;
         this.draw();
     }
