@@ -14,7 +14,6 @@ class Player {
         }
         //draw player.
     draw() {
-
         if (playerSheild) {
             ctx.globalAlpha = this.alpha;
             ctx.beginPath();
