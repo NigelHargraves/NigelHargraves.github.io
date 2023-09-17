@@ -61,17 +61,17 @@ function explodesCheck(exp) {
     var colide = collisionDetection(exp.x, exp.y, exp.s / 2, flower.x, flower.y, flower.r);
 
     if (colide) {
-      for (i = 0; i < Math.random() * 60 + 30; i++) {
+      for (i = 0; i < Math.random() * 100 + 30; i++) {
         bloodSplats.push(new BloodSplat(flower.x, flower.y, Math.random() * 2, {
           x: (Math.random() - 0.5) * (Math.random() * 6),
-          y: (Math.random() - 0.5) * (Math.random() * 20)
+          y: (Math.random() - 1) * (Math.random() * 20)
         }, "yellow"));
       }
 
-      for (i = 0; i < Math.random() * 60 + 30; i++) {
+      for (i = 0; i < Math.random() * 100 + 30; i++) {
         bloodSplats.push(new BloodSplat(flower.x, flower.y + flower.r * 2, Math.random() * 2, {
           x: (Math.random() - 0.5) * (Math.random() * 6),
-          y: (Math.random() - 0.5) * (Math.random() * 20)
+          y: (Math.random() - 1) * (Math.random() * 20)
         }, "green"));
       }
 
