@@ -90,7 +90,6 @@ let bloodSplats = [];
 let bombs = [];
 let explodes = [];
 
-
 //audio to var.
 let bounce = document.getElementById("audio1");
 let levelUp = document.getElementById("audio2");
@@ -120,7 +119,6 @@ let dropBomb = document.getElementById("audio25");
 let bombExplode = document.getElementById("audio26");
 
 let KP = {}; //Keyspressed array.
-
 
 //elements to vars.
 let elem = document.getElementById("myBar");
@@ -951,8 +949,6 @@ window.addEventListener("resize", function() {
     c.height = window.innerHeight;
     init();
 });
-
-
 
 window.addEventListener("keydown", (e) => {
     if (e.keyCode == 37 || e.keyCode == 65) {
