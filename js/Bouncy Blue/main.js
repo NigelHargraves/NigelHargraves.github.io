@@ -206,6 +206,7 @@ function animate() {
     //call next frame.
     animationId = requestAnimationFrame(animate);
 
+
     if (forestSounds.paused) {
         forestSounds.play();
     }
