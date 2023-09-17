@@ -67,6 +67,7 @@ stalkRight.src = 'images/BB/stalkRight.png';
 let stalkLeft = new Image();
 stalkLeft.src = 'images/BB/stalkRight.png';
 
+
 //arrays to var.
 let enemies = [];
 let foods = [];
