@@ -118,7 +118,7 @@ function bulletCheck(bullet, index1) {
         }, "green"));
       }
 
-      var points = 100;
+      var points = 1000;
       score += points;
       texts.push(new Text(flower.x, flower.y, Math.random() - 0.5, -c.height * 0.001, points, "bold 20px Arial", "yellow", 1, false));
       texts.push(new Text(flower.x, flower.y, Math.random() - 0.5, -c.height * 0.002, "😃", "bold 20px Arial", "yellow", 1, false));

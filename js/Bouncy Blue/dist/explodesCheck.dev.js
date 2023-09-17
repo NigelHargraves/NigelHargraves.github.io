@@ -57,4 +57,29 @@ function explodesCheck(exp) {
       mushrooms.splice(index2, 1);
     }
   });
+  flowers.forEach(function (flower, index2) {
+    var colide = collisionDetection(exp.x, exp.y, exp.s / 2, flower.x, flower.y, flower.r);
+
+    if (colide) {
+      for (i = 0; i < Math.random() * 60 + 30; i++) {
+        bloodSplats.push(new BloodSplat(flower.x, flower.y, Math.random() * 2, {
+          x: (Math.random() - 0.5) * (Math.random() * 6),
+          y: (Math.random() - 0.5) * (Math.random() * 20)
+        }, "yellow"));
+      }
+
+      for (i = 0; i < Math.random() * 60 + 30; i++) {
+        bloodSplats.push(new BloodSplat(flower.x, flower.y + flower.r * 2, Math.random() * 2, {
+          x: (Math.random() - 0.5) * (Math.random() * 6),
+          y: (Math.random() - 0.5) * (Math.random() * 20)
+        }, "green"));
+      }
+
+      var points = 1000;
+      score += points;
+      texts.push(new Text(flower.x, flower.y, Math.random() - 0.5, -1, points, "bold 20px Arial", "white", 1));
+      texts.push(new Text(flower.x, flower.y, Math.random() - 0.5, -c.height * 0.002, "😃", "bold 20px Arial", "yellow", 1, false));
+      flowers.splice(index2, 1);
+    }
+  });
 }
