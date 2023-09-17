@@ -66,7 +66,7 @@ explode.src = 'images/BB/explode.png';
 var stalkRight = new Image();
 stalkRight.src = 'images/BB/stalkRight.png';
 var stalkLeft = new Image();
-stalkLeft.src = 'images/BB/stalkright.png'; //arrays to var.
+stalkLeft.src = 'images/BB/stalkRight.png'; //arrays to var.
 
 var enemies = [];
 var foods = [];
