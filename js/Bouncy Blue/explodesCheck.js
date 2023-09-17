@@ -26,7 +26,10 @@ function explodesCheck(exp) {
             let points = 100;
             score += points;
             texts.push(
-                new Text(mine.x, mine.y, 0, -1, points, "bold 20px Arial", "white", 1)
+                new Text(mine.x, mine.y, Math.random() - 0.5, -1, points, "bold 20px Arial", "white", 1)
+            );
+            texts.push(
+                new Text(mine.x, mine.y, Math.random() - 0.5, -c.height * 0.002, "😃", "bold 20px Arial", "yellow", 1, false)
             );
             mines.splice(index2, 1);
         }
@@ -43,6 +46,9 @@ function explodesCheck(exp) {
             if (mushroomCount > 0) {
                 mushroomCount -= 1;
             }
+            texts.push(
+                new Text(mroom.x, mroom.y, Math.random() - 0.5, -c.height * 0.001, "😞", "bold 20px Arial", "yellow", 1, false)
+            );
             mushrooms.splice(index2, 1);
         }
     });

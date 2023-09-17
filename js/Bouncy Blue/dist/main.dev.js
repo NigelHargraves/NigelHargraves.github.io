@@ -340,7 +340,8 @@ function animate() {
         mushroomEat.play();
         score += 100;
         mushroomCount += 1;
-        texts.push(new Text(x, player.y, 0, -c.height * 0.001, " 100 😃 ", "bold 20px Arial", "yellow", 1, false));
+        texts.push(new Text(x, player.y, Math.random() - 0.5, -c.height * 0.001, "100", "bold 20px Arial", "yellow", 1, false));
+        texts.push(new Text(x, player.y, Math.random() - 0.5, -c.height * 0.002, "😃", "bold 20px Arial", "yellow", 1, false));
         mushrooms.splice(index, 1);
       }
 
@@ -348,7 +349,8 @@ function animate() {
         cheer.currentTime = 0;
         cheer.play();
         score += 10000;
-        texts.push(new Text(x, player.y, 0, -c.height * 0.001, " 10000 😎", "bold 50px Arial", "yellow", 1, false));
+        texts.push(new Text(x, player.y, Math.random() - 0.5, -c.height * 0.001, "10000", "bold 50px Arial", "yellow", 1, false));
+        texts.push(new Text(x, player.y, Math.random() - 0.5, -c.height * 0.002, "😎", "bold 50px Arial", "yellow", 1, false));
         mushroomCount = 0;
       }
 
@@ -550,12 +552,8 @@ function animate() {
           sheildHit.play();
           var points = Math.trunc(mine.x / 10 + (c.height - mine.y) / 10);
           score += points;
-
-          if (player.y > c.height / 2) {
-            texts.push(new Text(x, player.y, 0, -1, points, "bold 20px Arial", "yellow", 1, false));
-          } else {
-            texts.push(new Text(x, player.y, 0, 1, points, "bold 20px Arial", "yellow", 1, false));
-          }
+          texts.push(new Text(x, player.y, Math.random() - 0.5, -c.height * 0.001, points, "bold 20px Arial", "yellow", 1, false));
+          texts.push(new Text(x, player.y, Math.random() - 0.5, -c.height * 0.002, "😃", "bold 20px Arial", "yellow", 1, false));
         }
 
         mines.splice(index, 1);
@@ -593,14 +591,16 @@ function animate() {
     if (enemyFire > skillLevel) {
       beeBuzz.currentTime = 0;
       beeBuzz.play();
-      var beeDirection = true;
+      var beeDirection;
       var setDirection = Math.random();
 
-      if (setDirection > 0.5) {
+      if (setDirection >= 0.5) {
         beeDirection = false;
+      } else {
+        beeDirection = true;
       }
 
-      enemies.push(new Enemy(Math.random() * c.width, -20, enemyVelocity, enemyVelocity, enemyRadius, beeDirection));
+      enemies.push(new Enemy(Math.random() * (c.width * 3) - c.width, -20, enemyVelocity, enemyVelocity, enemyRadius, beeDirection));
     }
 
     enemies.forEach(function (enemy, index) {
@@ -618,18 +618,20 @@ function animate() {
           }
 
           if (player.y > c.height / 2) {
-            texts.push(new Text(x, player.y, 0, -1, "🤕", "bold 20px Arial", "yellow", 1, false));
+            texts.push(new Text(x, player.y, Math.random() - 0.5, -c.height * 0.001, "🤕", "bold 20px Arial", "yellow", 1, false));
           } else {
-            texts.push(new Text(x, player.y, 0, 1, "🤕", "bold 20px Arial", "yellow", 1, false));
+            texts.push(new Text(x, player.y, Math.random() - 0.5, c.height * 0.001, "🤕", "bold 20px Arial", "yellow", 1, false));
           }
         } else {
           var points = Math.trunc(enemy.x / 10 + (c.height - enemy.y) / 10);
           score += points;
 
           if (player.y > c.height / 2) {
-            texts.push(new Text(x, player.y, 0, -1, points, "bold 20px Arial", "yellow", 1, false));
+            texts.push(new Text(x, player.y, Math.random() - 0.5, -c.height * 0.001, points, "bold 20px Arial", "yellow", 1, false));
+            texts.push(new Text(x, player.y, Math.random() - 0.5, -c.height * 0.002, "😃", "bold 20px Arial", "yellow", 1, false));
           } else {
-            texts.push(new Text(x, player.y, 0, 1, points, "bold 20px Arial", "yellow", 1, false));
+            texts.push(new Text(x, player.y, Math.random() - 0.5, c.height * 0.001, points, "bold 20px Arial", "yellow", 1, false));
+            texts.push(new Text(x, player.y, Math.random() - 0.5, c.height * 0.002, "😃", "bold 20px Arial", "yellow", 1, false));
           }
         }
 
@@ -653,7 +655,7 @@ function animate() {
       }
     }); //fire guidedMissile.
 
-    if (controlLevel > 4 || score > 50000) {
+    if (controlLevel > 4) {
       var fireMissile = Math.random();
 
       if (fireMissile > missileFire) {
@@ -739,9 +741,11 @@ function animate() {
           score += points;
 
           if (player.y > c.height / 2) {
-            texts.push(new Text(x, player.y, 0, -1, points + " 😃", "bold 20px Arial", "yellow", 1, false));
+            texts.push(new Text(x, player.y, Math.random() - 0.5, -c.height * 0.001, points, "bold 20px Arial", "yellow", 1, false));
+            texts.push(new Text(x, player.y, Math.random() - 0.5, -c.height * 0.002, "😃", "bold 20px Arial", "yellow", 1, false));
           } else {
-            texts.push(new Text(x, player.y, 0, 1, points + " 😃", "bold 20px Arial", "yellow", 1, false));
+            texts.push(new Text(x, player.y, Math.random() - 0.5, c.height * 0.001, points, "bold 20px Arial", "yellow", 1, false));
+            texts.push(new Text(x, player.y, Math.random() - 0.5, c.height * 0.002, "😃", "bold 20px Arial", "yellow", 1, false));
           }
         } //increase player size/add to score.
 
@@ -782,9 +786,11 @@ function animate() {
         //player gains level.
         //player gets next level of control + bonus score/update variables.
         if (player.y > c.height / 2) {
-          texts.push(new Text(x, player.y, 0, -1, "L+", "bold 25px Arial", "yellow", 1, false));
+          texts.push(new Text(x, player.y, Math.random() - 0.5, -c.height * 0.001, "L+", "bold 25px Arial", "yellow", 1, false));
+          texts.push(new Text(x, player.y, Math.random() - 0.5, -c.height * 0.002, "😃", "bold 20px Arial", "yellow", 1, false));
         } else {
-          texts.push(new Text(x, player.y, 0, 1, "L+", "bold 25px Arial", "yellow", 1, false));
+          texts.push(new Text(x, player.y, Math.random() - 0.5, c.height * 0.001, "L+", "bold 25px Arial", "yellow", 1, false));
+          texts.push(new Text(x, player.y, Math.random() - 0.5, c.height * 0.002, "😃", "bold 20px Arial", "yellow", 1, false));
         }
 
         levelGains.splice(index, 1);
@@ -814,9 +820,11 @@ function animate() {
         bonus = Math.trunc(Math.random() * 500) + 300;
 
         if (player.y > c.height / 2) {
-          texts.push(new Text(x, player.y, 0, -1, bonus, "bold 25px Arial ", "green", 1, false));
+          texts.push(new Text(x, player.y, Math.random() - 0.5, -c.height * 0.001, bonus, "bold 25px Arial ", "green", 1, false));
+          texts.push(new Text(x, player.y, Math.random() - 0.5, -c.height * 0.002, "😃", "bold 20px Arial", "yellow", 1, false));
         } else {
-          texts.push(new Text(x, player.y, 0, 1, bonus, "bold 25px Arial ", "green", 1, false));
+          texts.push(new Text(x, player.y, Math.random() - 0.5, c.height * 0.001, bonus, "bold 25px Arial ", "green", 1, false));
+          texts.push(new Text(x, player.y, Math.random() - 0.5, c.height * 0.002, "😃", "bold 20px Arial", "yellow", 1, false));
         }
 
         bonusPoints.splice(index, 1);
@@ -856,9 +864,11 @@ function animate() {
           score += points;
 
           if (player.y > c.height / 2) {
-            texts.push(new Text(x, player.y, 0, -1, points, "bold 20px Arial", "yellow", 1, false));
+            texts.push(new Text(x, player.y, Math.random() - 0.5, -c.height * 0.001, points, "bold 20px Arial", "yellow", 1, false));
+            texts.push(new Text(x, player.y, Math.random() - 0.5, -c.height * 0.002, "😃", "bold 20px Arial", "yellow", 1, false));
           } else {
-            texts.push(new Text(x, player.y, 0, 1, points, "bold 20px Arial", "yellow", 1, false));
+            texts.push(new Text(x, player.y, Math.random() - 0.5, c.height * 0.001, points, "bold 20px Arial", "yellow", 1, false));
+            texts.push(new Text(x, player.y, Math.random() - 0.5, c.height * 0.002, "😃", "bold 20px Arial", "yellow", 1, false));
           }
         }
 

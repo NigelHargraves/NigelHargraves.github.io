@@ -105,8 +105,6 @@ function init() {
   width = 0;
   elem.style.width = width + "%";
   player = new Player(c.width / 2, c.height / 2, 20);
-  enemies.push(new Enemy(Math.random() * c.width, 0, 0, 1, c.height * 0.008));
-  beeBuzz.play();
   foods.push(new Food(c.width, Math.random() * (c.height - 40) + 20, -foodVelocity, 0, c.height * 0.01));
   food.currentTime = 0;
   food.play();

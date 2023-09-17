@@ -11,14 +11,14 @@ var Text =
 /*#__PURE__*/
 function () {
   //construct Text data.
-  function Text(x, y, velocityX, velocityY, points, size, color, opacity, still) {
+  function Text(x, y, velocityX, velocityY, text, size, color, opacity, still) {
     _classCallCheck(this, Text);
 
     this.x = x;
     this.y = y;
     this.velocityX = velocityX;
     this.velocityY = velocityY;
-    this.points = points;
+    this.text = text;
     this.size = size;
     this.color = color;
     this.opacity = opacity;
@@ -32,7 +32,7 @@ function () {
       ctx.font = this.size;
       ctx.fillStyle = this.color;
       ctx.globalAlpha = this.opacity;
-      ctx.fillText(this.points, this.x, this.y);
+      ctx.fillText(this.text, this.x, this.y);
       ctx.globalAlpha = 1;
     } //update text.
 
@@ -40,6 +40,7 @@ function () {
     key: "update",
     value: function update() {
       if (!this.still) {
+        this.x += this.velocityX;
         this.x += -player.velocity.x;
       }
 

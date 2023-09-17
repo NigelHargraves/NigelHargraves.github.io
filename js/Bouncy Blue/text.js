@@ -1,12 +1,12 @@
 //Text class.
 class Text {
     //construct Text data.
-    constructor(x, y, velocityX, velocityY, points, size, color, opacity, still) {
+    constructor(x, y, velocityX, velocityY, text, size, color, opacity, still) {
             this.x = x;
             this.y = y;
             this.velocityX = velocityX;
             this.velocityY = velocityY;
-            this.points = points;
+            this.text = text;
             this.size = size;
             this.color = color;
             this.opacity = opacity;
@@ -17,12 +17,13 @@ class Text {
             ctx.font = this.size;
             ctx.fillStyle = this.color;
             ctx.globalAlpha = this.opacity;
-            ctx.fillText(this.points, this.x, this.y);
+            ctx.fillText(this.text, this.x, this.y);
             ctx.globalAlpha = 1;
         }
         //update text.
     update() {
         if (!this.still) {
+            this.x += this.velocityX;
             this.x += -player.velocity.x;
         }
         this.y += this.velocityY;

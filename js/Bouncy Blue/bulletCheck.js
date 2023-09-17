@@ -16,11 +16,17 @@ function bulletCheck(bullet, index1) {
             score += points;
             if (enemy.y > c.height / 2) {
                 texts.push(
-                    new Text(enemy.x, enemy.y, 0, -1, points + " 😃", "bold 20px Arial", "yellow", 1, false)
+                    new Text(enemy.x, enemy.y, Math.random() - 0.5, -c.height * 0.001, points, "bold 20px Arial", "yellow", 1, false)
+                );
+                texts.push(
+                    new Text(enemy.x, enemy.y, Math.random() - 0.5, -c.height * 0.002, "😃", "bold 20px Arial", "yellow", 1, false)
                 );
             } else {
                 texts.push(
-                    new Text(enemy.x, enemy.y, 0, 1, points + " 😃", "bold 20px Arial", "yellow", 1, false)
+                    new Text(enemy.x, enemy.y, Math.random() - 0.5, c.height * 0.001, points, "bold 20px Arial", "yellow", 1, false)
+                );
+                texts.push(
+                    new Text(enemy.x, enemy.y, Math.random() - 0.5, c.height * 0.002, "😃", "bold 20px Arial", "yellow", 1, false)
                 );
             }
             enemies.splice(index2, 1);
@@ -45,11 +51,17 @@ function bulletCheck(bullet, index1) {
             score += points;
             if (wmine.y > c.height / 2) {
                 texts.push(
-                    new Text(wmine.x, wmine.y, 0, -1, points + " 😃", "bold 20px Arial", "yellow", 1, false)
+                    new Text(wmine.x, wmine.y, Math.random() - 0.5, -c.height * 0.001, points, "bold 20px Arial", "yellow", 1, false)
+                );
+                texts.push(
+                    new Text(wmine.x, wmine.y, Math.random() - 0.5, -c.height * 0.002, "😃", "bold 20px Arial", "yellow", 1, false)
                 );
             } else {
                 texts.push(
-                    new Text(wmine.x, wmine.y, 0, 1, points + " 😃", "bold 20px Arial", "yellow", 1, false)
+                    new Text(wmine.x, wmine.y, Math.random() - 0.5, c.height * 0.001, points, "bold 20px Arial", "yellow", 1, false)
+                );
+                texts.push(
+                    new Text(wmine.x, wmine.y, Math.random() - 0.5, c.height * 0.002, "😃", "bold 20px Arial", "yellow", 1, false)
                 );
             }
             wanderingMines.splice(index2, 1);
@@ -77,11 +89,11 @@ function bulletCheck(bullet, index1) {
             }
             if (player.y > c.height / 2) {
                 texts.push(
-                    new Text(x, player.y, 0, -1, "🤕", "bold 20px Arial", "yellow", 1, false)
+                    new Text(x, player.y, Math.random() - 0.5, -c.height * 0.001, "🤕", "bold 20px Arial", "yellow", 1, false)
                 );
             } else {
                 texts.push(
-                    new Text(x, player.y, 0, 1, "🤕", "bold 20px Arial", "yellow", 1, false)
+                    new Text(x, player.y, Math.random() - 0.5, c.height * 0.001, "🤕", "bold 20px Arial", "yellow", 1, false)
                 );
             }
             foods.splice(index2, 1);
@@ -108,7 +120,10 @@ function bulletCheck(bullet, index1) {
             let points = 100;
             score += points;
             texts.push(
-                new Text(flower.x, flower.y, 0, -1, points + " 😃", "bold 20px Arial", "yellow", 1, false)
+                new Text(flower.x, flower.y, Math.random() - 0.5, -c.height * 0.001, points, "bold 20px Arial", "yellow", 1, false)
+            );
+            texts.push(
+                new Text(flower.x, flower.y, Math.random() - 0.5, -c.height * 0.002, "😃", "bold 20px Arial", "yellow", 1, false)
             );
             flowers.splice(index2, 1);
             bullets.splice(index1, 1);
@@ -128,15 +143,9 @@ function bulletCheck(bullet, index1) {
             if (mushroomCount > 0) {
                 mushroomCount -= 1;
             }
-            if (player.y > c.height / 2) {
-                texts.push(
-                    new Text(x, player.y, 0, -1, "😞", "bold 20px Arial", "yellow", 1, false)
-                );
-            } else {
-                texts.push(
-                    new Text(x, player.y, 0, 1, "😞", "bold 20px Arial", "yellow", 1, false)
-                );
-            }
+            texts.push(
+                new Text(mroom.x, mroom.y, Math.random() - 0.5, -c.height * 0.001, "😞", "bold 20px Arial", "yellow", 1, false)
+            );
             mushrooms.splice(index2, 1);
             bullets.splice(index1, 1);
         }
