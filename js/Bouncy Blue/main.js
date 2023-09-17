@@ -64,7 +64,8 @@ let explode = new Image();
 explode.src = 'images/BB/explode.png';
 let stalkRight = new Image();
 stalkRight.src = 'images/BB/stalkRight.png';
-
+let stalkLeft = new Image();
+stalkLeft.src = 'images/BB/stalkLeft.png';
 
 
 //arrays to var.
