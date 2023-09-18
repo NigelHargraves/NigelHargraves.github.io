@@ -37,7 +37,6 @@ function levelJump() {
         velocityAmount += 0.02;
     }
     if (controlLevel > 4) {
-        foodVelocity += 0.1;
         foodAmount -= 0.0001
         minePlant -= 0.0005;
     }
@@ -57,11 +56,9 @@ function levelJump() {
     } else {
         friction = 0.002;
     }
-
     texts.push(
         new Text(x - c.height * 0.330, c.height / 2, 0, 0, clText + controlLevel, "bold 80px Arial", "white", 1, true)
     );
-
     width = 0;
     elem.style.width = width + "%";
     score += levelBonus;
@@ -103,7 +100,6 @@ function init() {
         missileFire = 0.999,
         minePlant = 0.9999,
         enemyVelocity = 1,
-        foodVelocity = 1,
         foodAmount = 0.998,
         enemyRadius = c.height * 0.008,
         stalkSize = c.height * 0.01,
@@ -142,7 +138,9 @@ function init() {
     width = 0;
     elem.style.width = width + "%";
     player = new Player(c.width / 2, c.height / 2, 20);
-    foods.push(new Food(c.width, Math.random() * (c.height - 40) + 20, -foodVelocity, 0, c.height * 0.01));
+    foods.push(
+        new Food(Math.random() * (c.width * 3) - c.width, -50, Math.random() - 0.5, Math.random(), c.height * 0.01)
+    );
     food.currentTime = 0;
     food.play();
     forestSounds.currentTime = 0;

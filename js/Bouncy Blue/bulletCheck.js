@@ -79,14 +79,13 @@ function bulletCheck(bullet, index1) {
                     y: (Math.random() - 0.5) * (Math.random() * 6)
                 }, "blue"));
             }
-            if (!playerSheild) {
-                if (width > 0) {
-                    width -= 10;
-                    elem.style.width = width + "%";
-                }
-                player.r -= 1;
-                splats.push(new Splat(x, player.y, x1, y1, ang, player.r));
+            if (width > 0) {
+                width -= 10;
+                elem.style.width = width + "%";
             }
+            player.r -= 1;
+            splats.push(new Splat(x, player.y, x1, y1, ang, player.r));
+
             if (player.y > c.height / 2) {
                 texts.push(
                     new Text(x, player.y, Math.random() - 0.5, -c.height * 0.001, "🤕", "bold 20px Arial", "yellow", 1, false)

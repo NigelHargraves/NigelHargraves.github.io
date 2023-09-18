@@ -66,7 +66,8 @@ let stalkRight = new Image();
 stalkRight.src = 'images/BB/stalkRight.png';
 let stalkLeft = new Image();
 stalkLeft.src = 'images/BB/stalkLeft.png';
-
+let parachute = new Image();
+parachute.src = 'images/BB/parachute.png';
 
 //arrays to var.
 let enemies = [];
@@ -138,7 +139,6 @@ let gravity,
     missileFire,
     minePlant,
     enemyVelocity,
-    foodVelocity,
     foodAmount,
     enemyRadius,
     stalkSize,
@@ -158,6 +158,8 @@ let gravity,
     fireRateCount,
     bombRate,
     bombRateCount;
+
+
 
 //var texts.
 let clText = "Control Level "
@@ -709,7 +711,7 @@ function animate() {
             food.currentTime = 0;
             food.play();
             foods.push(
-                new Food(c.width, Math.random() * (c.height * 0.8 + c.height * 0.1), -foodVelocity, 0, c.height * 0.01)
+                new Food(Math.random() * (c.width * 3) - c.width, -50, Math.random() - 0.5, Math.random(), c.height * 0.01)
             );
         }
 
@@ -753,8 +755,18 @@ function animate() {
                     levelJump();
                 }
             }
-            //food goes far left.
-            if (food.x < -3000) foods.splice(index, 1);
+            //food hits ground.
+            if (food.y > c.height - c.height * 0.03) {
+                splat.currentTime = 0;
+                splat.play();
+                for (i = 0; i < Math.random() * 60 + 30; i++) {
+                    bloodSplats.push(new BloodSplat(food.x, food.y, Math.random() * 2, {
+                        x: (Math.random() - 0.5) * (Math.random() * 6),
+                        y: (Math.random() - 1) * (Math.random() * 10)
+                    }, "blue"));
+                }
+                foods.splice(index, 1);
+            }
             food.update();
         });
 
