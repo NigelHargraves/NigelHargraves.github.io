@@ -1,6 +1,6 @@
 //splat class.
 class Splat {
-    //construct glow data.
+    //construct splat data.
     constructor(x, y, x1, y1, ang, radius) {
             this.x = x;
             this.y = y;

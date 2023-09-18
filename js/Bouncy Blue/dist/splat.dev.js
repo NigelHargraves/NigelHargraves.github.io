@@ -10,7 +10,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 var Splat =
 /*#__PURE__*/
 function () {
-  //construct glow data.
+  //construct splat data.
   function Splat(x, y, x1, y1, ang, radius) {
     _classCallCheck(this, Splat);
 

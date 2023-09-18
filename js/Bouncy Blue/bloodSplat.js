@@ -36,7 +36,6 @@ class BloodSplat {
         } else {
             gravity = 0;
         }
-
         friction = 0.002;
     }
 }

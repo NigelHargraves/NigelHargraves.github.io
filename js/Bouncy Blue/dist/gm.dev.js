@@ -31,6 +31,13 @@ function () {
         ctx.drawImage(starMissile2, this.x - this.r, this.y - this.r, this.r * 2, this.r * 2);
       } else {
         ctx.drawImage(starMissile, this.x - this.r, this.y - this.r, this.r * 2, this.r * 2);
+
+        for (i = 0; i < 3; i++) {
+          bloodSplats.push(new BloodSplat(this.x, this.y, Math.random() * 2, {
+            x: (Math.random() - 0.5) * (Math.random() * 6),
+            y: (Math.random() - 0.5) * (Math.random() * 6)
+          }, "yellow"));
+        }
       }
     } //update GuidedMissile.
 

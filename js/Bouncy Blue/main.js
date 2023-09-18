@@ -336,7 +336,7 @@ function animate() {
         });
 
         bloodSplats.forEach((bloodSplats, index) => {
-            if (bloodSplats.y > c.height) {
+            if (bloodSplats.y > c.height || bloodSplats.y < 0 || bloodSplats.x < 0 || bloodSplats.x > c.width) {
                 bloodSplats.splice, index;
             }
             bloodSplats.update();
