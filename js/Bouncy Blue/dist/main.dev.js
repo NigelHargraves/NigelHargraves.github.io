@@ -710,7 +710,7 @@ function animate() {
       } //guidedmissile falls off screen.
 
 
-      if (gm.y > c.height || gm.countdown <= 0) {
+      if (gm.y > c.height || gm.x < -c.width || gm.x > c.width * 2) {
         guidedMissiles.splice(index, 1);
       }
 

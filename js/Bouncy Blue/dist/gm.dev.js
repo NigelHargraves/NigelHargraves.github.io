@@ -20,7 +20,6 @@ function () {
     this.velocityY = vY;
     this.r = radius;
     this.dumb = dumb;
-    this.countdown = 25;
   } //draw GuidedMissile.
 
 
@@ -32,11 +31,13 @@ function () {
       } else {
         ctx.drawImage(starMissile, this.x - this.r, this.y - this.r, this.r * 2, this.r * 2);
 
-        for (i = 0; i < 3; i++) {
-          bloodSplats.push(new BloodSplat(this.x, this.y, Math.random() * 2, {
-            x: (Math.random() - 0.5) * (Math.random() * 6),
-            y: (Math.random() - 0.5) * (Math.random() * 6)
-          }, "yellow"));
+        if (this.x < c.width && this.x > 0 && this.y < c.height - c.height * 0.05) {
+          for (i = 0; i < 2; i++) {
+            bloodSplats.push(new BloodSplat(this.x, this.y, Math.random() * 2, {
+              x: (Math.random() - 0.5) * (Math.random() * 6),
+              y: (Math.random() - 0.5) * (Math.random() * 6)
+            }, "yellow"));
+          }
         }
       }
     } //update GuidedMissile.
@@ -44,8 +45,6 @@ function () {
   }, {
     key: "update",
     value: function update() {
-      this.countdown -= 0.02;
-
       if (!this.dumb) {
         var startPos = this.x;
         var angles = Math.atan2(player.y - this.y, x - startPos);
