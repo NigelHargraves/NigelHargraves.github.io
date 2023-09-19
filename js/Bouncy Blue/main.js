@@ -13,7 +13,7 @@ background2.src = 'images/BB/grass1.jpg';
 let mushroomImage = new Image();
 mushroomImage.src = 'images/BB/mushroom.png';
 let blueberry = new Image();
-blueberry.src = 'images/BB/blueberry.png';
+blueberry.src = 'images/BB/blueberryOnParachute.png';
 let beeLeft = new Image();
 beeLeft.src = 'images/BB/beeLeft.png';
 let beeRight = new Image();
@@ -66,8 +66,7 @@ let stalkRight = new Image();
 stalkRight.src = 'images/BB/stalkRight.png';
 let stalkLeft = new Image();
 stalkLeft.src = 'images/BB/stalkLeft.png';
-let parachute = new Image();
-parachute.src = 'images/BB/parachute.png';
+
 
 //arrays to var.
 let enemies = [];
@@ -711,13 +710,13 @@ function animate() {
             food.currentTime = 0;
             food.play();
             foods.push(
-                new Food(Math.random() * (c.width * 3) - c.width, -50, Math.random() - 0.5, Math.random(), c.height * 0.01)
+                new Food(Math.random() * (c.width * 3) - c.width, -50, Math.random() - 0.5, Math.random(), c.height * 0.02)
             );
         }
 
         //player eats food.
         foods.forEach((food, index) => {
-            let colide = collisionDetection(food.x, food.y, food.r, x, player.y, player.r);
+            let colide = collisionDetection(food.x, food.y, food.r * 2, x, player.y, player.r);
             if (colide) {
                 eatFood.currentTime = 0;
                 eatFood.play();
@@ -756,7 +755,7 @@ function animate() {
                 }
             }
             //food hits ground.
-            if (food.y > c.height - c.height * 0.03) {
+            if (food.y > c.height - (c.height * 0.055)) {
                 splat.currentTime = 0;
                 splat.play();
                 for (i = 0; i < Math.random() * 60 + 30; i++) {

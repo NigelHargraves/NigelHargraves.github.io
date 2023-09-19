@@ -139,7 +139,7 @@ function init() {
     elem.style.width = width + "%";
     player = new Player(c.width / 2, c.height / 2, 20);
     foods.push(
-        new Food(Math.random() * (c.width * 3) - c.width, -50, Math.random() - 0.5, Math.random(), c.height * 0.01)
+        new Food(Math.random() * (c.width * 3) - c.width, -50, Math.random() - 0.5, Math.random(), c.height * 0.02)
     );
     food.currentTime = 0;
     food.play();
