@@ -27,9 +27,9 @@ class LevelGain {
             this.changeAngle = false;
         }
         if (this.changeAngle) {
-            this.swingAngle += 0.1;
+            this.swingAngle += Math.random() / 5;
         } else {
-            this.swingAngle -= 0.1;
+            this.swingAngle -= Math.random() / 5;
         }
         this.x += -player.velocity.x + this.velocityX;
         this.y += this.velocityY;

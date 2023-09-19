@@ -337,11 +337,11 @@ function animate() {
             bullet.update();
         });
 
-        bloodSplats.forEach((bloodSplats, index) => {
-            if (bloodSplats.y > c.height || bloodSplats.y < 0 || bloodSplats.x < 0 || bloodSplats.x > c.width) {
+        bloodSplats.forEach((bs, index) => {
+            if (bs.y >= c.height || bs.y <= 0 || bs.x <= 0 || bs.x >= c.width) {
                 bloodSplats.splice, index;
             }
-            bloodSplats.update();
+            bs.update();
         });
 
         //create mushroom.
@@ -692,16 +692,16 @@ function animate() {
                 playerAlive = false;
             }
             //countdown = 0 and missile still on screen.
-            if (gm.countdown <= 0) {
+            if (gm.countDown <= 0 && !gm.dumb) {
                 mineExplode.currentTime = 0;
                 mineExplode.play();
                 for (let i = 0; i < 10; i++) {
-                    projectiles.push(new Projectile(gm.x, gm.y, 2, { x: (Math.random() - 0.5) * 20, y: (Math.random() - 0.5) * 20 }, 25, "yellow"));
+                    projectiles.push(new Projectile(gm.x, gm.y, 2, { x: (Math.random() - 0.5) * 20, y: (Math.random() - 0.5) * 20 }, 25, "white"));
                 }
                 guidedMissiles.splice(index, 1);
             }
             //guidedmissile falls off screen.
-            if (gm.y > c.height || gm.x < -c.width || gm.x > c.width * 2) {
+            if (gm.dumb && gm.y >= c.height || gm.x <= -c.width || gm.x >= c.width * 2) {
                 guidedMissiles.splice(index, 1);
             }
             gm.update();
