@@ -66,7 +66,11 @@ explode.src = 'images/BB/explode.png';
 var stalkRight = new Image();
 stalkRight.src = 'images/BB/stalkRight.png';
 var stalkLeft = new Image();
-stalkLeft.src = 'images/BB/stalkLeft.png'; //arrays to var.
+stalkLeft.src = 'images/BB/stalkLeft.png';
+var pOnParachute = new Image();
+pOnParachute.src = 'images/BB/pOnParachute.png';
+var lOnParachute = new Image();
+lOnParachute.src = 'images/BB/lOnParachute.png'; //arrays to var.
 
 var enemies = [];
 var foods = [];
@@ -789,7 +793,7 @@ function animate() {
     if (gainLevel > 0.99999) {
       levelRelease.currentTime = 0;
       levelRelease.play();
-      levelGains.push(new LevelGain(c.width, Math.random() * c.height / 2, -1, 0, 8));
+      levelGains.push(new LevelGain(Math.random() * (c.width * 3) - c.width, -50, Math.random() - 0.5, Math.random(), c.height * 0.02));
     }
 
     levelGains.forEach(function (LG, index) {
@@ -808,10 +812,23 @@ function animate() {
 
         levelGains.splice(index, 1);
         levelJump();
-      } //levelGain goes off screen.
+      } //levelGain hits ground.
 
 
-      if (LG.x < -3000) levelGains.splice(index, 1);
+      if (LG.y > c.height - c.height * 0.055) {
+        splat.currentTime = 0;
+        splat.play();
+
+        for (i = 0; i < Math.random() * 60 + 30; i++) {
+          bloodSplats.push(new BloodSplat(LG.x, LG.y, Math.random() * 2, {
+            x: (Math.random() - 0.5) * (Math.random() * 6),
+            y: (Math.random() - 1) * (Math.random() * 10)
+          }, "yellow"));
+        }
+
+        levelGains.splice(index, 1);
+      }
+
       LG.update();
     }); //create bonusPoints.
 
@@ -820,7 +837,7 @@ function animate() {
     if (bp > 0.9999) {
       bonusRelease.currentTime = 0;
       bonusRelease.play();
-      bonusPoints.push(new BonusPoints(Math.random() * c.width, 0, 0, 1, 8));
+      bonusPoints.push(new BonusPoints(Math.random() * (c.width * 3) - c.width, -50, Math.random() - 0.5, Math.random(), c.height * 0.02));
     }
 
     bonusPoints.forEach(function (bonusPoint, index) {
@@ -842,10 +859,23 @@ function animate() {
 
         bonusPoints.splice(index, 1);
         score += bonus;
-      } //bonusPoints goes off screen.
+      } //bonusPoints hits ground.
 
 
-      if (bonusPoint.y > c.height) bonusPoints.splice(index, 1);
+      if (bonusPoint.y > c.height - c.height * 0.055) {
+        splat.currentTime = 0;
+        splat.play();
+
+        for (i = 0; i < Math.random() * 60 + 30; i++) {
+          bloodSplats.push(new BloodSplat(bonusPoint.x, bonusPoint.y, Math.random() * 2, {
+            x: (Math.random() - 0.5) * (Math.random() * 6),
+            y: (Math.random() - 1) * (Math.random() * 10)
+          }, "green"));
+        }
+
+        bonusPoints.splice(index, 1);
+      }
+
       bonusPoint.update();
     });
     texts.forEach(function (text, index) {
