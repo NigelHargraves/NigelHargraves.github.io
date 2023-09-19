@@ -19,18 +19,38 @@ function () {
     this.velocityX = velocityX;
     this.velocityY = velocityY;
     this.r = radius;
+    this.swingAngle = 0;
+    this.changeAngle = true;
   } //draw food.
 
 
   _createClass(Food, [{
     key: "draw",
     value: function draw() {
-      ctx.drawImage(blueberry, this.x - this.r, this.y - this.r, this.r * 2, this.r * 3);
+      ctx.save();
+      ctx.translate(this.x, this.y);
+      ctx.rotate(this.swingAngle * Math.PI / 180);
+      ctx.drawImage(blueberry, 0 - this.r, 0 - this.r, this.r * 2, this.r * 3);
+      ctx.restore();
     } //update food.
 
   }, {
     key: "update",
     value: function update() {
+      if (this.swingAngle <= -10) {
+        this.changeAngle = true;
+      }
+
+      if (this.swingAngle >= 10) {
+        this.changeAngle = false;
+      }
+
+      if (this.changeAngle) {
+        this.swingAngle += 0.1;
+      } else {
+        this.swingAngle -= 0.1;
+      }
+
       this.x += -player.velocity.x + this.velocityX;
       this.y += this.velocityY;
       this.draw();
