@@ -17,12 +17,7 @@ class GuidedMissile {
             } else {
                 ctx.drawImage(starMissile, this.x - this.r, this.y - this.r, this.r * 2, this.r * 2)
                 if (this.x < c.width && this.x > 0 && this.y < c.height - (c.height * 0.05)) {
-                    for (i = 0; i < 1; i++) {
-                        bloodSplats.push(new BloodSplat(this.x, this.y, Math.random() * 2, {
-                            x: (Math.random() - 0.5) * (Math.random() * 6),
-                            y: (Math.random() - 0.5) * (Math.random() * 6)
-                        }, "yellow"));
-                    }
+                    sparks.push(new Spark(this.x, this.y, Math.random() * 4));
                 }
             }
         }

@@ -92,7 +92,8 @@ var mushrooms = [];
 var bullets = [];
 var bloodSplats = [];
 var bombs = [];
-var explodes = []; //audio to var.
+var explodes = [];
+var sparks = []; //audio to var.
 
 var bounce = document.getElementById("audio1");
 var levelUp = document.getElementById("audio2");
@@ -177,8 +178,6 @@ if (localStorage.getItem("bestScore")) {
 }
 
 function animate() {
-  var _this = this;
-
   //call next frame.
   animationId = requestAnimationFrame(animate);
 
@@ -436,10 +435,7 @@ function animate() {
           mineExplode.play();
 
           for (var _i = 0; _i < 10; _i++) {
-            projectiles.push(new Projectile(flower.x, flower.y, 2, {
-              x: (Math.random() - 0.5) * 20,
-              y: (Math.random() - 0.5) * 20
-            }, 25));
+            projectiles.push(new Projectile(flower.x, flower.y, 2));
           }
         }
 
@@ -509,10 +505,7 @@ function animate() {
           mineExplode.play();
 
           for (var _i2 = 0; _i2 < 20; _i2++) {
-            projectiles.push(new Projectile(wmine.x, wmine.y, 2, {
-              x: (Math.random() - 0.5) * 20,
-              y: (Math.random() - 0.5) * 20
-            }, 25));
+            projectiles.push(new Projectile(wmine.x, wmine.y, 2));
           }
         }
 
@@ -570,10 +563,7 @@ function animate() {
           mineExplode.play();
 
           for (var _i3 = 0; _i3 < 10; _i3++) {
-            projectiles.push(new Projectile(mine.x, mine.y, 2, {
-              x: (Math.random() - 0.5) * 20,
-              y: (Math.random() - 0.5) * 20
-            }, 25, "white"));
+            projectiles.push(new Projectile(mine.x, mine.y, 2));
           }
         }
 
@@ -683,10 +673,7 @@ function animate() {
         mineExplode.play();
 
         for (var _i4 = 0; _i4 < 10; _i4++) {
-          projectiles.push(new Projectile(gm.x, gm.y, 2, {
-            x: (Math.random() - 0.5) * 20,
-            y: (Math.random() - 0.5) * 20
-          }, 25, "white"));
+          projectiles.push(new Projectile(gm.x, gm.y, 2));
         }
 
         guidedMissiles.splice(index, 1);
@@ -702,21 +689,36 @@ function animate() {
         mineExplode.play();
 
         for (var _i5 = 0; _i5 < 10; _i5++) {
-          projectiles.push(new Projectile(gm.x, gm.y, 2, {
-            x: (Math.random() - 0.5) * 20,
-            y: (Math.random() - 0.5) * 20
-          }, 25, "white"));
+          projectiles.push(new Projectile(gm.x, gm.y, 2));
         }
 
         guidedMissiles.splice(index, 1);
-      } //guidedmissile falls off screen.
+      } //guidedmissile hits floor.
 
 
-      if (gm.dumb && gm.y >= c.height || gm.x <= -c.width || gm.x >= c.width * 2) {
+      if (gm.dumb && gm.y >= c.height - c.width * 0.02 || gm.x <= -c.width || gm.x >= c.width * 2) {
+        mineExplode.currentTime = 0;
+        mineExplode.play();
+
+        for (var _i6 = 0; _i6 < 10; _i6++) {
+          projectiles.push(new Projectile(gm.x, gm.y, 2));
+        }
+
+        guidedMissiles.splice(index, 1);
+      }
+
+      if (gm.dumb && gm.x <= -c.width || gm.x >= c.width * 2) {
         guidedMissiles.splice(index, 1);
       }
 
       gm.update();
+    });
+    sparks.forEach(function (spark, index) {
+      if (spark.alpha <= 0) {
+        sparks.splice(index, 1);
+      }
+
+      spark.update();
     }); //create food.
 
     var createFood = Math.random();
@@ -923,7 +925,7 @@ function animate() {
         playerAlive = false;
       }
 
-      if (_this.countdown <= 0) {
+      if (pro.alpha <= 0 || pro.y > c.height) {
         projectiles.splice(index, 1);
       }
 

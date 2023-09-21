@@ -1,28 +1,28 @@
 //create projectile class.
 class Projectile {
     //construct projectile data.
-    constructor(x, y, radius, velocity, countdown, color) {
+    constructor(x, y, radius) {
         this.x = x;
         this.y = y;
+        this.velocityX = (Math.random() - 0.5) * 10;
+        this.velocityY = (Math.random() - 0.5) * 10;
         this.r = radius;
-        this.v = velocity;
-        this.countdown = countdown;
-        this.color = color
+        this.alpha = 1;
     }
 
     //draw projectile.
     draw() {
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, 2, 0, Math.PI * 2);
-        ctx.fillStyle = this.color;
-        ctx.fill();
+        ctx.save();
+        ctx.globalAlpha = this.alpha;
+        ctx.drawImage(starMissile2, this.x - this.r * 4, this.y - this.r * 4, this.r * 8, this.r * 8)
+        ctx.restore();
     }
 
     //update projectile.
     update() {
-        this.countdown -= 0.1;
-        this.x += -player.velocity.x + this.v.x;
-        this.y += this.v.y;
+        this.alpha -= 0.005;
+        this.x += -player.velocity.x + this.velocityX;
+        this.y += this.velocityY;
         this.draw();
     }
 }

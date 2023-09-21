@@ -93,6 +93,7 @@ let bullets = [];
 let bloodSplats = [];
 let bombs = [];
 let explodes = [];
+let sparks = [];
 
 //audio to var.
 let bounce = document.getElementById("audio1");
@@ -455,7 +456,7 @@ function animate() {
                     mineExplode.currentTime = 0;
                     mineExplode.play();
                     for (let i = 0; i < 10; i++) {
-                        projectiles.push(new Projectile(flower.x, flower.y, 2, { x: (Math.random() - 0.5) * 20, y: (Math.random() - 0.5) * 20 }, 25));
+                        projectiles.push(new Projectile(flower.x, flower.y, 2));
                     }
                 }
                 flowers.splice(index, 1);
@@ -514,7 +515,7 @@ function animate() {
                     mineExplode.currentTime = 0;
                     mineExplode.play();
                     for (let i = 0; i < 20; i++) {
-                        projectiles.push(new Projectile(wmine.x, wmine.y, 2, { x: (Math.random() - 0.5) * 20, y: (Math.random() - 0.5) * 20 }, 25));
+                        projectiles.push(new Projectile(wmine.x, wmine.y, 2));
                     }
                 }
                 wanderingMines.splice(index, 1);
@@ -567,7 +568,7 @@ function animate() {
                     mineExplode.currentTime = 0;
                     mineExplode.play();
                     for (let i = 0; i < 10; i++) {
-                        projectiles.push(new Projectile(mine.x, mine.y, 2, { x: (Math.random() - 0.5) * 20, y: (Math.random() - 0.5) * 20 }, 25, "white"));
+                        projectiles.push(new Projectile(mine.x, mine.y, 2));
                     }
                 }
                 for (i = 0; i < 30; i++) {
@@ -684,7 +685,7 @@ function animate() {
                 mineExplode.currentTime = 0;
                 mineExplode.play();
                 for (let i = 0; i < 10; i++) {
-                    projectiles.push(new Projectile(gm.x, gm.y, 2, { x: (Math.random() - 0.5) * 20, y: (Math.random() - 0.5) * 20 }, 25, "white"));
+                    projectiles.push(new Projectile(gm.x, gm.y, 2));
                 }
                 guidedMissiles.splice(index, 1);
             }
@@ -696,15 +697,30 @@ function animate() {
                 mineExplode.currentTime = 0;
                 mineExplode.play();
                 for (let i = 0; i < 10; i++) {
-                    projectiles.push(new Projectile(gm.x, gm.y, 2, { x: (Math.random() - 0.5) * 20, y: (Math.random() - 0.5) * 20 }, 25, "white"));
+                    projectiles.push(new Projectile(gm.x, gm.y, 2));
                 }
                 guidedMissiles.splice(index, 1);
             }
-            //guidedmissile falls off screen.
-            if (gm.dumb && gm.y >= c.height || gm.x <= -c.width || gm.x >= c.width * 2) {
+            //guidedmissile hits floor.
+            if (gm.dumb && gm.y >= c.height - c.width * 0.02 || gm.x <= -c.width || gm.x >= c.width * 2) {
+                mineExplode.currentTime = 0;
+                mineExplode.play();
+                for (let i = 0; i < 10; i++) {
+                    projectiles.push(new Projectile(gm.x, gm.y, 2));
+                }
+                guidedMissiles.splice(index, 1);
+            }
+            if (gm.dumb && gm.x <= -c.width || gm.x >= c.width * 2) {
                 guidedMissiles.splice(index, 1);
             }
             gm.update();
+        });
+
+        sparks.forEach((spark, index) => {
+            if (spark.alpha <= 0) {
+                sparks.splice(index, 1);
+            }
+            spark.update();
         });
 
         //create food.
@@ -927,7 +943,7 @@ function animate() {
             if (player.r <= 14) {
                 playerAlive = false;
             }
-            if (this.countdown <= 0) {
+            if (pro.alpha <= 0 || pro.y > c.height) {
                 projectiles.splice(index, 1);
             }
             pro.update();
