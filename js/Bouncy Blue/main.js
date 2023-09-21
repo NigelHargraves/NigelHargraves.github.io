@@ -332,7 +332,7 @@ function animate() {
 
         bullets.forEach((bullet, index1) => {
             bulletCheck(bullet, index1);
-            if (bullet.x < 0 || bullet.x > c.width) {
+            if (bullet.x <= -c.width || bullet.x >= c.width * 2) {
                 bullets.splice(index1, 1);
             }
             bullet.update();
@@ -579,7 +579,6 @@ function animate() {
                         })
                     );
                 }
-
                 mines.splice(index, 1);
             }
             mine.update();
@@ -649,7 +648,9 @@ function animate() {
                 playerAlive = false;
             }
             //enemy falls off screen.
-            if (enemy.y > c.height) enemies.splice(index, 1);
+            if (enemy.y > c.height) {
+                enemies.splice(index, 1);
+            }
             enemy.update();
         });
 
@@ -692,25 +693,13 @@ function animate() {
             if (player.r <= 14) {
                 playerAlive = false;
             }
-            //countdown = 0 and missile still on screen.
-            if (gm.countDown <= 0 && !gm.dumb) {
+            //guidedmissile count down hits 0 or hits floor or goes way off screen.
+            if (gm.countDown <= 0 || gm.y >= c.height - c.width * 0.02 || gm.x <= -c.width || gm.x >= c.width * 2) {
                 mineExplode.currentTime = 0;
                 mineExplode.play();
                 for (let i = 0; i < 10; i++) {
                     projectiles.push(new Projectile(gm.x, gm.y, 2));
                 }
-                guidedMissiles.splice(index, 1);
-            }
-            //guidedmissile hits floor.
-            if (gm.dumb && gm.y >= c.height - c.width * 0.02 || gm.x <= -c.width || gm.x >= c.width * 2) {
-                mineExplode.currentTime = 0;
-                mineExplode.play();
-                for (let i = 0; i < 10; i++) {
-                    projectiles.push(new Projectile(gm.x, gm.y, 2));
-                }
-                guidedMissiles.splice(index, 1);
-            }
-            if (gm.dumb && gm.x <= -c.width || gm.x >= c.width * 2) {
                 guidedMissiles.splice(index, 1);
             }
             gm.update();
@@ -729,7 +718,7 @@ function animate() {
             food.currentTime = 0;
             food.play();
             foods.push(
-                new Food(Math.random() * (c.width * 3) - c.width, -50, Math.random() - 0.5, Math.random(), c.height * 0.02)
+                new Food(Math.random() * (c.width * 3) - c.width, -c.height * 0.05, Math.random() - 0.5, Math.random() + 0.1, c.height * 0.02)
             );
         }
 
@@ -801,7 +790,7 @@ function animate() {
             levelRelease.currentTime = 0;
             levelRelease.play();
             levelGains.push(
-                new LevelGain(Math.random() * (c.width * 3) - c.width, -50, Math.random() - 0.5, Math.random(), c.height * 0.02)
+                new LevelGain(Math.random() * (c.width * 3) - c.width, -50, Math.random() - 0.5, Math.random() + 0.1, c.height * 0.02)
             );
         }
 
@@ -850,7 +839,7 @@ function animate() {
             bonusRelease.currentTime = 0;
             bonusRelease.play();
             bonusPoints.push(
-                new BonusPoints(Math.random() * (c.width * 3) - c.width, -50, Math.random() - 0.5, Math.random(), c.height * 0.02)
+                new BonusPoints(Math.random() * (c.width * 3) - c.width, -50, Math.random() - 0.5, Math.random() + 0.1, c.height * 0.02)
             );
         }
 
@@ -900,7 +889,6 @@ function animate() {
             } else {
                 text.opacity -= 0.002;
             }
-
             text.update();
         });
 

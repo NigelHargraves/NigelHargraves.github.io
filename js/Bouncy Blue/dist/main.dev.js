@@ -307,7 +307,7 @@ function animate() {
     bullets.forEach(function (bullet, index1) {
       bulletCheck(bullet, index1);
 
-      if (bullet.x < 0 || bullet.x > c.width) {
+      if (bullet.x <= -c.width || bullet.x >= c.width * 2) {
         bullets.splice(index1, 1);
       }
 
@@ -638,7 +638,10 @@ function animate() {
       } //enemy falls off screen.
 
 
-      if (enemy.y > c.height) enemies.splice(index, 1);
+      if (enemy.y > c.height) {
+        enemies.splice(index, 1);
+      }
+
       enemy.update();
     });
     splats.forEach(function (splat, index) {
@@ -681,10 +684,10 @@ function animate() {
 
       if (player.r <= 14) {
         playerAlive = false;
-      } //countdown = 0 and missile still on screen.
+      } //guidedmissile count down hits 0 or hits floor or goes way off screen.
 
 
-      if (gm.countDown <= 0 && !gm.dumb) {
+      if (gm.countDown <= 0 || gm.y >= c.height - c.width * 0.02 || gm.x <= -c.width || gm.x >= c.width * 2) {
         mineExplode.currentTime = 0;
         mineExplode.play();
 
@@ -692,22 +695,6 @@ function animate() {
           projectiles.push(new Projectile(gm.x, gm.y, 2));
         }
 
-        guidedMissiles.splice(index, 1);
-      } //guidedmissile hits floor.
-
-
-      if (gm.dumb && gm.y >= c.height - c.width * 0.02 || gm.x <= -c.width || gm.x >= c.width * 2) {
-        mineExplode.currentTime = 0;
-        mineExplode.play();
-
-        for (var _i6 = 0; _i6 < 10; _i6++) {
-          projectiles.push(new Projectile(gm.x, gm.y, 2));
-        }
-
-        guidedMissiles.splice(index, 1);
-      }
-
-      if (gm.dumb && gm.x <= -c.width || gm.x >= c.width * 2) {
         guidedMissiles.splice(index, 1);
       }
 
@@ -726,7 +713,7 @@ function animate() {
     if (createFood > foodAmount) {
       food.currentTime = 0;
       food.play();
-      foods.push(new Food(Math.random() * (c.width * 3) - c.width, -50, Math.random() - 0.5, Math.random(), c.height * 0.02));
+      foods.push(new Food(Math.random() * (c.width * 3) - c.width, -c.height * 0.05, Math.random() - 0.5, Math.random() + 0.1, c.height * 0.02));
     } //player eats food.
 
 
@@ -795,7 +782,7 @@ function animate() {
     if (gainLevel > 0.99999) {
       levelRelease.currentTime = 0;
       levelRelease.play();
-      levelGains.push(new LevelGain(Math.random() * (c.width * 3) - c.width, -50, Math.random() - 0.5, Math.random(), c.height * 0.02));
+      levelGains.push(new LevelGain(Math.random() * (c.width * 3) - c.width, -50, Math.random() - 0.5, Math.random() + 0.1, c.height * 0.02));
     }
 
     levelGains.forEach(function (LG, index) {
@@ -839,7 +826,7 @@ function animate() {
     if (bp > 0.9999) {
       bonusRelease.currentTime = 0;
       bonusRelease.play();
-      bonusPoints.push(new BonusPoints(Math.random() * (c.width * 3) - c.width, -50, Math.random() - 0.5, Math.random(), c.height * 0.02));
+      bonusPoints.push(new BonusPoints(Math.random() * (c.width * 3) - c.width, -50, Math.random() - 0.5, Math.random() + 0.1, c.height * 0.02));
     }
 
     bonusPoints.forEach(function (bonusPoint, index) {
