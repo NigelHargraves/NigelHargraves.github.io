@@ -59,3 +59,44 @@ function () {
 
   return BonusPoints;
 }();
+
+function forBP() {
+  bonusPoints.forEach(function (bonusPoint, index) {
+    var colide = collisionDetection(bonusPoint.x, bonusPoint.y, bonusPoint.r, x, player.y, player.r);
+
+    if (colide) {
+      //player gets bonusPoints.
+      bonusP.currentTime = 0;
+      bonusP.play();
+      bonus = Math.trunc(Math.random() * 500) + 300;
+
+      if (player.y > c.height / 2) {
+        texts.push(new Text(x, player.y, Math.random() - 0.5, -c.height * 0.001, bonus, "bold 25px Arial ", "green", 1, false));
+        texts.push(new Text(x, player.y, Math.random() - 0.5, -c.height * 0.002, "😃", "bold 20px Arial", "yellow", 1, false));
+      } else {
+        texts.push(new Text(x, player.y, Math.random() - 0.5, c.height * 0.001, bonus, "bold 25px Arial ", "green", 1, false));
+        texts.push(new Text(x, player.y, Math.random() - 0.5, c.height * 0.002, "😃", "bold 20px Arial", "yellow", 1, false));
+      }
+
+      bonusPoints.splice(index, 1);
+      score += bonus;
+    } //bonusPoints hits ground.
+
+
+    if (bonusPoint.y > c.height - c.height * 0.055) {
+      splat.currentTime = 0;
+      splat.play();
+
+      for (i = 0; i < Math.random() * 60 + 30; i++) {
+        bloodSplats.push(new BloodSplat(bonusPoint.x, bonusPoint.y, Math.random() * 2, {
+          x: (Math.random() - 0.5) * (Math.random() * 6),
+          y: (Math.random() - 1) * (Math.random() * 10)
+        }, "green"));
+      }
+
+      bonusPoints.splice(index, 1);
+    }
+
+    bonusPoint.update();
+  });
+}

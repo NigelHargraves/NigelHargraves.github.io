@@ -67,3 +67,53 @@ function () {
 
   return Enemy;
 }();
+
+function forEnemy() {
+  enemies.forEach(function (enemy, index) {
+    var colide = collisionDetection(enemy.x, enemy.y, enemy.r, x, player.y, player.r);
+
+    if (colide) {
+      if (!playerSheild) {
+        hit.currentTime = 0;
+        hit.play(); //reduce player size/reset variables.
+
+        if (player.r > 20) {
+          player.r = 20;
+        } else {
+          player.r -= 2;
+        }
+
+        if (player.y > c.height / 2) {
+          texts.push(new Text(x, player.y, Math.random() - 0.5, -c.height * 0.001, "🤕", "bold 20px Arial", "yellow", 1, false));
+        } else {
+          texts.push(new Text(x, player.y, Math.random() - 0.5, c.height * 0.001, "🤕", "bold 20px Arial", "yellow", 1, false));
+        }
+      } else {
+        var points = Math.trunc(enemy.x / 10 + (c.height - enemy.y) / 10);
+        score += points;
+
+        if (player.y > c.height / 2) {
+          texts.push(new Text(x, player.y, Math.random() - 0.5, -c.height * 0.001, points, "bold 20px Arial", "yellow", 1, false));
+          texts.push(new Text(x, player.y, Math.random() - 0.5, -c.height * 0.002, "😃", "bold 20px Arial", "yellow", 1, false));
+        } else {
+          texts.push(new Text(x, player.y, Math.random() - 0.5, c.height * 0.001, points, "bold 20px Arial", "yellow", 1, false));
+          texts.push(new Text(x, player.y, Math.random() - 0.5, c.height * 0.002, "😃", "bold 20px Arial", "yellow", 1, false));
+        }
+      }
+
+      reset();
+      enemies.splice(index, 1);
+    }
+
+    if (player.r <= 14) {
+      playerAlive = false;
+    } //enemy falls off screen.
+
+
+    if (enemy.y > c.height) {
+      enemies.splice(index, 1);
+    }
+
+    enemy.update();
+  });
+}

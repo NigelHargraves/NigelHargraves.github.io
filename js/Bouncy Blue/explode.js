@@ -34,3 +34,13 @@ class Explode {
 
     }
 }
+
+function forExplode() {
+    explodes.forEach((exp, index1) => {
+        explodesCheck(exp);
+        if (exp.s >= c.height * 0.3 && exp.alpha <= 0.2) {
+            explodes.splice(index1, 1);
+        }
+        exp.update();
+    });
+}

@@ -24,3 +24,12 @@ class Glow {
         this.draw();
     }
 }
+
+function forGlow() {
+    glows.forEach((glow, index) => {
+        if (glow.alpha < 0.2) {
+            glows.splice(index, 1);
+        }
+        glow.update();
+    });
+}

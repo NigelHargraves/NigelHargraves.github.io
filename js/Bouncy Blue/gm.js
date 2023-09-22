@@ -35,3 +35,30 @@ class GuidedMissile {
         this.draw();
     }
 }
+
+function forGM() {
+    guidedMissiles.forEach((gm, index) => {
+        let colide = collisionDetection(gm.x, gm.y, gm.r + 20, x, player.y, player.r);
+        if (colide) {
+            mineExplode.currentTime = 0;
+            mineExplode.play();
+            for (let i = 0; i < 10; i++) {
+                projectiles.push(new Projectile(gm.x, gm.y, 2));
+            }
+            guidedMissiles.splice(index, 1);
+        }
+        if (player.r <= 14) {
+            playerAlive = false;
+        }
+        //guidedmissile count down hits 0 or hits floor or goes way off screen.
+        if (gm.countDown <= 0 || gm.y >= c.height - c.width * 0.02 || gm.x <= -c.width || gm.x >= c.width * 2) {
+            mineExplode.currentTime = 0;
+            mineExplode.play();
+            for (let i = 0; i < 10; i++) {
+                projectiles.push(new Projectile(gm.x, gm.y, 2));
+            }
+            guidedMissiles.splice(index, 1);
+        }
+        gm.update();
+    });
+}

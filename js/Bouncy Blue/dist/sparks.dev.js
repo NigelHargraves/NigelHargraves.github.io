@@ -44,3 +44,13 @@ function () {
 
   return Spark;
 }();
+
+function forSpark() {
+  sparks.forEach(function (spark, index) {
+    if (spark.alpha <= 0) {
+      sparks.splice(index, 1);
+    }
+
+    spark.update();
+  });
+}

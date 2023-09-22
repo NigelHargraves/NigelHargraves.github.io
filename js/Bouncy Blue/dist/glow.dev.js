@@ -44,3 +44,13 @@ function () {
 
   return Glow;
 }();
+
+function forGlow() {
+  glows.forEach(function (glow, index) {
+    if (glow.alpha < 0.2) {
+      glows.splice(index, 1);
+    }
+
+    glow.update();
+  });
+}

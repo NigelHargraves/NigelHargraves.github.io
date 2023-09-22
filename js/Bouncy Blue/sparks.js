@@ -24,3 +24,12 @@ class Spark {
         this.draw();
     }
 }
+
+function forSpark() {
+    sparks.forEach((spark, index) => {
+        if (spark.alpha <= 0) {
+            sparks.splice(index, 1);
+        }
+        spark.update();
+    });
+}

@@ -2,13 +2,12 @@
 class Kill {
     //construct kill data.
     constructor(x, y, radius, countdown) {
-        this.x = x;
-        this.y = y;
-        this.r = radius;
-        this.countdown = countdown;
-    }
-
-    //draw kill.
+            this.x = x;
+            this.y = y;
+            this.r = radius;
+            this.countdown = countdown;
+        }
+        //draw kill.
     draw() {
             ctx.drawImage(lightningBolt, this.x - this.r, this.y - this.r, this.r * 2, this.r * 2);
         }
@@ -18,4 +17,14 @@ class Kill {
         this.x += -player.velocity.x;
         this.draw();
     }
+}
+
+function forKill() {
+    kills.forEach((kill) => {
+        killCheck(kill);
+        if (kill.countdown <= 0) {
+            kills = [];
+        }
+        kill.update();
+    });
 }

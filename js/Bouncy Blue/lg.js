@@ -36,3 +36,44 @@ class LevelGain {
         this.draw();
     }
 }
+
+function forLG() {
+    levelGains.forEach((LG, index) => {
+        let colide = collisionDetection(LG.x, LG.y, LG.r, x, player.y, player.r);
+        if (colide) {
+            //player gains level.
+            //player gets next level of control + bonus score/update variables.
+            if (player.y > c.height / 2) {
+                texts.push(
+                    new Text(x, player.y, Math.random() - 0.5, -c.height * 0.001, "L+", "bold 25px Arial", "yellow", 1, false)
+                );
+                texts.push(
+                    new Text(x, player.y, Math.random() - 0.5, -c.height * 0.002, "😃", "bold 20px Arial", "yellow", 1, false)
+                );
+            } else {
+                texts.push(
+                    new Text(x, player.y, Math.random() - 0.5, c.height * 0.001, "L+", "bold 25px Arial", "yellow", 1, false)
+                );
+                texts.push(
+                    new Text(x, player.y, Math.random() - 0.5, c.height * 0.002, "😃", "bold 20px Arial", "yellow", 1, false)
+                );
+            }
+
+            levelGains.splice(index, 1);
+            levelJump();
+        }
+        //levelGain hits ground.
+        if (LG.y > c.height - (c.height * 0.055)) {
+            splat.currentTime = 0;
+            splat.play();
+            for (i = 0; i < Math.random() * 60 + 30; i++) {
+                bloodSplats.push(new BloodSplat(LG.x, LG.y, Math.random() * 2, {
+                    x: (Math.random() - 0.5) * (Math.random() * 6),
+                    y: (Math.random() - 1) * (Math.random() * 10)
+                }, "yellow"));
+            }
+            levelGains.splice(index, 1);
+        }
+        LG.update();
+    });
+}

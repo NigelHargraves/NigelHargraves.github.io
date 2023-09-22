@@ -39,3 +39,47 @@ function () {
 
   return Mine;
 }();
+
+function forMine() {
+  mines.forEach(function (mine, index) {
+    var colide = collisionDetection(mine.x, mine.y, mine.r, x, player.y, player.r);
+
+    if (colide) {
+      if (!playerSheild) {
+        playerAlive = false;
+      } else {
+        sheildHit.currentTime = 0;
+        sheildHit.play();
+        var points = Math.trunc(mine.x / 10 + (c.height - mine.y) / 10);
+        score += points;
+        texts.push(new Text(x, player.y, Math.random() - 0.5, -c.height * 0.001, points, "bold 20px Arial", "yellow", 1, false));
+        texts.push(new Text(x, player.y, Math.random() - 0.5, -c.height * 0.002, "😃", "bold 20px Arial", "yellow", 1, false));
+      }
+
+      mines.splice(index, 1);
+    } //countdown = 0
+
+
+    if (mine.countdown <= 0) {
+      if (mine.x > 0 - mine.r && mine.x < c.width + mine.r) {
+        mineExplode.currentTime = 0;
+        mineExplode.play();
+
+        for (var _i = 0; _i < 10; _i++) {
+          projectiles.push(new Projectile(mine.x, mine.y, 2));
+        }
+      }
+
+      for (i = 0; i < 30; i++) {
+        deaths.push(new Death(mine.x, mine.y - 30, Math.random() * 2, "red", {
+          x: (Math.random() - 0.5) * 8,
+          y: (Math.random() - 0.5) * 8
+        }));
+      }
+
+      mines.splice(index, 1);
+    }
+
+    mine.update();
+  });
+}

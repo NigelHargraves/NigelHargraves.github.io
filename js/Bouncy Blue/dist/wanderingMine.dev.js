@@ -48,3 +48,28 @@ function () {
 
   return WanderingMine;
 }();
+
+function forWanderingMine() {
+  wanderingMines.forEach(function (wmine, index) {
+    var colide = collisionDetection(wmine.x, wmine.y, wmine.r * 5, x, player.y, player.r);
+
+    if (colide) {
+      if (wmine.x > 0 - wmine.r && wmine.x < c.width + wmine.r) {
+        mineExplode.currentTime = 0;
+        mineExplode.play();
+
+        for (var i = 0; i < 20; i++) {
+          projectiles.push(new Projectile(wmine.x, wmine.y, 2));
+        }
+      }
+
+      wanderingMines.splice(index, 1);
+    }
+
+    if (wmine.countdown <= 0) {
+      wanderingMines.splice(index, 1);
+    }
+
+    wmine.update();
+  });
+}

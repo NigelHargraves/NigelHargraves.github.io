@@ -34,3 +34,12 @@ class Splat {
         this.draw();
     }
 }
+
+function forSplat() {
+    splats.forEach((splat, index) => {
+        splat.update();
+        if (splat.ang > 0) {
+            splats.splice(index, 1);
+        }
+    });
+}

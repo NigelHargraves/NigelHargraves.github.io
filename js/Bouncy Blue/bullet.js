@@ -28,3 +28,13 @@ class Bullet {
         this.draw();
     }
 }
+
+function forbullet() {
+    bullets.forEach((bullet, index1) => {
+        bulletCheck(bullet, index1);
+        if (bullet.x <= -c.width || bullet.x >= c.width * 2) {
+            bullets.splice(index1, 1);
+        }
+        bullet.update();
+    });
+}

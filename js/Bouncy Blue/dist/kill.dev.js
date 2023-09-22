@@ -38,3 +38,15 @@ function () {
 
   return Kill;
 }();
+
+function forKill() {
+  kills.forEach(function (kill) {
+    killCheck(kill);
+
+    if (kill.countdown <= 0) {
+      kills = [];
+    }
+
+    kill.update();
+  });
+}

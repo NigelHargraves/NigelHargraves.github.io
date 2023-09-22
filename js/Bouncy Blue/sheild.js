@@ -10,12 +10,25 @@ class Sheild {
     draw() {
         ctx.drawImage(sheild, this.x - this.r, this.y - this.r, this.r * 2, this.r * 2);
     }
-
     update() {
         this.countdown -= 0.01;
         this.x += -player.velocity.x;
         this.draw();
     }
+}
 
-
+function forShield() {
+    sheilds.forEach((sheild) => {
+        let colide = collisionDetection(sheild.x, sheild.y, sheild.r, x, player.y, player.r);
+        if (colide) {
+            sheilds = [];
+            playerSheild = true;
+            sheildGain.currentTime = 0;
+            sheildGain.play();
+        }
+        if (sheild.countdown <= 0) {
+            sheilds = [];
+        }
+        sheild.update();
+    });
 }

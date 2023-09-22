@@ -56,3 +56,13 @@ function () {
 
   return BloodSplat;
 }();
+
+function forBloodSplat() {
+  bloodSplats.forEach(function (bs, index) {
+    if (bs.y >= c.height || bs.y <= 0 || bs.x <= 0 || bs.x >= c.width) {
+      bloodSplats.splice, index;
+    }
+
+    bs.update();
+  });
+}

@@ -55,3 +55,13 @@ function () {
 
   return Splat;
 }();
+
+function forSplat() {
+  splats.forEach(function (splat, index) {
+    splat.update();
+
+    if (splat.ang > 0) {
+      splats.splice(index, 1);
+    }
+  });
+}

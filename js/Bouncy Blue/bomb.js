@@ -27,3 +27,19 @@ class Bomb {
         }
     }
 }
+
+function forBomb() {
+    bombs.forEach((bomb, index1) => {
+        if (bomb.y >= c.height - c.height * 0.06) {
+            if (!dropBomb.paused) {
+                dropBomb.pause();
+                dropBomb.currentTime = 0;
+            }
+            bombExplode.currentTime = 0;
+            bombExplode.play();
+            explodes.push(new Explode(bomb.x + c.height * 0.01, bomb.y + c.height * 0.02, 5, 1));
+            bombs.splice(index1, 1);
+        }
+        bomb.update();
+    });
+}

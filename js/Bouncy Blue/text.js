@@ -30,3 +30,14 @@ class Text {
         this.draw();
     }
 }
+
+function forText() {
+    texts.forEach((text, index) => {
+        if (text.opacity < 0.1) {
+            texts.splice(index, 1);
+        } else {
+            text.opacity -= 0.002;
+        }
+        text.update();
+    });
+}

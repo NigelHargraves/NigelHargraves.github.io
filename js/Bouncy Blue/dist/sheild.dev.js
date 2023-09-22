@@ -36,3 +36,22 @@ function () {
 
   return Sheild;
 }();
+
+function forShield() {
+  sheilds.forEach(function (sheild) {
+    var colide = collisionDetection(sheild.x, sheild.y, sheild.r, x, player.y, player.r);
+
+    if (colide) {
+      sheilds = [];
+      playerSheild = true;
+      sheildGain.currentTime = 0;
+      sheildGain.play();
+    }
+
+    if (sheild.countdown <= 0) {
+      sheilds = [];
+    }
+
+    sheild.update();
+  });
+}
