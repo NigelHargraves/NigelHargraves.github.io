@@ -185,7 +185,7 @@ function animate() {
     forestSounds.play();
   }
 
-  layers.forEach(function (layer, index) {
+  layers.forEach(function (layer) {
     layer.update();
   });
   ctx.font = "20px Arial";
@@ -257,8 +257,14 @@ function animate() {
       bombRateCount = 0;
     }
 
-    forBomb();
-    forExplode(); //create bullet.
+    if (bombs.length > 0) {
+      forBomb();
+    }
+
+    if (explodes.length > 0) {
+      forExplode();
+    } //create bullet.
+
 
     if (fire && fireRateCount == 0) {
       fireGap = true;
@@ -282,8 +288,14 @@ function animate() {
       fireRateCount = 0;
     }
 
-    forbullet();
-    forBloodSplat(); //create mushroom.
+    if (bullets.length > 0) {
+      forBullet();
+    }
+
+    if (bloodSplats.length > 0) {
+      forBloodSplat();
+    } //create mushroom.
+
 
     if (controlLevel > 2) {
       var createMushroom = Math.random();
@@ -299,7 +311,10 @@ function animate() {
       }
     }
 
-    forMushroom(); //create sheild icon.
+    if (mushrooms.length > 0) {
+      forMushroom();
+    } //create sheild icon.
+
 
     if (!playerSheild && controlLevel > 5 && sheilds.length == 0) {
       var createSheild = Math.random();
@@ -309,7 +324,9 @@ function animate() {
       }
     }
 
-    forShield();
+    if (sheilds.length > 0) {
+      forShield();
+    }
 
     if (playerSheild) {
       sheildTime -= 0.01;
@@ -329,17 +346,20 @@ function animate() {
       var createFlower = Math.random();
 
       if (createFlower > 0.999) {
-        flowers.push(new Flower(c.width + c.height * 0.1 + Math.random() * c.width, c.height - 200, c.height * 0.04, 25));
+        flowers.push(new Flower(Math.random() * (c.width * 2) + c.width, c.height - 200, c.height * 0.04, 25));
       }
 
       createFlower = Math.random();
 
       if (createFlower > 0.999) {
-        flowers.push(new Flower(-c.height * 0.1 - Math.random() * c.width, c.height - 200, c.height * 0.04, 25));
+        flowers.push(new Flower(Math.random() * (-c.width * 3), c.height - 200, c.height * 0.04, 25));
       }
     }
 
-    forFlower(); //kill all.
+    if (flowers.length > 0) {
+      forFlower();
+    } //kill all.
+
 
     if (controlLevel > 6 && kills.length == 0) {
       var killAll = Math.random();
@@ -349,7 +369,9 @@ function animate() {
       }
     }
 
-    forKill();
+    if (kills.length > 0) {
+      forKill();
+    }
 
     if (LBall) {
       ctx.drawImage(lightningBall, x - 200, player.y - 200, 400, 400);
@@ -384,7 +406,10 @@ function animate() {
       }
     }
 
-    forWanderingMine(); //plant mine.
+    if (wanderingMines.length > 0) {
+      forWanderingMine();
+    } //plant mine.
+
 
     if (controlLevel > 2) {
       minesToPlant = true;
@@ -394,17 +419,20 @@ function animate() {
       var plantMine = Math.random();
 
       if (plantMine > minePlant) {
-        mines.push(new Mine(Math.random() * 3000 + c.width, c.height - 20, 30, 25));
+        mines.push(new Mine(Math.random() * (c.width * 2) + c.width, c.height - 20, 30, 25));
       }
 
       plantMine = Math.random();
 
       if (plantMine > minePlant) {
-        mines.push(new Mine(Math.random() * -3000, c.height - 20, 30, 25));
+        mines.push(new Mine(Math.random() * (-c.width * 3), c.height - 20, 30, 25));
       }
     }
 
-    forMine(); //create bee.
+    if (mines.length > 0) {
+      forMine();
+    } //create bee.
+
 
     var enemyFire = Math.random();
 
@@ -420,11 +448,21 @@ function animate() {
         beeDirection = true;
       }
 
-      enemies.push(new Enemy(Math.random() * (c.width * 3) - c.width, -20, enemyVelocity, enemyVelocity, enemyRadius, beeDirection));
+      enemies.push(new Enemy(Math.random() * (c.width * 3) - c.width, 0, enemyVelocity, enemyVelocity, enemyRadius, beeDirection));
     }
 
-    forEnemy();
-    forSplat(); //fire guidedMissile.
+    if (enemies.length > 0) {
+      forEnemy();
+    }
+
+    if (player.r <= 14) {
+      playerAlive = false;
+    }
+
+    if (splats.length > 0) {
+      forSplat();
+    } //fire guidedMissile.
+
 
     if (controlLevel > 4) {
       var fireMissile = Math.random();
@@ -442,8 +480,14 @@ function animate() {
       }
     }
 
-    forGM();
-    forSpark(); //create food.
+    if (guidedMissiles.length > 0) {
+      forGM();
+    }
+
+    if (sparks.length > 0) {
+      forSpark();
+    } //create food.
+
 
     var createFood = Math.random();
 
@@ -453,8 +497,14 @@ function animate() {
       foods.push(new Food(Math.random() * (c.width * 3) - c.width, -c.height * 0.05, Math.random() - 0.5, Math.random() + 0.1, c.height * 0.02));
     }
 
-    forFood();
-    forGlow(); //create levelGain.
+    if (foods.length > 0) {
+      forFood();
+    }
+
+    if (glows.length > 0) {
+      forGlow();
+    } //create levelGain.
+
 
     var gainLevel = Math.random();
 
@@ -464,7 +514,10 @@ function animate() {
       levelGains.push(new LevelGain(Math.random() * (c.width * 3) - c.width, -50, Math.random() - 0.5, Math.random() + 0.1, c.height * 0.02));
     }
 
-    forLG(); //create bonusPoints.
+    if (levelGains.length > 0) {
+      forLG();
+    } //create bonusPoints.
+
 
     var bp = Math.random();
 
@@ -474,9 +527,17 @@ function animate() {
       bonusPoints.push(new BonusPoints(Math.random() * (c.width * 3) - c.width, -50, Math.random() - 0.5, Math.random() + 0.1, c.height * 0.02));
     }
 
-    forBP();
-    forText();
-    forProjectile();
+    if (bonusPoints.length > 0) {
+      forBP();
+    }
+
+    if (texts.length > 0) {
+      forText();
+    }
+
+    if (projectiles.length > 0) {
+      forProjectile();
+    }
   } else {
     if (score > topScore.score) {
       textName.style.visibility = "visible";

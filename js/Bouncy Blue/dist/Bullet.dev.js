@@ -47,12 +47,12 @@ function () {
   return Bullet;
 }();
 
-function forbullet() {
-  bullets.forEach(function (bullet, index1) {
-    bulletCheck(bullet, index1);
-
+function forBullet() {
+  bullets.forEach(function (bullet, index) {
     if (bullet.x <= -c.width || bullet.x >= c.width * 2) {
-      bullets.splice(index1, 1);
+      bullets.splice(index, 1);
+    } else {
+      bulletCheck(bullet, index);
     }
 
     bullet.update();

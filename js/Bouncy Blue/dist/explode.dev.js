@@ -55,11 +55,11 @@ function () {
 }();
 
 function forExplode() {
-  explodes.forEach(function (exp, index1) {
+  explodes.forEach(function (exp, index) {
     explodesCheck(exp);
 
-    if (exp.s >= c.height * 0.3 && exp.alpha <= 0.2) {
-      explodes.splice(index1, 1);
+    if (exp.alpha <= 0.1) {
+      explodes.splice(index, 1);
     }
 
     exp.update();

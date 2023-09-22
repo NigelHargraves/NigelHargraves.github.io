@@ -215,7 +215,7 @@ function animate() {
         forestSounds.play();
     }
 
-    layers.forEach((layer, index) => {
+    layers.forEach((layer) => {
         layer.update();
     });
 
@@ -286,9 +286,13 @@ function animate() {
             bombRateCount = 0;
         }
 
-        forBomb();
+        if (bombs.length > 0) {
+            forBomb();
+        }
 
-        forExplode();
+        if (explodes.length > 0) {
+            forExplode();
+        }
 
         //create bullet.
         if (fire && fireRateCount == 0) {
@@ -311,9 +315,13 @@ function animate() {
             fireRateCount = 0;
         }
 
-        forbullet();
+        if (bullets.length > 0) {
+            forBullet();
+        }
 
-        forBloodSplat();
+        if (bloodSplats.length > 0) {
+            forBloodSplat();
+        }
 
         //create mushroom.
         if (controlLevel > 2) {
@@ -327,7 +335,9 @@ function animate() {
             }
         }
 
-        forMushroom();
+        if (mushrooms.length > 0) {
+            forMushroom();
+        }
 
         //create sheild icon.
         if (!playerSheild && controlLevel > 5 && sheilds.length == 0) {
@@ -337,7 +347,9 @@ function animate() {
             }
         }
 
-        forShield();
+        if (sheilds.length > 0) {
+            forShield();
+        }
 
         if (playerSheild) {
             sheildTime -= 0.01;
@@ -354,16 +366,18 @@ function animate() {
         if (controlLevel > 5) {
             let createFlower = Math.random();
             if (createFlower > 0.999) {
-                flowers.push(new Flower(c.width + (c.height * 0.1) + (Math.random() * c.width), c.height - 200, c.height * 0.04, 25));
+                flowers.push(new Flower(Math.random() * (c.width * 2) + c.width, c.height - 200, c.height * 0.04, 25));
             }
 
             createFlower = Math.random();
             if (createFlower > 0.999) {
-                flowers.push(new Flower((-c.height * 0.1) - (Math.random() * c.width), c.height - 200, c.height * 0.04, 25));
+                flowers.push(new Flower(Math.random() * (-c.width * 3), c.height - 200, c.height * 0.04, 25));
             }
         }
 
-        forFlower();
+        if (flowers.length > 0) {
+            forFlower();
+        }
 
         //kill all.
         if (controlLevel > 6 && kills.length == 0) {
@@ -373,7 +387,9 @@ function animate() {
             }
         }
 
-        forKill();
+        if (kills.length > 0) {
+            forKill();
+        }
 
         if (LBall) {
             ctx.drawImage(lightningBall, x - 200, player.y - 200, 400, 400);
@@ -398,7 +414,9 @@ function animate() {
             }
         }
 
-        forWanderingMine();
+        if (wanderingMines.length > 0) {
+            forWanderingMine();
+        }
 
         //plant mine.
         if (controlLevel > 2) {
@@ -407,15 +425,17 @@ function animate() {
         if (minesToPlant) {
             let plantMine = Math.random();
             if (plantMine > minePlant) {
-                mines.push(new Mine(Math.random() * 3000 + c.width, c.height - 20, 30, 25));
+                mines.push(new Mine(Math.random() * (c.width * 2) + c.width, c.height - 20, 30, 25));
             }
             plantMine = Math.random();
             if (plantMine > minePlant) {
-                mines.push(new Mine(Math.random() * -3000, c.height - 20, 30, 25));
+                mines.push(new Mine(Math.random() * (-c.width * 3), c.height - 20, 30, 25));
             }
         }
 
-        forMine();
+        if (mines.length > 0) {
+            forMine();
+        }
 
         //create bee.
         let enemyFire = Math.random();
@@ -430,13 +450,21 @@ function animate() {
                 beeDirection = true;
             }
             enemies.push(
-                new Enemy(Math.random() * (c.width * 3) - c.width, -20, enemyVelocity, enemyVelocity, enemyRadius, beeDirection)
+                new Enemy(Math.random() * (c.width * 3) - c.width, 0, enemyVelocity, enemyVelocity, enemyRadius, beeDirection)
             );
         }
 
-        forEnemy();
+        if (enemies.length > 0) {
+            forEnemy();
+        }
 
-        forSplat();
+        if (player.r <= 14) {
+            playerAlive = false;
+        }
+
+        if (splats.length > 0) {
+            forSplat();
+        }
 
         //fire guidedMissile.
         if (controlLevel > 4) {
@@ -456,9 +484,13 @@ function animate() {
             }
         }
 
-        forGM();
+        if (guidedMissiles.length > 0) {
+            forGM();
+        }
 
-        forSpark();
+        if (sparks.length > 0) {
+            forSpark();
+        }
 
         //create food.
         let createFood = Math.random();
@@ -470,9 +502,13 @@ function animate() {
             );
         }
 
-        forFood();
+        if (foods.length > 0) {
+            forFood();
+        }
 
-        forGlow();
+        if (glows.length > 0) {
+            forGlow();
+        }
 
         //create levelGain.
         let gainLevel = Math.random();
@@ -484,7 +520,9 @@ function animate() {
             );
         }
 
-        forLG();
+        if (levelGains.length > 0) {
+            forLG();
+        }
 
         //create bonusPoints.
         let bp = Math.random();
@@ -496,11 +534,17 @@ function animate() {
             );
         }
 
-        forBP();
+        if (bonusPoints.length > 0) {
+            forBP();
+        }
 
-        forText();
+        if (texts.length > 0) {
+            forText();
+        }
 
-        forProjectile();
+        if (projectiles.length > 0) {
+            forProjectile();
+        }
 
     } else {
         if (score > topScore.score) {

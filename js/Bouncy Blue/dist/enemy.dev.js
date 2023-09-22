@@ -103,10 +103,6 @@ function forEnemy() {
 
       reset();
       enemies.splice(index, 1);
-    }
-
-    if (player.r <= 14) {
-      playerAlive = false;
     } //enemy falls off screen.
 
 

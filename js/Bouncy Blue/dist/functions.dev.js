@@ -99,14 +99,31 @@ function init() {
   flowers = [];
   sheilds = [];
   mushrooms = [];
-  gravity = 0.03, friction = 0.002, controlLevel = 1, velocityAmount = 0.02, width = 0, score = 0, levelBonus = 8000, skillLevel = 0.998, missileFire = 0.999, minePlant = 0.9999, enemyVelocity = 1, foodAmount = 0.998, enemyRadius = c.height * 0.008, stalkSize = c.height * 0.01, textFade = 1, bonus = 0, x = c.width / 2, ang = 0, x1 = 0, y1 = 0, sheildTime = 30, mushroomCount = 0, mushroomSize = c.height * 0.05, blink = 4, squint = 2, boltCount = 5, fireRate = 10, fireRateCount = 0, bombRate = 100, bombRateCount = 0;
+  bullets = [];
+  bloodSplats = [];
+  bombs = [];
+  explodes = [];
+  sparks = [];
+  gravity = 0.03, friction = 0.002, controlLevel = 1, velocityAmount = 0.02, width = 0, score = 0, levelBonus = 8000, skillLevel = 0.998, missileFire = 0.9999, minePlant = 0.9999, enemyVelocity = 1, foodAmount = 0.998, enemyRadius = c.height * 0.008, stalkSize = c.height * 0.01, textFade = 1, bonus = 0, x = c.width / 2, ang = 0, x1 = 0, y1 = 0, sheildTime = 30, mushroomCount = 0, mushroomSize = c.height * 0.05, blink = 4, squint = 2, boltCount = 5, fireRate = 10, fireRateCount = 0, bombRate = 100, bombRateCount = 0;
   moveLeft = false, moveRight = false, moveUp = false, moveDown = false, eyesBlink = false, eyesSquint = false, increaseBounce = false, fadeText = false, missile = false, playerAlive = true, minesToPlant = false, endGameSound = false, playerSheild = false, LBall = false;
   width = 0;
   elem.style.width = width + "%";
   player = new Player(c.width / 2, c.height / 2, 20);
-  foods.push(new Food(Math.random() * (c.width * 3) - c.width, -50, Math.random() - 0.5, Math.random(), c.height * 0.02));
+  foods.push(new Food(Math.random() * c.width, -c.height * 0.05, Math.random() - 0.5, Math.random(), c.height * 0.02));
   food.currentTime = 0;
   food.play();
+  var beeDirection;
+  var setDirection = Math.random();
+
+  if (setDirection >= 0.5) {
+    beeDirection = false;
+  } else {
+    beeDirection = true;
+  }
+
+  enemies.push(new Enemy(Math.random() * (c.width * 3) - c.width, 0, enemyVelocity, enemyVelocity, enemyRadius, beeDirection));
+  beeBuzz.currentTime = 0;
+  beeBuzz.play();
   forestSounds.currentTime = 0;
   forestSounds.play();
   layers.push(new Layer(background1, 0, c.height, 0));
