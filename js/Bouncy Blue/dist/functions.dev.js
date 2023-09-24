@@ -126,6 +126,8 @@ function init() {
   beeBuzz.play();
   forestSounds.currentTime = 0;
   forestSounds.play();
+  layers.push(new Layer(background4, 0, c.height, 0));
+  layers.push(new Layer(background3, 0, c.height, 0));
   layers.push(new Layer(background1, 0, c.height, 0));
   layers.push(new Layer(background2, 0, c2.height, 0));
   texts.push(new Text(x - c.height * 0.330, c.height / 2, 0, 0, clText + controlLevel, "bold 80px Arial", "white", 1, true));

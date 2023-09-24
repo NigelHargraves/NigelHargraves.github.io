@@ -5,12 +5,22 @@ var ctx = c.getContext("2d");
 c.width = window.innerWidth;
 c.height = window.innerHeight;
 var ctx2 = c2.getContext("2d");
-c2.width = window.innerWidth; //backgrounds to var.
+c2.width = window.innerWidth;
+var ctx3 = c3.getContext("2d");
+c3.width = window.innerWidth;
+c3.height = window.innerHeight;
+var ctx4 = c4.getContext("2d");
+c4.width = window.innerWidth;
+c4.height = window.innerHeight; //backgrounds to var.
 
 var background1 = new Image();
-background1.src = 'images/BB/forest.jpg';
+background1.src = 'images/BB/background1.png';
 var background2 = new Image();
 background2.src = 'images/BB/grass1.jpg';
+var background3 = new Image();
+background3.src = 'images/BB/background3.png';
+var background4 = new Image();
+background4.src = 'images/BB/background4.png';
 var mushroomImage = new Image();
 mushroomImage.src = 'images/BB/mushroom.png';
 var blueberry = new Image();
@@ -180,6 +190,8 @@ if (localStorage.getItem("bestScore")) {
 function animate() {
   //call next frame.
   animationId = requestAnimationFrame(animate);
+  ctx.clearRect(0, 0, c.width, c.height);
+  ctx3.clearRect(0, 0, c.width, c.height);
 
   if (forestSounds.paused) {
     forestSounds.play();
@@ -188,6 +200,7 @@ function animate() {
   layers.forEach(function (layer) {
     layer.update();
   });
+  player.update();
   ctx.font = "20px Arial";
   ctx.fillStyle = "white";
   ctx.fillText("Control LV: " + controlLevel, 0, c.height * 0.02);
@@ -237,9 +250,8 @@ function animate() {
       ctx.fillText("⬆", c.width / 2, c.height / 2);
     } else if (player.y < 0 && player.velocity.y > 0) {
       ctx.fillText("⬇", c.width / 2, c.height / 2);
-    }
+    } //create bomb.
 
-    player.update(); //create bomb.
 
     if (bombDrop && bombRateCount == 0) {
       bombDropGap = true;

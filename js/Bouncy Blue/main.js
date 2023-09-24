@@ -4,12 +4,22 @@ c.width = window.innerWidth;
 c.height = window.innerHeight;
 const ctx2 = c2.getContext("2d");
 c2.width = window.innerWidth;
+const ctx3 = c3.getContext("2d");
+c3.width = window.innerWidth;
+c3.height = window.innerHeight;
+const ctx4 = c4.getContext("2d");
+c4.width = window.innerWidth;
+c4.height = window.innerHeight;
 
 //backgrounds to var.
 let background1 = new Image();
-background1.src = 'images/BB/forest.jpg';
+background1.src = 'images/BB/background1.png';
 let background2 = new Image();
 background2.src = 'images/BB/grass1.jpg';
+let background3 = new Image();
+background3.src = 'images/BB/background3.png';
+let background4 = new Image();
+background4.src = 'images/BB/background4.png';
 let mushroomImage = new Image();
 mushroomImage.src = 'images/BB/mushroom.png';
 let blueberry = new Image();
@@ -210,6 +220,9 @@ function animate() {
     //call next frame.
     animationId = requestAnimationFrame(animate);
 
+    ctx.clearRect(0, 0, c.width, c.height);
+    ctx3.clearRect(0, 0, c.width, c.height);
+
 
     if (forestSounds.paused) {
         forestSounds.play();
@@ -218,6 +231,8 @@ function animate() {
     layers.forEach((layer) => {
         layer.update();
     });
+
+    player.update();
 
     ctx.font = "20px Arial";
     ctx.fillStyle = "white";
@@ -267,7 +282,6 @@ function animate() {
         }
 
 
-        player.update();
 
         //create bomb.
         if (bombDrop && bombRateCount == 0) {
