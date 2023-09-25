@@ -62,7 +62,7 @@ function () {
 
 function forLG() {
   levelGains.forEach(function (LG, index) {
-    var colide = collisionDetection(LG.x, LG.y, LG.r, x, player.y, player.r);
+    var colide = collisionDetection(LG.x, LG.y, LG.r * 2, x, player.y, player.r);
 
     if (colide) {
       //player gains level.

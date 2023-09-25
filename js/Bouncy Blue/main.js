@@ -234,8 +234,8 @@ function animate() {
 
     player.update();
 
-    ctx.font = "20px Arial";
-    ctx.fillStyle = "white";
+    ctx.font = "bold 20px Arial";
+    ctx.fillStyle = "black";
     ctx.fillText("Control LV: " + controlLevel, 0, c.height * 0.02);
     ctx.drawImage(mushroomImage, c.width / 8, 0, c.height * 0.02, c.height * 0.02);
     ctx.fillText("= " + mushroomCount, c.width / 7.3, c.height * 0.02);
@@ -249,8 +249,6 @@ function animate() {
     ctx.fillText("Score: " + score + "          Top Score: " + topScore.name + ": " + topScore.score, c.width - c.width / 4, c.height * 0.02);
 
     if (playerAlive) {
-        ctx.font = "20px Arial";
-        ctx.fillStyle = "white";
         ctx.fillText("Player size: " + Math.round(player.r), c.width / 2, c.height * 0.02);
 
         let blinkEyes = Math.random()

@@ -39,7 +39,7 @@ class BonusPoints {
 
 function forBP() {
     bonusPoints.forEach((bonusPoint, index) => {
-        let colide = collisionDetection(bonusPoint.x, bonusPoint.y, bonusPoint.r, x, player.y, player.r);
+        let colide = collisionDetection(bonusPoint.x, bonusPoint.y, bonusPoint.r * 2, x, player.y, player.r);
         if (colide) {
             //player gets bonusPoints.
             bonusP.currentTime = 0;

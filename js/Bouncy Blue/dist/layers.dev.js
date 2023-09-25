@@ -16,7 +16,7 @@ function () {
 
     this.x = 0;
     this.y = y;
-    this.width = 3000;
+    this.width = c.width * 2;
     this.height = height;
     this.x2 = this.width;
     this.image = image;
@@ -57,19 +57,19 @@ function () {
 
       if (player.velocity.x >= 0) {
         if (this.x <= -this.width) {
-          this.x = this.width;
+          this.x = this.width + this.x2 - this.speed;
         }
 
         if (this.x2 <= -this.width) {
-          this.x2 = this.width;
+          this.x2 = this.width + this.x - this.speed;
         }
       } else {
         if (this.x >= this.width) {
-          this.x = -this.width;
+          this.x = -this.width + this.x2 - this.speed;
         }
 
         if (this.x2 >= this.width) {
-          this.x2 = -this.width;
+          this.x2 = -this.width + this.x - this.speed;
         }
       }
 

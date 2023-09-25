@@ -62,7 +62,7 @@ function () {
 
 function forBP() {
   bonusPoints.forEach(function (bonusPoint, index) {
-    var colide = collisionDetection(bonusPoint.x, bonusPoint.y, bonusPoint.r, x, player.y, player.r);
+    var colide = collisionDetection(bonusPoint.x, bonusPoint.y, bonusPoint.r * 2, x, player.y, player.r);
 
     if (colide) {
       //player gets bonusPoints.
