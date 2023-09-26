@@ -124,7 +124,7 @@ function explodesCheck(exp) {
                 bloodSplats.push(new BloodSplat(flower.x, flower.y + flower.r * 2, Math.random() * 2, {
                     x: (Math.random() - 0.5) * (Math.random() * 6),
                     y: (Math.random() - 1) * (Math.random() * 20)
-                }, "green"));
+                }, "LimeGreen"));
             }
             let points = 1000;
             score += points;
