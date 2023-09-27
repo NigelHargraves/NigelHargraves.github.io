@@ -64,6 +64,7 @@
     width: 10%;
     height: 5%;
     visibility: hidden;
+    z-index: 5;
 }
 
 #display {
@@ -78,4 +79,5 @@
     width: 10%;
     height: 5%;
     visibility: hidden;
+    z-index: 6;
 }

@@ -223,32 +223,37 @@ function animate() {
     ctx.clearRect(0, 0, c.width, c.height);
     ctx3.clearRect(0, 0, c.width, c.height);
 
-
-    if (forestSounds.paused) {
-        forestSounds.play();
-    }
-
     layers.forEach((layer) => {
         layer.update();
     });
 
-    player.update();
 
-    ctx.font = "bold 20px Arial";
-    ctx.fillStyle = "black";
-    ctx.fillText("Control LV: " + controlLevel, 0, c.height * 0.02);
-    ctx.drawImage(mushroomImage, c.width / 8, 0, c.height * 0.02, c.height * 0.02);
-    ctx.fillText("= " + mushroomCount, c.width / 7.3, c.height * 0.02);
-    ctx.fillText("LV Bonus: " + levelBonus, c.width / 4, c.height * 0.02);
-    if (levelBonus <= 0) {
-        levelBonus = 1;
-    }
 
-    levelBonus -= 1;
 
-    ctx.fillText("Score: " + score + "          Top Score: " + topScore.name + ": " + topScore.score, c.width - c.width / 4, c.height * 0.02);
+
 
     if (playerAlive) {
+
+        if (forestSounds.paused) {
+            forestSounds.play();
+        }
+
+        player.update();
+
+        ctx.font = "bold 20px Arial";
+        ctx.fillStyle = "black";
+        ctx.fillText("Control LV: " + controlLevel, 0, c.height * 0.02);
+        ctx.drawImage(mushroomImage, c.width / 8, 0, c.height * 0.02, c.height * 0.02);
+        ctx.fillText("= " + mushroomCount, c.width / 7.3, c.height * 0.02);
+        ctx.fillText("LV Bonus: " + levelBonus, c.width / 4, c.height * 0.02);
+        if (levelBonus <= 0) {
+            levelBonus = 1;
+        }
+
+        levelBonus -= 1;
+
+        ctx.fillText("Score: " + score + "          Top Score: " + topScore.name + ": " + topScore.score, c.width - c.width / 4, c.height * 0.02);
+
         ctx.fillText("Player size: " + Math.round(player.r), c.width / 2, c.height * 0.02);
 
         let blinkEyes = Math.random()
@@ -559,6 +564,9 @@ function animate() {
         }
 
     } else {
+
+        forestSounds.pause();
+
         if (score > topScore.score) {
             textName.style.visibility = "visible";
             let name = textName.value;
@@ -572,6 +580,10 @@ function animate() {
         }
         levelBonus = 0;
         gravity = 0.003;
+
+
+        ctx.font = "bold 20px Arial";
+        ctx.fillStyle = "black";
         ctx.fillText("Player size: DEAD", c.width / 2, 20);
         ctx.font = "bold 50px Arial";
         ctx.fillStyle = "red";
