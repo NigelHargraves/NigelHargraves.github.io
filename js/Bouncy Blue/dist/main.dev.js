@@ -82,30 +82,9 @@ stalkLeft.src = 'images/BB/stalkLeft.png';
 var pOnParachute = new Image();
 pOnParachute.src = 'images/BB/pOnParachute.png';
 var lOnParachute = new Image();
-lOnParachute.src = 'images/BB/lOnParachute.png'; //arrays to var.
+lOnParachute.src = 'images/BB/lOnParachute.png'; //declare array names.
 
-var enemies = [];
-var foods = [];
-var bonusPoints = [];
-var texts = [];
-var guidedMissiles = [];
-var deaths = [];
-var levelGains = [];
-var layers = [];
-var glows = [];
-var splats = [];
-var mines = [];
-var wanderingMines = [];
-var projectiles = [];
-var kills = [];
-var flowers = [];
-var sheilds = [];
-var mushrooms = [];
-var bullets = [];
-var bloodSplats = [];
-var bombs = [];
-var explodes = [];
-var sparks = []; //audio to var.
+var enemies, foods, bonusPoints, texts, guidedMissiles, deaths, levelGains, layers, glows, splats, mines, wanderingMines, projectiles, kills, flowers, sheilds, mushrooms, bullets, bloodSplats, bombs, explodes, sparks; //audio to var.
 
 var bounce = document.getElementById("audio1");
 var levelUp = document.getElementById("audio2");

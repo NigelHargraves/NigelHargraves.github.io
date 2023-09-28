@@ -83,29 +83,9 @@ pOnParachute.src = 'images/BB/pOnParachute.png';
 let lOnParachute = new Image();
 lOnParachute.src = 'images/BB/lOnParachute.png';
 
-//arrays to var.
-let enemies = [];
-let foods = [];
-let bonusPoints = [];
-let texts = [];
-let guidedMissiles = [];
-let deaths = [];
-let levelGains = [];
-let layers = [];
-let glows = [];
-let splats = [];
-let mines = [];
-let wanderingMines = [];
-let projectiles = [];
-let kills = [];
-let flowers = [];
-let sheilds = [];
-let mushrooms = [];
-let bullets = [];
-let bloodSplats = [];
-let bombs = [];
-let explodes = [];
-let sparks = [];
+//declare array names.
+let enemies, foods, bonusPoints, texts, guidedMissiles, deaths, levelGains, layers, glows, splats, mines, wanderingMines, projectiles, kills,
+    flowers, sheilds, mushrooms, bullets, bloodSplats, bombs, explodes, sparks;
 
 //audio to var.
 let bounce = document.getElementById("audio1");

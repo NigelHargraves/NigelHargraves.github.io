@@ -71,6 +71,7 @@ function init() {
     topScore = JSON.parse(localStorage.getItem("bestScore"));
     display.style.visibility = "hidden";
     button.style.visibility = "hidden";
+
     enemies = [];
     foods = [];
     bonusPoints = [];
