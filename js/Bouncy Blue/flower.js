@@ -14,6 +14,8 @@ class Flower {
             this.moveY = true;
             this.stalkUpperPoint = 0;
             this.stalkLowerPoint = 0;
+            this.accelerationX = 1;
+            this.accelerationY = 1;
         }
         //draw flower.
     draw() {
@@ -56,26 +58,65 @@ class Flower {
         if (this.stalkLowerPoint <= -100) {
             this.swayLower = true;
         }
-        if (this.moveX) {
-            this.x += Math.random() * 0.4;
+
+        if (this.moveX && this.x < this.startX + 50) {
+            if (this.accelerationX <= 1) {
+                this.accelerationX += 0.01;
+            }
+            this.x += this.accelerationX;
+        } else if (this.moveX && this.x >= this.startX + 50) {
+            if (this.accelerationX >= 0.2) {
+                this.accelerationX -= 0.01;
+            }
+            this.x += this.accelerationX;
+        } else if (!this.moveX && this.x >= this.startX + 50 || this.x <= this.startX - 50) {
+            if (this.accelerationX >= 0.2) {
+                this.accelerationX -= 0.01;
+            }
+            this.x -= this.accelerationX;
         } else {
-            this.x -= Math.random() * 0.4;
+            if (this.accelerationX <= 1) {
+                this.accelerationX += 0.01;
+            }
+            this.x -= this.accelerationX;
         }
+
         if (this.x >= this.startX + 100) {
             this.moveX = false;
         }
         if (this.x <= this.startX - 100) {
             this.moveX = true;
         }
-        if (this.moveY) {
-            this.y += Math.random() * 0.2;
+        if (this.moveY && this.y < this.startY + 40) {
+            if (this.accelerationY <= 1) {
+                this.accelerationY += 0.01;
+            }
+            this.y += this.accelerationY;
+        } else if (this.moveY && this.y >= this.startY + 40) {
+            if (this.accelerationY >= 0.2) {
+                this.accelerationY -= 0.01;
+            }
+            this.y += this.accelerationY;
+        } else if (!this.moveY && this.y >= this.startY + 40 || this.y <= this.startY - 40) {
+            if (this.accelerationY >= 0.2) {
+                this.accelerationY -= 0.01;
+            }
+            this.y -= this.accelerationY;
         } else {
-            this.y -= Math.random() * 0.2;
+            if (this.accelerationY <= 1) {
+                this.accelerationY += 0.01;
+            }
+            this.y -= this.accelerationY;
         }
-        if (this.y >= this.startY + 50) {
+
+
+
+
+
+        if (this.y >= this.startY + 60) {
             this.moveY = false;
         }
-        if (this.y <= this.startY - 50) {
+        if (this.y <= this.startY - 60) {
             this.moveY = true;
         }
         this.countdown -= 0.01;

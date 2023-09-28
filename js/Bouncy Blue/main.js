@@ -50,6 +50,8 @@ let faceBlink = new Image();
 faceBlink.src = 'images/BB/faceBlink.png';
 let faceSquint = new Image();
 faceSquint.src = 'images/BB/faceSquint.png';
+let faceBlank = new Image();
+faceBlank.src = 'images/BB/faceBlank.png';
 let starMissile = new Image();
 starMissile.src = 'images/BB/missile.png';
 let starMissile2 = new Image();
@@ -383,7 +385,7 @@ function animate() {
         if (controlLevel > 5) {
             let createFlower = Math.random();
             if (createFlower > 0.999) {
-                flowers.push(new Flower(Math.random() * (c.width * 2) + c.width, c.height - 200, c.height * 0.04, 25));
+                flowers.push(new Flower(Math.random() * (c.width * 3) + c.width, c.height - 200, c.height * 0.04, 25));
             }
 
             createFlower = Math.random();
