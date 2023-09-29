@@ -82,10 +82,14 @@ let pOnParachute = new Image();
 pOnParachute.src = 'images/BB/pOnParachute.png';
 let lOnParachute = new Image();
 lOnParachute.src = 'images/BB/lOnParachute.png';
+let flourSackOnBalloon = new Image();
+flourSackOnBalloon.src = 'images/BB/flourSackOnBalloon.png';
+let flourSack = new Image();
+flourSack.src = 'images/BB/flourSack.png';
 
 //declare array names.
 let enemies, foods, bonusPoints, texts, guidedMissiles, deaths, levelGains, layers, glows, splats, mines, wanderingMines, projectiles, kills,
-    flowers, sheilds, mushrooms, bullets, bloodSplats, bombs, explodes, sparks;
+    flowers, sheilds, mushrooms, bullets, bloodSplats, bombs, explodes, sparks, flourSacks;
 
 //audio to var.
 let bounce = document.getElementById("audio1");
@@ -152,7 +156,8 @@ let gravity,
     fireRate,
     fireRateCount,
     bombRate,
-    bombRateCount;
+    bombRateCount,
+    flourSackCount;
 
 
 
@@ -209,11 +214,6 @@ function animate() {
         layer.update();
     });
 
-
-
-
-
-
     if (playerAlive) {
 
         if (forestSounds.paused) {
@@ -228,15 +228,15 @@ function animate() {
         ctx.drawImage(mushroomImage, c.width / 8, 0, c.height * 0.02, c.height * 0.02);
         ctx.fillText("= " + mushroomCount, c.width / 7.3, c.height * 0.02);
         ctx.fillText("LV Bonus: " + levelBonus, c.width / 4, c.height * 0.02);
+        ctx.drawImage(flourSack, c.width / 6, 0, c.height * 0.02, c.height * 0.02);
+        ctx.fillText("= " + flourSackCount, c.width / 5.5, c.height * 0.02);
         if (levelBonus <= 0) {
             levelBonus = 1;
         }
-
         levelBonus -= 1;
-
         ctx.fillText("Score: " + score + "          Top Score: " + topScore.name + ": " + topScore.score, c.width - c.width / 4, c.height * 0.02);
-
         ctx.fillText("Player size: " + Math.round(player.r), c.width / 2, c.height * 0.02);
+
 
         let blinkEyes = Math.random()
         if (blinkEyes > 0.998 && !eyesBlink && !eyesSquint) {
@@ -362,7 +362,7 @@ function animate() {
         }
 
         //create flower.
-        if (controlLevel > 5) {
+        if (controlLevel >= 1) {
             let createFlower = Math.random();
             if (createFlower > 0.999) {
                 flowers.push(new Flower(Math.random() * (c.width * 3) + c.width, c.height - 200, c.height * 0.04, 25));
@@ -376,6 +376,10 @@ function animate() {
 
         if (flowers.length > 0) {
             forFlower();
+        }
+
+        if (flourSacks.length > 0) {
+            forFlourSacks();
         }
 
         //kill all.

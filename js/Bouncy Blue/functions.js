@@ -94,6 +94,7 @@ function init() {
     bombs = [];
     explodes = [];
     sparks = [];
+    flourSacks = [];
 
     gravity = 0.03,
         friction = 0.002,
@@ -124,7 +125,8 @@ function init() {
         fireRate = 10,
         fireRateCount = 0,
         bombRate = 100,
-        bombRateCount = 0;
+        bombRateCount = 0,
+        flourSackCount = 0;
 
     moveLeft = false,
         moveRight = false,

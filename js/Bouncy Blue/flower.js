@@ -109,10 +109,6 @@ class Flower {
             this.y -= this.accelerationY;
         }
 
-
-
-
-
         if (this.y >= this.startY + 60) {
             this.moveY = false;
         }

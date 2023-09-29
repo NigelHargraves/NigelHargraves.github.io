@@ -82,9 +82,13 @@ stalkLeft.src = 'images/BB/stalkLeft.png';
 var pOnParachute = new Image();
 pOnParachute.src = 'images/BB/pOnParachute.png';
 var lOnParachute = new Image();
-lOnParachute.src = 'images/BB/lOnParachute.png'; //declare array names.
+lOnParachute.src = 'images/BB/lOnParachute.png';
+var flourSackOnBalloon = new Image();
+flourSackOnBalloon.src = 'images/BB/flourSackOnBalloon.png';
+var flourSack = new Image();
+flourSack.src = 'images/BB/flourSack.png'; //declare array names.
 
-var enemies, foods, bonusPoints, texts, guidedMissiles, deaths, levelGains, layers, glows, splats, mines, wanderingMines, projectiles, kills, flowers, sheilds, mushrooms, bullets, bloodSplats, bombs, explodes, sparks; //audio to var.
+var enemies, foods, bonusPoints, texts, guidedMissiles, deaths, levelGains, layers, glows, splats, mines, wanderingMines, projectiles, kills, flowers, sheilds, mushrooms, bullets, bloodSplats, bombs, explodes, sparks, flourSacks; //audio to var.
 
 var bounce = document.getElementById("audio1");
 var levelUp = document.getElementById("audio2");
@@ -119,7 +123,7 @@ var elem = document.getElementById("myBar");
 var button = document.getElementById("button");
 var textName = document.getElementById("display"); //vars.
 
-var gravity, friction, controlLevel, velocityAmount, width, score, levelBonus, skillLevel, missileFire, minePlant, enemyVelocity, foodAmount, enemyRadius, stalkSize, textFade, bonus, x, ang, x1, y1, sheildTime, mushroomCount, mushroomSize, blink, squint, boltCount, fireRate, fireRateCount, bombRate, bombRateCount; //var texts.
+var gravity, friction, controlLevel, velocityAmount, width, score, levelBonus, skillLevel, missileFire, minePlant, enemyVelocity, foodAmount, enemyRadius, stalkSize, textFade, bonus, x, ang, x1, y1, sheildTime, mushroomCount, mushroomSize, blink, squint, boltCount, fireRate, fireRateCount, bombRate, bombRateCount, flourSackCount; //var texts.
 
 var clText = "Control Level "; //boolean vars.
 
@@ -189,6 +193,8 @@ function animate() {
     ctx.drawImage(mushroomImage, c.width / 8, 0, c.height * 0.02, c.height * 0.02);
     ctx.fillText("= " + mushroomCount, c.width / 7.3, c.height * 0.02);
     ctx.fillText("LV Bonus: " + levelBonus, c.width / 4, c.height * 0.02);
+    ctx.drawImage(flourSack, c.width / 6, 0, c.height * 0.02, c.height * 0.02);
+    ctx.fillText("= " + flourSackCount, c.width / 5.5, c.height * 0.02);
 
     if (levelBonus <= 0) {
       levelBonus = 1;
@@ -332,7 +338,7 @@ function animate() {
     } //create flower.
 
 
-    if (controlLevel > 5) {
+    if (controlLevel >= 1) {
       var createFlower = Math.random();
 
       if (createFlower > 0.999) {
@@ -348,6 +354,10 @@ function animate() {
 
     if (flowers.length > 0) {
       forFlower();
+    }
+
+    if (flourSacks.length > 0) {
+      forFlourSacks();
     } //kill all.
 
 

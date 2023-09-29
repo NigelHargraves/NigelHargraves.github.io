@@ -120,6 +120,7 @@ function bulletCheck(bullet, index1) {
       score += points;
       texts.push(new Text(flower.x, flower.y, Math.random() - 0.5, -c.height * 0.001, points, "bold 20px Arial", "yellow", 1, false));
       texts.push(new Text(flower.x, flower.y, Math.random() - 0.5, -c.height * 0.002, "😃", "bold 20px Arial", "yellow", 1, false));
+      flourSacks.push(new FlourSack(flower.x, flower.y, c.height * 0.001));
       flowers.splice(index2, 1);
       bullets.splice(index1, 1);
     }
