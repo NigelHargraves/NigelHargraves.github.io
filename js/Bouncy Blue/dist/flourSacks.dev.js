@@ -30,7 +30,7 @@ function () {
   }, {
     key: "update",
     value: function update() {
-      if (this.r <= c.height * 0.04) {
+      if (this.r <= c.height * 0.02) {
         this.r += c.height * 0.0001;
       }
 

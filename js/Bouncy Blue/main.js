@@ -365,7 +365,7 @@ function animate() {
         }
 
         //create flower.
-        if (controlLevel >= 1) {
+        if (controlLevel >= 3) {
             let createFlower = Math.random();
             if (createFlower > 0.999) {
                 flowers.push(new Flower(Math.random() * (c.width * 3) + c.width, c.height - 200, c.height * 0.04, 25));

@@ -340,7 +340,7 @@ function animate() {
     } //create flower.
 
 
-    if (controlLevel >= 1) {
+    if (controlLevel >= 3) {
       var createFlower = Math.random();
 
       if (createFlower > 0.999) {
