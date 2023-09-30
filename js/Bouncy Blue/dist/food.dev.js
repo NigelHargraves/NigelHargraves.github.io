@@ -30,7 +30,7 @@ function () {
       ctx.save();
       ctx.translate(this.x, this.y);
       ctx.rotate(this.swingAngle * Math.PI / 180);
-      ctx.drawImage(blueberry, 0 - this.r, 0 - this.r, this.r * 2, this.r * 3);
+      ctx.drawImage(blueberry, 0 - this.r, 0 - this.r * 1.5, this.r * 2, this.r * 3);
       ctx.restore();
     } //update food.
 
