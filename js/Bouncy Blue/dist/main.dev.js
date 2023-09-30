@@ -116,6 +116,8 @@ var splat = document.getElementById("audio23");
 var pain = document.getElementById("audio24");
 var dropBomb = document.getElementById("audio25");
 var bombExplode = document.getElementById("audio26");
+var gain = document.getElementById("audio27");
+var no = document.getElementById("audio28");
 var KP = {}; //Keyspressed array.
 //elements to vars.
 
@@ -266,9 +268,9 @@ function animate() {
       fireGap = true;
 
       if (fireRight) {
-        bullets.push(new Bullet(x, player.y - player.r - stalkSize, player.velocity.x + c.height * 0.01, "greenyellow"));
+        bullets.push(new Bullet(x, player.y - player.r - stalkSize, 10, player.velocity.x + c.height * 0.01, "greenyellow"));
       } else {
-        bullets.push(new Bullet(x, player.y - player.r - stalkSize, player.velocity.x + -c.height * 0.01, "greenyellow"));
+        bullets.push(new Bullet(x, player.y - player.r - stalkSize, 10, player.velocity.x + -c.height * 0.01, "greenyellow"));
       }
 
       laserShot.currentTime = 0;
@@ -338,7 +340,7 @@ function animate() {
     } //create flower.
 
 
-    if (controlLevel >= 1) {
+    if (controlLevel > 2) {
       var createFlower = Math.random();
 
       if (createFlower > 0.999) {

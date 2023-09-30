@@ -1,9 +1,10 @@
 //create bullet class.
 class Bullet {
     //construct bullet data.
-    constructor(x, y, velocity, color) {
+    constructor(x, y, size, velocity, color) {
         this.x = x;
         this.y = y;
+        this.s = size;
         this.v = velocity;
         this.color = color
     }
@@ -13,7 +14,7 @@ class Bullet {
         ctx.save();
         ctx.beginPath();
         ctx.moveTo(this.x, this.y);
-        ctx.lineTo(this.x + 10, this.y);
+        ctx.lineTo(this.x + this.s, this.y);
         ctx.lineWidth = 4;
         ctx.strokeStyle = this.color;
         ctx.filter = "blur(2px)";

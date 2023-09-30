@@ -1,5 +1,5 @@
 function explodesCheck(exp) {
-    let colide = collisionDetection(exp.x, exp.y, exp.s / 4, x, player.y, player.r);
+    let colide = collisionDetection(exp.x, exp.y, exp.s / 4, exp.s / 4, x, player.y, player.r, player.r);
     if (colide) {
         if (!playerSheild) {
             hit.currentTime = 0;
@@ -15,7 +15,7 @@ function explodesCheck(exp) {
         }
     }
     mines.forEach((mine, index2) => {
-        let colide = collisionDetection(exp.x, exp.y, exp.s / 4, mine.x, mine.y, mine.r);
+        let colide = collisionDetection(exp.x, exp.y, exp.s / 4, exp.s / 4, mine.x, mine.y, mine.r, mine.r);
         if (colide) {
             for (i = 0; i < Math.random() * 100 + 30; i++) {
                 bloodSplats.push(new BloodSplat(mine.x, mine.y, Math.random() * 2, {
@@ -35,7 +35,7 @@ function explodesCheck(exp) {
         }
     });
     enemies.forEach((enemy, index2) => {
-        let colide = collisionDetection(exp.x, exp.y, exp.s / 2, enemy.x, enemy.y, enemy.r);
+        let colide = collisionDetection(exp.x, exp.y, exp.s / 2, exp.s / 2, enemy.x, enemy.y, enemy.r, enemy.r);
         if (colide) {
             splat.currentTime = 0;
             pain.currentTime = 0;
@@ -59,7 +59,7 @@ function explodesCheck(exp) {
         }
     });
     mushrooms.forEach((mroom, index2) => {
-        let colide = collisionDetection(exp.x, exp.y, exp.s / 4, mroom.x + mushroomSize / 2, mroom.y + mushroomSize / 2, mushroomSize);
+        let colide = collisionDetection(exp.x, exp.y, exp.s / 4, exp.s / 4, mroom.x + (mushroomSize / 2), mroom.y + (mushroomSize / 2), mushroomSize, mushroomSize);
         if (colide) {
             splat.currentTime = 0;
             splat.play();
@@ -79,7 +79,7 @@ function explodesCheck(exp) {
         }
     });
     foods.forEach((food, index2) => {
-        let colide = collisionDetection(exp.x, exp.y, exp.s / 2, food.x, food.y, food.r);
+        let colide = collisionDetection(exp.x, exp.y, exp.s / 2, exp.s / 2, food.x, food.y, food.r, food.r);
         if (colide) {
             splat.currentTime = 0;
             splat.play();
@@ -110,7 +110,7 @@ function explodesCheck(exp) {
         }
     });
     flowers.forEach((flower, index2) => {
-        let colide = collisionDetection(exp.x, exp.y, exp.s / 2, flower.x, flower.y, flower.r);
+        let colide = collisionDetection(exp.x, exp.y, exp.s / 2, exp.s / 2, flower.x, flower.y, flower.r, flower.r);
         if (colide) {
             splat.currentTime = 0;
             splat.play();

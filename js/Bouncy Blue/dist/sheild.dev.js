@@ -39,7 +39,7 @@ function () {
 
 function forShield() {
   sheilds.forEach(function (sheild) {
-    var colide = collisionDetection(sheild.x, sheild.y, sheild.r, x, player.y, player.r);
+    var colide = collisionDetection(sheild.x, sheild.y, sheild.r, sheild.r, x, player.y, player.r, player.r);
 
     if (colide) {
       sheilds = [];

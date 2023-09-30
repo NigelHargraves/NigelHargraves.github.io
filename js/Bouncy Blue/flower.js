@@ -124,7 +124,7 @@ class Flower {
 
 function forFlower() {
     flowers.forEach((flower, index) => {
-        let colide = collisionDetection(flower.x, flower.y, flower.r * (c.height * 0.004), x, player.y, player.r);
+        let colide = collisionDetection(flower.x, flower.y, flower.r, flower.r, x, player.y, player.r, player.r);
         if (colide) {
             flowerFire.currentTime = 0;
             flowerFire.play();

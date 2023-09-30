@@ -154,7 +154,7 @@ function () {
 
 function forFlower() {
   flowers.forEach(function (flower, index) {
-    var colide = collisionDetection(flower.x, flower.y, flower.r * (c.height * 0.004), x, player.y, player.r);
+    var colide = collisionDetection(flower.x, flower.y, flower.r, flower.r, x, player.y, player.r, player.r);
 
     if (colide) {
       flowerFire.currentTime = 0;

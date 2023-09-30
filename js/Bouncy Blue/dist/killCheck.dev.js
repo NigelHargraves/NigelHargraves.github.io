@@ -1,7 +1,7 @@
 "use strict";
 
 function killCheck(kill, killScore) {
-  var colide = collisionDetection(kill.x, kill.y, kill.r, x, player.y, player.r);
+  var colide = collisionDetection(kill.x, kill.y, kill.r, kill.r, x, player.y, player.r, player.r);
 
   if (colide) {
     var _killScore = 0;

@@ -51,7 +51,7 @@ function () {
 
 function forWanderingMine() {
   wanderingMines.forEach(function (wmine, index) {
-    var colide = collisionDetection(wmine.x, wmine.y, wmine.r * 5, x, player.y, player.r);
+    var colide = collisionDetection(wmine.x, wmine.y, wmine.r * 5, wmine.r * 5, x, player.y, player.r, player.r);
 
     if (colide) {
       if (wmine.x > 0 - wmine.r && wmine.x < c.width + wmine.r) {

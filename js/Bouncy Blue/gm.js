@@ -38,7 +38,7 @@ class GuidedMissile {
 
 function forGM() {
     guidedMissiles.forEach((gm, index) => {
-        let colide = collisionDetection(gm.x, gm.y, gm.r + 20, x, player.y, player.r);
+        let colide = collisionDetection(gm.x, gm.y, gm.r + 20, gm.r + 20, x, player.y, player.r, player.r);
         if (colide) {
             mineExplode.currentTime = 0;
             mineExplode.play();

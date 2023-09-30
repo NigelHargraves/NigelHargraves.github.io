@@ -1,5 +1,5 @@
 function killCheck(kill, killScore) {
-    let colide = collisionDetection(kill.x, kill.y, kill.r, x, player.y, player.r);
+    let colide = collisionDetection(kill.x, kill.y, kill.r, kill.r, x, player.y, player.r, player.r);
     if (colide) {
         let killScore = 0;
         LBall = true;

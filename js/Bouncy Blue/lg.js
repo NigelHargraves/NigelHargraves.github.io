@@ -39,7 +39,7 @@ class LevelGain {
 
 function forLG() {
     levelGains.forEach((LG, index) => {
-        let colide = collisionDetection(LG.x, LG.y, LG.r * 2, x, player.y, player.r);
+        let colide = collisionDetection(LG.x, LG.y, LG.r, LG.r * 1.5, x, player.y, player.r, player.r);
         if (colide) {
             //player gains level.
             //player gets next level of control + bonus score/update variables.

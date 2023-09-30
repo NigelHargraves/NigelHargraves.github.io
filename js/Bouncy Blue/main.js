@@ -118,6 +118,8 @@ let splat = document.getElementById("audio23");
 let pain = document.getElementById("audio24");
 let dropBomb = document.getElementById("audio25");
 let bombExplode = document.getElementById("audio26");
+let gain = document.getElementById("audio27");
+let no = document.getElementById("audio28");
 
 let KP = {}; //Keyspressed array.
 
@@ -297,9 +299,9 @@ function animate() {
         if (fire && fireRateCount == 0) {
             fireGap = true;
             if (fireRight) {
-                bullets.push(new Bullet(x, player.y - player.r - stalkSize, player.velocity.x + c.height * 0.01, "greenyellow"));
+                bullets.push(new Bullet(x, player.y - player.r - stalkSize, 10, player.velocity.x + c.height * 0.01, "greenyellow"));
             } else {
-                bullets.push(new Bullet(x, player.y - player.r - stalkSize, player.velocity.x + -c.height * 0.01, "greenyellow"));
+                bullets.push(new Bullet(x, player.y - player.r - stalkSize, 10, player.velocity.x + -c.height * 0.01, "greenyellow"));
             }
             laserShot.currentTime = 0;
             laserShot.play();
@@ -362,7 +364,7 @@ function animate() {
         }
 
         //create flower.
-        if (controlLevel >= 1) {
+        if (controlLevel > 2) {
             let createFlower = Math.random();
             if (createFlower > 0.999) {
                 flowers.push(new Flower(Math.random() * (c.width * 3) + c.width, c.height - 200, c.height * 0.04, 25));

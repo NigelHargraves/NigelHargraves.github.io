@@ -60,7 +60,7 @@ function () {
 
 function forGM() {
   guidedMissiles.forEach(function (gm, index) {
-    var colide = collisionDetection(gm.x, gm.y, gm.r + 20, x, player.y, player.r);
+    var colide = collisionDetection(gm.x, gm.y, gm.r + 20, gm.r + 20, x, player.y, player.r, player.r);
 
     if (colide) {
       mineExplode.currentTime = 0;

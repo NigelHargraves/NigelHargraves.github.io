@@ -62,7 +62,7 @@ function () {
 
 function forFood() {
   foods.forEach(function (food, index) {
-    var colide = collisionDetection(food.x, food.y, food.r * 2, x, player.y, player.r);
+    var colide = collisionDetection(food.x, food.y, food.r, food.r * 1.5, x, player.y, player.r, player.r);
 
     if (colide) {
       eatFood.currentTime = 0;

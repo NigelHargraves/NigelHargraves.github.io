@@ -9,7 +9,7 @@ class FlourSack {
         }
         //draw flourSacks.
     draw() {
-            ctx.drawImage(flourSackOnBalloon, this.x - this.r, this.y - this.r * 2.25, this.r * 2, this.r * 4.5);
+            ctx.drawImage(flourSackOnBalloon, this.x - this.r, this.y - this.r * 2.25, this.r * 2.25, this.r * 4.5);
         }
         //update flourSacks.
     update() {
@@ -25,8 +25,10 @@ class FlourSack {
 
 function forFlourSacks() {
     flourSacks.forEach((sack, index) => {
-        let colide = collisionDetection(sack.x, sack.y, sack.r * 1.5, x, player.y, player.r);
+        let colide = collisionDetection(sack.x, sack.y, sack.r, sack.r * 2.25, x, player.y, player.r, player.r);
         if (colide) {
+            gain.currentTime = 0;
+            gain.play();
             flourSackCount += 1;
             flourSacks.splice(index, 1);
         }

@@ -27,7 +27,7 @@ class Projectile {
 
 function forProjectile() {
     projectiles.forEach((pro, index) => {
-        let colide = collisionDetection(pro.x, pro.y, pro.r, x, player.y, player.r);
+        let colide = collisionDetection(pro.x, pro.y, pro.r, pro.r, x, player.y, player.r, player.r);
         if (colide) {
             if (!playerSheild) {
                 hit.currentTime = 0;

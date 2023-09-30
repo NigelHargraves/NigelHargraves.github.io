@@ -42,7 +42,7 @@ function () {
 
 function forMine() {
   mines.forEach(function (mine, index) {
-    var colide = collisionDetection(mine.x, mine.y, mine.r, x, player.y, player.r);
+    var colide = collisionDetection(mine.x, mine.y, mine.r * 2, mine.r * 2, x, player.y, player.r, player.r);
 
     if (colide) {
       if (!playerSheild) {

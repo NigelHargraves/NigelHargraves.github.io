@@ -19,7 +19,7 @@ class Sheild {
 
 function forShield() {
     sheilds.forEach((sheild) => {
-        let colide = collisionDetection(sheild.x, sheild.y, sheild.r, x, player.y, player.r);
+        let colide = collisionDetection(sheild.x, sheild.y, sheild.r, sheild.r, x, player.y, player.r, player.r);
         if (colide) {
             sheilds = [];
             playerSheild = true;

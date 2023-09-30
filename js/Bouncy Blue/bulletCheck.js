@@ -1,6 +1,6 @@
 function bulletCheck(bullet, index1) {
     enemies.forEach((enemy, index2) => {
-        let colide = collisionDetection(bullet.x + 5, bullet.y, 10, enemy.x, enemy.y, enemy.r);
+        let colide = collisionDetection(bullet.x + 5, bullet.y, bullet.s, bullet.s, enemy.x, enemy.y, enemy.r, enemy.r);
         if (colide) {
             splat.currentTime = 0;
             pain.currentTime = 0;
@@ -35,7 +35,7 @@ function bulletCheck(bullet, index1) {
         }
     });
     wanderingMines.forEach((wmine, index2) => {
-        let colide = collisionDetection(bullet.x + 5, bullet.y, 10, wmine.x, wmine.y, wmine.r);
+        let colide = collisionDetection(bullet.x + 5, bullet.y, bullet.s, bullet.s, wmine.x, wmine.y, wmine.r, wmine.r);
         if (colide) {
             splat.currentTime = 0;
             pain.currentTime = 0;
@@ -69,7 +69,7 @@ function bulletCheck(bullet, index1) {
         }
     });
     foods.forEach((food, index2) => {
-        let colide = collisionDetection(bullet.x + 5, bullet.y, 10, food.x, food.y, food.r);
+        let colide = collisionDetection(bullet.x + 5, bullet.y, bullet.s, bullet.s, food.x, food.y, food.r, food.r * 1.5);
         if (colide) {
             splat.currentTime = 0;
             splat.play();
@@ -100,7 +100,7 @@ function bulletCheck(bullet, index1) {
         }
     });
     flowers.forEach((flower, index2) => {
-        let colide = collisionDetection(bullet.x + 5, bullet.y, 10, flower.x, flower.y, flower.r);
+        let colide = collisionDetection(bullet.x + 5, bullet.y, bullet.s, bullet.s, flower.x, flower.y, flower.r, flower.r);
         if (colide) {
             splat.currentTime = 0;
             splat.play();
@@ -132,7 +132,7 @@ function bulletCheck(bullet, index1) {
         }
     });
     mushrooms.forEach((mroom, index2) => {
-        let colide = collisionDetection(bullet.x + 5, bullet.y, 10, mroom.x + mushroomSize / 2, mroom.y + mushroomSize / 2, mushroomSize / 2 + 10);
+        let colide = collisionDetection(bullet.x + 5, bullet.y, bullet.s, bullet.s, mroom.x + (mushroomSize / 2), mroom.y + (mushroomSize / 2), mushroomSize, mushroomSize);
         if (colide) {
             splat.currentTime = 0;
             splat.play();

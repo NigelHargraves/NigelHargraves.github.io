@@ -47,7 +47,7 @@ function () {
 
 function forProjectile() {
   projectiles.forEach(function (pro, index) {
-    var colide = collisionDetection(pro.x, pro.y, pro.r, x, player.y, player.r);
+    var colide = collisionDetection(pro.x, pro.y, pro.r, pro.r, x, player.y, player.r, player.r);
 
     if (colide) {
       if (!playerSheild) {

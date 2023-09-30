@@ -24,7 +24,7 @@ function () {
   _createClass(FlourSack, [{
     key: "draw",
     value: function draw() {
-      ctx.drawImage(flourSackOnBalloon, this.x - this.r, this.y - this.r * 2.25, this.r * 2, this.r * 4.5);
+      ctx.drawImage(flourSackOnBalloon, this.x - this.r, this.y - this.r * 2.25, this.r * 2.25, this.r * 4.5);
     } //update flourSacks.
 
   }, {
@@ -46,9 +46,11 @@ function () {
 
 function forFlourSacks() {
   flourSacks.forEach(function (sack, index) {
-    var colide = collisionDetection(sack.x, sack.y, sack.r * 1.5, x, player.y, player.r);
+    var colide = collisionDetection(sack.x, sack.y, sack.r, sack.r * 2.25, x, player.y, player.r, player.r);
 
     if (colide) {
+      gain.currentTime = 0;
+      gain.play();
       flourSackCount += 1;
       flourSacks.splice(index, 1);
     }

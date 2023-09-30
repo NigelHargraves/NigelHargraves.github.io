@@ -11,11 +11,12 @@ var Bullet =
 /*#__PURE__*/
 function () {
   //construct bullet data.
-  function Bullet(x, y, velocity, color) {
+  function Bullet(x, y, size, velocity, color) {
     _classCallCheck(this, Bullet);
 
     this.x = x;
     this.y = y;
+    this.s = size;
     this.v = velocity;
     this.color = color;
   } //draw bullet.
@@ -27,7 +28,7 @@ function () {
       ctx.save();
       ctx.beginPath();
       ctx.moveTo(this.x, this.y);
-      ctx.lineTo(this.x + 10, this.y);
+      ctx.lineTo(this.x + this.s, this.y);
       ctx.lineWidth = 4;
       ctx.strokeStyle = this.color;
       ctx.filter = "blur(2px)";

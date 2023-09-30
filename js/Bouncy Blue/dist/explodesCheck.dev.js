@@ -1,7 +1,7 @@
 "use strict";
 
 function explodesCheck(exp) {
-  var colide = collisionDetection(exp.x, exp.y, exp.s / 4, x, player.y, player.r);
+  var colide = collisionDetection(exp.x, exp.y, exp.s / 4, exp.s / 4, x, player.y, player.r, player.r);
 
   if (colide) {
     if (!playerSheild) {
@@ -21,7 +21,7 @@ function explodesCheck(exp) {
   }
 
   mines.forEach(function (mine, index2) {
-    var colide = collisionDetection(exp.x, exp.y, exp.s / 4, mine.x, mine.y, mine.r);
+    var colide = collisionDetection(exp.x, exp.y, exp.s / 4, exp.s / 4, mine.x, mine.y, mine.r, mine.r);
 
     if (colide) {
       for (i = 0; i < Math.random() * 100 + 30; i++) {
@@ -39,7 +39,7 @@ function explodesCheck(exp) {
     }
   });
   enemies.forEach(function (enemy, index2) {
-    var colide = collisionDetection(exp.x, exp.y, exp.s / 2, enemy.x, enemy.y, enemy.r);
+    var colide = collisionDetection(exp.x, exp.y, exp.s / 2, exp.s / 2, enemy.x, enemy.y, enemy.r, enemy.r);
 
     if (colide) {
       splat.currentTime = 0;
@@ -62,7 +62,7 @@ function explodesCheck(exp) {
     }
   });
   mushrooms.forEach(function (mroom, index2) {
-    var colide = collisionDetection(exp.x, exp.y, exp.s / 4, mroom.x + mushroomSize / 2, mroom.y + mushroomSize / 2, mushroomSize);
+    var colide = collisionDetection(exp.x, exp.y, exp.s / 4, exp.s / 4, mroom.x + mushroomSize / 2, mroom.y + mushroomSize / 2, mushroomSize, mushroomSize);
 
     if (colide) {
       splat.currentTime = 0;
@@ -84,7 +84,7 @@ function explodesCheck(exp) {
     }
   });
   foods.forEach(function (food, index2) {
-    var colide = collisionDetection(exp.x, exp.y, exp.s / 2, food.x, food.y, food.r);
+    var colide = collisionDetection(exp.x, exp.y, exp.s / 2, exp.s / 2, food.x, food.y, food.r, food.r);
 
     if (colide) {
       splat.currentTime = 0;
@@ -117,7 +117,7 @@ function explodesCheck(exp) {
     }
   });
   flowers.forEach(function (flower, index2) {
-    var colide = collisionDetection(exp.x, exp.y, exp.s / 2, flower.x, flower.y, flower.r);
+    var colide = collisionDetection(exp.x, exp.y, exp.s / 2, exp.s / 2, flower.x, flower.y, flower.r, flower.r);
 
     if (colide) {
       splat.currentTime = 0;

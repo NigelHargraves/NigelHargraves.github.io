@@ -70,12 +70,14 @@ function () {
 
 function forEnemy() {
   enemies.forEach(function (enemy, index) {
-    var colide = collisionDetection(enemy.x, enemy.y, enemy.r, x, player.y, player.r);
+    var colide = collisionDetection(enemy.x, enemy.y, enemy.r, enemy.r, x, player.y, player.r, player.r);
 
     if (colide) {
       if (!playerSheild) {
         hit.currentTime = 0;
-        hit.play(); //reduce player size/reset variables.
+        hit.play();
+        no.currentTime = 0;
+        no.play(); //reduce player size/reset variables.
 
         if (player.r > 20) {
           player.r = 20;

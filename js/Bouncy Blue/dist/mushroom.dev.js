@@ -38,7 +38,7 @@ function () {
 
 function forMushroom() {
   mushrooms.forEach(function (mroom, index) {
-    var colide = collisionDetection(mroom.x + mushroomSize / 2, mroom.y + mushroomSize / 2, mushroomSize / 2, x, player.y, player.r);
+    var colide = collisionDetection(mroom.x + mushroomSize / 2, mroom.y + mushroomSize / 2, mushroomSize, mushroomSize, x, player.y, player.r.player.r);
 
     if (colide) {
       mushroomEat.currentTime = 0;
