@@ -87,6 +87,7 @@ flourSackOnBalloon.src = 'images/BB/flourSackOnBalloon.png';
 let flourSack = new Image();
 flourSack.src = 'images/BB/flourSack.png';
 
+
 //declare array names.
 let enemies, foods, bonusPoints, texts, guidedMissiles, deaths, levelGains, layers, glows, splats, mines, wanderingMines, projectiles, kills,
     flowers, sheilds, mushrooms, bullets, bloodSplats, bombs, explodes, sparks, flourSacks;
