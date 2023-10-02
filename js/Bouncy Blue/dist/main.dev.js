@@ -90,7 +90,9 @@ flourSack.src = 'images/BB/flourSack.png';
 var waterMill = new Image();
 waterMill.src = 'images/BB/waterMill.png';
 var river = new Image();
-river.src = 'images/BB/river.png'; //declare array names.
+river.src = 'images/BB/river.png';
+var oven = new Image();
+oven.src = 'images/BB/oven.png'; //declare array names.
 
 var enemies, foods, bonusPoints, texts, guidedMissiles, deaths, levelGains, layers, glows, splats, mines, wanderingMines, projectiles, kills, flowers, sheilds, mushrooms, bullets, bloodSplats, bombs, explodes, sparks, flourSacks; //audio to var.
 

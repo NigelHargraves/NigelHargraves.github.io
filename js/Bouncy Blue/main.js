@@ -90,6 +90,9 @@ let waterMill = new Image();
 waterMill.src = 'images/BB/waterMill.png';
 let river = new Image();
 river.src = 'images/BB/river.png';
+let oven = new Image();
+oven.src = 'images/BB/oven.png';
+
 
 //declare array names.
 let enemies, foods, bonusPoints, texts, guidedMissiles, deaths, levelGains, layers, glows, splats, mines, wanderingMines, projectiles, kills,
