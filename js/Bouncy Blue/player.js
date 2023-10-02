@@ -14,8 +14,8 @@ class Player {
         }
         //draw player.
     draw() {
-
-
+        ctx.drawImage(river, millX, c.height - c.height * 0.260, c.height * 0.400, c.height * 0.200);
+        ctx.drawImage(waterMill, millX, c.height - c.height * 0.380, c.height * 0.400, c.height * 0.400);
 
         if (playerSheild) {
             ctx.globalAlpha = this.alpha;
@@ -96,6 +96,7 @@ class Player {
         //update position.
         this.x += this.velocity.x;
         this.y += this.velocity.y;
+        millX -= this.velocity.x;
 
         if (playerSheild) {
             if (this.alpha <= 0.2) {

@@ -86,7 +86,10 @@ let flourSackOnBalloon = new Image();
 flourSackOnBalloon.src = 'images/BB/flourSackOnBalloon.png';
 let flourSack = new Image();
 flourSack.src = 'images/BB/flourSack.png';
-
+let waterMill = new Image();
+waterMill.src = 'images/BB/waterMill.png';
+let river = new Image();
+river.src = 'images/BB/river.png';
 
 //declare array names.
 let enemies, foods, bonusPoints, texts, guidedMissiles, deaths, levelGains, layers, glows, splats, mines, wanderingMines, projectiles, kills,
@@ -160,7 +163,9 @@ let gravity,
     fireRateCount,
     bombRate,
     bombRateCount,
-    flourSackCount;
+    flourSackCount,
+    millX,
+    info = "";
 
 
 
@@ -239,7 +244,7 @@ function animate() {
         levelBonus -= 1;
         ctx.fillText("Score: " + score + "          Top Score: " + topScore.name + ": " + topScore.score, c.width - c.width / 4, c.height * 0.02);
         ctx.fillText("Player size: " + Math.round(player.r), c.width / 2, c.height * 0.02);
-
+        ctx.fillText(info, c.width / 5.5, c.height * 0.04);
 
         let blinkEyes = Math.random()
         if (blinkEyes > 0.998 && !eyesBlink && !eyesSquint) {
@@ -660,6 +665,56 @@ window.addEventListener("keyup", (e) => {
     if (e.keyCode == 66) {
         bombDrop = false;
     }
+});
+
+window.addEventListener("mousemove", (e) => {
+    if (e.x > c.width / 2) {
+        fireRight = true;
+    } else {
+        fireRight = false;
+    }
+});
+
+window.addEventListener("mousedown", (e) => {
+    info = e.which;
+    if (e.which == 1) {
+        increaseBounce = true;
+        if (e.x < c.width / 2 - c.width * 0.1) {
+            moveLeft = true;
+        }
+        if (e.x > c.width / 2 + c.width * 0.1) {
+            moveRight = true;
+        }
+        if (e.x < c.width / 2) {
+            fireRight = false;
+        }
+        if (e.x > c.width / 2) {
+            fireRight = true;
+        }
+    }
+    if (e.y < c.height / 2 - c.height * 0.1) {
+        moveUp = true;
+    }
+    if (e.y > c.height / 2 + c.height * 0.1) {
+        moveDown = true;
+    }
+
+    if (e.which == 2) {
+        bombDrop = true;
+    }
+
+    if (e.which == 3) {
+        fire = true;
+    }
+});
+window.addEventListener("mouseup", (e) => {
+    moveLeft = false;
+    moveRight = false;
+    increaseBounce = false;
+    fire = false;
+    moveUp = false;
+    moveDown = false;
+    bombDrop = false;
 });
 
 init();

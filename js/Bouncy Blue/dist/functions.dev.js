@@ -105,7 +105,7 @@ function init() {
   explodes = [];
   sparks = [];
   flourSacks = [];
-  gravity = 0.03, friction = 0.002, controlLevel = 1, velocityAmount = 0.02, width = 0, score = 0, levelBonus = 8000, skillLevel = 0.998, missileFire = 0.9999, minePlant = 0.9999, enemyVelocity = 1, foodAmount = 0.998, enemyRadius = c.height * 0.008, stalkSize = c.height * 0.01, textFade = 1, bonus = 0, x = c.width / 2, ang = 0, x1 = 0, y1 = 0, sheildTime = 30, mushroomCount = 0, mushroomSize = c.height * 0.05, blink = 4, squint = 2, boltCount = 5, fireRate = 10, fireRateCount = 0, bombRate = 100, bombRateCount = 0, flourSackCount = 0;
+  gravity = 0.03, friction = 0.002, controlLevel = 1, velocityAmount = 0.02, width = 0, score = 0, levelBonus = 8000, skillLevel = 0.998, missileFire = 0.9999, minePlant = 0.9999, enemyVelocity = 1, foodAmount = 0.998, enemyRadius = c.height * 0.008, stalkSize = c.height * 0.01, textFade = 1, bonus = 0, x = c.width / 2, ang = 0, x1 = 0, y1 = 0, sheildTime = 30, mushroomCount = 0, mushroomSize = c.height * 0.05, blink = 4, squint = 2, boltCount = 5, fireRate = 10, fireRateCount = 0, bombRate = 100, bombRateCount = 0, flourSackCount = 0, millX = 0 - c.height * 0.200, mx = x, my = 0;
   moveLeft = false, moveRight = false, moveUp = false, moveDown = false, eyesBlink = false, eyesSquint = false, increaseBounce = false, fadeText = false, missile = false, playerAlive = true, minesToPlant = false, endGameSound = false, playerSheild = false, LBall = false;
   width = 0;
   elem.style.width = width + "%";

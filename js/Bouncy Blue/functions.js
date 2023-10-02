@@ -126,7 +126,10 @@ function init() {
         fireRateCount = 0,
         bombRate = 100,
         bombRateCount = 0,
-        flourSackCount = 0;
+        flourSackCount = 0,
+        millX = 0 - c.height * 0.200,
+        mx = x,
+        my = 0;
 
     moveLeft = false,
         moveRight = false,
