@@ -19,7 +19,7 @@ class Spark {
         //update sparks.
     update() {
         this.alpha -= 0.01;
-        this.x += -player.velocity.x * 1.25;
+        this.x += this.velocityX + -player.velocity.x * 1.25;
         this.y += this.velocityY;
         this.draw();
     }
