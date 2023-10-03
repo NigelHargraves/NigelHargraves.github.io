@@ -25,7 +25,7 @@ class Bullet {
     //update bullet.
     update() {
         this.x += this.v;
-        this.x += -player.velocity.x;
+        this.x += -player.velocity.x * 1.25;
         this.draw();
     }
 }

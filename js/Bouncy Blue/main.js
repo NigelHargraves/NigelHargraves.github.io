@@ -247,7 +247,8 @@ function animate() {
         levelBonus -= 1;
         ctx.fillText("Score: " + score + "          Top Score: " + topScore.name + ": " + topScore.score, c.width - c.width / 4, c.height * 0.02);
         ctx.fillText("Player size: " + Math.round(player.r), c.width / 2, c.height * 0.02);
-        ctx.fillText(info, c.width / 5.5, c.height * 0.04);
+
+        //ctx.fillText("mushrooms = " + mushrooms.length, c.width / 5.5, c.height * 0.04);
 
         let blinkEyes = Math.random()
         if (blinkEyes > 0.998 && !eyesBlink && !eyesSquint) {
@@ -334,14 +335,11 @@ function animate() {
         }
 
         //create mushroom.
-        if (controlLevel > 2) {
+        if (controlLevel > 1) {
             let createMushroom = Math.random();
-            if (createMushroom > 0.9995) {
-                mushrooms.push(new Mushroom((Math.random() * c.height * 3) + c.width, c.height - (mushroomSize + c.height * 0.02)))
-            }
-            createMushroom = Math.random();
-            if (createMushroom > 0.9991) {
-                mushrooms.push(new Mushroom((Math.random() * -c.height * 3), c.height - (mushroomSize + c.height * 0.02)))
+            if (createMushroom > 0.999) {
+                mushrooms.push(new Mushroom((Math.random() * c.width * 2) + c.width, c.height - (mushroomSize + c.height * 0.02)))
+                mushrooms.push(new Mushroom(0 - Math.random() * (c.width * 2), c.height - (mushroomSize + c.height * 0.02)))
             }
         }
 
@@ -373,7 +371,7 @@ function animate() {
         }
 
         //create flower.
-        if (controlLevel >= 3) {
+        if (controlLevel > 3) {
             let createFlower = Math.random();
             if (createFlower > 0.999) {
                 flowers.push(new Flower(Math.random() * (c.width * 3) + c.width, c.height - 200, c.height * 0.04, 25));
@@ -443,7 +441,7 @@ function animate() {
             }
             plantMine = Math.random();
             if (plantMine > minePlant) {
-                mines.push(new Mine(Math.random() * (-c.width * 3), c.height - 20, 30, 25));
+                mines.push(new Mine(0 - Math.random() * (c.width * 2), c.height - 20, 30, 25));
             }
         }
 

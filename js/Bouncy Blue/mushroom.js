@@ -20,7 +20,7 @@ class Mushroom {
 
 function forMushroom() {
     mushrooms.forEach((mroom, index) => {
-        let colide = collisionDetection(mroom.x + (mushroomSize / 2), mroom.y + (mushroomSize / 2), mushroomSize, mushroomSize, x, player.y, player.r.player.r);
+        let colide = collisionDetection(mroom.x + (mushroomSize / 2), mroom.y + (mushroomSize / 2), mushroomSize, mushroomSize, x, player.y, player.r, player.r);
         if (colide) {
             mushroomEat.currentTime = 0;
             mushroomEat.play();
@@ -32,8 +32,6 @@ function forMushroom() {
             texts.push(
                 new Text(x, player.y, Math.random() - 0.5, -c.height * 0.002, "😃", "bold 20px Arial", "yellow", 1, false)
             );
-
-
             mushrooms.splice(index, 1);
         }
 

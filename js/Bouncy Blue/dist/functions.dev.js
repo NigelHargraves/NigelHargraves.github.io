@@ -29,6 +29,7 @@ function reset() {
 
     width = 0;
     elem.style.width = width + "%";
+    minesToPlant = false;
   } else {
     sheildHit.currentTime = 0;
     sheildHit.play();
@@ -45,10 +46,10 @@ function levelJump() {
 
   if (controlLevel > 4) {
     foodAmount -= 0.0001;
-    minePlant -= 0.0005;
+    minePlant -= 0.0001;
   }
 
-  if (controlLevel > 2) {
+  if (controlLevel > 3) {
     missileFire -= 0.0001;
     enemyRadius += 1;
   }
@@ -110,21 +111,6 @@ function init() {
   width = 0;
   elem.style.width = width + "%";
   player = new Player(c.width / 2, c.height / 2, 20);
-  foods.push(new Food(Math.random() * c.width, -c.height * 0.05, Math.random() - 0.5, Math.random(), c.height * 0.02));
-  food.currentTime = 0;
-  food.play();
-  var beeDirection;
-  var setDirection = Math.random();
-
-  if (setDirection >= 0.5) {
-    beeDirection = false;
-  } else {
-    beeDirection = true;
-  }
-
-  enemies.push(new Enemy(Math.random() * (c.width * 3) - c.width, 0, enemyVelocity, enemyVelocity, enemyRadius, beeDirection));
-  beeBuzz.currentTime = 0;
-  beeBuzz.play();
   forestSounds.currentTime = 0;
   forestSounds.play();
   layers.push(new Layer(background4, 0, c.height, 0));

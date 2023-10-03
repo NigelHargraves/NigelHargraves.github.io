@@ -32,7 +32,7 @@ class Enemy {
         } else {
             this.x -= enemyVelocity - 0.4;
         }
-        this.x += -player.velocity.x;
+        this.x += -player.velocity.x * 1.25;
         changeDirection = Math.random();
         if (changeDirection > 0.7) {
             this.y -= this.velocityY;

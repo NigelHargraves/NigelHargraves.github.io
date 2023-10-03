@@ -31,7 +31,7 @@ class BonusPoints {
         } else {
             this.swingAngle -= Math.random() / 5;
         }
-        this.x += -player.velocity.x;
+        this.x += -player.velocity.x * 1.25;
         this.y += this.velocityY;
         this.draw();
     }

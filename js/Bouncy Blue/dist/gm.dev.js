@@ -49,7 +49,7 @@ function () {
         this.countDown -= 0.1;
       }
 
-      this.x += -player.velocity.x + this.velocityX;
+      this.x += -player.velocity.x * 1.25;
       this.y += this.velocityY;
       this.draw();
     }

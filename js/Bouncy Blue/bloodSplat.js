@@ -27,7 +27,7 @@ class BloodSplat {
         this.v.y *= friction;
         this.v.y += gravity * 4;
         this.x += this.v.x;
-        this.x += -player.velocity.x;
+        this.x += -player.velocity.x * 1.25;
         this.y += this.v.y;
 
         this.draw();

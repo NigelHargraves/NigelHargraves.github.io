@@ -32,7 +32,7 @@ function () {
   }, {
     key: "update",
     value: function update() {
-      this.x += -player.velocity.x + this.v.x;
+      this.x += -player.velocity.x * 1.25 + this.v.x;
       this.y += this.v.y;
       this.droneMove = Math.random();
 

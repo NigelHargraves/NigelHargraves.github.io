@@ -36,7 +36,7 @@ function () {
     key: "update",
     value: function update() {
       this.alpha -= 0.01;
-      this.x += -player.velocity.x + this.velocityX;
+      this.x += -player.velocity.x * 1.25;
       this.y += this.velocityY;
       this.draw();
     }

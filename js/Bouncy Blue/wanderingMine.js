@@ -15,7 +15,7 @@ class WanderingMine {
         }
         //update wandering mine.
     update() {
-        this.x += -player.velocity.x + this.v.x;
+        this.x += (-player.velocity.x * 1.25) + this.v.x;
         this.y += this.v.y;
         this.droneMove = Math.random();
         if (this.droneMove > 0.9) {

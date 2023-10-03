@@ -40,7 +40,7 @@ function () {
     key: "update",
     value: function update() {
       this.x += this.v;
-      this.x += -player.velocity.x;
+      this.x += -player.velocity.x * 1.25;
       this.draw();
     }
   }]);
