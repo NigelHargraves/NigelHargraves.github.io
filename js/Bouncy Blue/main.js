@@ -238,9 +238,19 @@ function animate() {
         ctx.fillText("Control LV: " + controlLevel, 0, c.height * 0.02);
         ctx.drawImage(mushroomImage, c.width / 8, 0, c.height * 0.02, c.height * 0.02);
         ctx.fillText("= " + mushroomCount, c.width / 7.3, c.height * 0.02);
-        ctx.fillText("LV Bonus: " + levelBonus, c.width / 4, c.height * 0.02);
         ctx.drawImage(flourSack, c.width / 6, 0, c.height * 0.02, c.height * 0.02);
         ctx.fillText("= " + flourSackCount, c.width / 5.5, c.height * 0.02);
+        ctx.fillText("LV Bonus: " + levelBonus, c.width / 4, c.height * 0.02);
+        if (millX + c.height * 0.400 + c.width / 2 < x) {
+            ctx.fillText("⇦", c.width / 2.5, c.height * 0.02);
+        } else if (millX - c.width / 2 > x) {
+            ctx.fillText("⇨", c.width / 2.3, c.height * 0.02);
+        } else {
+            ctx.fillText("✅", c.width / 2.3, c.height * 0.02);
+        }
+
+        ctx.drawImage(waterMill, c.width / 2.4, 0, c.height * 0.03, c.height * 0.03);
+
         if (levelBonus <= 0) {
             levelBonus = 1;
         }

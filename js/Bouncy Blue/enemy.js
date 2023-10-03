@@ -90,9 +90,9 @@ function forEnemy() {
             enemies.splice(index, 1);
         }
 
-        //enemy falls off screen.
-        if (enemy.y > c.height) {
-            enemies.splice(index, 1);
+        //enemy falls off screen & returns to the top.
+        if (enemy.y > c.height + c.width * 0.02) {
+            enemy.y = 0 - c.width * 0.02;
         }
         enemy.update();
     });

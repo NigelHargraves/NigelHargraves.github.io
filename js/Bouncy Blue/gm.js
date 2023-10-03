@@ -30,7 +30,7 @@ class GuidedMissile {
             this.velocityY = Math.sin(angles) * 5;
             this.countDown -= 0.1;
         }
-        this.x += -player.velocity.x * 1.25;
+        this.x += this.velocityX + -player.velocity.x * 1.2;
         this.y += this.velocityY;
         this.draw();
     }
