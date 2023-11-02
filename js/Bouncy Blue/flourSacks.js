@@ -29,7 +29,13 @@ function forFlourSacks() {
         if (colide) {
             gain.currentTime = 0;
             gain.play();
-            flourSackCount += 1;
+            if (flourSackCount < 20) {
+                flourSackCount += 1;
+            }
+            if (flourSackCount == 20) {
+                collectedFlowerSacks = true;
+                flourSacks = [];
+            }
             flourSacks.splice(index, 1);
         }
 

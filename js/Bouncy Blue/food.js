@@ -87,6 +87,9 @@ function forFood() {
                     y: (Math.random() - 1) * (Math.random() * 10)
                 }, "blue"));
             }
+            if (controlLevel > 3 && !collectedMilkBottles) {
+                milkBottles.push(new MilkBottle(food.x, food.y + 50));
+            }
             foods.splice(index, 1);
         }
         food.update();

@@ -96,6 +96,7 @@ function init() {
     explodes = [];
     sparks = [];
     flourSacks = [];
+    milkBottles = [];
 
     gravity = 0.03,
         friction = 0.002,
@@ -128,6 +129,7 @@ function init() {
         bombRate = 100,
         bombRateCount = 0,
         flourSackCount = 0,
+        milkBottleCount = 0,
         millX = 0 - c.height * 0.200,
         mx = x,
         my = 0;
@@ -145,7 +147,9 @@ function init() {
         minesToPlant = false,
         endGameSound = false,
         playerSheild = false,
-        LBall = false;
+        LBall = false,
+        collectedFlowerSacks = false,
+        collectedMilkBottles = false;
 
     width = 0;
     elem.style.width = width + "%";

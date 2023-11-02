@@ -92,9 +92,11 @@ waterMill.src = 'images/BB/waterMill.png';
 var river = new Image();
 river.src = 'images/BB/river.png';
 var oven = new Image();
-oven.src = 'images/BB/oven.png'; //declare array names.
+oven.src = 'images/BB/oven.png';
+var milkBottle = new Image();
+milkBottle.src = 'images/BB/milkBottle.png'; //declare array names.
 
-var enemies, foods, bonusPoints, texts, guidedMissiles, deaths, levelGains, layers, glows, splats, mines, wanderingMines, projectiles, kills, flowers, sheilds, mushrooms, bullets, bloodSplats, bombs, explodes, sparks, flourSacks; //audio to var.
+var enemies, foods, bonusPoints, texts, guidedMissiles, deaths, levelGains, layers, glows, splats, mines, wanderingMines, projectiles, kills, flowers, sheilds, mushrooms, bullets, bloodSplats, bombs, explodes, sparks, flourSacks, milkBottles; //audio to var.
 
 var bounce = document.getElementById("audio1");
 var levelUp = document.getElementById("audio2");
@@ -162,6 +164,7 @@ var gravity,
     bombRate,
     bombRateCount,
     flourSackCount,
+    milkBottleCount,
     millX,
     info = ""; //var texts.
 
@@ -185,7 +188,9 @@ var moveLeft = false,
     fireGap = false,
     fireRight = true,
     bombDrop = false,
-    bombDropGap = false;
+    bombDropGap = false,
+    collectedFlowerSacks = false,
+    collectedMilkBottles = false;
 var leftEye = {
   x: 8,
   y: 7
@@ -232,8 +237,6 @@ function animate() {
     ctx.fillText("Control LV: " + controlLevel, 0, c.height * 0.02);
     ctx.drawImage(mushroomImage, c.width / 8, 0, c.height * 0.02, c.height * 0.02);
     ctx.fillText("= " + mushroomCount, c.width / 7.3, c.height * 0.02);
-    ctx.drawImage(flourSack, c.width / 6, 0, c.height * 0.02, c.height * 0.02);
-    ctx.fillText("= " + flourSackCount, c.width / 5.5, c.height * 0.02);
     ctx.fillText("LV Bonus: " + levelBonus, c.width / 4, c.height * 0.02);
 
     if (millX + c.height * 0.400 + c.width / 2 < x) {
@@ -242,8 +245,13 @@ function animate() {
       ctx.fillText("⇨", c.width / 2.3, c.height * 0.02);
     } else {
       ctx.fillText("✅", c.width / 2.3, c.height * 0.02);
-    }
+    } //collectables
 
+
+    ctx.drawImage(flourSack, 0, c.height * 0.03, c.height * 0.02, c.height * 0.02);
+    ctx.fillText("= " + flourSackCount, c.height * 0.03, c.height * 0.05);
+    ctx.drawImage(milkBottle, 0, c.height * 0.06, c.height * 0.02, c.height * 0.02);
+    ctx.fillText("= " + milkBottleCount, c.height * 0.03, c.height * 0.08);
     ctx.drawImage(waterMill, c.width / 2.4, 0, c.height * 0.03, c.height * 0.03);
 
     if (levelBonus <= 0) {
@@ -404,6 +412,10 @@ function animate() {
 
     if (flourSacks.length > 0) {
       forFlourSacks();
+    }
+
+    if (milkBottles.length > 0) {
+      forMilkBottles();
     } //kill all.
 
 
