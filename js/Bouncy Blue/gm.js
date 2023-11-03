@@ -50,12 +50,25 @@ function forGM() {
         if (player.r <= 14) {
             playerAlive = false;
         }
-        //guidedmissile count down hits 0 or hits floor or goes way off screen.
-        if (gm.countDown <= 0 || gm.y >= c.height - c.width * 0.02 || gm.x <= -c.width || gm.x >= c.width * 2) {
+        //guidedmissile count down hits 0 or goes way off screen.
+        if (gm.countDown <= 0 || gm.x <= -c.width || gm.x >= c.width * 2) {
             mineExplode.currentTime = 0;
             mineExplode.play();
             for (let i = 0; i < 10; i++) {
                 projectiles.push(new Projectile(gm.x, gm.y, 2));
+            }
+            guidedMissiles.splice(index, 1);
+        }
+
+        //guidedmissile hits floor.
+        if (gm.y > c.height - gm.r) {
+            mineExplode.currentTime = 0;
+            mineExplode.play();
+            for (let i = 0; i < 10; i++) {
+                projectiles.push(new Projectile(gm.x, gm.y, 2));
+            }
+            if (!collectedSugars) {
+                sugars.push(new Sugar(gm.x - gm.r, gm.y - 20));
             }
             guidedMissiles.splice(index, 1);
         }

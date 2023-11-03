@@ -93,10 +93,14 @@ var river = new Image();
 river.src = 'images/BB/river.png';
 var oven = new Image();
 oven.src = 'images/BB/oven.png';
+var ovenOff = new Image();
+ovenOff.src = 'images/BB/ovenOff.png';
 var milkBottle = new Image();
-milkBottle.src = 'images/BB/milkBottle.png'; //declare array names.
+milkBottle.src = 'images/BB/milkBottle.png';
+var sugar = new Image();
+sugar.src = 'images/BB/sugar.png'; //declare array names.
 
-var enemies, foods, bonusPoints, texts, guidedMissiles, deaths, levelGains, layers, glows, splats, mines, wanderingMines, projectiles, kills, flowers, sheilds, mushrooms, bullets, bloodSplats, bombs, explodes, sparks, flourSacks, milkBottles; //audio to var.
+var enemies, foods, bonusPoints, texts, guidedMissiles, deaths, levelGains, layers, glows, splats, mines, wanderingMines, projectiles, kills, flowers, sheilds, mushrooms, bullets, bloodSplats, bombs, explodes, sparks, flourSacks, milkBottles, sugars, particles; //audio to var.
 
 var bounce = document.getElementById("audio1");
 var levelUp = document.getElementById("audio2");
@@ -165,6 +169,7 @@ var gravity,
     bombRateCount,
     flourSackCount,
     milkBottleCount,
+    sugarCount,
     millX,
     info = ""; //var texts.
 
@@ -190,7 +195,9 @@ var moveLeft = false,
     bombDrop = false,
     bombDropGap = false,
     collectedFlowerSacks = false,
-    collectedMilkBottles = false;
+    collectedMilkBottles = false,
+    collectedSugars = false,
+    cooking = false;
 var leftEye = {
   x: 8,
   y: 7
@@ -231,7 +238,24 @@ function animate() {
       forestSounds.play();
     }
 
-    player.update();
+    player.update(); //cooking smoke.
+
+    if (cooking) {
+      var velocity = {
+        x: Math.random() * 2,
+        y: -Math.random() * 2
+      },
+          alpha = 0.9;
+      particles.push(new Particle(millX + c.height * 0.27 + c.height * 0.08 / 2, c.height - c.height * 0.1, 4, velocity, "grey", alpha));
+      particles.forEach(function (particle, index) {
+        if (particle.a <= 0.1) {
+          particles.splice(index, 1);
+        } else {
+          particle.update();
+        }
+      });
+    }
+
     ctx.font = "bold 20px Arial";
     ctx.fillStyle = "black";
     ctx.fillText("Control LV: " + controlLevel, 0, c.height * 0.02);
@@ -250,9 +274,24 @@ function animate() {
 
     ctx.drawImage(flourSack, 0, c.height * 0.03, c.height * 0.02, c.height * 0.02);
     ctx.fillText("= " + flourSackCount, c.height * 0.03, c.height * 0.05);
+
+    if (collectedFlowerSacks) {
+      ctx.fillText("✅", c.height * 0.07, c.height * 0.05);
+    }
+
     ctx.drawImage(milkBottle, 0, c.height * 0.06, c.height * 0.02, c.height * 0.02);
     ctx.fillText("= " + milkBottleCount, c.height * 0.03, c.height * 0.08);
-    ctx.drawImage(waterMill, c.width / 2.4, 0, c.height * 0.03, c.height * 0.03);
+
+    if (collectedMilkBottles) {
+      ctx.fillText("✅", c.height * 0.07, c.height * 0.08);
+    }
+
+    ctx.drawImage(sugar, 0, c.height * 0.09, c.height * 0.02, c.height * 0.02);
+    ctx.fillText("= " + sugarCount, c.height * 0.03, c.height * 0.11);
+
+    if (collectedSugars) {
+      ctx.fillText("✅", c.height * 0.07, c.height * 0.11);
+    }
 
     if (levelBonus <= 0) {
       levelBonus = 1;
@@ -260,8 +299,7 @@ function animate() {
 
     levelBonus -= 1;
     ctx.fillText("Score: " + score + "          Top Score: " + topScore.name + ": " + topScore.score, c.width - c.width / 4, c.height * 0.02);
-    ctx.fillText("Player size: " + Math.round(player.r), c.width / 2, c.height * 0.02); //ctx.fillText("mushrooms = " + mushrooms.length, c.width / 5.5, c.height * 0.04);
-
+    ctx.fillText("Player size: " + Math.round(player.r), c.width / 2, c.height * 0.02);
     var blinkEyes = Math.random();
 
     if (blinkEyes > 0.998 && !eyesBlink && !eyesSquint) {
@@ -284,7 +322,8 @@ function animate() {
     if (squint <= 0) {
       eyesSquint = false;
       squint = 2;
-    }
+    } //direction arrow.
+
 
     ctx.font = " bold 80px Arial";
     ctx.fillStyle = "white";
@@ -416,6 +455,10 @@ function animate() {
 
     if (milkBottles.length > 0) {
       forMilkBottles();
+    }
+
+    if (sugars.length > 0) {
+      forSugars();
     } //kill all.
 
 
@@ -530,11 +573,11 @@ function animate() {
         misFire.play();
         var startPos = Math.random() * c.width;
         var angles = Math.atan2(player.y, x - startPos);
-        var velocity = {
+        var _velocity = {
           x: Math.cos(angles) * 5,
           y: Math.sin(angles) * 5
         };
-        guidedMissiles.push(new GuidedMissile(startPos, 0, velocity.x, velocity.y, 50, true));
+        guidedMissiles.push(new GuidedMissile(startPos, 0, _velocity.x, _velocity.y, 50, true));
       }
     }
 

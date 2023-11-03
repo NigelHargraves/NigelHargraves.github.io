@@ -16,7 +16,12 @@ class Player {
     draw() {
         ctx.drawImage(river, millX, c.height - c.height * 0.260, c.height * 0.400, c.height * 0.200);
         ctx.drawImage(waterMill, millX, c.height - c.height * 0.380, c.height * 0.400, c.height * 0.400);
-        ctx.drawImage(oven, millX + c.height * 0.27, c.height - c.height * 0.1, c.height * 0.08, c.height * 0.08);
+        if (cooking) {
+            ctx.drawImage(oven, millX + c.height * 0.27, c.height - c.height * 0.1, c.height * 0.08, c.height * 0.08);
+        } else {
+            ctx.drawImage(ovenOff, millX + c.height * 0.27, c.height - c.height * 0.1, c.height * 0.08, c.height * 0.08);
+        }
+
 
         if (playerSheild) {
             ctx.globalAlpha = this.alpha;

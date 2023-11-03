@@ -97,6 +97,8 @@ function init() {
     sparks = [];
     flourSacks = [];
     milkBottles = [];
+    sugars = [];
+    particles = [];
 
     gravity = 0.03,
         friction = 0.002,
@@ -130,6 +132,7 @@ function init() {
         bombRateCount = 0,
         flourSackCount = 0,
         milkBottleCount = 0,
+        sugarCount = 0,
         millX = 0 - c.height * 0.200,
         mx = x,
         my = 0;
@@ -149,7 +152,9 @@ function init() {
         playerSheild = false,
         LBall = false,
         collectedFlowerSacks = false,
-        collectedMilkBottles = false;
+        collectedMilkBottles = false,
+        collectedSugars = false,
+        cooking = false;
 
     width = 0;
     elem.style.width = width + "%";
