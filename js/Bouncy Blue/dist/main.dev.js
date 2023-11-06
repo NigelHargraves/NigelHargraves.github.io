@@ -98,9 +98,11 @@ ovenOff.src = 'images/BB/ovenOff.png';
 var milkBottle = new Image();
 milkBottle.src = 'images/BB/milkBottle.png';
 var sugar = new Image();
-sugar.src = 'images/BB/sugar.png'; //declare array names.
+sugar.src = 'images/BB/sugar.png';
+var chickenEgg = new Image();
+chickenEgg.src = 'images/BB/chickenEgg.png'; //declare array names.
 
-var enemies, foods, bonusPoints, texts, guidedMissiles, deaths, levelGains, layers, glows, splats, mines, wanderingMines, projectiles, kills, flowers, sheilds, mushrooms, bullets, bloodSplats, bombs, explodes, sparks, flourSacks, milkBottles, sugars, particles; //audio to var.
+var enemies, foods, bonusPoints, texts, guidedMissiles, deaths, levelGains, layers, glows, splats, mines, wanderingMines, projectiles, kills, flowers, sheilds, mushrooms, bullets, bloodSplats, bombs, explodes, sparks, flourSacks, milkBottles, sugars, particles, chickenEggs; //audio to var.
 
 var bounce = document.getElementById("audio1");
 var levelUp = document.getElementById("audio2");
@@ -170,6 +172,7 @@ var gravity,
     flourSackCount,
     milkBottleCount,
     sugarCount,
+    eggCount,
     millX,
     info = ""; //var texts.
 
@@ -197,7 +200,9 @@ var moveLeft = false,
     collectedFlowerSacks = false,
     collectedMilkBottles = false,
     collectedSugars = false,
-    cooking = false;
+    collectedEggs = false,
+    cooking = false,
+    mixedIngredients = false;
 var leftEye = {
   x: 8,
   y: 7
@@ -262,6 +267,7 @@ function animate() {
     ctx.drawImage(mushroomImage, c.width / 8, 0, c.height * 0.02, c.height * 0.02);
     ctx.fillText("= " + mushroomCount, c.width / 7.3, c.height * 0.02);
     ctx.fillText("LV Bonus: " + levelBonus, c.width / 4, c.height * 0.02);
+    ctx.drawImage(waterMill, c.width / 2.4, 0, c.height * 0.02, c.height * 0.02);
 
     if (millX + c.height * 0.400 + c.width / 2 < x) {
       ctx.fillText("⇦", c.width / 2.5, c.height * 0.02);
@@ -291,6 +297,19 @@ function animate() {
 
     if (collectedSugars) {
       ctx.fillText("✅", c.height * 0.07, c.height * 0.11);
+    }
+
+    ctx.drawImage(chickenEgg, 0, c.height * 0.12, c.height * 0.02, c.height * 0.02);
+    ctx.fillText("= " + eggCount, c.height * 0.03, c.height * 0.14);
+
+    if (collectedEggs) {
+      ctx.fillText("✅", c.height * 0.07, c.height * 0.14);
+    }
+
+    if (cooking) {
+      ctx.fillText("cooking = ✅", 0, c.height * 0.17);
+    } else {
+      ctx.fillText("cooking = ❌", 0, c.height * 0.17);
     }
 
     if (levelBonus <= 0) {
@@ -332,6 +351,12 @@ function animate() {
       ctx.fillText("⬆", c.width / 2, c.height / 2);
     } else if (player.y < 0 && player.velocity.y > 0) {
       ctx.fillText("⬇", c.width / 2, c.height / 2);
+    } //bring ingredients back home.
+
+
+    if (!mixedIngredients && collectedFlowerSacks && collectedMilkBottles && collectedSugars && collectedEggs && x == millX && player.y >= c.height - 200) {
+      cooking = true;
+      mixedIngredients = true;
     } //create bomb.
 
 
@@ -459,6 +484,10 @@ function animate() {
 
     if (sugars.length > 0) {
       forSugars();
+    }
+
+    if (chickenEggs.length > 0) {
+      forEggs();
     } //kill all.
 
 

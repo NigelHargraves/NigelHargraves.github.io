@@ -98,6 +98,7 @@ function init() {
     flourSacks = [];
     milkBottles = [];
     sugars = [];
+    chickenEggs = [];
     particles = [];
 
     gravity = 0.03,
@@ -133,6 +134,7 @@ function init() {
         flourSackCount = 0,
         milkBottleCount = 0,
         sugarCount = 0,
+        eggCount = 0,
         millX = 0 - c.height * 0.200,
         mx = x,
         my = 0;
@@ -154,6 +156,8 @@ function init() {
         collectedFlowerSacks = false,
         collectedMilkBottles = false,
         collectedSugars = false,
+        collectedEggs = false,
+        mixedIngredients = false,
         cooking = false;
 
     width = 0;

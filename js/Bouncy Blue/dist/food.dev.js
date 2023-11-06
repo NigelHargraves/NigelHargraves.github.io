@@ -108,8 +108,12 @@ function forFood() {
         }, "blue"));
       }
 
-      if (controlLevel > 3 && !collectedMilkBottles) {
+      if (controlLevel >= 3 && !collectedMilkBottles) {
         milkBottles.push(new MilkBottle(food.x, food.y + 50));
+      }
+
+      if (controlLevel > 3 && collectedMilkBottles && !collectedEggs) {
+        chickenEggs.push(new Egg(food.x - c.height * 0.02, food.y));
       }
 
       foods.splice(index, 1);
