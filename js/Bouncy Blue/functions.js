@@ -135,9 +135,11 @@ function init() {
         milkBottleCount = 0,
         sugarCount = 0,
         eggCount = 0,
+        cakeCount = 0,
         millX = 0 - c.height * 0.200,
         mx = x,
-        my = 0;
+        my = 0,
+        timeLeft = 900;
 
     moveLeft = false,
         moveRight = false,
@@ -157,8 +159,8 @@ function init() {
         collectedMilkBottles = false,
         collectedSugars = false,
         collectedEggs = false,
-        mixedIngredients = false,
-        cooking = false;
+        cooking = false,
+        cakeReady = false;
 
     width = 0;
     elem.style.width = width + "%";

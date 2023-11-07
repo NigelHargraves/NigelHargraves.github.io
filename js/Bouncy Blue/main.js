@@ -100,7 +100,8 @@ let sugar = new Image();
 sugar.src = 'images/BB/sugar.png';
 let chickenEgg = new Image();
 chickenEgg.src = 'images/BB/chickenEgg.png';
-
+let blueberryCake = new Image();
+blueberryCake.src = 'images/BB/blueberryCake.png';
 //declare array names.
 let enemies, foods, bonusPoints, texts, guidedMissiles, deaths, levelGains, layers, glows, splats, mines, wanderingMines, projectiles, kills,
     flowers, sheilds, mushrooms, bullets, bloodSplats, bombs, explodes, sparks, flourSacks, milkBottles, sugars, particles, chickenEggs;
@@ -177,8 +178,10 @@ let gravity,
     milkBottleCount,
     sugarCount,
     eggCount,
+    cakeCount,
     millX,
-    info = "";
+    info = "",
+    timeLeft;
 
 
 
@@ -211,7 +214,7 @@ let moveLeft = false,
     collectedSugars = false,
     collectedEggs = false,
     cooking = false,
-    mixedIngredients = false;
+    cakeReady = false;
 
 let leftEye = { x: 8, y: 7 },
     rightEye = { x: 8, y: 7 },
@@ -220,6 +223,8 @@ let leftEye = { x: 8, y: 7 },
     countSquint = 100;
 
 let topScore;
+
+
 if (localStorage.getItem("bestScore")) {
     topScore = JSON.parse(localStorage.getItem("bestScore"));
 } else {
@@ -312,11 +317,57 @@ function animate() {
             ctx.fillText("cooking = ❌", 0, c.height * 0.17);
         }
 
+        ctx.drawImage(blueberryCake, 0, c.height * 0.18, c.height * 0.02, c.height * 0.02);
+        ctx.fillText("= " + cakeCount, c.height * 0.03, c.height * 0.20);
+
+
+
+
+
+        //cooking the cake.
+        if (cooking) {
+            ctx.fillStyle = "white";
+            if (timeLeft == 900) {
+                ctx.fillText(timeLeft / 60 + ":00", millX + (c.height * 0.565) / 2,
+                    c.height - c.height * 0.04);
+            } else {
+                if (timeLeft % 60 < 10) {
+                    ctx.fillText(
+                        "0" + Math.floor(timeLeft / 60) + ":0" + Math.floor(timeLeft % 60),
+                        millX + (c.height * 0.565) / 2,
+                        c.height - c.height * 0.04
+                    );
+                } else {
+                    ctx.fillText(
+                        Math.floor(timeLeft / 60) + ":" + Math.floor(timeLeft % 60),
+                        millX + (c.height * 0.565) / 2,
+                        c.height - c.height * 0.04
+                    );
+                }
+            }
+            timeLeft -= 0.01;
+            if (timeLeft <= 0) {
+                cooking = false;
+                timeLeft = 900;
+                cakeReady = true;
+            }
+        }
+
+        if (cakeReady) {
+            ctx.drawImage(blueberryCake, millX + (c.height * 0.565) / 2,
+                c.height - c.height * 0.07, c.height * 0.05, c.height * 0.05);
+        }
+
+
+
 
         if (levelBonus <= 0) {
             levelBonus = 1;
         }
+
         levelBonus -= 1;
+
+        ctx.fillStyle = "black";
         ctx.fillText("Score: " + score + "          Top Score: " + topScore.name + ": " + topScore.score, c.width - c.width / 4, c.height * 0.02);
         ctx.fillText("Player size: " + Math.round(player.r), c.width / 2, c.height * 0.02);
 
@@ -351,9 +402,26 @@ function animate() {
         }
 
         //bring ingredients back home.
-        if (!mixedIngredients && collectedFlowerSacks && collectedMilkBottles && collectedSugars && collectedEggs && x == millX && player.y >= c.height - 200) {
+        if (collectedFlowerSacks && collectedMilkBottles && collectedSugars && collectedEggs && x >= millX && x <= millX + c.height * 0.400 && player.y >= c.height - c.height * 0.1) {
             cooking = true;
-            mixedIngredients = true;
+        }
+
+        //return home for cake.
+        if (cakeReady && x >= millX + (c.height * 0.575) / 2 && x <= millX + (c.height * 0.565) / 2 && player.y >= c.height - c.height * 0.1) {
+            cakeCount += 1;
+            cakeReady = false;
+            collectedFlowerSacks = false;
+            collectedMilkBottles = false;
+            collectedSugars = false;
+            collectedEggs = false;
+            flourSacks = [];
+            milkBottles = [];
+            sugars = [];
+            chickenEggs = [];
+            flourSackCount = 0;
+            milkBottleCount = 0;
+            sugarCount = 0;
+            eggCount = 0;
         }
 
         //create bomb.
