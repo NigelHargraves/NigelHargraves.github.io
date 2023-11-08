@@ -349,7 +349,7 @@ function animate() {
                     );
                 }
             }
-            timeLeft -= 0.01;
+            timeLeft -= 0.02;
             if (timeLeft <= 0) {
                 cooking = false;
                 timeLeft = 900;
@@ -445,6 +445,11 @@ function animate() {
                 fart4.play();
             }
             player.r -= 1;
+            //update progress bar if required.
+            if (player.r >= c.height * 0.02) {
+                width -= 10;
+                elem.style.width = width + "%";
+            }
             bombDropGap = true;
             bombs.push(new Bomb(x - c.height * 0.01, player.y, 0, ));
             dropBomb.currentTime = 0;
