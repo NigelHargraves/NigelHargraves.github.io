@@ -135,6 +135,10 @@ let dropBomb = document.getElementById("audio25");
 let bombExplode = document.getElementById("audio26");
 let gain = document.getElementById("audio27");
 let no = document.getElementById("audio28");
+let fart1 = document.getElementById("audio29");
+let fart2 = document.getElementById("audio30");
+let fart3 = document.getElementById("audio31");
+let fart4 = document.getElementById("audio32");
 
 let KP = {}; //Keyspressed array.
 
@@ -402,12 +406,12 @@ function animate() {
         }
 
         //bring ingredients back home.
-        if (collectedFlowerSacks && collectedMilkBottles && collectedSugars && collectedEggs && x >= millX && x <= millX + c.height * 0.400 && player.y >= c.height - c.height * 0.1) {
+        if (!cooking && collectedFlowerSacks && collectedMilkBottles && collectedSugars && collectedEggs && x >= millX && x <= millX + c.height * 0.400 && player.y >= c.height - c.height * 0.1) {
             cooking = true;
         }
 
         //return home for cake.
-        if (cakeReady && x >= millX + (c.height * 0.575) / 2 && x <= millX + (c.height * 0.565) / 2 && player.y >= c.height - c.height * 0.1) {
+        if (cakeReady && x >= millX && x <= millX + c.height * 0.400 && player.y >= c.height - c.height * 0.1) {
             cakeCount += 1;
             cakeReady = false;
             collectedFlowerSacks = false;
@@ -426,8 +430,23 @@ function animate() {
 
         //create bomb.
         if (bombDrop && bombRateCount == 0) {
+            let fartSound = Math.random();
+            if (fartSound > 0 && fartSound < 0.25) {
+                fart1.currentTime = 0;
+                fart1.play();
+            } else if (fartSound > 0.25 && fartSound < 0.5) {
+                fart2.currentTime = 0;
+                fart2.play();
+            } else if (fartSound > 0.5 && fartSound < 0.75) {
+                fart3.currentTime = 0;
+                fart3.play();
+            } else {
+                fart4.currentTime = 0;
+                fart4.play();
+            }
+            player.r -= 1;
             bombDropGap = true;
-            bombs.push(new Bomb(x, player.y, 0, ));
+            bombs.push(new Bomb(x - c.height * 0.01, player.y, 0, ));
             dropBomb.currentTime = 0;
             dropBomb.play();
         }

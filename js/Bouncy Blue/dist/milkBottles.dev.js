@@ -39,7 +39,7 @@ function () {
 
 function forMilkBottles() {
   milkBottles.forEach(function (mb, index) {
-    var colide = collisionDetection(mb.x, mb.y, mb.r / 2, mb.r, x, player.y, player.r, player.r);
+    var colide = collisionDetection(mb.x, mb.y, mb.r / 2, mb.r * 1.5, x, player.y, player.r, player.r);
 
     if (colide) {
       gain.currentTime = 0;

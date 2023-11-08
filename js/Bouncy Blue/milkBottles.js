@@ -19,7 +19,7 @@ class MilkBottle {
 
 function forMilkBottles() {
     milkBottles.forEach((mb, index) => {
-        let colide = collisionDetection(mb.x, mb.y, mb.r / 2, mb.r, x, player.y, player.r, player.r);
+        let colide = collisionDetection(mb.x, mb.y, mb.r / 2, mb.r * 1.5, x, player.y, player.r, player.r);
         if (colide) {
             gain.currentTime = 0;
             gain.play();

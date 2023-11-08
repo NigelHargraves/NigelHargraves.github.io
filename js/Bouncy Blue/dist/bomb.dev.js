@@ -17,13 +17,15 @@ function () {
     this.x = x;
     this.y = y;
     this.v = velocity;
+    this.sizex = 0;
+    this.sizey = 0;
   } //draw bomb.
 
 
   _createClass(Bomb, [{
     key: "draw",
     value: function draw() {
-      ctx.drawImage(bombImage, this.x, this.y, 20, 40);
+      ctx.drawImage(bombImage, this.x, this.y, c.height * this.sizex, c.height * this.sizey);
     } //update bomb.
 
   }, {
@@ -39,6 +41,14 @@ function () {
         gravity = 0.03;
       } else {
         gravity = 0;
+      }
+
+      if (this.sizex < 0.02) {
+        this.sizex += 0.001;
+      }
+
+      if (this.sizey < 0.04) {
+        this.sizey += 0.002;
       }
     }
   }]);
