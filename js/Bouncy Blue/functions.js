@@ -100,6 +100,7 @@ function init() {
     sugars = [];
     chickenEggs = [];
     particles = [];
+    ammos = [];
 
     gravity = 0.03,
         friction = 0.002,
@@ -139,7 +140,8 @@ function init() {
         millX = 0 - c.height * 0.200,
         mx = x,
         my = 0,
-        timeLeft = 900;
+        timeLeft = 900,
+        ammoLeft = 100;
 
     moveLeft = false,
         moveRight = false,

@@ -102,9 +102,11 @@ sugar.src = 'images/BB/sugar.png';
 var chickenEgg = new Image();
 chickenEgg.src = 'images/BB/chickenEgg.png';
 var blueberryCake = new Image();
-blueberryCake.src = 'images/BB/blueberryCake.png'; //declare array names.
+blueberryCake.src = 'images/BB/blueberryCake.png';
+var ammoBox = new Image();
+ammoBox.src = 'images/BB/ammoBox.png'; //declare array names.
 
-var enemies, foods, bonusPoints, texts, guidedMissiles, deaths, levelGains, layers, glows, splats, mines, wanderingMines, projectiles, kills, flowers, sheilds, mushrooms, bullets, bloodSplats, bombs, explodes, sparks, flourSacks, milkBottles, sugars, particles, chickenEggs; //audio to var.
+var enemies, foods, bonusPoints, texts, guidedMissiles, deaths, levelGains, layers, glows, splats, mines, wanderingMines, projectiles, kills, flowers, sheilds, mushrooms, bullets, bloodSplats, bombs, explodes, sparks, flourSacks, milkBottles, sugars, particles, chickenEggs, ammos; //audio to var.
 
 var bounce = document.getElementById("audio1");
 var levelUp = document.getElementById("audio2");
@@ -138,6 +140,9 @@ var fart1 = document.getElementById("audio29");
 var fart2 = document.getElementById("audio30");
 var fart3 = document.getElementById("audio31");
 var fart4 = document.getElementById("audio32");
+var reload1 = document.getElementById("audio33");
+var reload2 = document.getElementById("audio34");
+var reload3 = document.getElementById("audio35");
 var KP = {}; //Keyspressed array.
 //elements to vars.
 
@@ -182,7 +187,8 @@ var gravity,
     cakeCount,
     millX,
     info = "",
-    timeLeft; //var texts.
+    timeLeft,
+    ammoLeft; //var texts.
 
 var clText = "Control Level "; //boolean vars.
 
@@ -357,6 +363,7 @@ function animate() {
     ctx.fillStyle = "black";
     ctx.fillText("Score: " + score + "          Top Score: " + topScore.name + ": " + topScore.score, c.width - c.width / 4, c.height * 0.02);
     ctx.fillText("Player size: " + Math.round(player.r), c.width / 2, c.height * 0.02);
+    ctx.fillText("Ammo: " + ammoLeft, c.width / 2 + c.width * 0.1, c.height * 0.02);
     var blinkEyes = Math.random();
 
     if (blinkEyes > 0.998 && !eyesBlink && !eyesSquint) {
@@ -463,13 +470,15 @@ function animate() {
     } //create bullet.
 
 
-    if (fire && fireRateCount == 0) {
+    if (fire && fireRateCount == 0 && ammoLeft > 0) {
       fireGap = true;
 
       if (fireRight) {
         bullets.push(new Bullet(x, player.y - player.r - stalkSize, 10, player.velocity.x + c.height * 0.01, "greenyellow"));
+        ammoLeft -= 1;
       } else {
         bullets.push(new Bullet(x, player.y - player.r - stalkSize, 10, player.velocity.x + -c.height * 0.01, "greenyellow"));
+        ammoLeft -= 1;
       }
 
       laserShot.currentTime = 0;
@@ -491,6 +500,17 @@ function animate() {
 
     if (bloodSplats.length > 0) {
       forBloodSplat();
+    } //create ammo box.
+
+
+    var makeAmmo = Math.random();
+
+    if (makeAmmo > 0.9999 && ammoLeft <= 20) {
+      ammos.push(new Ammo(Math.random() * c.width, c.height - 45));
+    }
+
+    if (ammos.length > 0) {
+      forAmmo();
     } //create mushroom.
 
 
