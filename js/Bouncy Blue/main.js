@@ -263,6 +263,10 @@ function animate() {
             forestSounds.play();
         }
 
+        if (bombs.length > 0) {
+            forBomb();
+        }
+
         player.update();
 
         //cooking smoke.
@@ -473,9 +477,7 @@ function animate() {
             bombRateCount = 0;
         }
 
-        if (bombs.length > 0) {
-            forBomb();
-        }
+
 
         if (explodes.length > 0) {
             forExplode();
@@ -614,7 +616,7 @@ function animate() {
         }
 
         //create wandering mine.
-        if (controlLevel > 6) {
+        if (controlLevel > 8) {
             let wm = Math.random();
             if (wm > 0.999) {
                 bigBeeBuzz.currentTime = 0;

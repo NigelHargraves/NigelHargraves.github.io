@@ -257,6 +257,10 @@ function animate() {
       forestSounds.play();
     }
 
+    if (bombs.length > 0) {
+      forBomb();
+    }
+
     player.update(); //cooking smoke.
 
     if (cooking) {
@@ -461,10 +465,6 @@ function animate() {
       bombRateCount = 0;
     }
 
-    if (bombs.length > 0) {
-      forBomb();
-    }
-
     if (explodes.length > 0) {
       forExplode();
     } //create bullet.
@@ -612,7 +612,7 @@ function animate() {
     } //create wandering mine.
 
 
-    if (controlLevel > 6) {
+    if (controlLevel > 8) {
       var wm = Math.random();
 
       if (wm > 0.999) {
