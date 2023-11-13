@@ -405,16 +405,16 @@ function animate() {
 
     if (!cooking && collectedFlowerSacks && collectedMilkBottles && collectedSugars && collectedEggs && x >= millX && x <= millX + c.height * 0.400 && player.y >= c.height - c.height * 0.1) {
       cooking = true;
+      collectedFlowerSacks = false;
+      collectedMilkBottles = false;
+      collectedSugars = false;
+      collectedEggs = false;
     } //return home for cake.
 
 
     if (cakeReady && x >= millX && x <= millX + c.height * 0.400 && player.y >= c.height - c.height * 0.1) {
       cakeCount += 1;
       cakeReady = false;
-      collectedFlowerSacks = false;
-      collectedMilkBottles = false;
-      collectedSugars = false;
-      collectedEggs = false;
       flourSacks = [];
       milkBottles = [];
       sugars = [];
@@ -426,7 +426,7 @@ function animate() {
     } //create bomb.
 
 
-    if (bombDrop && bombRateCount == 0) {
+    if (bombDrop && bombRateCount == 0 && player.r > 20) {
       var fartSound = Math.random();
 
       if (fartSound > 0 && fartSound < 0.25) {
