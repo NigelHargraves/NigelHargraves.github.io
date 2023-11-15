@@ -106,7 +106,7 @@ blueberryCake.src = 'images/BB/blueberryCake.png';
 var ammoBox = new Image();
 ammoBox.src = 'images/BB/ammoBox.png'; //declare array names.
 
-var enemies, foods, bonusPoints, texts, guidedMissiles, deaths, levelGains, layers, glows, splats, mines, wanderingMines, projectiles, kills, flowers, sheilds, mushrooms, bullets, bloodSplats, bombs, explodes, sparks, flourSacks, milkBottles, sugars, particles, chickenEggs, ammos; //audio to var.
+var enemies, foods, bonusPoints, texts, largeTexts, guidedMissiles, deaths, levelGains, layers, glows, splats, mines, wanderingMines, projectiles, kills, flowers, sheilds, mushrooms, bullets, bloodSplats, bombs, explodes, sparks, flourSacks, milkBottles, sugars, particles, chickenEggs, ammos; //audio to var.
 
 var bounce = document.getElementById("audio1");
 var levelUp = document.getElementById("audio2");
@@ -216,7 +216,8 @@ var moveLeft = false,
     collectedSugars = false,
     collectedEggs = false,
     cooking = false,
-    cakeReady = false;
+    cakeReady = false,
+    returnIngredients = false;
 var leftEye = {
   x: 8,
   y: 7
@@ -331,7 +332,13 @@ function animate() {
     }
 
     ctx.drawImage(blueberryCake, 0, c.height * 0.18, c.height * 0.02, c.height * 0.02);
-    ctx.fillText("= " + cakeCount, c.height * 0.03, c.height * 0.20); //cooking the cake.
+    ctx.fillText("= " + cakeCount, c.height * 0.03, c.height * 0.20); //let player know to return ingredients.
+
+    if (!returnIngredients && collectedFlowerSacks && collectedMilkBottles && collectedSugars && collectedEggs) {
+      texts.push(new Text(x - 175, c.height / 4, 0, 0, "Return Ingredients", "bold 40px Arial", "green", 1, true));
+      returnIngredients = true;
+    } //cooking the cake.
+
 
     if (cooking) {
       ctx.fillStyle = "white";
@@ -352,6 +359,7 @@ function animate() {
         cooking = false;
         timeLeft = 900;
         cakeReady = true;
+        texts.push(new Text(x - 175, c.height / 4, 0, 0, "Collect Cake", "bold 40px Arial", "green", 1, true));
       }
     }
 
@@ -400,21 +408,22 @@ function animate() {
       ctx.fillText("⬆", c.width / 2, c.height / 2);
     } else if (player.y < 0 && player.velocity.y > 0) {
       ctx.fillText("⬇", c.width / 2, c.height / 2);
-    } //bring ingredients back home.
+    } //arrive home with ingredients.
 
 
     if (!cooking && collectedFlowerSacks && collectedMilkBottles && collectedSugars && collectedEggs && x >= millX && x <= millX + c.height * 0.400 && player.y >= c.height - c.height * 0.1) {
       cooking = true;
-      collectedFlowerSacks = false;
-      collectedMilkBottles = false;
-      collectedSugars = false;
-      collectedEggs = false;
-    } //return home for cake.
+      texts.push(new Text(x - 175, c.height / 4, 0, 0, "Cooking in Progress", "bold 40px Arial", "green", 1, true));
+    } //arrive home for cake.
 
 
     if (cakeReady && x >= millX && x <= millX + c.height * 0.400 && player.y >= c.height - c.height * 0.1) {
       cakeCount += 1;
       cakeReady = false;
+      collectedFlowerSacks = false;
+      collectedMilkBottles = false;
+      collectedSugars = false;
+      collectedEggs = false;
       flourSacks = [];
       milkBottles = [];
       sugars = [];
@@ -423,6 +432,8 @@ function animate() {
       milkBottleCount = 0;
       sugarCount = 0;
       eggCount = 0;
+      returnIngredients = false;
+      texts.push(new Text(x - 175, c.height / 4, 0, 0, "Cake Collected", "bold 40px Arial", "green", 1, true));
     } //create bomb.
 
 
@@ -761,6 +772,10 @@ function animate() {
 
     if (texts.length > 0) {
       forText();
+    }
+
+    if (largeTexts.length > 0) {
+      forLargeText();
     }
 
     if (projectiles.length > 0) {
