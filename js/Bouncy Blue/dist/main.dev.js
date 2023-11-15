@@ -411,7 +411,7 @@ function animate() {
     } //arrive home with ingredients.
 
 
-    if (!cooking && collectedFlowerSacks && collectedMilkBottles && collectedSugars && collectedEggs && x >= millX && x <= millX + c.height * 0.400 && player.y >= c.height - c.height * 0.1) {
+    if (!cooking && !cakeReady && collectedFlowerSacks && collectedMilkBottles && collectedSugars && collectedEggs && x >= millX && x <= millX + c.height * 0.400 && player.y >= c.height - c.height * 0.1) {
       cooking = true;
       texts.push(new Text(x - 175, c.height / 4, 0, 0, "Cooking in Progress", "bold 40px Arial", "green", 1, true));
     } //arrive home for cake.
