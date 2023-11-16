@@ -43,6 +43,7 @@ function forAmmo() {
     var colide = collisionDetection(ammo.x + ammo.length / 2, ammo.y + ammo.height / 2, ammo.length / 2, ammo.height / 2, x, player.y, player.r, player.r);
 
     if (colide) {
+      texts.push(new Text(x, player.y, Math.random() - 0.5, -c.height * 0.002, "😃", "bold 20px Arial", "yellow", 1, false));
       var reloadSound = Math.floor(Math.random() * 3);
 
       if (reloadSound == 0) {

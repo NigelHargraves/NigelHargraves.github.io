@@ -27,6 +27,22 @@ function forFlourSacks() {
     flourSacks.forEach((sack, index) => {
         let colide = collisionDetection(sack.x, sack.y, sack.r, sack.r * 2.25, x, player.y, player.r, player.r);
         if (colide) {
+            if (player.y > c.height / 2) {
+                texts.push(
+                    new Text(x, player.y, Math.random() - 0.5, -c.height * 0.001, "100", "bold 20px Arial", "yellow", 1, false)
+                );
+                texts.push(
+                    new Text(x, player.y, Math.random() - 0.5, -c.height * 0.002, "😃", "bold 20px Arial", "yellow", 1, false)
+                );
+            } else {
+                texts.push(
+                    new Text(x, player.y, Math.random() - 0.5, c.height * 0.001, "100", "bold 20px Arial", "yellow", 1, false)
+                );
+                texts.push(
+                    new Text(x, player.y, Math.random() - 0.5, c.height * 0.002, "😃", "bold 20px Arial", "yellow", 1, false)
+                );
+            }
+            score += 100;
             gain.currentTime = 0;
             gain.play();
             if (flourSackCount < 20) {

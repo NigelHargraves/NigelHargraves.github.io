@@ -21,6 +21,13 @@ function forEggs() {
     chickenEggs.forEach((egg, index) => {
         let colide = collisionDetection(egg.x, egg.y, egg.r / 2, egg.r / 2, x, player.y, player.r, player.r);
         if (colide) {
+            texts.push(
+                new Text(x, player.y, Math.random() - 0.5, -c.height * 0.001, "100", "bold 20px Arial", "yellow", 1, false)
+            );
+            texts.push(
+                new Text(x, player.y, Math.random() - 0.5, -c.height * 0.002, "😃", "bold 20px Arial", "yellow", 1, false)
+            );
+            score += 100;
             gain.currentTime = 0;
             gain.play();
             if (eggCount < 20) {
