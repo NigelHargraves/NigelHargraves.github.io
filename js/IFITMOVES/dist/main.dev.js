@@ -9,10 +9,14 @@ var player;
 var moveLeft = false,
     moveRight = false,
     moveUp = false,
-    moveDown = false; //backgrounds to variables.
+    moveDown = false,
+    run = false; //backgrounds to variables.
 
 var stoneFloor = new Image();
-stoneFloor.src = 'images/IFITMOVES/stoneFloorBackground.png';
+stoneFloor.src = 'images/IFITMOVES/stoneFloorBackground.png'; //audio to variables.
+
+var walking = document.getElementById("audio1");
+var running = document.getElementById("audio2");
 
 function init() {
   floors.push(new Floor(stoneFloor, 0, 0));
@@ -46,6 +50,10 @@ window.addEventListener("keydown", function (e) {
   if (e.keyCode == 87 || e.keyCode == 38) {
     moveUp = true;
   }
+
+  if (e.keyCode == 16) {
+    run = true;
+  }
 });
 window.addEventListener("keyup", function (e) {
   if (e.keyCode == 37 || e.keyCode == 65) {
@@ -66,5 +74,9 @@ window.addEventListener("keyup", function (e) {
   if (e.keyCode == 87 || e.keyCode == 38) {
     moveUp = false;
     player.velocity.y = 0;
+  }
+
+  if (e.keyCode == 16) {
+    run = false;
   }
 });

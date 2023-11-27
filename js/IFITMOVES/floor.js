@@ -24,6 +24,29 @@ class Floor {
         this.x -= player.velocity.x;
         this.y -= player.velocity.y;
 
+        if (this.x + 4 >= player.x - player.r) {
+            player.velocity.x = 0;
+            this.x -= 2;
+        }
+
+        if ((this.x - 4) + this.width <= player.x + player.r) {
+            player.velocity.x = 0;
+            this.x += 2;
+        }
+
+
+
+
+        if (this.y + 4 >= player.y - player.r) {
+            player.velocity.y = 0;
+            this.y -= 2;
+        }
+
+        if ((this.y - 4) + this.height <= player.y + player.r) {
+            player.velocity.y = 0;
+            this.y += 2;
+        }
+
         this.draw();
     }
 }

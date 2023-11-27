@@ -10,14 +10,17 @@ let player;
 let moveLeft = false,
     moveRight = false,
     moveUp = false,
-    moveDown = false;
+    moveDown = false,
+    run = false;
 
 
 //backgrounds to variables.
 let stoneFloor = new Image();
 stoneFloor.src = 'images/IFITMOVES/stoneFloorBackground.png';
 
-
+//audio to variables.
+let walking = document.getElementById("audio1");
+let running = document.getElementById("audio2");
 
 function init() {
 
@@ -72,6 +75,9 @@ window.addEventListener("keydown", (e) => {
     if (e.keyCode == 87 || e.keyCode == 38) {
         moveUp = true;
     }
+    if (e.keyCode == 16) {
+        run = true;
+    }
 });
 
 window.addEventListener("keyup", (e) => {
@@ -90,5 +96,8 @@ window.addEventListener("keyup", (e) => {
     if (e.keyCode == 87 || e.keyCode == 38) {
         moveUp = false;
         player.velocity.y = 0;
+    }
+    if (e.keyCode == 16) {
+        run = false;
     }
 });

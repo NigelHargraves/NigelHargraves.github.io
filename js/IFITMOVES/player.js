@@ -8,6 +8,7 @@ class Player {
             x: 0,
             y: 0
         };
+        this.r = 20;
 
     }
 
@@ -15,7 +16,7 @@ class Player {
     draw() {
 
         ctx.beginPath();
-        ctx.arc(this.x, this.y, 20, 0, Math.PI * 2);
+        ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
         ctx.fillStyle = "White";
         ctx.fill();
 
@@ -40,18 +41,59 @@ class Player {
             this.velocity.y += velocityAmount;
         }
 
-        if (player.velocity.x > 1) {
-            player.velocity.x = 1;
+        if (!run) {
+            if (player.velocity.x > 1) {
+                player.velocity.x = 1;
+            }
+            if (player.velocity.x < -1) {
+                player.velocity.x = -1;
+            }
+            if (player.velocity.y > 1) {
+                player.velocity.y = 1;
+            }
+            if (player.velocity.y < -1) {
+                player.velocity.y = -1;
+            }
+        } else {
+            if (player.velocity.x > 2) {
+                player.velocity.x = 2;
+            }
+            if (player.velocity.x < -2) {
+                player.velocity.x = -2;
+            }
+            if (player.velocity.y > 2) {
+                player.velocity.y = 2;
+            }
+            if (player.velocity.y < -2) {
+                player.velocity.y = -2;
+            }
         }
-        if (player.velocity.x < -1) {
-            player.velocity.x = -1;
+
+        if (player.velocity.x != 0 || player.velocity.y != 0) {
+            if (!run) {
+                running.currentTime = 0;
+                running.paused;
+                walking.play();
+            } else {
+                walking.currentTime = 0;
+                walking.paused;
+                running.play();
+            }
+
         }
-        if (player.velocity.y > 1) {
-            player.velocity.y = 1;
+
+
+
+
+
+        if (player.velocity.x == 0 && player.velocity.y == 0) {
+            walking.currentTime = 0;
+            walking.paused;
+            running.currentTime = 0;
+            running.paused;
+
         }
-        if (player.velocity.y < -1) {
-            player.velocity.y = -1;
-        }
+
 
 
 
