@@ -32,27 +32,31 @@ function () {
   }, {
     key: "update",
     value: function update() {
-      this.x -= player.velocity.x;
-      this.y -= player.velocity.y;
+      if (moveForward) {
+        if (run) {
+          speed = 5;
+        } else {
+          speed = 10;
+        }
 
-      if (this.x + 4 >= player.x - player.r) {
-        player.velocity.x = 0;
-        this.x -= 2;
-      }
+        this.x -= player.aimx / speed;
+        this.y -= player.aimy / speed;
 
-      if (this.x - 4 + this.width <= player.x + player.r) {
-        player.velocity.x = 0;
-        this.x += 2;
-      }
+        if (this.x + 4 >= player.x - player.r) {
+          this.x -= 2;
+        }
 
-      if (this.y + 4 >= player.y - player.r) {
-        player.velocity.y = 0;
-        this.y -= 2;
-      }
+        if (this.x - 4 + this.width <= player.x + player.r) {
+          this.x += 2;
+        }
 
-      if (this.y - 4 + this.height <= player.y + player.r) {
-        player.velocity.y = 0;
-        this.y += 2;
+        if (this.y + 4 >= player.y - player.r) {
+          this.y -= 2;
+        }
+
+        if (this.y - 4 + this.height <= player.y + player.r) {
+          this.y += 2;
+        }
       }
 
       this.draw();

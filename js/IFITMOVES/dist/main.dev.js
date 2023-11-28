@@ -5,11 +5,10 @@ var ctx = c.getContext("2d");
 c.width = window.innerWidth;
 c.height = window.innerHeight;
 var floors = [];
-var player;
+var player, playerAngle, speed;
 var moveLeft = false,
     moveRight = false,
-    moveUp = false,
-    moveDown = false,
+    moveForward = false,
     run = false; //backgrounds to variables.
 
 var stoneFloor = new Image();
@@ -18,12 +17,10 @@ stoneFloor.src = 'images/IFITMOVES/stoneFloorBackground.png'; //audio to variabl
 var walking = document.getElementById("audio1");
 var running = document.getElementById("audio2");
 
-function init() {
-  floors.push(new Floor(stoneFloor, 0, 0));
-  player = new Player(c.width / 2, c.height / 2);
-}
-
 function animate() {
+  //CLS.
+  ctx.fillStyle = "green";
+  ctx.fillRect(0, 0, c.width, c.height);
   floors.forEach(function (floor) {
     floor.update();
   });
@@ -43,12 +40,8 @@ window.addEventListener("keydown", function (e) {
     moveRight = true;
   }
 
-  if (e.keyCode == 83 || e.keyCode == 40) {
-    moveDown = true;
-  }
-
   if (e.keyCode == 87 || e.keyCode == 38) {
-    moveUp = true;
+    moveForward = true;
   }
 
   if (e.keyCode == 16) {
@@ -58,22 +51,14 @@ window.addEventListener("keydown", function (e) {
 window.addEventListener("keyup", function (e) {
   if (e.keyCode == 37 || e.keyCode == 65) {
     moveLeft = false;
-    player.velocity.x = 0;
   }
 
   if (e.keyCode == 39 || e.keyCode == 68) {
     moveRight = false;
-    player.velocity.x = 0;
-  }
-
-  if (e.keyCode == 83 || e.keyCode == 40) {
-    moveDown = false;
-    player.velocity.y = 0;
   }
 
   if (e.keyCode == 87 || e.keyCode == 38) {
-    moveUp = false;
-    player.velocity.y = 0;
+    moveForward = false;
   }
 
   if (e.keyCode == 16) {
