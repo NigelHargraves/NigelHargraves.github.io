@@ -1,13 +1,12 @@
 //create floor class.
 class Floor {
     //construct floor data.
-    constructor(image, y, speed) {
+    constructor(image) {
         this.x = 0;
-        this.y = y;
+        this.y = 0;
         this.width = c.width * 4;
         this.height = c.height * 4;
         this.image = image;
-        this.speed = speed;
     }
 
     //draw floor.

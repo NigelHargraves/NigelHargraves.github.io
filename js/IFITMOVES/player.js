@@ -8,35 +8,83 @@ class Player {
             x: 0,
             y: 0
         };
-        this.r = 10;
+        this.r = 50;
         this.aimx = 0;
         this.aimy = 0;
+        this.turnAngle = 0;
+        this.walk = 40;
+        this.spriteLength = 189;
+        this.fire = 10;
     }
 
     //draw player.
     draw() {
+        ctx.save();
+        ctx.translate(this.x, this.y);
+        ctx.rotate(playerAngle + Math.PI / 2);
 
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
-        ctx.fillStyle = "White";
-        ctx.fill();
 
-        //calculate gun draw point.
-        this.aimx = (this.r * 2) * Math.cos(playerAngle);
-        this.aimy = (this.r * 2) * Math.sin(playerAngle);
+        if (!moveForward && !fire) {
+            ctx.drawImage(playerImage, 8, 0, this.spriteLength, 300, 0 - this.r / 2, 0 - this.r / 2, this.r, this.r);
+        }
 
-        //draw aim line.
-        ctx.beginPath();
-        ctx.moveTo(this.x + this.aimx, this.y + this.aimy);
-        ctx.lineTo(this.x, this.y);
-        ctx.strokeStyle = "blue";
-        ctx.lineWidth = 2;
-        ctx.stroke();
+        if (moveForward && !fire) {
+            if (this.walk >= 30) {
+                ctx.drawImage(playerImage, this.spriteLength, 0, this.spriteLength, 300, 0 - this.r / 2, 0 - this.r / 2, this.r, this.r);
+            }
+            if (this.walk >= 20 && this.walk < 30) {
+                ctx.drawImage(playerImage, this.spriteLength * 2, 0, this.spriteLength, 300, 0 - this.r / 2, 0 - this.r / 2, this.r, this.r);
+            }
+            if (this.walk >= 10 && this.walk < 20) {
+                ctx.drawImage(playerImage, this.spriteLength * 3, 0, this.spriteLength, 300, 0 - this.r / 2, 0 - this.r / 2, this.r, this.r);
+            }
+            if (this.walk >= 0 && this.walk < 10) {
+                ctx.drawImage(playerImage, this.spriteLength * 4, 0, this.spriteLength, 300, 0 - this.r / 2, 0 - this.r / 2, this.r, this.r);
+            }
+            if (run) {
+                this.walk -= 2;
+            } else {
+                this.walk -= 1;
+            }
 
-        //calculate aim point.
-        this.aimx = this.r * Math.cos(playerAngle);
-        this.aimy = this.r * Math.sin(playerAngle);
+            if (this.walk <= 0) {
+                this.walk = 40;
+            }
+        } else {
+            this.walk = 40;
+        }
 
+        if (fire) {
+            if (this.fire > 9) {
+                shot.currentTime = 0;
+                shot.play();
+                const angles = Math.atan2(this.aimy, this.aimx);
+                const velocity = {
+                    x: Math.cos(angles) * 20,
+                    y: Math.sin(angles) * 20
+                };
+                bullets.push(new Bullet(player.x, player.y, velocity));
+
+            }
+
+            if (this.fire >= 6) {
+                ctx.drawImage(playerImage, this.spriteLength * 6, 0, this.spriteLength, 300, 0 - this.r / 2, 0 - this.r / 2, this.r, this.r);
+            }
+
+
+
+            if (this.fire >= 0 && this.fire < 6) {
+                ctx.drawImage(playerImage, this.spriteLength * 5, 0, this.spriteLength, 300, 0 - this.r / 2, 0 - this.r / 2, this.r, this.r);
+            }
+            this.fire -= 1;
+            if (this.fire <= 0) {
+                this.fire = 10;
+                fire = false;
+            }
+        }
+
+
+        ctx.restore();
     }
 
     //update player.
@@ -52,6 +100,14 @@ class Player {
             //decrease angle by PI/180.
             playerAngle -= Math.PI / 180;
         }
+
+
+        //calculate aim point.
+        this.aimx = this.r * Math.cos(playerAngle) / 5;
+        this.aimy = this.r * Math.sin(playerAngle) / 5;
+
+
+
 
 
         //calc angle to aim point

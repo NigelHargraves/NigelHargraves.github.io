@@ -11,15 +11,14 @@ var Floor =
 /*#__PURE__*/
 function () {
   //construct floor data.
-  function Floor(image, y, speed) {
+  function Floor(image) {
     _classCallCheck(this, Floor);
 
     this.x = 0;
-    this.y = y;
+    this.y = 0;
     this.width = c.width * 4;
     this.height = c.height * 4;
     this.image = image;
-    this.speed = speed;
   } //draw floor.
 
 

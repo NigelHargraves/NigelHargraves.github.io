@@ -3,26 +3,37 @@
 // Set the canvas element to  variable.
 var ctx = c.getContext("2d");
 c.width = window.innerWidth;
-c.height = window.innerHeight;
-var floors = [];
-var player, playerAngle, speed;
+c.height = window.innerHeight; //arrays.
+
+var floors = [],
+    bullets = []; //variables.
+
+var player, playerAngle, speed; //booleans.
+
 var moveLeft = false,
     moveRight = false,
     moveForward = false,
-    run = false; //backgrounds to variables.
+    run = false,
+    fire = false; //backgrounds to variables.
 
 var stoneFloor = new Image();
-stoneFloor.src = 'images/IFITMOVES/stoneFloorBackground.png'; //audio to variables.
+stoneFloor.src = 'images/IFITMOVES/stoneFloorBackground.png';
+var playerImage = new Image();
+playerImage.src = 'images/IFITMOVES/sprite_sheet_man_shooting.png'; //audio to variables.
 
 var walking = document.getElementById("audio1");
 var running = document.getElementById("audio2");
+var shot = document.getElementById("audio3");
 
 function animate() {
   //CLS.
-  ctx.fillStyle = "green";
+  ctx.fillStyle = "rgb(0, 100, 0,1)";
   ctx.fillRect(0, 0, c.width, c.height);
   floors.forEach(function (floor) {
     floor.update();
+  });
+  bullets.forEach(function (bullet) {
+    bullet.update();
   });
   player.update(); //call next frame.
 
@@ -46,6 +57,10 @@ window.addEventListener("keydown", function (e) {
 
   if (e.keyCode == 16) {
     run = true;
+  }
+
+  if (e.keyCode == 32 && !fire && player.fire == 10) {
+    fire = true;
   }
 });
 window.addEventListener("keyup", function (e) {
