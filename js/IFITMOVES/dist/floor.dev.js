@@ -40,21 +40,20 @@ function () {
 
         this.x -= player.aimx / speed;
         this.y -= player.aimy / speed;
+        moveBugs = false;
 
         if (this.x + 4 >= player.x - player.r) {
-          this.x -= 2;
-        }
-
-        if (this.x - 4 + this.width <= player.x + player.r) {
-          this.x += 2;
-        }
-
-        if (this.y + 4 >= player.y - player.r) {
-          this.y -= 2;
-        }
-
-        if (this.y - 4 + this.height <= player.y + player.r) {
-          this.y += 2;
+          this.x -= 5;
+          moveBugs = true;
+        } else if (this.x - 4 + this.width <= player.x + player.r) {
+          this.x += 5;
+          moveBugs = true;
+        } else if (this.y + 4 >= player.y - player.r) {
+          this.y -= 5;
+          moveBugs = true;
+        } else if (this.y - 4 + this.height <= player.y + player.r) {
+          this.y += 5;
+          moveBugs = true;
         }
       }
 

@@ -89,7 +89,7 @@ class Player {
 
     //update player.
     update() {
-        let accelerationAmount = 0.1;
+
 
         //move aim point.
         if (moveRight) {
@@ -123,7 +123,7 @@ class Player {
 
 
 
-
+        //what sound to play.
         if (moveForward) {
             if (!run) {
                 running.currentTime = 0;
@@ -145,13 +145,7 @@ class Player {
 
 
 
-        if (player.velocity.x == 0 && player.velocity.y == 0) {
-            walking.currentTime = 0;
-            walking.paused;
-            running.currentTime = 0;
-            running.paused;
 
-        }
 
 
 

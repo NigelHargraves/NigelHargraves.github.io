@@ -105,8 +105,7 @@ function () {
   }, {
     key: "update",
     value: function update() {
-      var accelerationAmount = 0.1; //move aim point.
-
+      //move aim point.
       if (moveRight) {
         //increase angle by PI/180.
         playerAngle += Math.PI / 180;
@@ -124,7 +123,7 @@ function () {
       var angles = Math.atan2(this.aimy - this.y, this.aimx - this.x); //calc velocity x & y to aim point.
 
       this.velocity.x = Math.cos(angles) * 1;
-      this.velocity.y = Math.sin(angles) * 1;
+      this.velocity.y = Math.sin(angles) * 1; //what sound to play.
 
       if (moveForward) {
         if (!run) {
@@ -141,13 +140,6 @@ function () {
         running.paused;
         walking.currentTime = 0;
         walking.paused;
-      }
-
-      if (player.velocity.x == 0 && player.velocity.y == 0) {
-        walking.currentTime = 0;
-        walking.paused;
-        running.currentTime = 0;
-        running.paused;
       }
 
       this.draw();

@@ -1,6 +1,10 @@
 function init() {
     playerAngle = -Math.PI / 2, speed = 10;
-    floors.push(new Floor(stoneFloor));
+    floor = (new Floor(stoneFloor));
     player = new Player(c.width / 2, c.height / 2);
-
+    const velocity = {
+        x: 0,
+        y: 0
+    };
+    spiders.push(new Spider(spiderWalk1, 300, 300, velocity));
 }

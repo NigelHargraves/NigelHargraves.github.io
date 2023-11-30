@@ -4,18 +4,19 @@ c.width = window.innerWidth;
 c.height = window.innerHeight;
 
 //arrays.
-let floors = [],
-    bullets = [];
+let bullets = [],
+    spiders = [];
 
 //variables.
-let player, playerAngle, speed;
+let player, floor, playerAngle, speed;
 
 //booleans.
 let moveLeft = false,
     moveRight = false,
     moveForward = false,
     run = false,
-    fire = false;
+    fire = false,
+    moveBugs = false;
 
 
 //backgrounds to variables.
@@ -23,6 +24,8 @@ let stoneFloor = new Image();
 stoneFloor.src = 'images/IFITMOVES/stoneFloorBackground.png';
 let playerImage = new Image();
 playerImage.src = 'images/IFITMOVES/sprite_sheet_man_shooting.png';
+let spiderWalk1 = new Image();
+spiderWalk1.src = 'images/IFITMOVES/spiderWalk1.png';
 
 //audio to variables.
 let walking = document.getElementById("audio1");
@@ -40,12 +43,17 @@ function animate() {
 
 
 
-    floors.forEach((floor) => {
-        floor.update();
-    });
+
+
+    floor.update();
+
 
     bullets.forEach((bullet) => {
         bullet.update();
+    });
+
+    spiders.forEach((spider) => {
+        spider.update();
     });
 
 

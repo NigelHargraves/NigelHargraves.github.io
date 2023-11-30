@@ -5,21 +5,24 @@ var ctx = c.getContext("2d");
 c.width = window.innerWidth;
 c.height = window.innerHeight; //arrays.
 
-var floors = [],
-    bullets = []; //variables.
+var bullets = [],
+    spiders = []; //variables.
 
-var player, playerAngle, speed; //booleans.
+var player, floor, playerAngle, speed; //booleans.
 
 var moveLeft = false,
     moveRight = false,
     moveForward = false,
     run = false,
-    fire = false; //backgrounds to variables.
+    fire = false,
+    moveBugs = false; //backgrounds to variables.
 
 var stoneFloor = new Image();
 stoneFloor.src = 'images/IFITMOVES/stoneFloorBackground.png';
 var playerImage = new Image();
-playerImage.src = 'images/IFITMOVES/sprite_sheet_man_shooting.png'; //audio to variables.
+playerImage.src = 'images/IFITMOVES/sprite_sheet_man_shooting.png';
+var spiderWalk1 = new Image();
+spiderWalk1.src = 'images/IFITMOVES/spiderWalk1.png'; //audio to variables.
 
 var walking = document.getElementById("audio1");
 var running = document.getElementById("audio2");
@@ -29,11 +32,12 @@ function animate() {
   //CLS.
   ctx.fillStyle = "rgb(0, 100, 0,1)";
   ctx.fillRect(0, 0, c.width, c.height);
-  floors.forEach(function (floor) {
-    floor.update();
-  });
+  floor.update();
   bullets.forEach(function (bullet) {
     bullet.update();
+  });
+  spiders.forEach(function (spider) {
+    spider.update();
   });
   player.update(); //call next frame.
 
