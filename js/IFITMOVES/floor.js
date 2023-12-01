@@ -31,19 +31,15 @@ class Floor {
             this.x -= player.aimx / speed;
             this.y -= player.aimy / speed;
 
-            moveBugs = false;
+
             if (this.x + 4 >= player.x - player.r) {
-                this.x -= 5;
-                moveBugs = true;
+                this.x -= 2;
             } else if ((this.x - 4) + this.width <= player.x + player.r) {
-                this.x += 5;
-                moveBugs = true;
+                this.x += 2;
             } else if (this.y + 4 >= player.y - player.r) {
-                this.y -= 5;
-                moveBugs = true;
+                this.y -= 2;
             } else if ((this.y - 4) + this.height <= player.y + player.r) {
-                this.y += 5;
-                moveBugs = true;
+                this.y += 2;
             }
         }
         this.draw();

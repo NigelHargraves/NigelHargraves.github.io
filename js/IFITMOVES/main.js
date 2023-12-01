@@ -15,8 +15,7 @@ let moveLeft = false,
     moveRight = false,
     moveForward = false,
     run = false,
-    fire = false,
-    moveBugs = false;
+    fire = false;
 
 
 //backgrounds to variables.
@@ -24,8 +23,41 @@ let stoneFloor = new Image();
 stoneFloor.src = 'images/IFITMOVES/stoneFloorBackground.png';
 let playerImage = new Image();
 playerImage.src = 'images/IFITMOVES/sprite_sheet_man_shooting.png';
-let spiderWalk1 = new Image();
-spiderWalk1.src = 'images/IFITMOVES/spiderWalk1.png';
+let spiderWalk0 = new Image();
+spiderWalk0.src = 'images/IFITMOVES/spiderWalk/Walk_Body_0.png';
+let spiderWalk30 = new Image();
+spiderWalk30.src = 'images/IFITMOVES/spiderWalk/Walk_Body_030.png';
+let spiderWalk45 = new Image();
+spiderWalk45.src = 'images/IFITMOVES/spiderWalk/Walk_Body_045.png';
+let spiderWalk60 = new Image();
+spiderWalk60.src = 'images/IFITMOVES/spiderWalk/Walk_Body_060.png';
+let spiderWalk90 = new Image();
+spiderWalk90.src = 'images/IFITMOVES/spiderWalk/Walk_Body_090.png';
+let spiderWalk120 = new Image();
+spiderWalk120.src = 'images/IFITMOVES/spiderWalk/Walk_Body_120.png';
+let spiderWalk135 = new Image();
+spiderWalk135.src = 'images/IFITMOVES/spiderWalk/Walk_Body_135.png';
+let spiderWalk150 = new Image();
+spiderWalk150.src = 'images/IFITMOVES/spiderWalk/Walk_Body_150.png';
+let spiderWalk180 = new Image();
+spiderWalk180.src = 'images/IFITMOVES/spiderWalk/Walk_Body_180.png';
+let spiderWalk210 = new Image();
+spiderWalk210.src = 'images/IFITMOVES/spiderWalk/Walk_Body_210.png';
+let spiderWalk225 = new Image();
+spiderWalk225.src = 'images/IFITMOVES/spiderWalk/Walk_Body_225.png';
+let spiderWalk240 = new Image();
+spiderWalk240.src = 'images/IFITMOVES/spiderWalk/Walk_Body_240.png';
+let spiderWalk270 = new Image();
+spiderWalk270.src = 'images/IFITMOVES/spiderWalk/Walk_Body_270.png';
+let spiderWalk300 = new Image();
+spiderWalk300.src = 'images/IFITMOVES/spiderWalk/Walk_Body_300.png';
+let spiderWalk315 = new Image();
+spiderWalk315.src = 'images/IFITMOVES/spiderWalk/Walk_Body_315.png';
+let spiderWalk330 = new Image();
+spiderWalk330.src = 'images/IFITMOVES/spiderWalk/Walk_Body_330.png';
+
+
+
 
 //audio to variables.
 let walking = document.getElementById("audio1");
@@ -44,8 +76,12 @@ function animate() {
 
 
 
-
     floor.update();
+
+
+
+
+
 
 
     bullets.forEach((bullet) => {
