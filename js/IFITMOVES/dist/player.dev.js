@@ -27,6 +27,7 @@ function () {
     this.walk = 40;
     this.spriteLength = 189;
     this.fire = 10;
+    this.rotate = 30;
   } //draw player.
 
 
@@ -39,6 +40,20 @@ function () {
 
       if (!moveForward && !fire) {
         ctx.drawImage(playerImage, 8, 0, this.spriteLength, 300, 0 - this.r / 2, 0 - this.r / 2, this.r, this.r);
+      }
+
+      if (!moveForward && moveLeft || moveRight) {
+        if (this.rotate >= 15) {
+          ctx.drawImage(playerImage, this.spriteLength * 4, 0, this.spriteLength, 300, 0 - this.r / 2, 0 - this.r / 2, this.r, this.r);
+        } else {
+          ctx.drawImage(playerImage, this.spriteLength * 2, 0, this.spriteLength, 300, 0 - this.r / 2, 0 - this.r / 2, this.r, this.r);
+        }
+
+        this.rotate -= 1;
+
+        if (this.rotate <= 0) {
+          this.rotate = 30;
+        }
       }
 
       if (moveForward && !fire) {
@@ -126,6 +141,9 @@ function () {
       this.velocity.y = Math.sin(angles) * 1; //what sound to play.
 
       if (moveForward) {
+        rotateStep.currentTime = 0;
+        rotateStep.paused;
+
         if (!run) {
           running.currentTime = 0;
           running.paused;
@@ -140,6 +158,10 @@ function () {
         running.paused;
         walking.currentTime = 0;
         walking.paused;
+      }
+
+      if (!moveForward && moveLeft || moveRight) {
+        rotateStep.play();
       }
 
       this.draw();

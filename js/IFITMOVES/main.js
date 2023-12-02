@@ -102,6 +102,7 @@ let running = document.getElementById("audio2");
 let shot = document.getElementById("audio3");
 let spiderWalking = document.getElementById("audio4");
 let splated = document.getElementById("audio5");
+let rotateStep = document.getElementById("audio6");
 
 function animate() {
 

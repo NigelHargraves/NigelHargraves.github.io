@@ -98,6 +98,7 @@ var running = document.getElementById("audio2");
 var shot = document.getElementById("audio3");
 var spiderWalking = document.getElementById("audio4");
 var splated = document.getElementById("audio5");
+var rotateStep = document.getElementById("audio6");
 
 function animate() {
   //CLS.
