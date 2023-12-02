@@ -11,10 +11,11 @@ var Spider =
 /*#__PURE__*/
 function () {
   //construct spider data.
-  function Spider(image, x, y) {
+  function Spider(image, imageShadow, x, y) {
     _classCallCheck(this, Spider);
 
     this.image = image;
+    this.imageShadow = imageShadow;
     this.imageAngle = 360;
     this.x = x;
     this.y = y;
@@ -30,83 +31,95 @@ function () {
     this.walkX = 0;
     this.walkY = 0;
     this.frameCount = 0;
+    this.spiderSpeed = 95;
   } //draw spider.
 
 
   _createClass(Spider, [{
     key: "draw",
     value: function draw() {
-      ctx.save();
-      ctx.translate(floor.x, floor.y);
-      ctx.translate(this.x, this.y);
-      ctx.rotate(Math.PI / 180 * this.imageAngle);
-
       if (this.imageAngle == 360) {
         this.image = spiderWalk0;
+        this.imageShadow = spiderWalkShadow0;
       }
 
       if (this.imageAngle == 30) {
         this.image = spiderWalk30;
+        this.imageShadow = spiderWalkShadow30;
       }
 
       if (this.imageAngle == 45) {
         this.image = spiderWalk45;
+        this.imageShadow = spiderWalkShadow45;
       }
 
       if (this.imageAngle == 60) {
         this.image = spiderWalk60;
+        this.imageShadow = spiderWalkShadow60;
       }
 
       if (this.imageAngle == 90) {
         this.image = spiderWalk90;
+        this.imageShadow = spiderWalkShadow90;
       }
 
       if (this.imageAngle == 120) {
         this.image = spiderWalk120;
+        this.imageShadow = spiderWalkShadow120;
       }
 
       if (this.imageAngle == 135) {
         this.image = spiderWalk135;
+        this.imageShadow = spiderWalkShadow135;
       }
 
       if (this.imageAngle == 150) {
         this.image = spiderWalk150;
+        this.imageShadow = spiderWalkShadow150;
       }
 
       if (this.imageAngle == 180) {
         this.image = spiderWalk180;
+        this.imageShadow = spiderWalkShadow180;
       }
 
       if (this.imageAngle == 210) {
         this.image = spiderWalk210;
+        this.imageShadow = spiderWalkShadow210;
       }
 
       if (this.imageAngle == 225) {
         this.image = spiderWalk225;
+        this.imageShadow = spiderWalkShadow225;
       }
 
       if (this.imageAngle == 240) {
         this.image = spiderWalk240;
+        this.imageShadow = spiderWalkShadow240;
       }
 
       if (this.imageAngle == 270) {
         this.image = spiderWalk270;
+        this.imageShadow = spiderWalkShadow270;
       }
 
       if (this.imageAngle == 300) {
         this.image = spiderWalk300;
+        this.imageShadow = spiderWalkShadow300;
       }
 
       if (this.imageAngle == 315) {
         this.image = spiderWalk315;
+        this.imageShadow = spiderWalkShadow315;
       }
 
       if (this.imageAngle == 330) {
         this.image = spiderWalk330;
+        this.imageShadow = spiderWalkShadow330;
       }
 
-      ctx.drawImage(this.image, this.walkX, this.walkY, this.spriteLength, this.spriteLength, 0 - this.r / 2, 0 - this.r / 2, this.r, this.r);
-      ctx.restore();
+      ctx.drawImage(this.imageShadow, this.walkX, this.walkY, this.spriteLength, this.spriteLength, floor.x + this.x - this.r / 2, floor.y + this.y - this.r / 2, this.r, this.r);
+      ctx.drawImage(this.image, this.walkX, this.walkY, this.spriteLength, this.spriteLength, floor.x + this.x - this.r / 2, floor.y + this.y - this.r / 2, this.r, this.r);
     } //draw spider.
 
   }, {
@@ -114,7 +127,7 @@ function () {
     value: function update() {
       var changeDirection = Math.random();
 
-      if (changeDirection > 0.99) {
+      if (changeDirection > 0.999) {
         var direction = Math.random();
 
         if (direction >= 0.4) {
@@ -133,7 +146,7 @@ function () {
             this.spiderAngle += Math.PI / 180 * 15;
           }
         } else {
-          if (this.imageAngle == 0 || this.imageAngle == 60 || this.imageAngle == 90 || this.imageAngle == 150 || this.imageAngle == 180 || this.imageAngle == 240 || this.imageAngle == 270 || this.imageAngle == 330) {
+          if (this.imageAngle == 360 || this.imageAngle == 30 || this.imageAngle == 90 || this.imageAngle == 120 || this.imageAngle == 180 || this.imageAngle == 210 || this.imageAngle == 270 || this.imageAngle == 300) {
             this.imageAngle -= 30;
 
             if (this.imageAngle == 0) {
@@ -151,7 +164,7 @@ function () {
       } //hit wall.
 
 
-      if (this.x - this.r / 2 + floor.x <= floor.x || this.x - this.r / 2 + floor.x >= floor.width || this.y - this.r / 2 + floor.y <= floor.y || this.y - this.r / 2 + floor.y >= floor.height) {
+      if (this.x - this.r / 2 + floor.x <= floor.x || this.x + this.r / 2 >= floor.width || this.y - this.r / 2 + floor.y <= floor.y || this.y + this.r / 2 >= floor.height) {
         //increase angle to go opposite direction.
         this.imageAngle += 180;
 
@@ -174,14 +187,8 @@ function () {
 
       this.velocity.x = Math.cos(angles) * 1;
       this.velocity.y = Math.sin(angles) * 1;
-      /*
-           
-          this.x += this.velocity.x;
-      this.y += this.velocity.y;
-        */
-
-      this.x += this.aimx / 100;
-      this.y += this.aimy / 100;
+      this.x += this.aimx / this.spiderSpeed;
+      this.y += this.aimy / this.spiderSpeed;
 
       if (this.frameCount >= 5) {
         if (this.walkX == this.spriteLength * 3) {

@@ -5,7 +5,8 @@ c.height = window.innerHeight;
 
 //arrays.
 let bullets = [],
-    spiders = [];
+    spiders = [],
+    spiderSplats = [];
 
 //variables.
 let player, floor, playerAngle, speed;
@@ -15,7 +16,8 @@ let moveLeft = false,
     moveRight = false,
     moveForward = false,
     run = false,
-    fire = false;
+    fire = false,
+    spiderInView = false;
 
 
 //backgrounds to variables.
@@ -55,15 +57,51 @@ let spiderWalk315 = new Image();
 spiderWalk315.src = 'images/IFITMOVES/spiderWalk/Walk_Body_315.png';
 let spiderWalk330 = new Image();
 spiderWalk330.src = 'images/IFITMOVES/spiderWalk/Walk_Body_330.png';
-
-
-
+let spiderWalkShadow0 = new Image();
+spiderWalkShadow0.src = 'images/IFITMOVES/spiderWalk/Walk_Shadow_0.png';
+let spiderWalkShadow30 = new Image();
+spiderWalkShadow30.src = 'images/IFITMOVES/spiderWalk/Walk_Shadow_030.png';
+let spiderWalkShadow45 = new Image();
+spiderWalkShadow45.src = 'images/IFITMOVES/spiderWalk/Walk_Shadow_045.png';
+let spiderWalkShadow60 = new Image();
+spiderWalkShadow60.src = 'images/IFITMOVES/spiderWalk/Walk_Shadow_060.png';
+let spiderWalkShadow90 = new Image();
+spiderWalkShadow90.src = 'images/IFITMOVES/spiderWalk/Walk_Shadow_090.png';
+let spiderWalkShadow120 = new Image();
+spiderWalkShadow120.src = 'images/IFITMOVES/spiderWalk/Walk_Shadow_120.png';
+let spiderWalkShadow135 = new Image();
+spiderWalkShadow135.src = 'images/IFITMOVES/spiderWalk/Walk_Shadow_135.png';
+let spiderWalkShadow150 = new Image();
+spiderWalkShadow150.src = 'images/IFITMOVES/spiderWalk/Walk_Shadow_150.png';
+let spiderWalkShadow180 = new Image();
+spiderWalkShadow180.src = 'images/IFITMOVES/spiderWalk/Walk_Shadow_180.png';
+let spiderWalkShadow210 = new Image();
+spiderWalkShadow210.src = 'images/IFITMOVES/spiderWalk/Walk_Shadow_210.png';
+let spiderWalkShadow225 = new Image();
+spiderWalkShadow225.src = 'images/IFITMOVES/spiderWalk/Walk_Shadow_225.png';
+let spiderWalkShadow240 = new Image();
+spiderWalkShadow240.src = 'images/IFITMOVES/spiderWalk/Walk_Shadow_240.png';
+let spiderWalkShadow270 = new Image();
+spiderWalkShadow270.src = 'images/IFITMOVES/spiderWalk/Walk_Shadow_270.png';
+let spiderWalkShadow300 = new Image();
+spiderWalkShadow300.src = 'images/IFITMOVES/spiderWalk/Walk_Shadow_300.png';
+let spiderWalkShadow315 = new Image();
+spiderWalkShadow315.src = 'images/IFITMOVES/spiderWalk/Walk_Shadow_315.png';
+let spiderWalkShadow330 = new Image();
+spiderWalkShadow330.src = 'images/IFITMOVES/spiderWalk/Walk_Shadow_330.png';
+let splat = new Image();
+splat.src = 'images/IFITMOVES/spiderWalk/spiderSplat.png';
+let spiderDead = new Image();
+spiderDead.src = 'images/IFITMOVES/spiderWalk/spiderDead.png';
+let spiderDeadShadow = new Image();
+spiderDeadShadow.src = 'images/IFITMOVES/spiderWalk/spiderDeadShadow.png';
 
 //audio to variables.
 let walking = document.getElementById("audio1");
 let running = document.getElementById("audio2");
 let shot = document.getElementById("audio3");
-
+let spiderWalking = document.getElementById("audio4");
+let splated = document.getElementById("audio5");
 
 function animate() {
 
@@ -79,19 +117,49 @@ function animate() {
     floor.update();
 
 
+    ctx.font = "bold 40px Arial";
+    ctx.fillStyle = "black";
+    ctx.fillText("Spiders Alive = " + spiders.length, (c.width / 2) - 200, 40);
 
 
 
 
 
-    bullets.forEach((bullet) => {
-        bullet.update();
+
+
+    if (bullets.length > 0) {
+        forBullet();
+    }
+
+
+
+
+
+
+
+
+    spiderSplats.forEach((splat, index) => {
+        if (splat.opacity <= 0.1) {
+            spiderSplats.splice(index, 1)
+        }
+        splat.update();
     });
 
     spiders.forEach((spider) => {
+        if (spider.x < ((player.x - floor.x) + c.width / 2) && spider.x > ((player.x - floor.x) - c.width / 2) &&
+            spider.y < ((player.y - floor.y) + c.height / 2) && spider.y > ((player.y - floor.y) - c.height / 2) && !spiderInView) {
+            spiderInView = true;
+        }
         spider.update();
     });
 
+
+    if (spiderInView) {
+        spiderWalking.play();
+    } else {
+        spiderInView.currentTime = 0;
+        spiderWalking.pause();
+    }
 
 
     player.update();

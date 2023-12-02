@@ -17,6 +17,7 @@ function () {
     this.x = x;
     this.y = y;
     this.velocity = velocity;
+    this.r = 2;
   } //draw bullet.
 
 
@@ -24,7 +25,7 @@ function () {
     key: "draw",
     value: function draw() {
       ctx.beginPath();
-      ctx.arc(this.x, this.y, 2, 0, Math.PI * 2);
+      ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
       ctx.fillStyle = "black";
       ctx.fill();
     } //draw bullet.
@@ -40,3 +41,26 @@ function () {
 
   return Bullet;
 }();
+
+function forBullet() {
+  bullets.forEach(function (bullet, index1) {
+    spiders.forEach(function (spider, index2) {
+      var hit = collisionDetection(bullet.x, bullet.y, bullet.r, bullet.r, spider.x + floor.x, spider.y + floor.y, spider.r / 4, spider.r / 4); //kill spider.
+
+      if (hit) {
+        splated.currentTime = 0;
+        splated.play();
+        spiderInView = false;
+        spiderSplats.push(new SpiderSplat(spider.x, spider.y));
+        bullets.splice(index1, 1);
+        spiders.splice(index2, 1);
+      }
+    }); //hit wall.
+
+    if (bullet.x - bullet.r / 2 <= floor.x + 40 || bullet.x + bullet.r / 2 - floor.x >= floor.width - 40 || bullet.y - bullet.r / 2 <= floor.y + 40 || bullet.y + bullet.r / 2 - floor.y >= floor.height - 40) {
+      bullets.splice(index1, 1);
+    }
+
+    bullet.update();
+  });
+}
