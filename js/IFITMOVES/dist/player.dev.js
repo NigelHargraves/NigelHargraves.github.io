@@ -23,7 +23,6 @@ function () {
     this.r = 50;
     this.aimx = 0;
     this.aimy = 0;
-    this.turnAngle = 0;
     this.walk = 40;
     this.spriteLength = 189;
     this.fire = 10;
@@ -37,6 +36,18 @@ function () {
       ctx.save();
       ctx.translate(this.x, this.y);
       ctx.rotate(playerAngle + Math.PI / 2);
+
+      if (playerAngle <= 0) {
+        playerAngle = Math.PI * 2;
+      }
+
+      if (playerAngle > Math.PI * 2) {
+        playerAngle = 0;
+      }
+
+      ctx.globalAlpha = 0.5;
+      ctx.drawImage(playerShadow, 0 - this.r / 2, 0 - this.r / 2, this.r, this.r);
+      ctx.globalAlpha = 1;
 
       if (!moveForward && !fire) {
         ctx.drawImage(playerImage, 8, 0, this.spriteLength, 300, 0 - this.r / 2, 0 - this.r / 2, this.r, this.r);

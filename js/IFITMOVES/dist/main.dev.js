@@ -7,7 +7,8 @@ c.height = window.innerHeight; //arrays.
 
 var bullets = [],
     spiders = [],
-    spiderSplats = []; //variables.
+    spiderSplats = [],
+    walls = []; //variables.
 
 var player, floor, playerAngle, speed; //booleans.
 
@@ -16,7 +17,8 @@ var moveLeft = false,
     moveForward = false,
     run = false,
     fire = false,
-    spiderInView = false; //backgrounds to variables.
+    spiderInView = false,
+    hitWall = false; //backgrounds to variables.
 
 var stoneFloor = new Image();
 stoneFloor.src = 'images/IFITMOVES/stoneFloorBackground.png';
@@ -91,7 +93,11 @@ splat.src = 'images/IFITMOVES/spiderWalk/spiderSplat.png';
 var spiderDead = new Image();
 spiderDead.src = 'images/IFITMOVES/spiderWalk/spiderDead.png';
 var spiderDeadShadow = new Image();
-spiderDeadShadow.src = 'images/IFITMOVES/spiderWalk/spiderDeadShadow.png'; //audio to variables.
+spiderDeadShadow.src = 'images/IFITMOVES/spiderWalk/spiderDeadShadow.png';
+var playerShadow = new Image();
+playerShadow.src = 'images/IFITMOVES/playerShadow.png';
+var obstacleBlock = new Image();
+obstacleBlock.src = 'images/IFITMOVES/obstacle1.png'; //audio to variables.
 
 var walking = document.getElementById("audio1");
 var running = document.getElementById("audio2");
@@ -135,6 +141,10 @@ function animate() {
     spiderWalking.pause();
   }
 
+  forWall();
+  walls.forEach(function (wall) {
+    wall.update();
+  });
   player.update(); //call next frame.
 
   animationId = requestAnimationFrame(animate);
