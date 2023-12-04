@@ -6,8 +6,8 @@ class SpiderPortal {
         this.r = 2;
         this.time = 0;
         this.createSpider = true;
-        portalOpen.currentTime = 0;
-        portalOpen.play();
+
+
     }
     draw() {
         ctx.save();
@@ -25,15 +25,24 @@ class SpiderPortal {
         ctx.arc(floor.x + this.x, floor.y + this.y, this.r, 0, Math.PI * 2);
         ctx.fillStyle = this.color;
         ctx.fill();
+        let extra = this.r + 20;
         ctx.beginPath();
         ctx.moveTo(floor.x + this.x, floor.y + this.y);
-        ctx.lineTo(this.x + this.r + floor.x, this.y + this.r + floor.y);
+        ctx.lineTo(this.x + Math.random() * extra + floor.x, this.y + Math.random() * extra + floor.y);
+        ctx.moveTo(floor.x + this.x, floor.y + this.y);
+        ctx.lineTo(this.x + Math.random() * -extra + floor.x, this.y + Math.random() * extra + floor.y);
+        ctx.moveTo(floor.x + this.x, floor.y + this.y);
+        ctx.lineTo(this.x + Math.random() * -extra + floor.x, this.y + Math.random() * -extra + floor.y);
+        ctx.moveTo(floor.x + this.x, floor.y + this.y);
+        ctx.lineTo(this.x + Math.random() * extra + floor.x, this.y + Math.random() * -extra + floor.y);
         ctx.strokeStyle = "white";
         ctx.stroke();
+
     }
     update() {
         if (this.r <= 40 && this.time < 5) {
             this.r += 0.5;
+            portalOpen.play();
         } else {
             this.color = "white";
             this.time += 1;
@@ -43,6 +52,7 @@ class SpiderPortal {
             if (this.createSpider) {
                 spiders.push(new Spider(spiderWalk0, spiderWalkShadow0, this.x, this.y));
                 this.createSpider = false;
+
             }
 
             this.color = "black"

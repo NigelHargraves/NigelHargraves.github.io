@@ -121,7 +121,7 @@ let spiderWalking = document.getElementById("audio4");
 let splated = document.getElementById("audio5");
 let rotateStep = document.getElementById("audio6");
 let portalOpen = document.getElementById("audio7");
-
+let portalBuzz = document.getElementById("audio8");
 
 
 function animate() {
@@ -167,17 +167,26 @@ function animate() {
 
 
     let createSpider = Math.random();
-    if (createSpider > 0.9) {
+    if (createSpider > 0.999 && portalBuzz.paused) {
 
         let x = 200 + Math.random() * ((c.height * 4) - 400);
         let y = 200 + Math.random() * ((c.height * 4) - 400);
-
+        let wallNumber = 1;
         walls.forEach((wall) => {
-            let hit = collisionDetection(x + floor.x, y + floor.y, 500, 500, wall.x + floor.x, wall.y + floor.y, 400, 400);
-            if (!hit) {
+            //only open portal when portal does not intersect a wall.
+            let hit = collisionDetection(x + floor.x, y + floor.y, 100, 100, wall.x + floor.x, wall.y + floor.y, wall.width / 2, wall.height / 2);
+            if (hit) {
+                return;
+            }
+            if (wallNumber == walls.length) {
+                portalBuzz.play();
                 spiderPortals.push(new SpiderPortal(x, y));
             }
+            wallNumber += 1;
         });
+
+
+
 
     }
 

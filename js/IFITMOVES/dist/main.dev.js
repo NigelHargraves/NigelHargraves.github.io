@@ -107,6 +107,7 @@ var spiderWalking = document.getElementById("audio4");
 var splated = document.getElementById("audio5");
 var rotateStep = document.getElementById("audio6");
 var portalOpen = document.getElementById("audio7");
+var portalBuzz = document.getElementById("audio8");
 
 function animate() {
   //CLS.
@@ -130,15 +131,24 @@ function animate() {
   });
   var createSpider = Math.random();
 
-  if (createSpider > 0.9) {
+  if (createSpider > 0.999 && portalBuzz.paused) {
     var x = 200 + Math.random() * (c.height * 4 - 400);
     var y = 200 + Math.random() * (c.height * 4 - 400);
+    var wallNumber = 1;
     walls.forEach(function (wall) {
-      var hit = collisionDetection(x + floor.x, y + floor.y, 500, 500, wall.x + floor.x, wall.y + floor.y, 400, 400);
+      //only open portal when portal does not intersect a wall.
+      var hit = collisionDetection(x + floor.x, y + floor.y, 100, 100, wall.x + floor.x, wall.y + floor.y, wall.width / 2, wall.height / 2);
 
-      if (!hit) {
+      if (hit) {
+        return;
+      }
+
+      if (wallNumber == walls.length) {
+        portalBuzz.play();
         spiderPortals.push(new SpiderPortal(x, y));
       }
+
+      wallNumber += 1;
     });
   }
 
