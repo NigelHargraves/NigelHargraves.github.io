@@ -6,5 +6,7 @@ function collisionDetection(object1X, object1Y, object1XRadiusWidth, object1YRad
         object1Y + object1YRadiusHeight > object2Y - object2YRadiusHeight
     ) {
         return true;
+    } else {
+        return false;
     }
 }

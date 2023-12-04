@@ -8,7 +8,8 @@ c.height = window.innerHeight; //arrays.
 var bullets = [],
     spiders = [],
     spiderSplats = [],
-    walls = []; //variables.
+    walls = [],
+    spiderPortals = []; //variables.
 
 var player, floor, playerAngle, speed; //booleans.
 
@@ -105,6 +106,7 @@ var shot = document.getElementById("audio3");
 var spiderWalking = document.getElementById("audio4");
 var splated = document.getElementById("audio5");
 var rotateStep = document.getElementById("audio6");
+var portalOpen = document.getElementById("audio7");
 
 function animate() {
   //CLS.
@@ -125,6 +127,27 @@ function animate() {
     }
 
     splat.update();
+  });
+  var createSpider = Math.random();
+
+  if (createSpider > 0.9) {
+    var x = 200 + Math.random() * (c.height * 4 - 400);
+    var y = 200 + Math.random() * (c.height * 4 - 400);
+    walls.forEach(function (wall) {
+      var hit = collisionDetection(x + floor.x, y + floor.y, 500, 500, wall.x + floor.x, wall.y + floor.y, 400, 400);
+
+      if (!hit) {
+        spiderPortals.push(new SpiderPortal(x, y));
+      }
+    });
+  }
+
+  spiderPortals.forEach(function (portal, index) {
+    if (portal.r < 2) {
+      spiderPortals.splice(index, 1);
+    }
+
+    portal.update();
   });
   spiders.forEach(function (spider) {
     if (spider.x < player.x - floor.x + c.width / 2 && spider.x > player.x - floor.x - c.width / 2 && spider.y < player.y - floor.y + c.height / 2 && spider.y > player.y - floor.y - c.height / 2 && !spiderInView) {

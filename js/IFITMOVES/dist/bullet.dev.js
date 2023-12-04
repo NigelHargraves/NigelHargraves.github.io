@@ -55,9 +55,16 @@ function forBullet() {
         bullets.splice(index1, 1);
         spiders.splice(index2, 1);
       }
-    }); //hit wall.
+    });
+    walls.forEach(function (wall) {
+      var hit = collisionDetection(bullet.x, bullet.y, bullet.r, bullet.r, wall.x + floor.x, wall.y + floor.y, wall.width / 2, wall.height / 2); //hit wall.
 
-    if (bullet.x - bullet.r / 2 <= floor.x + 40 || bullet.x + bullet.r / 2 - floor.x >= floor.width - 40 || bullet.y - bullet.r / 2 <= floor.y + 40 || bullet.y + bullet.r / 2 - floor.y >= floor.height - 40) {
+      if (hit) {
+        bullets.splice(index1, 1);
+      }
+    }); //hit edge.
+
+    if (bullet.x - bullet.r / 2 <= floor.x + 20 || bullet.x + bullet.r / 2 - floor.x >= floor.width - 20 || bullet.y - bullet.r / 2 <= floor.y + 20 || bullet.y + bullet.r / 2 - floor.y >= floor.height - 20) {
       bullets.splice(index1, 1);
     }
 
