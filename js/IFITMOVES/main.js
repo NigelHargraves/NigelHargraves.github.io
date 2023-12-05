@@ -8,7 +8,8 @@ let bullets = [],
     spiders = [],
     spiderSplats = [],
     walls = [],
-    spiderPortals = [];
+    spiderPortals = [],
+    doors = [];
 
 //variables.
 let player, floor, playerAngle, speed;
@@ -102,6 +103,84 @@ let spiderWalkShadow315 = new Image();
 spiderWalkShadow315.src = 'images/IFITMOVES/spiderWalk/Walk_Shadow_315.png';
 let spiderWalkShadow330 = new Image();
 spiderWalkShadow330.src = 'images/IFITMOVES/spiderWalk/Walk_Shadow_330.png';
+
+
+
+let Nervous0 = new Image();
+Nervous0.src = 'images/IFITMOVES/spider_Idle_Nervous/Idle_Nervous_Body_0.png';
+let Nervous30 = new Image();
+Nervous30.src = 'images/IFITMOVES/spider_Idle_Nervous/Idle_Nervous_Body_030.png';
+let Nervous45 = new Image();
+Nervous45.src = 'images/IFITMOVES/spider_Idle_Nervous/Idle_Nervous_Body_045.png';
+let Nervous60 = new Image();
+Nervous60.src = 'images/IFITMOVES/spider_Idle_Nervous/Idle_Nervous_Body_060.png';
+let Nervous90 = new Image();
+Nervous90.src = 'images/IFITMOVES/spider_Idle_Nervous/Idle_Nervous_Body_090.png';
+let Nervous120 = new Image();
+Nervous120.src = 'images/IFITMOVES/spider_Idle_Nervous/Idle_Nervous_Body_120.png';
+let Nervous135 = new Image();
+Nervous135.src = 'images/IFITMOVES/spider_Idle_Nervous/Idle_Nervous_Body_135.png';
+let Nervous150 = new Image();
+Nervous150.src = 'images/IFITMOVES/spider_Idle_Nervous/Idle_Nervous_Body_150.png';
+let Nervous180 = new Image();
+Nervous180.src = 'images/IFITMOVES/spider_Idle_Nervous/Idle_Nervous_Body_180.png';
+let Nervous210 = new Image();
+Nervous210.src = 'images/IFITMOVES/spider_Idle_Nervous/Idle_Nervous_Body_210.png';
+let Nervous225 = new Image();
+Nervous225.src = 'images/IFITMOVES/spider_Idle_Nervous/Idle_Nervous_Body_225.png';
+let Nervous240 = new Image();
+Nervous240.src = 'images/IFITMOVES/spider_Idle_Nervous/Idle_Nervous_Body_240.png';
+let Nervous270 = new Image();
+Nervous270.src = 'images/IFITMOVES/spider_Idle_Nervous/Idle_Nervous_Body_270.png';
+let Nervous300 = new Image();
+Nervous300.src = 'images/IFITMOVES/spider_Idle_Nervous/Idle_Nervous_Body_300.png';
+let Nervous315 = new Image();
+Nervous315.src = 'images/IFITMOVES/spider_Idle_Nervous/Idle_Nervous_Body_315.png';
+let Nervous330 = new Image();
+Nervous330.src = 'images/IFITMOVES/spider_Idle_Nervous/Idle_Nervous_Body_330.png';
+
+
+let NervousShadow0 = new Image();
+NervousShadow0.src = 'images/IFITMOVES/spider_Idle_Nervous/Idle_Nervous_Shadow_0.png';
+let NervousShadow30 = new Image();
+NervousShadow30.src = 'images/IFITMOVES/spider_Idle_Nervous/Idle_Nervous_Shadow_030.png';
+let NervousShadow45 = new Image();
+NervousShadow45.src = 'images/IFITMOVES/spider_Idle_Nervous/Idle_Nervous_Shadow_045.png';
+let NervousShadow60 = new Image();
+NervousShadow60.src = 'images/IFITMOVES/spider_Idle_Nervous/Idle_Nervous_Shadow_060.png';
+let NervousShadow90 = new Image();
+NervousShadow90.src = 'images/IFITMOVES/spider_Idle_Nervous/Idle_Nervous_Shadow_090.png';
+let NervousShadow120 = new Image();
+NervousShadow120.src = 'images/IFITMOVES/spider_Idle_Nervous/Idle_Nervous_Shadow_120.png';
+let NervousShadow135 = new Image();
+NervousShadow135.src = 'images/IFITMOVES/spider_Idle_Nervous/Idle_Nervous_Shadow_135.png';
+let NervousShadow150 = new Image();
+NervousShadow150.src = 'images/IFITMOVES/spider_Idle_Nervous/Idle_Nervous_Shadow_150.png';
+let NervousShadow180 = new Image();
+NervousShadow180.src = 'images/IFITMOVES/spider_Idle_Nervous/Idle_Nervous_Shadow_180.png';
+let NervousShadow210 = new Image();
+NervousShadow210.src = 'images/IFITMOVES/spider_Idle_Nervous/Idle_Nervous_Shadow_210.png';
+let NervousShadow225 = new Image();
+NervousShadow225.src = 'images/IFITMOVES/spider_Idle_Nervous/Idle_Nervous_Shadow_225.png';
+let NervousShadow240 = new Image();
+NervousShadow240.src = 'images/IFITMOVES/spider_Idle_Nervous/Idle_Nervous_Shadow_240.png';
+let NervousShadow270 = new Image();
+NervousShadow270.src = 'images/IFITMOVES/spider_Idle_Nervous/Idle_Nervous_Shadow_270.png';
+let NervousShadow300 = new Image();
+NervousShadow300.src = 'images/IFITMOVES/spider_Idle_Nervous/Idle_Nervous_Shadow_300.png';
+let NervousShadow315 = new Image();
+NervousShadow315.src = 'images/IFITMOVES/spider_Idle_Nervous/Idle_Nervous_Shadow_315.png';
+let NervousShadow330 = new Image();
+NervousShadow330.src = 'images/IFITMOVES/spider_Idle_Nervous/Idle_Nervous_Shadow_330.png';
+
+
+
+
+
+
+
+
+
 let splat = new Image();
 splat.src = 'images/IFITMOVES/spiderWalk/spiderSplat.png';
 let spiderDead = new Image();
@@ -112,6 +191,8 @@ let playerShadow = new Image();
 playerShadow.src = 'images/IFITMOVES/playerShadow.png';
 let obstacleBlock = new Image();
 obstacleBlock.src = 'images/IFITMOVES/obstacle1.png';
+let keyHoleRed = new Image();
+keyHoleRed.src = 'images/IFITMOVES/keyHoleRed.png';
 
 //audio to variables.
 let walking = document.getElementById("audio1");
@@ -138,9 +219,6 @@ function animate() {
     floor.update();
 
 
-    ctx.font = "bold 40px Arial";
-    ctx.fillStyle = "black";
-    ctx.fillText("Spiders Alive = " + spiders.length, (c.width / 2) - 200, 40);
 
 
 
@@ -165,7 +243,7 @@ function animate() {
         splat.update();
     });
 
-
+    //create spider.
     let createSpider = Math.random();
     if (createSpider > 0.999 && portalBuzz.paused) {
 
@@ -174,7 +252,7 @@ function animate() {
         let wallNumber = 1;
         walls.forEach((wall) => {
             //only open portal when portal does not intersect a wall.
-            let hit = collisionDetection(x + floor.x, y + floor.y, 100, 100, wall.x + floor.x, wall.y + floor.y, wall.width / 2, wall.height / 2);
+            let hit = collisionDetection(x + floor.x, y + floor.y, 200, 200, wall.x + floor.x, wall.y + floor.y, wall.width / 2, wall.height / 2);
             if (hit) {
                 return;
             }
@@ -204,10 +282,7 @@ function animate() {
 
 
     spiders.forEach((spider) => {
-        if (spider.x < ((player.x - floor.x) + c.width / 2) && spider.x > ((player.x - floor.x) - c.width / 2) &&
-            spider.y < ((player.y - floor.y) + c.height / 2) && spider.y > ((player.y - floor.y) - c.height / 2) && !spiderInView) {
-            spiderInView = true;
-        }
+
         spider.update();
     });
 
@@ -233,11 +308,16 @@ function animate() {
         wall.update();
     });
 
-
+    doors.forEach((door) => {
+        door.update();
+    });
 
 
 
     player.update();
+    ctx.font = "bold 40px Arial";
+    ctx.fillStyle = "black";
+    ctx.fillText("Spiders Alive = " + spiders.length, (c.width / 2) - 200, 40);
 
 
     //call next frame.

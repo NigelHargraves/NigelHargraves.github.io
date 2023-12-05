@@ -10,30 +10,52 @@ class SpiderPortal {
 
     }
     draw() {
+        ctx.beginPath();
+        ctx.arc(floor.x + this.x, floor.y + this.y, this.r, 0, Math.PI * 2);
+        ctx.fillStyle = this.color;
+        ctx.fill();
         ctx.save();
-        let taper = 0.1;
+
+
+        ctx.globalAlpha = 0.1;
+        ctx.beginPath();
+        ctx.arc(floor.x + this.x, floor.y + this.y, this.r + (this.r * 2), 0, Math.PI * 2);
+        ctx.fillStyle = "white";
+        ctx.fill();
+        this.color = "black"
+
+        let taper = 1;
         for (let i = 1; i >= 0.1; i -= 0.1) {
             ctx.globalAlpha = i;
             ctx.beginPath();
-            ctx.arc(floor.x + this.x, floor.y + this.y, this.r + this.r * taper, 0, Math.PI * 2);
+            ctx.arc(floor.x + this.x, floor.y + this.y, this.r + (this.r * taper), 0, Math.PI * 2);
             ctx.fillStyle = this.color;
             ctx.fill();
             taper += 0.1;
         }
         ctx.restore();
-        ctx.beginPath();
-        ctx.arc(floor.x + this.x, floor.y + this.y, this.r, 0, Math.PI * 2);
-        ctx.fillStyle = this.color;
-        ctx.fill();
-        let extra = this.r + 20;
+
+        let extra = this.r + 40;
         ctx.beginPath();
         ctx.moveTo(floor.x + this.x, floor.y + this.y);
+        ctx.lineTo(this.x + Math.random() * (extra / 3) + floor.x, this.y + Math.random() * (extra / 3) + floor.y);
+        ctx.lineTo(this.x + Math.random() * (extra / 2) + floor.x, this.y + Math.random() * (extra / 2) + floor.y);
+        ctx.lineTo(this.x + Math.random() * (extra / 1.5) + floor.x, this.y + Math.random() * (extra / 1.5) + floor.y);
         ctx.lineTo(this.x + Math.random() * extra + floor.x, this.y + Math.random() * extra + floor.y);
         ctx.moveTo(floor.x + this.x, floor.y + this.y);
+        ctx.lineTo(this.x + Math.random() * -(extra / 3) + floor.x, this.y + Math.random() * (extra / 3) + floor.y);
+        ctx.lineTo(this.x + Math.random() * -(extra / 2) + floor.x, this.y + Math.random() * (extra / 2) + floor.y);
+        ctx.lineTo(this.x + Math.random() * -(extra / 1.5) + floor.x, this.y + Math.random() * (extra / 1.5) + floor.y);
         ctx.lineTo(this.x + Math.random() * -extra + floor.x, this.y + Math.random() * extra + floor.y);
         ctx.moveTo(floor.x + this.x, floor.y + this.y);
+        ctx.lineTo(this.x + Math.random() * -(extra / 3) + floor.x, this.y + Math.random() * -(extra / 3) + floor.y);
+        ctx.lineTo(this.x + Math.random() * -(extra / 2) + floor.x, this.y + Math.random() * -(extra / 2) + floor.y);
+        ctx.lineTo(this.x + Math.random() * -(extra / 1.5) + floor.x, this.y + Math.random() * -(extra / 1.5) + floor.y);
         ctx.lineTo(this.x + Math.random() * -extra + floor.x, this.y + Math.random() * -extra + floor.y);
         ctx.moveTo(floor.x + this.x, floor.y + this.y);
+        ctx.lineTo(this.x + Math.random() * (extra / 3) + floor.x, this.y + Math.random() * -(extra / 3) + floor.y);
+        ctx.lineTo(this.x + Math.random() * (extra / 2) + floor.x, this.y + Math.random() * -(extra / 2) + floor.y);
+        ctx.lineTo(this.x + Math.random() * (extra / 1.5) + floor.x, this.y + Math.random() * -(extra / 1.5) + floor.y);
         ctx.lineTo(this.x + Math.random() * extra + floor.x, this.y + Math.random() * -extra + floor.y);
         ctx.strokeStyle = "white";
         ctx.stroke();

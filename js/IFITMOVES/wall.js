@@ -40,14 +40,20 @@ function forWall() {
         spiders.forEach((spider) => {
             hit = collisionDetection(spider.x + floor.x, spider.y + floor.y, spider.r / 4, spider.r / 4, wall.x + floor.x, wall.y + floor.y, wall.width / 2, wall.height / 2);
             if (hit) {
-                spider.imageAngle += 180;
+                //increase angle to go 90 or 180 degrees.
+                if (spider.imageAngle == 360 || spider.imageAngle == 90 || spider.imageAngle == 180 || spider.imageAngle == 270) {
+                    spider.imageAngle += 180;
+                    spider.spiderAngle += (Math.PI / 180) * 180;
+                } else {
+                    spider.imageAngle += 90;
+                    spider.spiderAngle += (Math.PI / 180) * 90;
+                }
                 if (spider.imageAngle > 360) {
                     spider.imageAngle -= 360;
                 }
                 if (spider.imageAngle < 0) {
                     spider.imageAngle += 360;
                 }
-                spider.spiderAngle += (Math.PI / 180) * 180;
             }
         });
     });
