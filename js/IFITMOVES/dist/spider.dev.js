@@ -357,10 +357,6 @@ function () {
         this.frameCount += 1;
       }
 
-      if (this.x < player.x - floor.x + c.width / 2 && this.x > player.x - floor.x - c.width / 2 && this.y < player.y - floor.y + c.height / 2 && this.y > player.y - floor.y - c.height / 2 && !spiderInView) {
-        spiderInView = true;
-      }
-
       this.draw();
     }
   }]);

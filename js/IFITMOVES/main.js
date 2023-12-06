@@ -21,7 +21,8 @@ let moveLeft = false,
     run = false,
     fire = false,
     spiderInView = false,
-    hitWall = false;
+    hitWall = false,
+    doorInView = false;
 
 
 
@@ -189,10 +190,20 @@ let spiderDeadShadow = new Image();
 spiderDeadShadow.src = 'images/IFITMOVES/spiderWalk/spiderDeadShadow.png';
 let playerShadow = new Image();
 playerShadow.src = 'images/IFITMOVES/playerShadow.png';
-let obstacleBlock = new Image();
-obstacleBlock.src = 'images/IFITMOVES/obstacle1.png';
+let stoneWall = new Image();
+stoneWall.src = 'images/IFITMOVES/wall.png';
+let telepad = new Image();
+telepad.src = 'images/IFITMOVES/telepad.png';
 let keyHoleRed = new Image();
 keyHoleRed.src = 'images/IFITMOVES/keyHoleRed.png';
+let keyHoleYellow = new Image();
+keyHoleYellow.src = 'images/IFITMOVES/keyHoleYellow.png';
+let keyHoleGreen = new Image();
+keyHoleGreen.src = 'images/IFITMOVES/keyHoleGreen.png';
+let keyHoleBlue = new Image();
+keyHoleBlue.src = 'images/IFITMOVES/keyHoleBlue.png';
+let keyHoleBlack = new Image();
+keyHoleBlack.src = 'images/IFITMOVES/keyHoleBlack.png';
 
 //audio to variables.
 let walking = document.getElementById("audio1");
@@ -203,7 +214,8 @@ let splated = document.getElementById("audio5");
 let rotateStep = document.getElementById("audio6");
 let portalOpen = document.getElementById("audio7");
 let portalBuzz = document.getElementById("audio8");
-
+let teleport = document.getElementById("audio9");
+let doorBuzz = document.getElementById("audio10");
 
 function animate() {
 
@@ -276,13 +288,23 @@ function animate() {
         portal.update();
     });
 
-
-
+    let spiderCount = 0;
+    spiders.forEach((spider) => {
+        if (spider.x < ((player.x - floor.x) + c.width / 2) && spider.x > ((player.x - floor.x) - c.width / 2) &&
+            spider.y < ((player.y - floor.y) + c.height / 2) && spider.y > ((player.y - floor.y) - c.height / 2) && !spiderInView) {
+            spiderInView = true;
+            return;
+        } else {
+            spiderCount += 1;
+        }
+        if (spiderCount == spiders.length) {
+            spiderInView = false;
+        }
+    });
 
 
 
     spiders.forEach((spider) => {
-
         spider.update();
     });
 
@@ -294,7 +316,12 @@ function animate() {
         spiderWalking.pause();
     }
 
-
+    if (doorInView) {
+        doorBuzz.play();
+    } else {
+        doorBuzz.currentTime = 0;
+        doorBuzz.pause();
+    }
 
 
     forWall();
@@ -308,6 +335,24 @@ function animate() {
         wall.update();
     });
 
+    //cut door sound if none in view.
+    let doorCount = 0;
+    doors.forEach((door) => {
+        if (door.x - 10 < ((player.x - floor.x) + c.width / 2) && door.x + 10 > ((player.x - floor.x) - c.width / 2) &&
+            door.y - 100 < ((player.y - floor.y) + c.height / 2) && door.y + 100 > ((player.y - floor.y) - c.height / 2) && door.on) {
+            doorInView = true;
+            return;
+        } else {
+            doorCount += 1;
+        }
+        if (doorCount == doors.length) {
+            doorInView = false;
+        }
+    });
+
+
+
+
     doors.forEach((door) => {
         door.update();
     });
@@ -315,6 +360,7 @@ function animate() {
 
 
     player.update();
+    forDoor();
     ctx.font = "bold 40px Arial";
     ctx.fillStyle = "black";
     ctx.fillText("Spiders Alive = " + spiders.length, (c.width / 2) - 200, 40);

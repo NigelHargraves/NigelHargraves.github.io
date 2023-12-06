@@ -14,8 +14,8 @@ function () {
   function Floor(image) {
     _classCallCheck(this, Floor);
 
-    this.x = 0;
-    this.y = 0;
+    this.x = c.width / 2.2;
+    this.y = c.height / 2.3;
     this.width = c.height * 4;
     this.height = c.height * 4;
     this.image = image;
@@ -26,6 +26,7 @@ function () {
     key: "draw",
     value: function draw() {
       ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
+      ctx.drawImage(telepad, this.x + c.width * 0.02, this.y + c.height * 0.02, 100, 100);
     } //update floor.
 
   }, {

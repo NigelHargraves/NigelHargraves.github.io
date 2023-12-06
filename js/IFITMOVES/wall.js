@@ -9,7 +9,7 @@ class Wall {
     }
 
     draw() {
-        ctx.drawImage(obstacleBlock, this.x + floor.x - this.width / 2, this.y + floor.y - this.height / 2, this.width, this.height);
+        ctx.drawImage(stoneWall, this.x + floor.x - this.width / 2, this.y + floor.y - this.height / 2, this.width, this.height);
     }
 
     update() {
