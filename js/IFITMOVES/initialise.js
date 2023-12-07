@@ -4,15 +4,27 @@ function init() {
     player = new Player(c.width / 2, c.height / 2);
 
 
-
-    walls.push(new Wall(500, 502, 20, 1000, false));
+    //top rooms.
+    walls.push(new Wall(500, 500, 20, 1000, false));
     walls.push(new Wall(990, 1010, 1000, 20, true));
-    walls.push(new Wall(1480, 452, 20, 900, false));
+    walls.push(new Wall(1480, 450, 20, 900, false)); //door wall.
+    doors.push(new Door(1480, 900, false, keyHoleRed, "red"));
     walls.push(new Wall(1990, 1010, 1000, 20, true));
-    walls.push(new Wall(2480, 552, 20, 900, false));
+    walls.push(new Wall(2480, 550, 20, 900, false)); //door wall.
+    doors.push(new Door(2480, 0, false, keyHoleYellow, "yellow"));
+    walls.push(new Wall(2970, 500, 20, 1000, false));
+    walls.push(new Wall(3380, 1010, 840, 20, true)); //door wall.
+    doors.push(new Door(3800, 1010, true, keyHoleGreen, "green"));
+
+    //bottom rooms.
+    walls.push(new Wall(500, 2900, 1000, 20, true));
+    walls.push(new Wall(990, 3350, 20, 900, false)); //door wall.
+    doors.push(new Door(990, 3800, false, keyHoleBlue, "blue"));
 
 
 
-    doors.push(new Door(1480, 902, false, keyHoleRed, "red"));
-    doors.push(new Door(2480, 2, false, keyHoleYellow, "yellow"));
+
+
+
+
 }

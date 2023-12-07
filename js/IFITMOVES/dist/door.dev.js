@@ -44,13 +44,44 @@ function () {
         }
 
         ctx.strokeStyle = "white";
-        ctx.stroke();
+        ctx.stroke(); //draw gate sides.
+
         ctx.beginPath();
         ctx.moveTo(floor.x + this.x - 10, floor.y + this.y);
         ctx.lineTo(this.x + 10 + floor.x, floor.y + this.y);
         ctx.moveTo(floor.x + this.x - 10, floor.y + this.y + 100);
         ctx.lineTo(this.x + 10 + floor.x, floor.y + this.y + 100);
         ctx.lineWidth = 3;
+        ctx.strokeStyle = this.color;
+        ctx.stroke();
+      } else {
+        ctx.drawImage(this.image, floor.x + this.x, floor.y + this.y - this.size / 2, this.size, this.size);
+        ctx.beginPath();
+        ctx.moveTo(floor.x + this.x, floor.y + this.y + (Math.random() - 0.5) * 20);
+
+        for (var _i2 = 10; _i2 <= 100; _i2 += 10) {
+          ctx.lineTo(this.x + _i2 + floor.x, this.y - 10 + Math.random() * 20 + floor.y);
+        }
+
+        ctx.lineWidth = 1;
+        ctx.strokeStyle = "white";
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(floor.x + this.x, floor.y + this.y + (Math.random() - 0.5) * 20);
+
+        for (var _i3 = 10; _i3 <= 100; _i3 += 10) {
+          ctx.lineTo(this.x + _i3 + floor.x, this.y - 10 + Math.random() * 20 + floor.y);
+        }
+
+        ctx.strokeStyle = "white";
+        ctx.stroke(); //draw gate sides.
+
+        ctx.beginPath();
+        ctx.lineWidth = 3;
+        ctx.moveTo(floor.x + this.x, floor.y + this.y - 10);
+        ctx.lineTo(this.x + floor.x, floor.y + this.y + 10);
+        ctx.moveTo(floor.x + this.x + 100, floor.y + this.y - 10);
+        ctx.lineTo(this.x + floor.x + 100, floor.y + this.y + 10);
         ctx.strokeStyle = this.color;
         ctx.stroke();
       }
@@ -67,7 +98,13 @@ function () {
 
 function forDoor() {
   doors.forEach(function (door) {
-    var hit = collisionDetection(player.x, player.y, player.r / 2, player.r / 2, door.x + floor.x, door.y + 50 + floor.y, 10, 50);
+    var hit;
+
+    if (door.horizontal) {
+      hit = collisionDetection(player.x, player.y, player.r / 2, player.r / 2, door.x + 50 + floor.x, door.y + floor.y, 50, 10);
+    } else {
+      hit = collisionDetection(player.x, player.y, player.r / 2, player.r / 2, door.x + floor.x, door.y + 50 + floor.y, 10, 50);
+    }
 
     if (hit && door.on) {
       var taper = 1;

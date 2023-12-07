@@ -275,11 +275,20 @@ function animate() {
 
   var doorCount = 0;
   doors.forEach(function (door) {
-    if (door.x - 10 < player.x - floor.x + c.width / 2 && door.x + 10 > player.x - floor.x - c.width / 2 && door.y - 100 < player.y - floor.y + c.height / 2 && door.y + 100 > player.y - floor.y - c.height / 2 && door.on) {
-      doorInView = true;
-      return;
+    if (door.horizontal) {
+      if (door.x < player.x - floor.x + c.width / 2 && door.x + 100 > player.x - floor.x - c.width / 2 && door.y - 10 < player.y - floor.y + c.height / 2 && door.y + 10 > player.y - floor.y - c.height / 2 && door.on) {
+        doorInView = true;
+        return;
+      } else {
+        doorCount += 1;
+      }
     } else {
-      doorCount += 1;
+      if (door.x - 10 < player.x - floor.x + c.width / 2 && door.x + 10 > player.x - floor.x - c.width / 2 && door.y < player.y - floor.y + c.height / 2 && door.y + 100 > player.y - floor.y - c.height / 2 && door.on) {
+        doorInView = true;
+        return;
+      } else {
+        doorCount += 1;
+      }
     }
 
     if (doorCount == doors.length) {
@@ -293,7 +302,9 @@ function animate() {
   forDoor();
   ctx.font = "bold 40px Arial";
   ctx.fillStyle = "black";
-  ctx.fillText("Spiders Alive = " + spiders.length, c.width / 2 - 200, 40); //call next frame.
+  ctx.fillText("Spiders Alive = " + spiders.length, c.width / 2 - 200, 40);
+  ctx.fillText("height = " + c.height, c.width / 2 - 200, 80);
+  ctx.fillText("width = " + c.width, c.width / 2 - 200, 120); //call next frame.
 
   animationId = requestAnimationFrame(animate);
 }

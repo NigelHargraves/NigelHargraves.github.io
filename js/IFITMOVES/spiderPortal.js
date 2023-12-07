@@ -34,7 +34,7 @@ class SpiderPortal {
             taper += 0.1;
         }
         ctx.restore();
-
+        ctx.lineWidth = 1;
         let extra = this.r + 40;
         ctx.beginPath();
         ctx.moveTo(floor.x + this.x, floor.y + this.y);

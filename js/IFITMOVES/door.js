@@ -10,7 +10,6 @@ class Door {
     }
     draw() {
         if (!this.horizontal) {
-
             ctx.drawImage(this.image, floor.x + this.x - this.size / 2, floor.y + this.y, this.size, this.size);
             ctx.beginPath();
             ctx.moveTo(floor.x + this.x + (Math.random() - 0.5) * 20, floor.y + this.y);
@@ -27,12 +26,39 @@ class Door {
             }
             ctx.strokeStyle = "white";
             ctx.stroke();
+            //draw gate sides.
             ctx.beginPath();
             ctx.moveTo(floor.x + this.x - 10, floor.y + this.y);
             ctx.lineTo(this.x + 10 + floor.x, floor.y + this.y);
             ctx.moveTo(floor.x + this.x - 10, floor.y + this.y + 100);
             ctx.lineTo(this.x + 10 + floor.x, floor.y + this.y + 100);
             ctx.lineWidth = 3;
+            ctx.strokeStyle = this.color;
+            ctx.stroke();
+        } else {
+            ctx.drawImage(this.image, floor.x + this.x, floor.y + this.y - this.size / 2, this.size, this.size);
+            ctx.beginPath();
+            ctx.moveTo(floor.x + this.x, floor.y + this.y + (Math.random() - 0.5) * 20);
+            for (let i = 10; i <= 100; i += 10) {
+                ctx.lineTo(this.x + i + floor.x, this.y - 10 + Math.random() * 20 + floor.y);
+            }
+            ctx.lineWidth = 1;
+            ctx.strokeStyle = "white";
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(floor.x + this.x, floor.y + this.y + (Math.random() - 0.5) * 20);
+            for (let i = 10; i <= 100; i += 10) {
+                ctx.lineTo(this.x + i + floor.x, this.y - 10 + Math.random() * 20 + floor.y);
+            }
+            ctx.strokeStyle = "white";
+            ctx.stroke();
+            //draw gate sides.
+            ctx.beginPath();
+            ctx.lineWidth = 3;
+            ctx.moveTo(floor.x + this.x, floor.y + this.y - 10);
+            ctx.lineTo(this.x + floor.x, floor.y + this.y + 10);
+            ctx.moveTo(floor.x + this.x + 100, floor.y + this.y - 10);
+            ctx.lineTo(this.x + floor.x + 100, floor.y + this.y + 10);
             ctx.strokeStyle = this.color;
             ctx.stroke();
         }
@@ -48,7 +74,13 @@ class Door {
 function forDoor() {
 
     doors.forEach((door) => {
-        let hit = collisionDetection(player.x, player.y, player.r / 2, player.r / 2, door.x + floor.x, door.y + 50 + floor.y, 10, 50);
+        let hit;
+        if (door.horizontal) {
+            hit = collisionDetection(player.x, player.y, player.r / 2, player.r / 2, door.x + 50 + floor.x, door.y + floor.y, 50, 10);
+        } else {
+            hit = collisionDetection(player.x, player.y, player.r / 2, player.r / 2, door.x + floor.x, door.y + 50 + floor.y, 10, 50);
+        }
+
         if (hit && door.on) {
             let taper = 1;
             for (let i = 1; i >= 0.1; i -= 0.1) {

@@ -46,6 +46,7 @@ function () {
       }
 
       ctx.restore();
+      ctx.lineWidth = 1;
       var extra = this.r + 40;
       ctx.beginPath();
       ctx.moveTo(floor.x + this.x, floor.y + this.y);
