@@ -12,7 +12,7 @@ var bullets = [],
     spiderPortals = [],
     doors = []; //variables.
 
-var player, floor, playerAngle, speed, startCount; //booleans.
+var player, floor, playerAngle, speed, startCount, spiderRemains; //booleans.
 
 var moveLeft = false,
     moveRight = false,
@@ -28,7 +28,7 @@ var moveLeft = false,
     gotGreenKey = false,
     gotTurquoiseKey = false,
     gotOrangeKey = false,
-    gotRoseKey = false; //backgrounds to variables.
+    gotPinkKey = false; //backgrounds to variables.
 
 var stoneFloor = new Image();
 stoneFloor.src = 'images/IFITMOVES/stoneFloorBackground.png';
@@ -186,8 +186,20 @@ var keyHoleBlack = new Image();
 keyHoleBlack.src = 'images/IFITMOVES/keyHoleBlack.png';
 var keyHoleOrange = new Image();
 keyHoleOrange.src = 'images/IFITMOVES/keyHoleOrange.png';
-var keyHoleRose = new Image();
-keyHoleRose.src = 'images/IFITMOVES/keyHoleRose.png'; //audio to variables.
+var keyHolePink = new Image();
+keyHolePink.src = 'images/IFITMOVES/keyHoleRose.png';
+var redKey = new Image();
+redKey.src = 'images/IFITMOVES/redKey.png';
+var yellowKey = new Image();
+yellowKey.src = 'images/IFITMOVES/yellowKey.png';
+var greenKey = new Image();
+greenKey.src = 'images/IFITMOVES/greenKey.png';
+var turquoiseKey = new Image();
+turquoiseKey.src = 'images/IFITMOVES/turquoiseKey.png';
+var orangeKey = new Image();
+orangeKey.src = 'images/IFITMOVES/orangeKey.png';
+var pinkKey = new Image();
+pinkKey.src = 'images/IFITMOVES/pinkKey.png'; //audio to variables.
 
 var walking = document.getElementById("audio1");
 var running = document.getElementById("audio2");
@@ -199,6 +211,7 @@ var portalOpen = document.getElementById("audio7");
 var portalBuzz = document.getElementById("audio8");
 var teleport = document.getElementById("audio9");
 var doorBuzz = document.getElementById("audio10");
+var swipe = document.getElementById("audio11");
 
 function animate() {
   //CLS.
@@ -265,6 +278,7 @@ function animate() {
   spiders.forEach(function (spider) {
     spider.update();
   });
+  forSplats();
 
   if (spiderInView) {
     spiderWalking.play();
@@ -337,9 +351,39 @@ function animate() {
 
   ctx.font = "bold 40px Arial";
   ctx.fillStyle = "black";
+  ctx.drawImage(spiderDead, 0, 0, 100, 100);
+  ctx.fillText(" = " + spiderRemains, c.width * 0.04, c.height * 0.07);
   ctx.fillText("Spiders Alive = " + spiders.length, c.width / 2 - 200, 40);
-  ctx.fillText("height = " + c.height, c.width / 2 - 200, 80);
-  ctx.fillText("width = " + c.width, c.width / 2 - 200, 120); //call next frame.
+
+  if (gotRedKey) {
+    ctx.drawImage(redKey, c.width / 2 + 200, 10, 40, 20);
+  }
+
+  if (gotYellowKey) {
+    ctx.drawImage(yellowKey, c.width / 2 + 250, 10, 40, 20);
+  }
+
+  if (gotGreenKey) {
+    ctx.drawImage(greenKey, c.width / 2 + 300, 10, 40, 20);
+  }
+
+  if (gotTurquoiseKey) {
+    ctx.drawImage(turquoiseKey, c.width / 2 + 350, 10, 40, 20);
+  }
+
+  if (gotOrangeKey) {
+    ctx.drawImage(orangeKey, c.width / 2 + 400, 10, 40, 20);
+  }
+
+  if (gotPinkKey) {
+    ctx.drawImage(pinkKey, c.width / 2 + 450, 10, 40, 20);
+  }
+  /*
+  ctx.fillText("height = " + c.height, (c.width / 2) - 200, 80);
+  ctx.fillText("width = " + c.width, (c.width / 2) - 200, 120);
+  */
+  //call next frame.
+
 
   animationId = requestAnimationFrame(animate);
 }

@@ -135,7 +135,7 @@ function forDoor() {
         door.on = false;
       }
 
-      if (door.color == "pink" && gotRoseKey) {
+      if (door.color == "pink" && gotPinkKey) {
         door.on = false;
       }
     } else {

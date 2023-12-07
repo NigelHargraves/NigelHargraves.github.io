@@ -12,7 +12,7 @@ let bullets = [],
     doors = [];
 
 //variables.
-let player, floor, playerAngle, speed, startCount;
+let player, floor, playerAngle, speed, startCount, spiderRemains;
 
 //booleans.
 let moveLeft = false,
@@ -29,7 +29,7 @@ let moveLeft = false,
     gotGreenKey = false,
     gotTurquoiseKey = false,
     gotOrangeKey = false,
-    gotRoseKey = false;
+    gotPinkKey = false;
 
 
 
@@ -213,9 +213,20 @@ let keyHoleBlack = new Image();
 keyHoleBlack.src = 'images/IFITMOVES/keyHoleBlack.png';
 let keyHoleOrange = new Image();
 keyHoleOrange.src = 'images/IFITMOVES/keyHoleOrange.png';
-let keyHoleRose = new Image();
-keyHoleRose.src = 'images/IFITMOVES/keyHoleRose.png';
-
+let keyHolePink = new Image();
+keyHolePink.src = 'images/IFITMOVES/keyHoleRose.png';
+let redKey = new Image();
+redKey.src = 'images/IFITMOVES/redKey.png';
+let yellowKey = new Image();
+yellowKey.src = 'images/IFITMOVES/yellowKey.png';
+let greenKey = new Image();
+greenKey.src = 'images/IFITMOVES/greenKey.png';
+let turquoiseKey = new Image();
+turquoiseKey.src = 'images/IFITMOVES/turquoiseKey.png';
+let orangeKey = new Image();
+orangeKey.src = 'images/IFITMOVES/orangeKey.png';
+let pinkKey = new Image();
+pinkKey.src = 'images/IFITMOVES/pinkKey.png';
 //audio to variables.
 let walking = document.getElementById("audio1");
 let running = document.getElementById("audio2");
@@ -227,6 +238,7 @@ let portalOpen = document.getElementById("audio7");
 let portalBuzz = document.getElementById("audio8");
 let teleport = document.getElementById("audio9");
 let doorBuzz = document.getElementById("audio10");
+let swipe = document.getElementById("audio11");
 
 function animate() {
     //CLS.
@@ -323,6 +335,9 @@ function animate() {
         spider.update();
     });
 
+    forSplats();
+
+
 
     if (spiderInView) {
         spiderWalking.play();
@@ -414,9 +429,32 @@ function animate() {
 
     ctx.font = "bold 40px Arial";
     ctx.fillStyle = "black";
+    ctx.drawImage(spiderDead, 0, 0, 100, 100);
+    ctx.fillText(" = " + spiderRemains, (c.width * 0.04), c.height * 0.07);
     ctx.fillText("Spiders Alive = " + spiders.length, (c.width / 2) - 200, 40);
+    if (gotRedKey) {
+        ctx.drawImage(redKey, (c.width / 2) + 200, 10, 40, 20);
+    }
+    if (gotYellowKey) {
+        ctx.drawImage(yellowKey, (c.width / 2) + 250, 10, 40, 20);
+    }
+    if (gotGreenKey) {
+        ctx.drawImage(greenKey, (c.width / 2) + 300, 10, 40, 20);
+    }
+    if (gotTurquoiseKey) {
+        ctx.drawImage(turquoiseKey, (c.width / 2) + 350, 10, 40, 20);
+    }
+    if (gotOrangeKey) {
+        ctx.drawImage(orangeKey, (c.width / 2) + 400, 10, 40, 20);
+    }
+    if (gotPinkKey) {
+        ctx.drawImage(pinkKey, (c.width / 2) + 450, 10, 40, 20);
+    }
+    /*
     ctx.fillText("height = " + c.height, (c.width / 2) - 200, 80);
     ctx.fillText("width = " + c.width, (c.width / 2) - 200, 120);
+    */
+
     //call next frame.
     animationId = requestAnimationFrame(animate);
 

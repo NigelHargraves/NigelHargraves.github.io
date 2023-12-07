@@ -1,8 +1,7 @@
 "use strict";
 
 function init() {
-  playerAngle = 0, speed = 10, startCount = 0;
-  ;
+  playerAngle = 0, speed = 10, startCount = 0, spiderRemains = 0;
   floor = new Floor(stoneFloor);
   player = new Player(c.width / 2, c.height / 2); //top rooms.
 
@@ -43,5 +42,5 @@ function init() {
 
   walls.push(new Wall(2990, 3350, 20, 900, false)); //vertical wall + door.
 
-  doors.push(new Door(2990, 3802, false, keyHoleRose, "pink")); //verticalDoor.
+  doors.push(new Door(2990, 3802, false, keyHolePink, "pink")); //verticalDoor.
 }

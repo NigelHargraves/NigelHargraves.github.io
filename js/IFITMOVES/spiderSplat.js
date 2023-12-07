@@ -7,6 +7,7 @@ class SpiderSplat {
         this.r = 2;
         this.size = 100;
         this.opacity = 1;
+        this.collected = false;
         this.rotate = Math.random() * (Math.PI * 2);
     }
 
@@ -17,8 +18,10 @@ class SpiderSplat {
         ctx.globalAlpha = this.opacity;
         ctx.drawImage(splat, 0 - this.r / 2, 0 - this.r / 2, this.r, this.r);
         ctx.globalAlpha = 1;
-        ctx.drawImage(spiderDeadShadow, (0 - this.size / 2) + 10, (0 - this.size / 2) + 10, this.size, this.size);
-        ctx.drawImage(spiderDead, 0 - this.size / 2, 0 - this.size / 2, this.size, this.size);
+        if (!this.collected) {
+            ctx.drawImage(spiderDeadShadow, (0 - this.size / 2) + 10, (0 - this.size / 2) + 10, this.size, this.size);
+            ctx.drawImage(spiderDead, 0 - this.size / 2, 0 - this.size / 2, this.size, this.size);
+        }
         ctx.restore();
     }
 
@@ -36,5 +39,56 @@ class SpiderSplat {
         this.draw();
     }
 
+
+}
+
+
+function forSplats() {
+
+    spiderSplats.forEach((splat, index) => {
+
+        let collect = collisionDetection(player.x, player.y, player.r / 2, player.r / 2, splat.x + floor.x, splat.y + floor.y, splat.size / 2, splat.size / 2);
+        if (collect && !splat.collected) {
+            swipe.play();
+            spiderRemains += 1;
+            splat.collected = true;
+            if (spiderRemains == 10) {
+                if (!gotPinkKey) {
+                    gotPinkKey = true;
+                    spiderRemains = 0;
+                    return;
+                }
+                if (!gotGreenKey) {
+                    gotGreenKey = true;
+                    spiderRemains = 0;
+                    return;
+                }
+                if (!gotOrangeKey) {
+                    gotOrangeKey = true;
+                    spiderRemains = 0;
+                    return;
+                }
+                if (!gotYellowKey) {
+                    gotYellowKey = true;
+                    spiderRemains = 0;
+                    return;
+                }
+                if (!gotTurquoiseKey) {
+                    gotTurquoiseKey = true;
+                    spiderRemains = 0;
+                    return;
+                }
+                if (!gotRedKey) {
+                    gotRedKey = true;
+                    spiderRemains = 0;
+                    return;
+                }
+
+            }
+        }
+
+
+
+    });
 
 }
