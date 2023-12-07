@@ -11,21 +11,23 @@ class Door {
     draw() {
         if (!this.horizontal) {
             ctx.drawImage(this.image, floor.x + this.x - this.size / 2, floor.y + this.y, this.size, this.size);
-            ctx.beginPath();
-            ctx.moveTo(floor.x + this.x + (Math.random() - 0.5) * 20, floor.y + this.y);
-            for (let i = 10; i <= 100; i += 10) {
-                ctx.lineTo(this.x - 10 + Math.random() * 20 + floor.x, this.y + i + floor.y);
+            if (this.on) {
+                ctx.beginPath();
+                ctx.moveTo(floor.x + this.x + (Math.random() - 0.5) * 20, floor.y + this.y);
+                for (let i = 10; i <= 100; i += 10) {
+                    ctx.lineTo(this.x - 10 + Math.random() * 20 + floor.x, this.y + i + floor.y);
+                }
+                ctx.lineWidth = 1;
+                ctx.strokeStyle = "white";
+                ctx.stroke();
+                ctx.beginPath();
+                ctx.moveTo(floor.x + this.x + (Math.random() - 0.5) * 20, floor.y + this.y);
+                for (let i = 10; i <= 100; i += 10) {
+                    ctx.lineTo(this.x - 10 + Math.random() * 20 + floor.x, this.y + i + floor.y);
+                }
+                ctx.strokeStyle = "white";
+                ctx.stroke();
             }
-            ctx.lineWidth = 1;
-            ctx.strokeStyle = "white";
-            ctx.stroke();
-            ctx.beginPath();
-            ctx.moveTo(floor.x + this.x + (Math.random() - 0.5) * 20, floor.y + this.y);
-            for (let i = 10; i <= 100; i += 10) {
-                ctx.lineTo(this.x - 10 + Math.random() * 20 + floor.x, this.y + i + floor.y);
-            }
-            ctx.strokeStyle = "white";
-            ctx.stroke();
             //draw gate sides.
             ctx.beginPath();
             ctx.moveTo(floor.x + this.x - 10, floor.y + this.y);
@@ -37,21 +39,23 @@ class Door {
             ctx.stroke();
         } else {
             ctx.drawImage(this.image, floor.x + this.x, floor.y + this.y - this.size / 2, this.size, this.size);
-            ctx.beginPath();
-            ctx.moveTo(floor.x + this.x, floor.y + this.y + (Math.random() - 0.5) * 20);
-            for (let i = 10; i <= 100; i += 10) {
-                ctx.lineTo(this.x + i + floor.x, this.y - 10 + Math.random() * 20 + floor.y);
+            if (this.on) {
+                ctx.beginPath();
+                ctx.moveTo(floor.x + this.x, floor.y + this.y + (Math.random() - 0.5) * 20);
+                for (let i = 10; i <= 100; i += 10) {
+                    ctx.lineTo(this.x + i + floor.x, this.y - 10 + Math.random() * 20 + floor.y);
+                }
+                ctx.lineWidth = 1;
+                ctx.strokeStyle = "white";
+                ctx.stroke();
+                ctx.beginPath();
+                ctx.moveTo(floor.x + this.x, floor.y + this.y + (Math.random() - 0.5) * 20);
+                for (let i = 10; i <= 100; i += 10) {
+                    ctx.lineTo(this.x + i + floor.x, this.y - 10 + Math.random() * 20 + floor.y);
+                }
+                ctx.strokeStyle = "white";
+                ctx.stroke();
             }
-            ctx.lineWidth = 1;
-            ctx.strokeStyle = "white";
-            ctx.stroke();
-            ctx.beginPath();
-            ctx.moveTo(floor.x + this.x, floor.y + this.y + (Math.random() - 0.5) * 20);
-            for (let i = 10; i <= 100; i += 10) {
-                ctx.lineTo(this.x + i + floor.x, this.y - 10 + Math.random() * 20 + floor.y);
-            }
-            ctx.strokeStyle = "white";
-            ctx.stroke();
             //draw gate sides.
             ctx.beginPath();
             ctx.lineWidth = 3;
@@ -74,6 +78,39 @@ class Door {
 function forDoor() {
 
     doors.forEach((door) => {
+        let walkOnDoorPad;
+
+        if (door.horizontal) {
+            walkOnDoorPad = collisionDetection(player.x, player.y, player.r / 2, player.r / 2, door.x + 50 + floor.x, door.y + floor.y, 50, 50);
+        } else {
+            walkOnDoorPad = collisionDetection(player.x, player.y, player.r / 2, player.r / 2, door.x + floor.x, door.y + 50 + floor.y, 50, 50);
+        }
+
+
+        if (walkOnDoorPad) {
+            if (door.color == "red" && gotRedKey) {
+                door.on = false;
+            }
+            if (door.color == "yellow" && gotYellowKey) {
+                door.on = false;
+            }
+            if (door.color == "green" && gotGreenKey) {
+                door.on = false;
+            }
+            if (door.color == "turquoise" && gotTurquoiseKey) {
+                door.on = false;
+            }
+            if (door.color == "orange" && gotOrangeKey) {
+                door.on = false;
+            }
+            if (door.color == "pink" && gotRoseKey) {
+                door.on = false;
+            }
+        } else {
+            door.on = true;
+        }
+
+
         let hit;
         if (door.horizontal) {
             hit = collisionDetection(player.x, player.y, player.r / 2, player.r / 2, door.x + 50 + floor.x, door.y + floor.y, 50, 10);

@@ -33,146 +33,150 @@ function () {
   _createClass(Player, [{
     key: "draw",
     value: function draw() {
-      ctx.save();
-      ctx.translate(this.x, this.y);
-      ctx.rotate(playerAngle + Math.PI / 2);
+      if (playerVisible) {
+        ctx.save();
+        ctx.translate(this.x, this.y);
+        ctx.rotate(playerAngle + Math.PI / 2);
 
-      if (playerAngle <= 0) {
-        playerAngle = Math.PI * 2;
-      }
+        if (playerAngle <= 0) {
+          playerAngle = Math.PI * 2;
+        }
 
-      if (playerAngle > Math.PI * 2) {
-        playerAngle = 0;
-      }
+        if (playerAngle > Math.PI * 2) {
+          playerAngle = 0;
+        }
 
-      ctx.globalAlpha = 0.5;
-      ctx.drawImage(playerShadow, 0 - this.r / 2, 0 - this.r / 2, this.r, this.r);
-      ctx.globalAlpha = 1;
+        ctx.globalAlpha = 0.5;
+        ctx.drawImage(playerShadow, 0 - this.r / 2, 0 - this.r / 2, this.r, this.r);
+        ctx.globalAlpha = 1;
 
-      if (!moveForward && !fire) {
-        ctx.drawImage(playerImage, 8, 0, this.spriteLength, 300, 0 - this.r / 2, 0 - this.r / 2, this.r, this.r);
-      }
+        if (!moveForward && !fire) {
+          ctx.drawImage(playerImage, 8, 0, this.spriteLength, 300, 0 - this.r / 2, 0 - this.r / 2, this.r, this.r);
+        }
 
-      if (!moveForward && moveLeft || moveRight) {
-        if (this.rotate >= 15) {
-          ctx.drawImage(playerImage, this.spriteLength * 4, 0, this.spriteLength, 300, 0 - this.r / 2, 0 - this.r / 2, this.r, this.r);
+        if (!moveForward && moveLeft || moveRight) {
+          if (this.rotate >= 15) {
+            ctx.drawImage(playerImage, this.spriteLength * 4, 0, this.spriteLength, 300, 0 - this.r / 2, 0 - this.r / 2, this.r, this.r);
+          } else {
+            ctx.drawImage(playerImage, this.spriteLength * 2, 0, this.spriteLength, 300, 0 - this.r / 2, 0 - this.r / 2, this.r, this.r);
+          }
+
+          this.rotate -= 1;
+
+          if (this.rotate <= 0) {
+            this.rotate = 30;
+          }
+        }
+
+        if (moveForward && !fire) {
+          if (this.walk >= 30) {
+            ctx.drawImage(playerImage, this.spriteLength, 0, this.spriteLength, 300, 0 - this.r / 2, 0 - this.r / 2, this.r, this.r);
+          }
+
+          if (this.walk >= 20 && this.walk < 30) {
+            ctx.drawImage(playerImage, this.spriteLength * 2, 0, this.spriteLength, 300, 0 - this.r / 2, 0 - this.r / 2, this.r, this.r);
+          }
+
+          if (this.walk >= 10 && this.walk < 20) {
+            ctx.drawImage(playerImage, this.spriteLength * 3, 0, this.spriteLength, 300, 0 - this.r / 2, 0 - this.r / 2, this.r, this.r);
+          }
+
+          if (this.walk >= 0 && this.walk < 10) {
+            ctx.drawImage(playerImage, this.spriteLength * 4, 0, this.spriteLength, 300, 0 - this.r / 2, 0 - this.r / 2, this.r, this.r);
+          }
+
+          if (run) {
+            this.walk -= 2;
+          } else {
+            this.walk -= 1;
+          }
+
+          if (this.walk <= 0) {
+            this.walk = 40;
+          }
         } else {
-          ctx.drawImage(playerImage, this.spriteLength * 2, 0, this.spriteLength, 300, 0 - this.r / 2, 0 - this.r / 2, this.r, this.r);
-        }
-
-        this.rotate -= 1;
-
-        if (this.rotate <= 0) {
-          this.rotate = 30;
-        }
-      }
-
-      if (moveForward && !fire) {
-        if (this.walk >= 30) {
-          ctx.drawImage(playerImage, this.spriteLength, 0, this.spriteLength, 300, 0 - this.r / 2, 0 - this.r / 2, this.r, this.r);
-        }
-
-        if (this.walk >= 20 && this.walk < 30) {
-          ctx.drawImage(playerImage, this.spriteLength * 2, 0, this.spriteLength, 300, 0 - this.r / 2, 0 - this.r / 2, this.r, this.r);
-        }
-
-        if (this.walk >= 10 && this.walk < 20) {
-          ctx.drawImage(playerImage, this.spriteLength * 3, 0, this.spriteLength, 300, 0 - this.r / 2, 0 - this.r / 2, this.r, this.r);
-        }
-
-        if (this.walk >= 0 && this.walk < 10) {
-          ctx.drawImage(playerImage, this.spriteLength * 4, 0, this.spriteLength, 300, 0 - this.r / 2, 0 - this.r / 2, this.r, this.r);
-        }
-
-        if (run) {
-          this.walk -= 2;
-        } else {
-          this.walk -= 1;
-        }
-
-        if (this.walk <= 0) {
           this.walk = 40;
         }
-      } else {
-        this.walk = 40;
+
+        if (fire) {
+          if (this.fire > 9) {
+            shot.currentTime = 0;
+            shot.play();
+            var angles = Math.atan2(this.aimy, this.aimx);
+            var velocity = {
+              x: Math.cos(angles) * 20,
+              y: Math.sin(angles) * 20
+            };
+            bullets.push(new Bullet(player.x, player.y, velocity));
+          }
+
+          if (this.fire >= 6) {
+            ctx.drawImage(playerImage, this.spriteLength * 6, 0, this.spriteLength, 300, 0 - this.r / 2, 0 - this.r / 2, this.r, this.r);
+          }
+
+          if (this.fire >= 0 && this.fire < 6) {
+            ctx.drawImage(playerImage, this.spriteLength * 5, 0, this.spriteLength, 300, 0 - this.r / 2, 0 - this.r / 2, this.r, this.r);
+          }
+
+          this.fire -= 1;
+
+          if (this.fire <= 0) {
+            this.fire = 10;
+            fire = false;
+          }
+        }
+
+        ctx.restore();
       }
-
-      if (fire) {
-        if (this.fire > 9) {
-          shot.currentTime = 0;
-          shot.play();
-          var angles = Math.atan2(this.aimy, this.aimx);
-          var velocity = {
-            x: Math.cos(angles) * 20,
-            y: Math.sin(angles) * 20
-          };
-          bullets.push(new Bullet(player.x, player.y, velocity));
-        }
-
-        if (this.fire >= 6) {
-          ctx.drawImage(playerImage, this.spriteLength * 6, 0, this.spriteLength, 300, 0 - this.r / 2, 0 - this.r / 2, this.r, this.r);
-        }
-
-        if (this.fire >= 0 && this.fire < 6) {
-          ctx.drawImage(playerImage, this.spriteLength * 5, 0, this.spriteLength, 300, 0 - this.r / 2, 0 - this.r / 2, this.r, this.r);
-        }
-
-        this.fire -= 1;
-
-        if (this.fire <= 0) {
-          this.fire = 10;
-          fire = false;
-        }
-      }
-
-      ctx.restore();
     } //update player.
 
   }, {
     key: "update",
     value: function update() {
-      //move aim point.
-      if (moveRight) {
-        //increase angle by PI/180.
-        playerAngle += Math.PI / 180;
-      }
+      if (playerVisible) {
+        //move aim point.
+        if (moveRight) {
+          //increase angle by PI/180.
+          playerAngle += Math.PI / 180;
+        }
 
-      if (moveLeft) {
-        //decrease angle by PI/180.
-        playerAngle -= Math.PI / 180;
-      } //calculate aim point.
+        if (moveLeft) {
+          //decrease angle by PI/180.
+          playerAngle -= Math.PI / 180;
+        } //calculate aim point.
 
 
-      this.aimx = this.r * Math.cos(playerAngle) / 5;
-      this.aimy = this.r * Math.sin(playerAngle) / 5; //calc angle to aim point
+        this.aimx = this.r * Math.cos(playerAngle) / 5;
+        this.aimy = this.r * Math.sin(playerAngle) / 5; //calc angle to aim point
 
-      var angles = Math.atan2(this.aimy - this.y, this.aimx - this.x); //calc velocity x & y to aim point.
+        var angles = Math.atan2(this.aimy - this.y, this.aimx - this.x); //calc velocity x & y to aim point.
 
-      this.velocity.x = Math.cos(angles) * 1;
-      this.velocity.y = Math.sin(angles) * 1; //what sound to play.
+        this.velocity.x = Math.cos(angles) * 1;
+        this.velocity.y = Math.sin(angles) * 1; //what sound to play.
 
-      if (moveForward) {
-        rotateStep.currentTime = 0;
-        rotateStep.paused;
+        if (moveForward) {
+          rotateStep.currentTime = 0;
+          rotateStep.paused;
 
-        if (!run) {
+          if (!run) {
+            running.currentTime = 0;
+            running.paused;
+            walking.play();
+          } else {
+            walking.currentTime = 0;
+            walking.paused;
+            running.play();
+          }
+        } else {
           running.currentTime = 0;
           running.paused;
-          walking.play();
-        } else {
           walking.currentTime = 0;
           walking.paused;
-          running.play();
         }
-      } else {
-        running.currentTime = 0;
-        running.paused;
-        walking.currentTime = 0;
-        walking.paused;
-      }
 
-      if (!moveForward && moveLeft || moveRight) {
-        rotateStep.play();
+        if (!moveForward && moveLeft || moveRight) {
+          rotateStep.play();
+        }
       }
 
       this.draw();

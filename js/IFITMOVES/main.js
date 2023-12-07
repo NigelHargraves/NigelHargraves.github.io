@@ -12,7 +12,7 @@ let bullets = [],
     doors = [];
 
 //variables.
-let player, floor, playerAngle, speed;
+let player, floor, playerAngle, speed, startCount;
 
 //booleans.
 let moveLeft = false,
@@ -22,7 +22,14 @@ let moveLeft = false,
     fire = false,
     spiderInView = false,
     hitWall = false,
-    doorInView = false;
+    doorInView = false,
+    playerVisible = false,
+    gotRedKey = false,
+    gotYellowKey = false,
+    gotGreenKey = false,
+    gotTurquoiseKey = false,
+    gotOrangeKey = false,
+    gotRoseKey = false;
 
 
 
@@ -200,10 +207,14 @@ let keyHoleYellow = new Image();
 keyHoleYellow.src = 'images/IFITMOVES/keyHoleYellow.png';
 let keyHoleGreen = new Image();
 keyHoleGreen.src = 'images/IFITMOVES/keyHoleGreen.png';
-let keyHoleBlue = new Image();
-keyHoleBlue.src = 'images/IFITMOVES/keyHoleBlue.png';
+let keyHoleTurquoise = new Image();
+keyHoleTurquoise.src = 'images/IFITMOVES/keyHoleTurquoise.png';
 let keyHoleBlack = new Image();
 keyHoleBlack.src = 'images/IFITMOVES/keyHoleBlack.png';
+let keyHoleOrange = new Image();
+keyHoleOrange.src = 'images/IFITMOVES/keyHoleOrange.png';
+let keyHoleRose = new Image();
+keyHoleRose.src = 'images/IFITMOVES/keyHoleRose.png';
 
 //audio to variables.
 let walking = document.getElementById("audio1");
@@ -218,10 +229,13 @@ let teleport = document.getElementById("audio9");
 let doorBuzz = document.getElementById("audio10");
 
 function animate() {
-
     //CLS.
     ctx.fillStyle = "rgb(0, 100, 0,1)";
     ctx.fillRect(0, 0, c.width, c.height);
+
+
+
+
 
 
 
@@ -288,6 +302,7 @@ function animate() {
         portal.update();
     });
 
+    //cut spider sound if none in view.
     let spiderCount = 0;
     spiders.forEach((spider) => {
         if (spider.x < ((player.x - floor.x) + c.width / 2) && spider.x > ((player.x - floor.x) - c.width / 2) &&
@@ -351,11 +366,6 @@ function animate() {
                 doorCount += 1;
             }
         }
-
-
-
-
-
         if (doorCount == doors.length) {
             doorInView = false;
         }
@@ -371,7 +381,37 @@ function animate() {
 
 
     player.update();
+
+
     forDoor();
+
+    if (startCount < 100) {
+        startCount += 1;
+    }
+
+
+    if (startCount == 100) {
+        let taper = 1;
+        for (let i = 1; i >= 0.1; i -= 0.1) {
+            ctx.globalAlpha = i;
+            ctx.beginPath();
+            ctx.arc(player.x, player.y, 20 + (20 * taper), 0, Math.PI * 2);
+            ctx.fillStyle = "white";
+            ctx.fill();
+            taper += 0.1;
+        }
+        ctx.globalAlpha = 1;
+        teleport.play();
+        playerVisible = true;
+        startCount += 1;
+    }
+
+
+
+
+
+
+
     ctx.font = "bold 40px Arial";
     ctx.fillStyle = "black";
     ctx.fillText("Spiders Alive = " + spiders.length, (c.width / 2) - 200, 40);
@@ -381,6 +421,7 @@ function animate() {
     animationId = requestAnimationFrame(animate);
 
 }
+
 init();
 animate();
 

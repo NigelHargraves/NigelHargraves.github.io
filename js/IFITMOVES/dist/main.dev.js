@@ -12,7 +12,7 @@ var bullets = [],
     spiderPortals = [],
     doors = []; //variables.
 
-var player, floor, playerAngle, speed; //booleans.
+var player, floor, playerAngle, speed, startCount; //booleans.
 
 var moveLeft = false,
     moveRight = false,
@@ -21,7 +21,14 @@ var moveLeft = false,
     fire = false,
     spiderInView = false,
     hitWall = false,
-    doorInView = false; //backgrounds to variables.
+    doorInView = false,
+    playerVisible = false,
+    gotRedKey = false,
+    gotYellowKey = false,
+    gotGreenKey = false,
+    gotTurquoiseKey = false,
+    gotOrangeKey = false,
+    gotRoseKey = false; //backgrounds to variables.
 
 var stoneFloor = new Image();
 stoneFloor.src = 'images/IFITMOVES/stoneFloorBackground.png';
@@ -173,10 +180,14 @@ var keyHoleYellow = new Image();
 keyHoleYellow.src = 'images/IFITMOVES/keyHoleYellow.png';
 var keyHoleGreen = new Image();
 keyHoleGreen.src = 'images/IFITMOVES/keyHoleGreen.png';
-var keyHoleBlue = new Image();
-keyHoleBlue.src = 'images/IFITMOVES/keyHoleBlue.png';
+var keyHoleTurquoise = new Image();
+keyHoleTurquoise.src = 'images/IFITMOVES/keyHoleTurquoise.png';
 var keyHoleBlack = new Image();
-keyHoleBlack.src = 'images/IFITMOVES/keyHoleBlack.png'; //audio to variables.
+keyHoleBlack.src = 'images/IFITMOVES/keyHoleBlack.png';
+var keyHoleOrange = new Image();
+keyHoleOrange.src = 'images/IFITMOVES/keyHoleOrange.png';
+var keyHoleRose = new Image();
+keyHoleRose.src = 'images/IFITMOVES/keyHoleRose.png'; //audio to variables.
 
 var walking = document.getElementById("audio1");
 var running = document.getElementById("audio2");
@@ -236,7 +247,8 @@ function animate() {
     }
 
     portal.update();
-  });
+  }); //cut spider sound if none in view.
+
   var spiderCount = 0;
   spiders.forEach(function (spider) {
     if (spider.x < player.x - floor.x + c.width / 2 && spider.x > player.x - floor.x - c.width / 2 && spider.y < player.y - floor.y + c.height / 2 && spider.y > player.y - floor.y - c.height / 2 && !spiderInView) {
@@ -300,6 +312,29 @@ function animate() {
   });
   player.update();
   forDoor();
+
+  if (startCount < 100) {
+    startCount += 1;
+  }
+
+  if (startCount == 100) {
+    var taper = 1;
+
+    for (var i = 1; i >= 0.1; i -= 0.1) {
+      ctx.globalAlpha = i;
+      ctx.beginPath();
+      ctx.arc(player.x, player.y, 20 + 20 * taper, 0, Math.PI * 2);
+      ctx.fillStyle = "white";
+      ctx.fill();
+      taper += 0.1;
+    }
+
+    ctx.globalAlpha = 1;
+    teleport.play();
+    playerVisible = true;
+    startCount += 1;
+  }
+
   ctx.font = "bold 40px Arial";
   ctx.fillStyle = "black";
   ctx.fillText("Spiders Alive = " + spiders.length, c.width / 2 - 200, 40);
