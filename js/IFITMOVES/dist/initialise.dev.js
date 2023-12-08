@@ -1,7 +1,7 @@
 "use strict";
 
 function init() {
-  playerAngle = 0, speed = 10, startCount = 0, spiderRemains = 0;
+  playerAngle = 0, speed = 10, startCount = 0;
   floor = new Floor(stoneFloor);
   player = new Player(c.width / 2, c.height / 2); //top rooms.
 

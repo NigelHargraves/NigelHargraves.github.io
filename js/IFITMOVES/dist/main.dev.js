@@ -12,7 +12,7 @@ var bullets = [],
     spiderPortals = [],
     doors = []; //variables.
 
-var player, floor, playerAngle, speed, startCount, spiderRemains; //booleans.
+var player, floor, playerAngle, speed, startCount, mx, my; //booleans.
 
 var moveLeft = false,
     moveRight = false,
@@ -28,7 +28,8 @@ var moveLeft = false,
     gotGreenKey = false,
     gotTurquoiseKey = false,
     gotOrangeKey = false,
-    gotPinkKey = false; //backgrounds to variables.
+    gotPinkKey = false,
+    displayOnce = false; //backgrounds to variables.
 
 var stoneFloor = new Image();
 stoneFloor.src = 'images/IFITMOVES/stoneFloorBackground.png';
@@ -199,7 +200,10 @@ turquoiseKey.src = 'images/IFITMOVES/turquoiseKey.png';
 var orangeKey = new Image();
 orangeKey.src = 'images/IFITMOVES/orangeKey.png';
 var pinkKey = new Image();
-pinkKey.src = 'images/IFITMOVES/pinkKey.png'; //audio to variables.
+pinkKey.src = 'images/IFITMOVES/pinkKey.png';
+var backpack = new Image();
+backpack.src = 'images/IFITMOVES/backpack.png';
+var backpackContents = document.getElementById("backpack"); //audio to variables.
 
 var walking = document.getElementById("audio1");
 var running = document.getElementById("audio2");
@@ -215,7 +219,7 @@ var swipe = document.getElementById("audio11");
 
 function animate() {
   //CLS.
-  ctx.fillStyle = "rgb(0, 100, 0,1)";
+  ctx.fillStyle = "rgb(0, 100, 0)";
   ctx.fillRect(0, 0, c.width, c.height);
   floor.update();
 
@@ -278,7 +282,6 @@ function animate() {
   spiders.forEach(function (spider) {
     spider.update();
   });
-  forSplats();
 
   if (spiderInView) {
     spiderWalking.play();
@@ -349,41 +352,29 @@ function animate() {
     startCount += 1;
   }
 
+  if (mx <= 70 && my <= 70) {
+    backpackContents.style.display = "block";
+    backpackContents.style.left = "70px";
+    backpackContents.style.top = "70px";
+
+    if (!displayOnce) {
+      backpackContents.innerText = 'BACKPACK CONTENTS \n Item 1 \n Item 2 \n Item 3';
+      displayOnce = true;
+    }
+  } else {
+    backpackContents.style.display = "none";
+    displayOnce = false;
+  }
+
+  ctx.drawImage(backpack, 0, 0, 70, 70);
   ctx.font = "bold 40px Arial";
   ctx.fillStyle = "black";
-  ctx.drawImage(spiderDead, 0, 0, 100, 100);
-  ctx.fillText(" = " + spiderRemains, c.width * 0.04, c.height * 0.07);
   ctx.fillText("Spiders Alive = " + spiders.length, c.width / 2 - 200, 40);
-
-  if (gotRedKey) {
-    ctx.drawImage(redKey, c.width / 2 + 200, 10, 40, 20);
-  }
-
-  if (gotYellowKey) {
-    ctx.drawImage(yellowKey, c.width / 2 + 250, 10, 40, 20);
-  }
-
-  if (gotGreenKey) {
-    ctx.drawImage(greenKey, c.width / 2 + 300, 10, 40, 20);
-  }
-
-  if (gotTurquoiseKey) {
-    ctx.drawImage(turquoiseKey, c.width / 2 + 350, 10, 40, 20);
-  }
-
-  if (gotOrangeKey) {
-    ctx.drawImage(orangeKey, c.width / 2 + 400, 10, 40, 20);
-  }
-
-  if (gotPinkKey) {
-    ctx.drawImage(pinkKey, c.width / 2 + 450, 10, 40, 20);
-  }
   /*
   ctx.fillText("height = " + c.height, (c.width / 2) - 200, 80);
   ctx.fillText("width = " + c.width, (c.width / 2) - 200, 120);
   */
   //call next frame.
-
 
   animationId = requestAnimationFrame(animate);
 }
@@ -427,4 +418,8 @@ window.addEventListener("keyup", function (e) {
   if (e.keyCode == 16) {
     run = false;
   }
+});
+window.addEventListener("mousemove", function (e) {
+  mx = e.x;
+  my = e.y;
 });

@@ -1,13 +1,21 @@
-* {
-    overflow: hidden;
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-#c {
-    background: green;
-    position: absolute;
-    width: 100%;
-    height: 100%;
-}
+    * {
+        overflow: hidden;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    
+    #c {
+        background: green;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+    }
+    
+    #backpack {
+        position: absolute;
+        display: none;
+        background: white;
+        width: 200px;
+        height: 200px;
+    }

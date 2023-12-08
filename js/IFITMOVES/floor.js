@@ -21,7 +21,6 @@ class Floor {
     //update floor.
     update() {
 
-
         if (moveForward) {
             if (run) {
                 speed = 5;
