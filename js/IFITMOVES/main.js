@@ -13,7 +13,7 @@ let bullets = [],
 
 //variables.
 let player, floor, playerAngle, speed, startCount, mx,
-    my;
+    my, backpackItems;
 
 //booleans.
 let moveLeft = false,
@@ -239,11 +239,42 @@ backpack.src = 'images/IFITMOVES/backpack.png';
 
 
 let backpackContents = document.getElementById("backpack");
+let newLineRed = document.createElement('br');
+let newLineYellow = document.createElement('br');
+let newLineGreen = document.createElement('br');
+let newLineTurquoise = document.createElement('br');
+let newLineOrange = document.createElement('br');
+let newLinePink = document.createElement('br');
 
+let redKeyBackpack = document.createElement("IMG");
+redKeyBackpack.setAttribute("src", "images/IFITMOVES/redKey.png");
+redKeyBackpack.setAttribute("width", "40");
+redKeyBackpack.setAttribute("height", "20");
 
+let yellowKeyBackpack = document.createElement("IMG");
+yellowKeyBackpack.setAttribute("src", "images/IFITMOVES/yellowKey.png");
+yellowKeyBackpack.setAttribute("width", "40");
+yellowKeyBackpack.setAttribute("height", "20");
 
+let greenKeyBackpack = document.createElement("IMG");
+greenKeyBackpack.setAttribute("src", "images/IFITMOVES/greenKey.png");
+greenKeyBackpack.setAttribute("width", "40");
+greenKeyBackpack.setAttribute("height", "20");
 
+let turquoiseKeyBackpack = document.createElement("IMG");
+turquoiseKeyBackpack.setAttribute("src", "images/IFITMOVES/turquoiseKey.png");
+turquoiseKeyBackpack.setAttribute("width", "40");
+turquoiseKeyBackpack.setAttribute("height", "20");
 
+let orangeKeyBackpack = document.createElement("IMG");
+orangeKeyBackpack.setAttribute("src", "images/IFITMOVES/orangeKey.png");
+orangeKeyBackpack.setAttribute("width", "40");
+orangeKeyBackpack.setAttribute("height", "20");
+
+let pinkKeyBackpack = document.createElement("IMG");
+pinkKeyBackpack.setAttribute("src", "images/IFITMOVES/pinkKey.png");
+pinkKeyBackpack.setAttribute("width", "40");
+pinkKeyBackpack.setAttribute("height", "20");
 
 
 //audio to variables.
@@ -441,15 +472,69 @@ function animate() {
     }
 
 
+
+
+
     if (mx <= 70 && my <= 70) {
+
         backpackContents.style.display = "block";
         backpackContents.style.left = "70px";
         backpackContents.style.top = "70px";
         if (!displayOnce) {
-            backpackContents.innerText = 'BACKPACK CONTENTS \n Item 1 \n Item 2 \n Item 3';
+            if (backpackItems == 0) {
+                backpackContents.innerText = 'BACKPACK CONTENTS \n Empty';
+            }
+            let backpackText = "BACKPACK CONTENTS\n";
 
+
+            if (backpackItems >= 1) {
+                backpackContents.innerText = backpackText;
+                if (gotRedKey) {
+                    backpackContents.appendChild(redKeyBackpack);
+                    backpackContents.appendChild(newLineRed);
+                }
+                if (gotYellowKey) {
+                    backpackContents.appendChild(yellowKeyBackpack);
+                    backpackContents.appendChild(newLineYellow);
+                }
+                if (gotGreenKey) {
+                    backpackContents.appendChild(greenKeyBackpack);
+                    backpackContents.appendChild(newLineGreen);
+                }
+                if (gotTurquoiseKey) {
+                    backpackContents.appendChild(turquoiseKeyBackpack);
+                    backpackContents.appendChild(newLineTurquoise);
+                }
+                if (gotOrangeKey) {
+                    backpackContents.appendChild(orangeKeyBackpack);
+                    backpackContents.appendChild(newLineOrange);
+                }
+                if (gotPinkKey) {
+                    backpackContents.appendChild(pinkKeyBackpack);
+                    backpackContents.appendChild(newLinePink);
+                }
+            }
             displayOnce = true;
+
+            let size = 100;
+
+            if (backpackItems <= 1) {
+                backpackContents.style.height = size + "px";
+            }
+
+            if (backpackItems >= 2) {
+                for (let i = 2; i <= backpackItems; i++) {
+                    size += 24;
+                }
+
+                backpackContents.style.height = size + "px";
+            }
+
+
+
+
         }
+
 
     } else {
         backpackContents.style.display = "none";
