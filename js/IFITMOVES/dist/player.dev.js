@@ -177,6 +177,13 @@ function () {
         if (!moveForward && moveLeft || moveRight) {
           rotateStep.play();
         }
+
+        var standOnSwitch = collisionDetection(this.x, this.y, this.r / 2, this.r / 2, floor.x + 2910, floor.y + 52, 40, 40);
+
+        if (standOnSwitch) {
+          switchIsOn.play();
+          switchDoorOn = false;
+        }
       }
 
       this.draw();

@@ -25,8 +25,15 @@ function () {
   _createClass(Floor, [{
     key: "draw",
     value: function draw() {
+      //walls.push(new Wall(2970, 500, 20, 1000, false)); //vertical.
       ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
       ctx.drawImage(telepad, this.x + c.width * 0.02, this.y + c.height * 0.02, 100, 100);
+
+      if (switchDoorOn) {
+        ctx.drawImage(footpadSwitchOff, this.x + 2860, this.y + 2, 100, 100);
+      } else {
+        ctx.drawImage(footpadSwitchOn, this.x + 2860, this.y + 2, 100, 100);
+      }
     } //update floor.
 
   }, {

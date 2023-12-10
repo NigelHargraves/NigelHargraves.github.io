@@ -9,11 +9,12 @@ let bullets = [],
     spiderSplats = [],
     walls = [],
     spiderPortals = [],
-    doors = [];
+    doors = [],
+    keys = [];
 
 //variables.
 let player, floor, playerAngle, speed, startCount, mx,
-    my, backpackItems;
+    my, backpackItems, switchTimer;
 
 //booleans.
 let moveLeft = false,
@@ -31,7 +32,8 @@ let moveLeft = false,
     gotTurquoiseKey = false,
     gotOrangeKey = false,
     gotPinkKey = false,
-    displayOnce = false;
+    displayOnce = false,
+    switchDoorOn = true;
 
 
 
@@ -231,8 +233,14 @@ let pinkKey = new Image();
 pinkKey.src = 'images/IFITMOVES/pinkKey.png';
 let backpack = new Image();
 backpack.src = 'images/IFITMOVES/backpack.png';
-
-
+let footpadSwitchOff = new Image();
+footpadSwitchOff.src = 'images/IFITMOVES/footpadSwitchOff.png';
+let footpadSwitchOn = new Image();
+footpadSwitchOn.src = 'images/IFITMOVES/footpadSwitchOn.png';
+let keyHolefootpad = new Image();
+keyHolefootpad.src = 'images/IFITMOVES/keyHolefootpad.png';
+let keyHolefootpadOpen = new Image();
+keyHolefootpadOpen.src = 'images/IFITMOVES/keyHolefootpadOpen.png';
 
 
 
@@ -289,6 +297,7 @@ let portalBuzz = document.getElementById("audio8");
 let teleport = document.getElementById("audio9");
 let doorBuzz = document.getElementById("audio10");
 let swipe = document.getElementById("audio11");
+let switchIsOn = document.getElementById("audio12");
 
 function animate() {
     //CLS.
@@ -442,6 +451,10 @@ function animate() {
     doors.forEach((door) => {
         door.update();
     });
+
+
+    forKey();
+
 
 
 

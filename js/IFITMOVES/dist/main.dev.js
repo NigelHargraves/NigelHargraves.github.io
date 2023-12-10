@@ -10,9 +10,10 @@ var bullets = [],
     spiderSplats = [],
     walls = [],
     spiderPortals = [],
-    doors = []; //variables.
+    doors = [],
+    keys = []; //variables.
 
-var player, floor, playerAngle, speed, startCount, mx, my, backpackItems; //booleans.
+var player, floor, playerAngle, speed, startCount, mx, my, backpackItems, switchTimer; //booleans.
 
 var moveLeft = false,
     moveRight = false,
@@ -29,7 +30,8 @@ var moveLeft = false,
     gotTurquoiseKey = false,
     gotOrangeKey = false,
     gotPinkKey = false,
-    displayOnce = false; //backgrounds to variables.
+    displayOnce = false,
+    switchDoorOn = true; //backgrounds to variables.
 
 var stoneFloor = new Image();
 stoneFloor.src = 'images/IFITMOVES/stoneFloorBackground.png';
@@ -203,6 +205,14 @@ var pinkKey = new Image();
 pinkKey.src = 'images/IFITMOVES/pinkKey.png';
 var backpack = new Image();
 backpack.src = 'images/IFITMOVES/backpack.png';
+var footpadSwitchOff = new Image();
+footpadSwitchOff.src = 'images/IFITMOVES/footpadSwitchOff.png';
+var footpadSwitchOn = new Image();
+footpadSwitchOn.src = 'images/IFITMOVES/footpadSwitchOn.png';
+var keyHolefootpad = new Image();
+keyHolefootpad.src = 'images/IFITMOVES/keyHolefootpad.png';
+var keyHolefootpadOpen = new Image();
+keyHolefootpadOpen.src = 'images/IFITMOVES/keyHolefootpadOpen.png';
 var backpackContents = document.getElementById("backpack");
 var newLineRed = document.createElement('br');
 var newLineYellow = document.createElement('br');
@@ -246,6 +256,7 @@ var portalBuzz = document.getElementById("audio8");
 var teleport = document.getElementById("audio9");
 var doorBuzz = document.getElementById("audio10");
 var swipe = document.getElementById("audio11");
+var switchIsOn = document.getElementById("audio12");
 
 function animate() {
   //CLS.
@@ -357,6 +368,7 @@ function animate() {
   doors.forEach(function (door) {
     door.update();
   });
+  forKey();
   player.update();
   forDoor();
 
