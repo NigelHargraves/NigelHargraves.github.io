@@ -11,7 +11,8 @@ var bullets = [],
     walls = [],
     spiderPortals = [],
     doors = [],
-    keys = []; //variables.
+    keys = [],
+    traps = []; //variables.
 
 var player, floor, playerAngle, speed, startCount, mx, my, backpackItems, switchTimer; //booleans.
 
@@ -31,7 +32,16 @@ var moveLeft = false,
     gotOrangeKey = false,
     gotPinkKey = false,
     displayOnce = false,
-    switchDoorOn = true; //backgrounds to variables.
+    switchDoorOn = true,
+    trapInView = false,
+    gotGreenTrapKey1 = false,
+    gotGreenTrapKey2 = false,
+    gotGreenTrapKey3 = false,
+    gotGreenTrapKey4 = false,
+    greenTrapKey1Placed = false,
+    greenTrapKey2Placed = false,
+    greenTrapKey3Placed = false,
+    greenTrapKey4Placed = false; //backgrounds to variables.
 
 var stoneFloor = new Image();
 stoneFloor.src = 'images/IFITMOVES/stoneFloorBackground.png';
@@ -213,6 +223,32 @@ var keyHolefootpad = new Image();
 keyHolefootpad.src = 'images/IFITMOVES/keyHoleFootpad.png';
 var keyHolefootpadOpen = new Image();
 keyHolefootpadOpen.src = 'images/IFITMOVES/keyHoleFootpadOpen.png';
+var trapImage = new Image();
+trapImage.src = 'images/IFITMOVES/trapImage.png';
+var greenTrapKey1 = new Image();
+greenTrapKey1.src = 'images/IFITMOVES/greenTrapKey1.png';
+var greenTrapKey2 = new Image();
+greenTrapKey2.src = 'images/IFITMOVES/greenTrapKey2.png';
+var greenTrapKey3 = new Image();
+greenTrapKey2.src = 'images/IFITMOVES/greenTrapKey3.png';
+var greenTrapKey4 = new Image();
+greenTrapKey2.src = 'images/IFITMOVES/greenTrapKey4.png';
+var greenTrapKeyHole1Filled = new Image();
+greenTrapKeyHole1Filled.src = 'images/IFITMOVES/greenTrapKeyHole1Filled.png';
+var greenTrapKeyHole1Empty = new Image();
+greenTrapKeyHole1Empty.src = 'images/IFITMOVES/greenTrapKeyHole1Empty.png';
+var greenTrapKeyHole2Filled = new Image();
+greenTrapKeyHole2Filled.src = 'images/IFITMOVES/greenTrapKeyHole2Filled.png';
+var greenTrapKeyHole2Empty = new Image();
+greenTrapKeyHole2Empty.src = 'images/IFITMOVES/greenTrapKeyHole2Empty.png';
+var greenTrapKeyHole3Filled = new Image();
+greenTrapKeyHole3Filled.src = 'images/IFITMOVES/greenTrapKeyHole3Filled.png';
+var greenTrapKeyHole3Empty = new Image();
+greenTrapKeyHole3Empty.src = 'images/IFITMOVES/greenTrapKeyHole3Empty.png';
+var greenTrapKeyHole4Filled = new Image();
+greenTrapKeyHole4Filled.src = 'images/IFITMOVES/greenTrapKeyHole4Filled.png';
+var greenTrapKeyHole4Empty = new Image();
+greenTrapKeyHole4Empty.src = 'images/IFITMOVES/greenTrapKeyHole4Empty.png';
 var backpackContents = document.getElementById("backpack");
 var newLineRed = document.createElement('br');
 var newLineYellow = document.createElement('br');
@@ -257,6 +293,7 @@ var teleport = document.getElementById("audio9");
 var doorBuzz = document.getElementById("audio10");
 var swipe = document.getElementById("audio11");
 var switchIsOn = document.getElementById("audio12");
+var pulseSound = document.getElementById("audio13");
 
 function animate() {
   //CLS.
@@ -368,13 +405,29 @@ function animate() {
   doors.forEach(function (door) {
     door.update();
   });
-  forKey();
+  forKey(); //cut trap sound if none in view;
+
+  var trapCount = 0;
+  traps.forEach(function (trap) {
+    if (trap.x < player.x - floor.x + c.width / 2 && trap.x > player.x - floor.x - c.width / 2 && trap.y < player.y - floor.y + c.height / 2 && trap.y > player.y - floor.y - c.height / 2 && !trapInView) {
+      trapInView = true;
+      return;
+    } else {
+      trapCount += 1;
+    }
+
+    if (trapCount == traps.length) {
+      trapInView = false;
+    }
+  });
+  forTrap();
   player.update();
   forDoor();
 
   if (startCount < 100) {
     startCount += 1;
-  }
+  } //delay show player.
+
 
   if (startCount == 100) {
     var taper = 1;
@@ -392,7 +445,8 @@ function animate() {
     teleport.play();
     playerVisible = true;
     startCount += 1;
-  }
+  } //show backpack contents.
+
 
   if (mx <= 70 && my <= 70) {
     backpackContents.style.display = "block";

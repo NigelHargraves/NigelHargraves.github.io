@@ -37,7 +37,8 @@ function init() {
     //keys.
     keys.push(new Key(42, (c.height * 3) + 30, redKey)); //red key.
     keys.push(new Key(1042, (c.height * 3) + 30, yellowKey)); //yellow key.
-    keys.push(new Key(2042, (c.height * 4) - 30, greenKey)); //green key.
+    traps.push(new Trap(2242, (c.height * 4) - 500, "green")); //green trap.
+    keys.push(new Key(2242, (c.height * 4) - 500, greenKey)); //green key.
     keys.push(new Key(1520, 22, turquoiseKey)); //turquoise key.
     keys.push(new Key((c.height * 4) - 80, 30, orangeKey)); //orange key.
     keys.push(new Key(c.height * 2, (c.height * 2) + 30, pinkKey)); //pink key.

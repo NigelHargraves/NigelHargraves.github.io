@@ -20,7 +20,7 @@ function () {
   _createClass(Key, [{
     key: "draw",
     value: function draw() {
-      ctx.drawImage(this.image, floor.x + this.x - 20, floor.y + this.y - 20, 40, 20);
+      ctx.drawImage(this.image, floor.x + this.x - 20, floor.y + this.y - 10, 40, 20);
     }
   }, {
     key: "update",

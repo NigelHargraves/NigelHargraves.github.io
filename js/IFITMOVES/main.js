@@ -10,7 +10,8 @@ let bullets = [],
     walls = [],
     spiderPortals = [],
     doors = [],
-    keys = [];
+    keys = [],
+    traps = [];
 
 //variables.
 let player, floor, playerAngle, speed, startCount, mx,
@@ -33,10 +34,16 @@ let moveLeft = false,
     gotOrangeKey = false,
     gotPinkKey = false,
     displayOnce = false,
-    switchDoorOn = true;
-
-
-
+    switchDoorOn = true,
+    trapInView = false,
+    gotGreenTrapKey1 = false,
+    gotGreenTrapKey2 = false,
+    gotGreenTrapKey3 = false,
+    gotGreenTrapKey4 = false,
+    greenTrapKey1Placed = false,
+    greenTrapKey2Placed = false,
+    greenTrapKey3Placed = false,
+    greenTrapKey4Placed = false;
 
 
 
@@ -241,6 +248,34 @@ let keyHolefootpad = new Image();
 keyHolefootpad.src = 'images/IFITMOVES/keyHoleFootpad.png';
 let keyHolefootpadOpen = new Image();
 keyHolefootpadOpen.src = 'images/IFITMOVES/keyHoleFootpadOpen.png';
+let trapImage = new Image();
+trapImage.src = 'images/IFITMOVES/trapImage.png';
+let greenTrapKey1 = new Image();
+greenTrapKey1.src = 'images/IFITMOVES/greenTrapKey1.png';
+let greenTrapKey2 = new Image();
+greenTrapKey2.src = 'images/IFITMOVES/greenTrapKey2.png';
+let greenTrapKey3 = new Image();
+greenTrapKey2.src = 'images/IFITMOVES/greenTrapKey3.png';
+let greenTrapKey4 = new Image();
+greenTrapKey2.src = 'images/IFITMOVES/greenTrapKey4.png';
+let greenTrapKeyHole1Filled = new Image();
+greenTrapKeyHole1Filled.src = 'images/IFITMOVES/greenTrapKeyHole1Filled.png';
+let greenTrapKeyHole1Empty = new Image();
+greenTrapKeyHole1Empty.src = 'images/IFITMOVES/greenTrapKeyHole1Empty.png';
+let greenTrapKeyHole2Filled = new Image();
+greenTrapKeyHole2Filled.src = 'images/IFITMOVES/greenTrapKeyHole2Filled.png';
+let greenTrapKeyHole2Empty = new Image();
+greenTrapKeyHole2Empty.src = 'images/IFITMOVES/greenTrapKeyHole2Empty.png';
+let greenTrapKeyHole3Filled = new Image();
+greenTrapKeyHole3Filled.src = 'images/IFITMOVES/greenTrapKeyHole3Filled.png';
+let greenTrapKeyHole3Empty = new Image();
+greenTrapKeyHole3Empty.src = 'images/IFITMOVES/greenTrapKeyHole3Empty.png';
+let greenTrapKeyHole4Filled = new Image();
+greenTrapKeyHole4Filled.src = 'images/IFITMOVES/greenTrapKeyHole4Filled.png';
+let greenTrapKeyHole4Empty = new Image();
+greenTrapKeyHole4Empty.src = 'images/IFITMOVES/greenTrapKeyHole4Empty.png';
+
+
 
 
 
@@ -298,6 +333,7 @@ let teleport = document.getElementById("audio9");
 let doorBuzz = document.getElementById("audio10");
 let swipe = document.getElementById("audio11");
 let switchIsOn = document.getElementById("audio12");
+let pulseSound = document.getElementById("audio13");
 
 function animate() {
     //CLS.
@@ -413,6 +449,8 @@ function animate() {
     }
 
 
+
+
     forWall();
 
 
@@ -458,6 +496,26 @@ function animate() {
 
 
 
+
+
+    //cut trap sound if none in view;
+    let trapCount = 0;
+    traps.forEach((trap) => {
+        if (trap.x < ((player.x - floor.x) + c.width / 2) && trap.x > ((player.x - floor.x) - c.width / 2) &&
+            trap.y < ((player.y - floor.y) + c.height / 2) && trap.y > ((player.y - floor.y) - c.height / 2) && !trapInView) {
+            trapInView = true;
+            return;
+        } else {
+            trapCount += 1;
+        }
+        if (trapCount == traps.length) {
+            trapInView = false;
+        }
+    });
+
+
+    forTrap();
+
     player.update();
 
 
@@ -468,6 +526,11 @@ function animate() {
     }
 
 
+
+
+
+
+    //delay show player.
     if (startCount == 100) {
         let taper = 1;
         for (let i = 1; i >= 0.1; i -= 0.1) {
@@ -487,9 +550,8 @@ function animate() {
 
 
 
-
+    //show backpack contents.
     if (mx <= 70 && my <= 70) {
-
         backpackContents.style.display = "block";
         backpackContents.style.left = "70px";
         backpackContents.style.top = "70px";
@@ -498,8 +560,6 @@ function animate() {
                 backpackContents.innerText = 'BACKPACK CONTENTS \n Empty';
             }
             let backpackText = "BACKPACK CONTENTS\n";
-
-
             if (backpackItems >= 1) {
                 backpackContents.innerText = backpackText;
                 if (gotRedKey) {
@@ -528,27 +588,17 @@ function animate() {
                 }
             }
             displayOnce = true;
-
             let size = 100;
-
             if (backpackItems <= 1) {
                 backpackContents.style.height = size + "px";
             }
-
             if (backpackItems >= 2) {
                 for (let i = 2; i <= backpackItems; i++) {
                     size += 24;
                 }
-
                 backpackContents.style.height = size + "px";
             }
-
-
-
-
         }
-
-
     } else {
         backpackContents.style.display = "none";
         displayOnce = false;

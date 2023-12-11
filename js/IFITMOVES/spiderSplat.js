@@ -15,7 +15,10 @@ class SpiderSplat {
         ctx.translate(this.x + floor.x, this.y + floor.y);
         ctx.rotate(this.rotate);
         ctx.globalAlpha = this.opacity;
+
+        ctx.filter = "blur(2px)";
         ctx.drawImage(splat, 0 - this.r / 2, 0 - this.r / 2, this.r, this.r);
+        ctx.filter = "blur(0px)";
         ctx.globalAlpha = 1;
 
         ctx.drawImage(spiderDeadShadow, (0 - this.size / 2) + 10, (0 - this.size / 2) + 10, this.size, this.size);

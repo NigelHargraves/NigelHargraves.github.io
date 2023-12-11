@@ -60,7 +60,9 @@ function init() {
 
   keys.push(new Key(1042, c.height * 3 + 30, yellowKey)); //yellow key.
 
-  keys.push(new Key(2042, c.height * 4 - 30, greenKey)); //green key.
+  traps.push(new Trap(2242, c.height * 4 - 500, "green")); //green trap.
+
+  keys.push(new Key(2242, c.height * 4 - 500, greenKey)); //green key.
 
   keys.push(new Key(1520, 22, turquoiseKey)); //turquoise key.
 
