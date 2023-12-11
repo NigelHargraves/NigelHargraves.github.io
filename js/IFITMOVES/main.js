@@ -238,9 +238,9 @@ footpadSwitchOff.src = 'images/IFITMOVES/footpadSwitchOff.png';
 let footpadSwitchOn = new Image();
 footpadSwitchOn.src = 'images/IFITMOVES/footpadSwitchOn.png';
 let keyHolefootpad = new Image();
-keyHolefootpad.src = 'images/IFITMOVES/keyHolefootpad.png';
+keyHolefootpad.src = 'images/IFITMOVES/keyHoleFootpad.png';
 let keyHolefootpadOpen = new Image();
-keyHolefootpadOpen.src = 'images/IFITMOVES/keyHolefootpadOpen.png';
+keyHolefootpadOpen.src = 'images/IFITMOVES/keyHoleFootpadOpen.png';
 
 
 
