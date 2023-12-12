@@ -160,7 +160,7 @@ function () {
 
           if (!run) {
             running.currentTime = 0;
-            running.paused;
+            running.pause();
             walking.play();
           } else {
             walking.currentTime = 0;
@@ -169,9 +169,9 @@ function () {
           }
         } else {
           running.currentTime = 0;
-          running.paused;
+          running.pause();
           walking.currentTime = 0;
-          walking.paused;
+          walking.pause();
         }
 
         if (!moveForward && moveLeft || moveRight) {

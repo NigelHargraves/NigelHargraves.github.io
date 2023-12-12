@@ -168,7 +168,7 @@ class Player {
                 rotateStep.paused;
                 if (!run) {
                     running.currentTime = 0;
-                    running.paused;
+                    running.pause();
                     walking.play();
                 } else {
                     walking.currentTime = 0;
@@ -177,14 +177,13 @@ class Player {
                 }
             } else {
                 running.currentTime = 0;
-                running.paused;
+                running.pause();
                 walking.currentTime = 0;
-                walking.paused;
+                walking.pause();
             }
 
 
             if (!moveForward && moveLeft || moveRight) {
-
                 rotateStep.play();
             }
 

@@ -202,10 +202,15 @@ function () {
           this.image = spiderWalk330;
           this.imageShadow = spiderWalkShadow330;
         }
-      }
+      } //only draw spider when in view.
 
-      ctx.drawImage(this.imageShadow, this.walkX, this.walkY, this.spriteLength, this.spriteLength, floor.x + this.x - this.r / 2, floor.y + this.y - this.r / 2, this.r, this.r);
-      ctx.drawImage(this.image, this.walkX, this.walkY, this.spriteLength, this.spriteLength, floor.x + this.x - this.r / 2, floor.y + this.y - this.r / 2, this.r, this.r);
+
+      var renderSpider = collisionDetection(this.x, this.y, this.r / 2, this.r / 2, player.x - floor.x, player.y - floor.y, c.width / 2, c.height / 2);
+
+      if (renderSpider) {
+        ctx.drawImage(this.imageShadow, this.walkX, this.walkY, this.spriteLength, this.spriteLength, floor.x + this.x - this.r / 2, floor.y + this.y - this.r / 2, this.r, this.r);
+        ctx.drawImage(this.image, this.walkX, this.walkY, this.spriteLength, this.spriteLength, floor.x + this.x - this.r / 2, floor.y + this.y - this.r / 2, this.r, this.r);
+      }
     } //draw spider.
 
   }, {

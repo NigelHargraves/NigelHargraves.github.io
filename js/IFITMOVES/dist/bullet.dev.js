@@ -48,8 +48,14 @@ function forBullet() {
       var hit = collisionDetection(bullet.x, bullet.y, bullet.r, bullet.r, spider.x + floor.x, spider.y + floor.y, spider.r / 4, spider.r / 4); //kill spider.
 
       if (hit) {
-        splated.currentTime = 0;
-        splated.play();
+        //only play splat sound when in view.
+        var playSound = collisionDetection(spider.x, spider.y, spider.r / 2, spider.r / 2, player.x - floor.x, player.y - floor.y, c.width / 2, c.height / 2);
+
+        if (playSound) {
+          splated.currentTime = 0;
+          splated.play();
+        }
+
         spiderInView = false;
         spiderSplats.push(new SpiderSplat(spider.x, spider.y));
         bullets.splice(index1, 1);

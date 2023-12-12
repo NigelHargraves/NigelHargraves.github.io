@@ -194,13 +194,15 @@ class Spider {
 
         }
 
+        //only draw spider when in view.
+        let renderSpider = collisionDetection(this.x, this.y, this.r / 2, this.r / 2, player.x - floor.x, player.y - floor.y, c.width / 2, c.height / 2);
+        if (renderSpider) {
+            ctx.drawImage(this.imageShadow, this.walkX, this.walkY, this.spriteLength, this.spriteLength,
+                floor.x + this.x - this.r / 2, floor.y + this.y - this.r / 2, this.r, this.r);
+            ctx.drawImage(this.image, this.walkX, this.walkY, this.spriteLength, this.spriteLength,
+                floor.x + this.x - this.r / 2, floor.y + this.y - this.r / 2, this.r, this.r);
+        }
 
-        ctx.drawImage(this.imageShadow, this.walkX, this.walkY, this.spriteLength, this.spriteLength,
-            floor.x + this.x - this.r / 2, floor.y + this.y - this.r / 2, this.r, this.r);
-
-
-        ctx.drawImage(this.image, this.walkX, this.walkY, this.spriteLength, this.spriteLength,
-            floor.x + this.x - this.r / 2, floor.y + this.y - this.r / 2, this.r, this.r);
 
 
 
@@ -359,19 +361,9 @@ class Spider {
                 }
                 this.frameCount = 0;
             }
-
         } else {
             this.frameCount += 1;
         }
-
-
-
-
-
-
-
         this.draw();
     }
-
-
 }

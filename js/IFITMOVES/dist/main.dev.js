@@ -12,7 +12,8 @@ var bullets = [],
     spiderPortals = [],
     doors = [],
     keys = [],
-    traps = []; //variables.
+    traps = [],
+    trapKeys = []; //variables.
 
 var player, floor, playerAngle, speed, startCount, mx, my, backpackItems, switchTimer; //booleans.
 
@@ -249,6 +250,8 @@ var greenTrapKeyHole4Filled = new Image();
 greenTrapKeyHole4Filled.src = 'images/IFITMOVES/greenTrapKeyHole4Filled.png';
 var greenTrapKeyHole4Empty = new Image();
 greenTrapKeyHole4Empty.src = 'images/IFITMOVES/greenTrapKeyHole4Empty.png';
+var teleportFlash = new Image();
+teleportFlash.src = 'images/IFITMOVES/teleportFlash.png';
 var backpackContents = document.getElementById("backpack");
 var newLineRed = document.createElement('br');
 var newLineYellow = document.createElement('br');
@@ -294,6 +297,7 @@ var doorBuzz = document.getElementById("audio10");
 var swipe = document.getElementById("audio11");
 var switchIsOn = document.getElementById("audio12");
 var pulseSound = document.getElementById("audio13");
+var trapKeyTeleport = document.getElementById("audio14");
 
 function animate() {
   //CLS.
@@ -346,7 +350,9 @@ function animate() {
 
   var spiderCount = 0;
   spiders.forEach(function (spider) {
-    if (spider.x < player.x - floor.x + c.width / 2 && spider.x > player.x - floor.x - c.width / 2 && spider.y < player.y - floor.y + c.height / 2 && spider.y > player.y - floor.y - c.height / 2 && !spiderInView) {
+    var playSound = collisionDetection(spider.x, spider.y, spider.r / 2, spider.r / 2, player.x - floor.x, player.y - floor.y, c.width / 2, c.height / 2);
+
+    if (playSound) {
       spiderInView = true;
       return;
     } else {
@@ -357,6 +363,10 @@ function animate() {
       spiderInView = false;
     }
   });
+  trapKeys.forEach(function (trapKey) {
+    trapKey.update();
+  });
+  forTrap();
   spiders.forEach(function (spider) {
     spider.update();
   });
@@ -382,20 +392,19 @@ function animate() {
 
   var doorCount = 0;
   doors.forEach(function (door) {
+    var playSound;
+
     if (door.horizontal) {
-      if (door.x < player.x - floor.x + c.width / 2 && door.x + 100 > player.x - floor.x - c.width / 2 && door.y - 10 < player.y - floor.y + c.height / 2 && door.y + 10 > player.y - floor.y - c.height / 2 && door.on) {
-        doorInView = true;
-        return;
-      } else {
-        doorCount += 1;
-      }
+      playSound = collisionDetection(door.x + door.size / 2, door.y, door.size / 2, 10, player.x - floor.x, player.y - floor.y, c.width / 2, c.height / 2);
     } else {
-      if (door.x - 10 < player.x - floor.x + c.width / 2 && door.x + 10 > player.x - floor.x - c.width / 2 && door.y < player.y - floor.y + c.height / 2 && door.y + 100 > player.y - floor.y - c.height / 2 && door.on) {
-        doorInView = true;
-        return;
-      } else {
-        doorCount += 1;
-      }
+      playSound = collisionDetection(door.x, door.y + door.size / 2, 10, door.size / 2, player.x - floor.x, player.y - floor.y, c.width / 2, c.height / 2);
+    }
+
+    if (playSound && door.on) {
+      doorInView = true;
+      return;
+    } else {
+      doorCount += 1;
     }
 
     if (doorCount == doors.length) {
@@ -409,7 +418,9 @@ function animate() {
 
   var trapCount = 0;
   traps.forEach(function (trap) {
-    if (trap.x < player.x - floor.x + c.width / 2 && trap.x > player.x - floor.x - c.width / 2 && trap.y < player.y - floor.y + c.height / 2 && trap.y > player.y - floor.y - c.height / 2 && !trapInView) {
+    var playSound = collisionDetection(trap.x, trap.y, trap.size / 2, trap.size / 2, player.x - floor.x, player.y - floor.y, c.width / 2, c.height / 2);
+
+    if (playSound) {
       trapInView = true;
       return;
     } else {
@@ -420,7 +431,6 @@ function animate() {
       trapInView = false;
     }
   });
-  forTrap();
   player.update();
   forDoor();
 
@@ -519,8 +529,8 @@ function animate() {
   ctx.fillStyle = "black";
   ctx.fillText("Spiders Alive = " + spiders.length, c.width / 2 - 200, 40);
   /*
-  ctx.fillText("height = " + c.height, (c.width / 2) - 200, 80);
-  ctx.fillText("width = " + c.width, (c.width / 2) - 200, 120);
+      ctx.fillText("height = " + c.height, (c.width / 2) - 200, 80); //976
+      ctx.fillText("width = " + c.width, (c.width / 2) - 200, 120); //1872
   */
   //call next frame.
 

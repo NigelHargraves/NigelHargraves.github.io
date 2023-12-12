@@ -11,7 +11,8 @@ let bullets = [],
     spiderPortals = [],
     doors = [],
     keys = [],
-    traps = [];
+    traps = [],
+    trapKeys = [];
 
 //variables.
 let player, floor, playerAngle, speed, startCount, mx,
@@ -274,7 +275,8 @@ let greenTrapKeyHole4Filled = new Image();
 greenTrapKeyHole4Filled.src = 'images/IFITMOVES/greenTrapKeyHole4Filled.png';
 let greenTrapKeyHole4Empty = new Image();
 greenTrapKeyHole4Empty.src = 'images/IFITMOVES/greenTrapKeyHole4Empty.png';
-
+let teleportFlash = new Image();
+teleportFlash.src = 'images/IFITMOVES/teleportFlash.png';
 
 
 
@@ -334,6 +336,7 @@ let doorBuzz = document.getElementById("audio10");
 let swipe = document.getElementById("audio11");
 let switchIsOn = document.getElementById("audio12");
 let pulseSound = document.getElementById("audio13");
+let trapKeyTeleport = document.getElementById("audio14");
 
 function animate() {
     //CLS.
@@ -412,8 +415,8 @@ function animate() {
     //cut spider sound if none in view.
     let spiderCount = 0;
     spiders.forEach((spider) => {
-        if (spider.x < ((player.x - floor.x) + c.width / 2) && spider.x > ((player.x - floor.x) - c.width / 2) &&
-            spider.y < ((player.y - floor.y) + c.height / 2) && spider.y > ((player.y - floor.y) - c.height / 2) && !spiderInView) {
+        let playSound = collisionDetection(spider.x, spider.y, spider.r / 2, spider.r / 2, player.x - floor.x, player.y - floor.y, c.width / 2, c.height / 2);
+        if (playSound) {
             spiderInView = true;
             return;
         } else {
@@ -424,6 +427,16 @@ function animate() {
         }
     });
 
+
+
+    trapKeys.forEach((trapKey) => {
+        trapKey.update();
+    });
+
+
+
+
+    forTrap();
 
 
     spiders.forEach((spider) => {
@@ -461,22 +474,18 @@ function animate() {
     //cut door sound if none in view.
     let doorCount = 0;
     doors.forEach((door) => {
+        let playSound;
         if (door.horizontal) {
-            if (door.x < ((player.x - floor.x) + c.width / 2) && door.x + 100 > ((player.x - floor.x) - c.width / 2) &&
-                door.y - 10 < ((player.y - floor.y) + c.height / 2) && door.y + 10 > ((player.y - floor.y) - c.height / 2) && door.on) {
-                doorInView = true;
-                return;
-            } else {
-                doorCount += 1;
-            }
+            playSound = collisionDetection(door.x + door.size / 2, door.y, door.size / 2, 10, player.x - floor.x, player.y - floor.y, c.width / 2, c.height / 2);
         } else {
-            if (door.x - 10 < ((player.x - floor.x) + c.width / 2) && door.x + 10 > ((player.x - floor.x) - c.width / 2) &&
-                door.y < ((player.y - floor.y) + c.height / 2) && door.y + 100 > ((player.y - floor.y) - c.height / 2) && door.on) {
-                doorInView = true;
-                return;
-            } else {
-                doorCount += 1;
-            }
+            playSound = collisionDetection(door.x, door.y + door.size / 2, 10, door.size / 2, player.x - floor.x, player.y - floor.y, c.width / 2, c.height / 2);
+        }
+
+        if (playSound && door.on) {
+            doorInView = true;
+            return;
+        } else {
+            doorCount += 1;
         }
         if (doorCount == doors.length) {
             doorInView = false;
@@ -501,8 +510,8 @@ function animate() {
     //cut trap sound if none in view;
     let trapCount = 0;
     traps.forEach((trap) => {
-        if (trap.x < ((player.x - floor.x) + c.width / 2) && trap.x > ((player.x - floor.x) - c.width / 2) &&
-            trap.y < ((player.y - floor.y) + c.height / 2) && trap.y > ((player.y - floor.y) - c.height / 2) && !trapInView) {
+        let playSound = collisionDetection(trap.x, trap.y, trap.size / 2, trap.size / 2, player.x - floor.x, player.y - floor.y, c.width / 2, c.height / 2);
+        if (playSound) {
             trapInView = true;
             return;
         } else {
@@ -514,7 +523,7 @@ function animate() {
     });
 
 
-    forTrap();
+
 
     player.update();
 
@@ -612,8 +621,8 @@ function animate() {
     ctx.fillText("Spiders Alive = " + spiders.length, (c.width / 2) - 200, 40);
 
     /*
-    ctx.fillText("height = " + c.height, (c.width / 2) - 200, 80);
-    ctx.fillText("width = " + c.width, (c.width / 2) - 200, 120);
+        ctx.fillText("height = " + c.height, (c.width / 2) - 200, 80); //976
+        ctx.fillText("width = " + c.width, (c.width / 2) - 200, 120); //1872
     */
 
     //call next frame.

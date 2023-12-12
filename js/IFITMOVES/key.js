@@ -39,7 +39,10 @@ function forKey() {
             }
             if (key.image == pinkKey) {
                 gotPinkKey = true;
-
+                trapKeys.push(new TrapKey((Math.random() * ((c.height * 4) - 80)) + 40, Math.random() * ((c.height * 4) - 80) + 40, greenTrapKey1));
+                trapKeys.push(new TrapKey((Math.random() * ((c.height * 4) - 80)) + 40, Math.random() * ((c.height * 4) - 80) + 40, greenTrapKey2));
+                trapKeys.push(new TrapKey((Math.random() * ((c.height * 4) - 80)) + 40, Math.random() * ((c.height * 4) - 80) + 40, greenTrapKey3));
+                trapKeys.push(new TrapKey((Math.random() * ((c.height * 4) - 80)) + 40, Math.random() * ((c.height * 4) - 80) + 40, greenTrapKey4));
             }
             swipe.play();
             backpackItems += 1;

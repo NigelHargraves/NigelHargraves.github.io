@@ -88,7 +88,47 @@ function () {
 }();
 
 function forTrap() {
-  traps.forEach(function (trap, index) {
+  traps.forEach(function (trap, index1) {
+    var inTrap = collisionDetection(player.x, player.y, player.r / 2, player.r / 2, trap.x + floor.x, trap.y + floor.y, trap.size / 4, trap.size / 4);
+    var walkInTrap = collisionDetection(player.x, player.y, player.r / 2, player.r / 2, trap.x + floor.x, trap.y + floor.y, trap.size / 3, trap.size / 3);
+
+    if (!inTrap) {
+      if (walkInTrap && trap.on) {
+        var taper = 1;
+
+        for (var i = 1; i >= 0.1; i -= 0.1) {
+          ctx.globalAlpha = i;
+          ctx.beginPath();
+          ctx.arc(player.x, player.y, 20 + 20 * taper, 0, Math.PI * 2);
+          ctx.fillStyle = "white";
+          ctx.fill();
+          taper += 0.1;
+        }
+
+        teleport.play();
+        ctx.globalAlpha = 1;
+        floor.x = player.x - trap.x;
+        floor.y = player.y - trap.y;
+      }
+    }
+
+    spiders.forEach(function (spider, index2) {
+      var hit = collisionDetection(trap.x + floor.x, trap.y + floor.y, trap.size / 2, trap.size / 2, spider.x + floor.x, spider.y + floor.y, spider.r / 4, spider.r / 4); //kill spider.
+
+      if (hit) {
+        //only play splat sound when in view.
+        var playSound = collisionDetection(spider.x, spider.y, spider.r / 2, spider.r / 2, player.x - floor.x, player.y - floor.y, c.width / 2, c.height / 2);
+
+        if (playSound) {
+          splated.currentTime = 0;
+          splated.play();
+        }
+
+        spiderInView = false;
+        spiderSplats.push(new SpiderSplat(spider.x, spider.y));
+        spiders.splice(index2, 1);
+      }
+    });
     trap.update();
   });
 }
