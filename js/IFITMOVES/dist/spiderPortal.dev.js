@@ -77,7 +77,11 @@ function () {
     value: function update() {
       if (this.r <= 40 && this.time < 5) {
         this.r += 0.5;
-        portalOpen.play();
+        var playSound = collisionDetection(this.x, this.y, this.r / 2, this.r / 2, player.x - floor.x, player.y - floor.y, c.width / 2, c.height / 2);
+
+        if (playSound) {
+          portalOpen.play();
+        }
       } else {
         this.color = "white";
         this.time += 1;

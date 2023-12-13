@@ -44,8 +44,8 @@ function () {
         }
 
         ctx.drawImage(teleportFlash, floor.x + this.x - 20, floor.y + this.y - 20, 40, 40);
-        this.x = Math.random() * (c.height * 4 - 80) + 40;
-        this.y = Math.random() * (c.height * 4 - 80) + 40;
+        this.x = 40 + Math.random() * (c.height * 4 - 80);
+        this.y = 40 + Math.random() * (c.height * 4 - 80);
         this.timer = 0;
         this.teleportTimer = Math.random() * 5000;
       }
@@ -58,4 +58,42 @@ function () {
   return TrapKey;
 }();
 
-function forTrapKey() {}
+function forTrapKey() {
+  trapKeys.forEach(function (trapKey, index) {
+    var collect = collisionDetection(trapKey.x, trapKey.y, 10, 10, player.x - floor.x, player.y - floor.y, player.r / 2, player.r / 2);
+
+    if (collect) {
+      if (trapKey.image == greenTrapKey1) {
+        gotGreenTrapKey1 = true;
+        trapKeys.splice(index, 1);
+        nextKeySet = true;
+        backpackItems += 1;
+      }
+
+      if (trapKey.image == greenTrapKey2) {
+        gotGreenTrapKey2 = true;
+        trapKeys.splice(index, 1);
+        nextKeySet = true;
+        backpackItems += 1;
+      }
+
+      if (trapKey.image == greenTrapKey3) {
+        gotGreenTrapKey3 = true;
+        trapKeys.splice(index, 1);
+        nextKeySet = true;
+        backpackItems += 1;
+      }
+
+      if (trapKey.image == greenTrapKey4) {
+        gotGreenTrapKey4 = true;
+        trapKeys.splice(index, 1);
+        nextKeySet = true;
+        backpackItems += 1;
+      }
+
+      trapKeyCollect.play();
+    }
+
+    trapKey.update();
+  });
+}

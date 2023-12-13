@@ -44,7 +44,8 @@ let moveLeft = false,
     greenTrapKey1Placed = false,
     greenTrapKey2Placed = false,
     greenTrapKey3Placed = false,
-    greenTrapKey4Placed = false;
+    greenTrapKey4Placed = false,
+    nextKeySet = false;
 
 
 
@@ -256,9 +257,9 @@ greenTrapKey1.src = 'images/IFITMOVES/greenTrapKey1.png';
 let greenTrapKey2 = new Image();
 greenTrapKey2.src = 'images/IFITMOVES/greenTrapKey2.png';
 let greenTrapKey3 = new Image();
-greenTrapKey2.src = 'images/IFITMOVES/greenTrapKey3.png';
+greenTrapKey3.src = 'images/IFITMOVES/greenTrapKey3.png';
 let greenTrapKey4 = new Image();
-greenTrapKey2.src = 'images/IFITMOVES/greenTrapKey4.png';
+greenTrapKey4.src = 'images/IFITMOVES/greenTrapKey4.png';
 let greenTrapKeyHole1Filled = new Image();
 greenTrapKeyHole1Filled.src = 'images/IFITMOVES/greenTrapKeyHole1Filled.png';
 let greenTrapKeyHole1Empty = new Image();
@@ -284,12 +285,8 @@ teleportFlash.src = 'images/IFITMOVES/teleportFlash.png';
 
 
 let backpackContents = document.getElementById("backpack");
-let newLineRed = document.createElement('br');
-let newLineYellow = document.createElement('br');
-let newLineGreen = document.createElement('br');
-let newLineTurquoise = document.createElement('br');
-let newLineOrange = document.createElement('br');
-let newLinePink = document.createElement('br');
+let newLineKeys = document.createElement('br');
+let newLineTrapKeys = document.createElement('br');
 
 let redKeyBackpack = document.createElement("IMG");
 redKeyBackpack.setAttribute("src", "images/IFITMOVES/redKey.png");
@@ -321,6 +318,25 @@ pinkKeyBackpack.setAttribute("src", "images/IFITMOVES/pinkKey.png");
 pinkKeyBackpack.setAttribute("width", "40");
 pinkKeyBackpack.setAttribute("height", "20");
 
+let greenTrapKey1Backpack = document.createElement("IMG");
+greenTrapKey1Backpack.setAttribute("src", "images/IFITMOVES/greenTrapKey1.png");
+greenTrapKey1Backpack.setAttribute("width", "40");
+greenTrapKey1Backpack.setAttribute("height", "40");
+
+let greenTrapKey2Backpack = document.createElement("IMG");
+greenTrapKey2Backpack.setAttribute("src", "images/IFITMOVES/greenTrapKey2.png");
+greenTrapKey2Backpack.setAttribute("width", "40");
+greenTrapKey2Backpack.setAttribute("height", "40");
+
+let greenTrapKey3Backpack = document.createElement("IMG");
+greenTrapKey3Backpack.setAttribute("src", "images/IFITMOVES/greenTrapKey3.png");
+greenTrapKey3Backpack.setAttribute("width", "40");
+greenTrapKey3Backpack.setAttribute("height", "40");
+
+let greenTrapKey4Backpack = document.createElement("IMG");
+greenTrapKey4Backpack.setAttribute("src", "images/IFITMOVES/greenTrapKey4.png");
+greenTrapKey4Backpack.setAttribute("width", "40");
+greenTrapKey4Backpack.setAttribute("height", "40");
 
 //audio to variables.
 let walking = document.getElementById("audio1");
@@ -337,6 +353,11 @@ let swipe = document.getElementById("audio11");
 let switchIsOn = document.getElementById("audio12");
 let pulseSound = document.getElementById("audio13");
 let trapKeyTeleport = document.getElementById("audio14");
+let trapKeyCollect = document.getElementById("audio15");
+let trapKeyFit = document.getElementById("audio16");
+let keyCollect = document.getElementById("audio17");
+
+
 
 function animate() {
     //CLS.
@@ -381,7 +402,7 @@ function animate() {
 
     //create spider.
     let createSpider = Math.random();
-    if (createSpider > 0.999 && portalBuzz.paused) {
+    if (createSpider > 0.99 && portalBuzz.paused) {
 
         let x = 200 + Math.random() * ((c.height * 4) - 400);
         let y = 200 + Math.random() * ((c.height * 4) - 400);
@@ -393,7 +414,10 @@ function animate() {
                 return;
             }
             if (wallNumber == walls.length) {
-                portalBuzz.play();
+                let playSound = collisionDetection(x, y, 40, 40, player.x - floor.x, player.y - floor.y, c.width / 2, c.height / 2);
+                if (playSound) {
+                    portalBuzz.play();
+                }
                 spiderPortals.push(new SpiderPortal(x, y));
             }
             wallNumber += 1;
@@ -429,9 +453,7 @@ function animate() {
 
 
 
-    trapKeys.forEach((trapKey) => {
-        trapKey.update();
-    });
+
 
 
 
@@ -502,7 +524,7 @@ function animate() {
 
     forKey();
 
-
+    forTrapKey();
 
 
 
@@ -573,38 +595,44 @@ function animate() {
                 backpackContents.innerText = backpackText;
                 if (gotRedKey) {
                     backpackContents.appendChild(redKeyBackpack);
-                    backpackContents.appendChild(newLineRed);
                 }
                 if (gotYellowKey) {
                     backpackContents.appendChild(yellowKeyBackpack);
-                    backpackContents.appendChild(newLineYellow);
                 }
                 if (gotGreenKey) {
                     backpackContents.appendChild(greenKeyBackpack);
-                    backpackContents.appendChild(newLineGreen);
                 }
                 if (gotTurquoiseKey) {
                     backpackContents.appendChild(turquoiseKeyBackpack);
-                    backpackContents.appendChild(newLineTurquoise);
                 }
                 if (gotOrangeKey) {
                     backpackContents.appendChild(orangeKeyBackpack);
-                    backpackContents.appendChild(newLineOrange);
                 }
                 if (gotPinkKey) {
                     backpackContents.appendChild(pinkKeyBackpack);
-                    backpackContents.appendChild(newLinePink);
                 }
+                backpackContents.appendChild(newLineKeys);
+                if (gotGreenTrapKey1) {
+                    backpackContents.appendChild(greenTrapKey1Backpack);
+                }
+                if (gotGreenTrapKey2) {
+                    backpackContents.appendChild(greenTrapKey2Backpack);
+                }
+                if (gotGreenTrapKey3) {
+                    backpackContents.appendChild(greenTrapKey3Backpack);
+                }
+                if (gotGreenTrapKey4) {
+                    backpackContents.appendChild(greenTrapKey4Backpack);
+                }
+                backpackContents.appendChild(newLineTrapKeys);
             }
             displayOnce = true;
             let size = 100;
             if (backpackItems <= 1) {
                 backpackContents.style.height = size + "px";
             }
-            if (backpackItems >= 2) {
-                for (let i = 2; i <= backpackItems; i++) {
-                    size += 24;
-                }
+            if (nextKeySet) {
+                size += 40;
                 backpackContents.style.height = size + "px";
             }
         }

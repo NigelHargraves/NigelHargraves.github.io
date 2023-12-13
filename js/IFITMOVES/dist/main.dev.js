@@ -42,7 +42,8 @@ var moveLeft = false,
     greenTrapKey1Placed = false,
     greenTrapKey2Placed = false,
     greenTrapKey3Placed = false,
-    greenTrapKey4Placed = false; //backgrounds to variables.
+    greenTrapKey4Placed = false,
+    nextKeySet = false; //backgrounds to variables.
 
 var stoneFloor = new Image();
 stoneFloor.src = 'images/IFITMOVES/stoneFloorBackground.png';
@@ -231,9 +232,9 @@ greenTrapKey1.src = 'images/IFITMOVES/greenTrapKey1.png';
 var greenTrapKey2 = new Image();
 greenTrapKey2.src = 'images/IFITMOVES/greenTrapKey2.png';
 var greenTrapKey3 = new Image();
-greenTrapKey2.src = 'images/IFITMOVES/greenTrapKey3.png';
+greenTrapKey3.src = 'images/IFITMOVES/greenTrapKey3.png';
 var greenTrapKey4 = new Image();
-greenTrapKey2.src = 'images/IFITMOVES/greenTrapKey4.png';
+greenTrapKey4.src = 'images/IFITMOVES/greenTrapKey4.png';
 var greenTrapKeyHole1Filled = new Image();
 greenTrapKeyHole1Filled.src = 'images/IFITMOVES/greenTrapKeyHole1Filled.png';
 var greenTrapKeyHole1Empty = new Image();
@@ -253,12 +254,8 @@ greenTrapKeyHole4Empty.src = 'images/IFITMOVES/greenTrapKeyHole4Empty.png';
 var teleportFlash = new Image();
 teleportFlash.src = 'images/IFITMOVES/teleportFlash.png';
 var backpackContents = document.getElementById("backpack");
-var newLineRed = document.createElement('br');
-var newLineYellow = document.createElement('br');
-var newLineGreen = document.createElement('br');
-var newLineTurquoise = document.createElement('br');
-var newLineOrange = document.createElement('br');
-var newLinePink = document.createElement('br');
+var newLineKeys = document.createElement('br');
+var newLineTrapKeys = document.createElement('br');
 var redKeyBackpack = document.createElement("IMG");
 redKeyBackpack.setAttribute("src", "images/IFITMOVES/redKey.png");
 redKeyBackpack.setAttribute("width", "40");
@@ -282,7 +279,23 @@ orangeKeyBackpack.setAttribute("height", "20");
 var pinkKeyBackpack = document.createElement("IMG");
 pinkKeyBackpack.setAttribute("src", "images/IFITMOVES/pinkKey.png");
 pinkKeyBackpack.setAttribute("width", "40");
-pinkKeyBackpack.setAttribute("height", "20"); //audio to variables.
+pinkKeyBackpack.setAttribute("height", "20");
+var greenTrapKey1Backpack = document.createElement("IMG");
+greenTrapKey1Backpack.setAttribute("src", "images/IFITMOVES/greenTrapKey1.png");
+greenTrapKey1Backpack.setAttribute("width", "40");
+greenTrapKey1Backpack.setAttribute("height", "40");
+var greenTrapKey2Backpack = document.createElement("IMG");
+greenTrapKey2Backpack.setAttribute("src", "images/IFITMOVES/greenTrapKey2.png");
+greenTrapKey2Backpack.setAttribute("width", "40");
+greenTrapKey2Backpack.setAttribute("height", "40");
+var greenTrapKey3Backpack = document.createElement("IMG");
+greenTrapKey3Backpack.setAttribute("src", "images/IFITMOVES/greenTrapKey3.png");
+greenTrapKey3Backpack.setAttribute("width", "40");
+greenTrapKey3Backpack.setAttribute("height", "40");
+var greenTrapKey4Backpack = document.createElement("IMG");
+greenTrapKey4Backpack.setAttribute("src", "images/IFITMOVES/greenTrapKey4.png");
+greenTrapKey4Backpack.setAttribute("width", "40");
+greenTrapKey4Backpack.setAttribute("height", "40"); //audio to variables.
 
 var walking = document.getElementById("audio1");
 var running = document.getElementById("audio2");
@@ -298,6 +311,9 @@ var swipe = document.getElementById("audio11");
 var switchIsOn = document.getElementById("audio12");
 var pulseSound = document.getElementById("audio13");
 var trapKeyTeleport = document.getElementById("audio14");
+var trapKeyCollect = document.getElementById("audio15");
+var trapKeyFit = document.getElementById("audio16");
+var keyCollect = document.getElementById("audio17");
 
 function animate() {
   //CLS.
@@ -319,7 +335,7 @@ function animate() {
 
   var createSpider = Math.random();
 
-  if (createSpider > 0.999 && portalBuzz.paused) {
+  if (createSpider > 0.99 && portalBuzz.paused) {
     var x = 200 + Math.random() * (c.height * 4 - 400);
     var y = 200 + Math.random() * (c.height * 4 - 400);
     var wallNumber = 1;
@@ -332,7 +348,12 @@ function animate() {
       }
 
       if (wallNumber == walls.length) {
-        portalBuzz.play();
+        var playSound = collisionDetection(x, y, 40, 40, player.x - floor.x, player.y - floor.y, c.width / 2, c.height / 2);
+
+        if (playSound) {
+          portalBuzz.play();
+        }
+
         spiderPortals.push(new SpiderPortal(x, y));
       }
 
@@ -362,9 +383,6 @@ function animate() {
     if (spiderCount == spiders.length) {
       spiderInView = false;
     }
-  });
-  trapKeys.forEach(function (trapKey) {
-    trapKey.update();
   });
   forTrap();
   spiders.forEach(function (spider) {
@@ -414,7 +432,8 @@ function animate() {
   doors.forEach(function (door) {
     door.update();
   });
-  forKey(); //cut trap sound if none in view;
+  forKey();
+  forTrapKey(); //cut trap sound if none in view;
 
   var trapCount = 0;
   traps.forEach(function (trap) {
@@ -475,33 +494,47 @@ function animate() {
 
         if (gotRedKey) {
           backpackContents.appendChild(redKeyBackpack);
-          backpackContents.appendChild(newLineRed);
         }
 
         if (gotYellowKey) {
           backpackContents.appendChild(yellowKeyBackpack);
-          backpackContents.appendChild(newLineYellow);
         }
 
         if (gotGreenKey) {
           backpackContents.appendChild(greenKeyBackpack);
-          backpackContents.appendChild(newLineGreen);
         }
 
         if (gotTurquoiseKey) {
           backpackContents.appendChild(turquoiseKeyBackpack);
-          backpackContents.appendChild(newLineTurquoise);
         }
 
         if (gotOrangeKey) {
           backpackContents.appendChild(orangeKeyBackpack);
-          backpackContents.appendChild(newLineOrange);
         }
 
         if (gotPinkKey) {
           backpackContents.appendChild(pinkKeyBackpack);
-          backpackContents.appendChild(newLinePink);
         }
+
+        backpackContents.appendChild(newLineKeys);
+
+        if (gotGreenTrapKey1) {
+          backpackContents.appendChild(greenTrapKey1Backpack);
+        }
+
+        if (gotGreenTrapKey2) {
+          backpackContents.appendChild(greenTrapKey2Backpack);
+        }
+
+        if (gotGreenTrapKey3) {
+          backpackContents.appendChild(greenTrapKey3Backpack);
+        }
+
+        if (gotGreenTrapKey4) {
+          backpackContents.appendChild(greenTrapKey4Backpack);
+        }
+
+        backpackContents.appendChild(newLineTrapKeys);
       }
 
       displayOnce = true;
@@ -511,11 +544,8 @@ function animate() {
         backpackContents.style.height = size + "px";
       }
 
-      if (backpackItems >= 2) {
-        for (var _i = 2; _i <= backpackItems; _i++) {
-          size += 24;
-        }
-
+      if (nextKeySet) {
+        size += 40;
         backpackContents.style.height = size + "px";
       }
     }
