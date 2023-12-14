@@ -37,6 +37,7 @@ let moveLeft = false,
     displayOnce = false,
     switchDoorOn = true,
     trapInView = false,
+    trapKeyCollected = false,
     gotGreenTrapKey1 = false,
     gotGreenTrapKey2 = false,
     gotGreenTrapKey3 = false,
@@ -45,7 +46,16 @@ let moveLeft = false,
     greenTrapKey2Placed = false,
     greenTrapKey3Placed = false,
     greenTrapKey4Placed = false,
-    nextKeySet = false;
+    gotOrangeTrapKey1 = false,
+    gotOrangeTrapKey2 = false,
+    gotOrangeTrapKey3 = false,
+    gotOrangeTrapKey4 = false,
+    orangeTrapKey1Placed = false,
+    orangeTrapKey2Placed = false,
+    orangeTrapKey3Placed = false,
+    orangeTrapKey4Placed = false,
+    nextKeySet = false,
+    openBackpack = false;
 
 
 
@@ -250,6 +260,10 @@ let keyHolefootpad = new Image();
 keyHolefootpad.src = 'images/IFITMOVES/keyHoleFootpad.png';
 let keyHolefootpadOpen = new Image();
 keyHolefootpadOpen.src = 'images/IFITMOVES/keyHoleFootpadOpen.png';
+let greenTrapBaseImage = new Image();
+greenTrapBaseImage.src = 'images/IFITMOVES/greenTrapBaseImage.png';
+let orangeTrapBaseImage = new Image();
+orangeTrapBaseImage.src = 'images/IFITMOVES/orangeTrapBaseImage.png';
 let trapImage = new Image();
 trapImage.src = 'images/IFITMOVES/trapImage.png';
 let greenTrapKey1 = new Image();
@@ -278,6 +292,32 @@ let greenTrapKeyHole4Empty = new Image();
 greenTrapKeyHole4Empty.src = 'images/IFITMOVES/greenTrapKeyHole4Empty.png';
 let teleportFlash = new Image();
 teleportFlash.src = 'images/IFITMOVES/teleportFlash.png';
+let orangeTrapKey1 = new Image();
+orangeTrapKey1.src = 'images/IFITMOVES/orangeTrapKey1.png';
+let orangeTrapKey2 = new Image();
+orangeTrapKey2.src = 'images/IFITMOVES/orangeTrapKey2.png';
+let orangeTrapKey3 = new Image();
+orangeTrapKey3.src = 'images/IFITMOVES/orangeTrapKey3.png';
+let orangeTrapKey4 = new Image();
+orangeTrapKey4.src = 'images/IFITMOVES/orangeTrapKey4.png';
+let orangeTrapKeyHole1Filled = new Image();
+orangeTrapKeyHole1Filled.src = 'images/IFITMOVES/orangeTrapKeyHole1Filled.png';
+let orangeTrapKeyHole1Empty = new Image();
+orangeTrapKeyHole1Empty.src = 'images/IFITMOVES/orangeTrapKeyHole1Empty.png';
+let orangeTrapKeyHole2Filled = new Image();
+orangeTrapKeyHole2Filled.src = 'images/IFITMOVES/orangeTrapKeyHole2Filled.png';
+let orangeTrapKeyHole2Empty = new Image();
+orangeTrapKeyHole2Empty.src = 'images/IFITMOVES/orangeTrapKeyHole2Empty.png';
+let orangeTrapKeyHole3Filled = new Image();
+orangeTrapKeyHole3Filled.src = 'images/IFITMOVES/orangeTrapKeyHole3Filled.png';
+let orangeTrapKeyHole3Empty = new Image();
+orangeTrapKeyHole3Empty.src = 'images/IFITMOVES/orangeTrapKeyHole3Empty.png';
+let orangeTrapKeyHole4Filled = new Image();
+orangeTrapKeyHole4Filled.src = 'images/IFITMOVES/orangeTrapKeyHole4Filled.png';
+let orangeTrapKeyHole4Empty = new Image();
+orangeTrapKeyHole4Empty.src = 'images/IFITMOVES/orangeTrapKeyHole4Empty.png';
+
+
 
 
 
@@ -338,6 +378,28 @@ greenTrapKey4Backpack.setAttribute("src", "images/IFITMOVES/greenTrapKey4.png");
 greenTrapKey4Backpack.setAttribute("width", "40");
 greenTrapKey4Backpack.setAttribute("height", "40");
 
+let orangeTrapKey1Backpack = document.createElement("IMG");
+orangeTrapKey1Backpack.setAttribute("src", "images/IFITMOVES/orangeTrapKey1.png");
+orangeTrapKey1Backpack.setAttribute("width", "40");
+orangeTrapKey1Backpack.setAttribute("height", "40");
+
+let orangeTrapKey2Backpack = document.createElement("IMG");
+orangeTrapKey2Backpack.setAttribute("src", "images/IFITMOVES/orangeTrapKey2.png");
+orangeTrapKey2Backpack.setAttribute("width", "40");
+orangeTrapKey2Backpack.setAttribute("height", "40");
+
+let orangeTrapKey3Backpack = document.createElement("IMG");
+orangeTrapKey3Backpack.setAttribute("src", "images/IFITMOVES/orangeTrapKey3.png");
+orangeTrapKey3Backpack.setAttribute("width", "40");
+orangeTrapKey3Backpack.setAttribute("height", "40");
+
+let orangeTrapKey4Backpack = document.createElement("IMG");
+orangeTrapKey4Backpack.setAttribute("src", "images/IFITMOVES/orangeTrapKey4.png");
+orangeTrapKey4Backpack.setAttribute("width", "40");
+orangeTrapKey4Backpack.setAttribute("height", "40");
+
+
+
 //audio to variables.
 let walking = document.getElementById("audio1");
 let running = document.getElementById("audio2");
@@ -356,7 +418,7 @@ let trapKeyTeleport = document.getElementById("audio14");
 let trapKeyCollect = document.getElementById("audio15");
 let trapKeyFit = document.getElementById("audio16");
 let keyCollect = document.getElementById("audio17");
-
+let shutdown = document.getElementById("audio18");
 
 
 function animate() {
@@ -402,7 +464,7 @@ function animate() {
 
     //create spider.
     let createSpider = Math.random();
-    if (createSpider > 0.99 && portalBuzz.paused) {
+    if (createSpider > 0.997 && portalBuzz.paused) {
 
         let x = 200 + Math.random() * ((c.height * 4) - 400);
         let y = 200 + Math.random() * ((c.height * 4) - 400);
@@ -529,11 +591,11 @@ function animate() {
 
 
 
-    //cut trap sound if none in view;
+    //cut trap sound if none in view or trap is off.
     let trapCount = 0;
     traps.forEach((trap) => {
         let playSound = collisionDetection(trap.x, trap.y, trap.size / 2, trap.size / 2, player.x - floor.x, player.y - floor.y, c.width / 2, c.height / 2);
-        if (playSound) {
+        if (playSound && trap.on) {
             trapInView = true;
             return;
         } else {
@@ -582,7 +644,7 @@ function animate() {
 
 
     //show backpack contents.
-    if (mx <= 70 && my <= 70) {
+    if (mx <= 70 && my <= 70 || openBackpack) {
         backpackContents.style.display = "block";
         backpackContents.style.left = "70px";
         backpackContents.style.top = "70px";
@@ -624,12 +686,29 @@ function animate() {
                 if (gotGreenTrapKey4) {
                     backpackContents.appendChild(greenTrapKey4Backpack);
                 }
+                if (gotOrangeTrapKey1) {
+                    backpackContents.appendChild(orangeTrapKey1Backpack);
+                }
+                if (gotOrangeTrapKey2) {
+                    backpackContents.appendChild(orangeTrapKey2Backpack);
+                }
+                if (gotOrangeTrapKey3) {
+                    backpackContents.appendChild(orangeTrapKey3Backpack);
+                }
+                if (gotOrangeTrapKey4) {
+                    backpackContents.appendChild(orangeTrapKey4Backpack);
+                }
                 backpackContents.appendChild(newLineTrapKeys);
             }
             displayOnce = true;
             let size = 100;
             if (backpackItems <= 1) {
                 backpackContents.style.height = size + "px";
+            }
+            if (trapKeyCollected) {
+                nextKeySet = true;
+            } else {
+                nextKeySet = false;
             }
             if (nextKeySet) {
                 size += 40;
@@ -677,6 +756,9 @@ window.addEventListener("keydown", (e) => {
     if (e.keyCode == 16) {
         run = true;
     }
+    if (e.keyCode == 66) {
+        openBackpack = true;
+    }
     if (e.keyCode == 32 && !fire && player.fire == 10) {
         fire = true;
     }
@@ -695,7 +777,9 @@ window.addEventListener("keyup", (e) => {
     if (e.keyCode == 16) {
         run = false;
     }
-
+    if (e.keyCode == 66) {
+        openBackpack = false;
+    }
 });
 
 

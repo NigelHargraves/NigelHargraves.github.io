@@ -35,6 +35,7 @@ var moveLeft = false,
     displayOnce = false,
     switchDoorOn = true,
     trapInView = false,
+    trapKeyCollected = false,
     gotGreenTrapKey1 = false,
     gotGreenTrapKey2 = false,
     gotGreenTrapKey3 = false,
@@ -43,7 +44,16 @@ var moveLeft = false,
     greenTrapKey2Placed = false,
     greenTrapKey3Placed = false,
     greenTrapKey4Placed = false,
-    nextKeySet = false; //backgrounds to variables.
+    gotOrangeTrapKey1 = false,
+    gotOrangeTrapKey2 = false,
+    gotOrangeTrapKey3 = false,
+    gotOrangeTrapKey4 = false,
+    orangeTrapKey1Placed = false,
+    orangeTrapKey2Placed = false,
+    orangeTrapKey3Placed = false,
+    orangeTrapKey4Placed = false,
+    nextKeySet = false,
+    openBackpack = false; //backgrounds to variables.
 
 var stoneFloor = new Image();
 stoneFloor.src = 'images/IFITMOVES/stoneFloorBackground.png';
@@ -225,6 +235,10 @@ var keyHolefootpad = new Image();
 keyHolefootpad.src = 'images/IFITMOVES/keyHoleFootpad.png';
 var keyHolefootpadOpen = new Image();
 keyHolefootpadOpen.src = 'images/IFITMOVES/keyHoleFootpadOpen.png';
+var greenTrapBaseImage = new Image();
+greenTrapBaseImage.src = 'images/IFITMOVES/greenTrapBaseImage.png';
+var orangeTrapBaseImage = new Image();
+orangeTrapBaseImage.src = 'images/IFITMOVES/orangeTrapBaseImage.png';
 var trapImage = new Image();
 trapImage.src = 'images/IFITMOVES/trapImage.png';
 var greenTrapKey1 = new Image();
@@ -253,6 +267,30 @@ var greenTrapKeyHole4Empty = new Image();
 greenTrapKeyHole4Empty.src = 'images/IFITMOVES/greenTrapKeyHole4Empty.png';
 var teleportFlash = new Image();
 teleportFlash.src = 'images/IFITMOVES/teleportFlash.png';
+var orangeTrapKey1 = new Image();
+orangeTrapKey1.src = 'images/IFITMOVES/orangeTrapKey1.png';
+var orangeTrapKey2 = new Image();
+orangeTrapKey2.src = 'images/IFITMOVES/orangeTrapKey2.png';
+var orangeTrapKey3 = new Image();
+orangeTrapKey3.src = 'images/IFITMOVES/orangeTrapKey3.png';
+var orangeTrapKey4 = new Image();
+orangeTrapKey4.src = 'images/IFITMOVES/orangeTrapKey4.png';
+var orangeTrapKeyHole1Filled = new Image();
+orangeTrapKeyHole1Filled.src = 'images/IFITMOVES/orangeTrapKeyHole1Filled.png';
+var orangeTrapKeyHole1Empty = new Image();
+orangeTrapKeyHole1Empty.src = 'images/IFITMOVES/orangeTrapKeyHole1Empty.png';
+var orangeTrapKeyHole2Filled = new Image();
+orangeTrapKeyHole2Filled.src = 'images/IFITMOVES/orangeTrapKeyHole2Filled.png';
+var orangeTrapKeyHole2Empty = new Image();
+orangeTrapKeyHole2Empty.src = 'images/IFITMOVES/orangeTrapKeyHole2Empty.png';
+var orangeTrapKeyHole3Filled = new Image();
+orangeTrapKeyHole3Filled.src = 'images/IFITMOVES/orangeTrapKeyHole3Filled.png';
+var orangeTrapKeyHole3Empty = new Image();
+orangeTrapKeyHole3Empty.src = 'images/IFITMOVES/orangeTrapKeyHole3Empty.png';
+var orangeTrapKeyHole4Filled = new Image();
+orangeTrapKeyHole4Filled.src = 'images/IFITMOVES/orangeTrapKeyHole4Filled.png';
+var orangeTrapKeyHole4Empty = new Image();
+orangeTrapKeyHole4Empty.src = 'images/IFITMOVES/orangeTrapKeyHole4Empty.png';
 var backpackContents = document.getElementById("backpack");
 var newLineKeys = document.createElement('br');
 var newLineTrapKeys = document.createElement('br');
@@ -295,7 +333,23 @@ greenTrapKey3Backpack.setAttribute("height", "40");
 var greenTrapKey4Backpack = document.createElement("IMG");
 greenTrapKey4Backpack.setAttribute("src", "images/IFITMOVES/greenTrapKey4.png");
 greenTrapKey4Backpack.setAttribute("width", "40");
-greenTrapKey4Backpack.setAttribute("height", "40"); //audio to variables.
+greenTrapKey4Backpack.setAttribute("height", "40");
+var orangeTrapKey1Backpack = document.createElement("IMG");
+orangeTrapKey1Backpack.setAttribute("src", "images/IFITMOVES/orangeTrapKey1.png");
+orangeTrapKey1Backpack.setAttribute("width", "40");
+orangeTrapKey1Backpack.setAttribute("height", "40");
+var orangeTrapKey2Backpack = document.createElement("IMG");
+orangeTrapKey2Backpack.setAttribute("src", "images/IFITMOVES/orangeTrapKey2.png");
+orangeTrapKey2Backpack.setAttribute("width", "40");
+orangeTrapKey2Backpack.setAttribute("height", "40");
+var orangeTrapKey3Backpack = document.createElement("IMG");
+orangeTrapKey3Backpack.setAttribute("src", "images/IFITMOVES/orangeTrapKey3.png");
+orangeTrapKey3Backpack.setAttribute("width", "40");
+orangeTrapKey3Backpack.setAttribute("height", "40");
+var orangeTrapKey4Backpack = document.createElement("IMG");
+orangeTrapKey4Backpack.setAttribute("src", "images/IFITMOVES/orangeTrapKey4.png");
+orangeTrapKey4Backpack.setAttribute("width", "40");
+orangeTrapKey4Backpack.setAttribute("height", "40"); //audio to variables.
 
 var walking = document.getElementById("audio1");
 var running = document.getElementById("audio2");
@@ -314,6 +368,7 @@ var trapKeyTeleport = document.getElementById("audio14");
 var trapKeyCollect = document.getElementById("audio15");
 var trapKeyFit = document.getElementById("audio16");
 var keyCollect = document.getElementById("audio17");
+var shutdown = document.getElementById("audio18");
 
 function animate() {
   //CLS.
@@ -335,7 +390,7 @@ function animate() {
 
   var createSpider = Math.random();
 
-  if (createSpider > 0.99 && portalBuzz.paused) {
+  if (createSpider > 0.997 && portalBuzz.paused) {
     var x = 200 + Math.random() * (c.height * 4 - 400);
     var y = 200 + Math.random() * (c.height * 4 - 400);
     var wallNumber = 1;
@@ -433,13 +488,13 @@ function animate() {
     door.update();
   });
   forKey();
-  forTrapKey(); //cut trap sound if none in view;
+  forTrapKey(); //cut trap sound if none in view or trap is off.
 
   var trapCount = 0;
   traps.forEach(function (trap) {
     var playSound = collisionDetection(trap.x, trap.y, trap.size / 2, trap.size / 2, player.x - floor.x, player.y - floor.y, c.width / 2, c.height / 2);
 
-    if (playSound) {
+    if (playSound && trap.on) {
       trapInView = true;
       return;
     } else {
@@ -477,7 +532,7 @@ function animate() {
   } //show backpack contents.
 
 
-  if (mx <= 70 && my <= 70) {
+  if (mx <= 70 && my <= 70 || openBackpack) {
     backpackContents.style.display = "block";
     backpackContents.style.left = "70px";
     backpackContents.style.top = "70px";
@@ -534,6 +589,22 @@ function animate() {
           backpackContents.appendChild(greenTrapKey4Backpack);
         }
 
+        if (gotOrangeTrapKey1) {
+          backpackContents.appendChild(orangeTrapKey1Backpack);
+        }
+
+        if (gotOrangeTrapKey2) {
+          backpackContents.appendChild(orangeTrapKey2Backpack);
+        }
+
+        if (gotOrangeTrapKey3) {
+          backpackContents.appendChild(orangeTrapKey3Backpack);
+        }
+
+        if (gotOrangeTrapKey4) {
+          backpackContents.appendChild(orangeTrapKey4Backpack);
+        }
+
         backpackContents.appendChild(newLineTrapKeys);
       }
 
@@ -542,6 +613,12 @@ function animate() {
 
       if (backpackItems <= 1) {
         backpackContents.style.height = size + "px";
+      }
+
+      if (trapKeyCollected) {
+        nextKeySet = true;
+      } else {
+        nextKeySet = false;
       }
 
       if (nextKeySet) {
@@ -586,6 +663,10 @@ window.addEventListener("keydown", function (e) {
     run = true;
   }
 
+  if (e.keyCode == 66) {
+    openBackpack = true;
+  }
+
   if (e.keyCode == 32 && !fire && player.fire == 10) {
     fire = true;
   }
@@ -605,6 +686,10 @@ window.addEventListener("keyup", function (e) {
 
   if (e.keyCode == 16) {
     run = false;
+  }
+
+  if (e.keyCode == 66) {
+    openBackpack = false;
   }
 });
 window.addEventListener("mousemove", function (e) {

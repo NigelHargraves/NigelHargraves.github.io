@@ -9,11 +9,19 @@ class Trap {
         this.on = true;
     }
     draw() {
-        ctx.save();
-        ctx.globalAlpha = this.opacity;
-        ctx.filter = "blur(4px)";
-        ctx.drawImage(trapImage, floor.x + this.x - this.size / 2, floor.y + this.y - this.size / 2, this.size, this.size);
-        ctx.restore();
+        if (this.trapColor == "green") {
+            ctx.drawImage(greenTrapBaseImage, floor.x + this.x - this.size / 2, floor.y + this.y - this.size / 2, this.size, this.size);
+        }
+        if (this.trapColor == "orange") {
+            ctx.drawImage(orangeTrapBaseImage, floor.x + this.x - this.size / 2, floor.y + this.y - this.size / 2, this.size, this.size);
+        }
+        if (this.on) {
+            ctx.save();
+            ctx.globalAlpha = this.opacity;
+            ctx.filter = "blur(2px)";
+            ctx.drawImage(trapImage, floor.x + this.x - this.size / 2, floor.y + this.y - this.size / 2, this.size, this.size);
+            ctx.restore();
+        }
         if (this.trapColor == "green") {
             if (!greenTrapKey1Placed) {
                 ctx.drawImage(greenTrapKeyHole1Empty, floor.x + this.x - (this.size / 2) - 20, floor.y + this.y - (this.size / 2) - 20, 40, 40);
@@ -36,6 +44,28 @@ class Trap {
                 ctx.drawImage(greenTrapKeyHole4Filled, floor.x + this.x + (this.size / 2) - 20, floor.y + this.y + (this.size / 2) - 20, 40, 40);
             }
         }
+        if (this.trapColor == "orange") {
+            if (!orangeTrapKey1Placed) {
+                ctx.drawImage(orangeTrapKeyHole1Empty, floor.x + this.x - (this.size / 2) - 20, floor.y + this.y - (this.size / 2) - 20, 40, 40);
+            } else {
+                ctx.drawImage(orangeTrapKeyHole1Filled, floor.x + this.x - (this.size / 2) - 20, floor.y + this.y - (this.size / 2) - 20, 40, 40);
+            }
+            if (!orangeTrapKey2Placed) {
+                ctx.drawImage(orangeTrapKeyHole2Empty, floor.x + this.x + (this.size / 2) - 20, floor.y + this.y - (this.size / 2) - 20, 40, 40);
+            } else {
+                ctx.drawImage(orangeTrapKeyHole2Filled, floor.x + this.x + (this.size / 2) - 20, floor.y + this.y - (this.size / 2) - 20, 40, 40);
+            }
+            if (!orangeTrapKey3Placed) {
+                ctx.drawImage(orangeTrapKeyHole3Empty, floor.x + this.x - (this.size / 2) - 20, floor.y + this.y + (this.size / 2) - 20, 40, 40);
+            } else {
+                ctx.drawImage(orangeTrapKeyHole3Filled, floor.x + this.x - (this.size / 2) - 20, floor.y + this.y + (this.size / 2) - 20, 40, 40);
+            }
+            if (!orangeTrapKey4Placed) {
+                ctx.drawImage(orangeTrapKeyHole4Empty, floor.x + this.x + (this.size / 2) - 20, floor.y + this.y + (this.size / 2) - 20, 40, 40);
+            } else {
+                ctx.drawImage(orangeTrapKeyHole4Filled, floor.x + this.x + (this.size / 2) - 20, floor.y + this.y + (this.size / 2) - 20, 40, 40);
+            }
+        }
 
     }
     update() {
@@ -45,7 +75,7 @@ class Trap {
             this.opacity -= 0.006;
         }
         if (this.opacity <= 0.2) {
-            if (trapInView) {
+            if (trapInView && this.on) {
                 pulseSound.play();
             } else {
                 pulseSound.currentTime = 0;
@@ -62,6 +92,91 @@ class Trap {
 
 function forTrap() {
     traps.forEach((trap, index1) => {
+
+        if (trap.trapColor == "green") {
+            let keyPlace1 = collisionDetection(player.x, player.y, player.r / 2, player.r / 2, (trap.x + floor.x) - trap.size / 2, (trap.y + floor.y) - trap.size / 2, trap.size / 8, trap.size / 8);
+            let keyPlace2 = collisionDetection(player.x, player.y, player.r / 2, player.r / 2, (trap.x + floor.x) + trap.size / 2, (trap.y + floor.y) - trap.size / 2, trap.size / 8, trap.size / 8);
+            let keyPlace3 = collisionDetection(player.x, player.y, player.r / 2, player.r / 2, (trap.x + floor.x) - trap.size / 2, (trap.y + floor.y) + trap.size / 2, trap.size / 8, trap.size / 8);
+            let keyPlace4 = collisionDetection(player.x, player.y, player.r / 2, player.r / 2, (trap.x + floor.x) + trap.size / 2, (trap.y + floor.y) + trap.size / 2, trap.size / 8, trap.size / 8);
+
+            if (keyPlace1 && gotGreenTrapKey1) {
+                trapKeyFit.play();
+                greenTrapKey1Placed = true;
+                gotGreenTrapKey1 = false;
+                backpackItems -= 1;
+            }
+            if (keyPlace2 && gotGreenTrapKey2) {
+                trapKeyFit.play();
+                greenTrapKey2Placed = true;
+                gotGreenTrapKey2 = false;
+                backpackItems -= 1;
+            }
+            if (keyPlace3 && gotGreenTrapKey3) {
+                trapKeyFit.play();
+                greenTrapKey3Placed = true;
+                gotGreenTrapKey3 = false;
+                backpackItems -= 1;
+            }
+            if (keyPlace4 && gotGreenTrapKey4) {
+                trapKeyFit.play();
+                greenTrapKey4Placed = true;
+                gotGreenTrapKey4 = false;
+                backpackItems -= 1;
+            }
+        }
+
+        if (trap.trapColor == "orange") {
+            let keyPlace1 = collisionDetection(player.x, player.y, player.r / 2, player.r / 2, (trap.x + floor.x) - trap.size / 2, (trap.y + floor.y) - trap.size / 2, trap.size / 8, trap.size / 8);
+            let keyPlace2 = collisionDetection(player.x, player.y, player.r / 2, player.r / 2, (trap.x + floor.x) + trap.size / 2, (trap.y + floor.y) - trap.size / 2, trap.size / 8, trap.size / 8);
+            let keyPlace3 = collisionDetection(player.x, player.y, player.r / 2, player.r / 2, (trap.x + floor.x) - trap.size / 2, (trap.y + floor.y) + trap.size / 2, trap.size / 8, trap.size / 8);
+            let keyPlace4 = collisionDetection(player.x, player.y, player.r / 2, player.r / 2, (trap.x + floor.x) + trap.size / 2, (trap.y + floor.y) + trap.size / 2, trap.size / 8, trap.size / 8);
+
+            if (keyPlace1 && gotOrangeTrapKey1) {
+                trapKeyFit.play();
+                orangeTrapKey1Placed = true;
+                gotOrangeTrapKey1 = false;
+                backpackItems -= 1;
+            }
+            if (keyPlace2 && gotOrangeTrapKey2) {
+                trapKeyFit.play();
+                orangeTrapKey2Placed = true;
+                gotOrangeTrapKey2 = false;
+                backpackItems -= 1;
+            }
+            if (keyPlace3 && gotOrangeTrapKey3) {
+                trapKeyFit.play();
+                orangeTrapKey3Placed = true;
+                gotOrangeTrapKey3 = false;
+                backpackItems -= 1;
+            }
+            if (keyPlace4 && gotOrangeTrapKey4) {
+                trapKeyFit.play();
+                orangeTrapKey4Placed = true;
+                gotOrangeTrapKey4 = false;
+                backpackItems -= 1;
+            }
+        }
+
+
+        if (trap.trapColor == "green") {
+            if (greenTrapKey1Placed && greenTrapKey2Placed && greenTrapKey3Placed && greenTrapKey4Placed && trap.on) {
+                shutdown.play();
+                trap.on = false;
+                trapKeyCollected = false;
+            }
+        }
+
+        if (trap.trapColor == "orange") {
+            if (orangeTrapKey1Placed && orangeTrapKey2Placed && orangeTrapKey3Placed && orangeTrapKey4Placed && trap.on) {
+                shutdown.play();
+                trap.on = false;
+                trapKeyCollected = false;
+            }
+        }
+
+
+
+
         let inTrap = collisionDetection(player.x, player.y, player.r / 2, player.r / 2, trap.x + floor.x, trap.y + floor.y, trap.size / 4, trap.size / 4);
         let walkInTrap = collisionDetection(player.x, player.y, player.r / 2, player.r / 2, trap.x + floor.x, trap.y + floor.y, trap.size / 3, trap.size / 3);
         if (!inTrap) {
@@ -83,8 +198,8 @@ function forTrap() {
         }
         spiders.forEach((spider, index2) => {
             let hit = collisionDetection(trap.x + floor.x, trap.y + floor.y, trap.size / 2, trap.size / 2, spider.x + floor.x, spider.y + floor.y, spider.r / 4, spider.r / 4);
-            //kill spider.
-            if (hit) {
+            //kill spider if trap active.
+            if (hit && trap.on) {
                 //only play splat sound when in view.
                 let playSound = collisionDetection(spider.x, spider.y, spider.r / 2, spider.r / 2, player.x - floor.x, player.y - floor.y, c.width / 2, c.height / 2);
                 if (playSound) {

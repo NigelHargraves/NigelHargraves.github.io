@@ -47,6 +47,10 @@ function forKey() {
 
       if (key.image == greenKey) {
         gotGreenKey = true;
+        trapKeys.push(new TrapKey(40 + Math.random() * (c.height * 4 - 80), 40 + Math.random() * (c.height * 4 - 80), orangeTrapKey1));
+        trapKeys.push(new TrapKey(40 + Math.random() * (c.height * 4 - 80), 40 + Math.random() * (c.height * 4 - 80), orangeTrapKey2));
+        trapKeys.push(new TrapKey(40 + Math.random() * (c.height * 4 - 80), 40 + Math.random() * (c.height * 4 - 80), orangeTrapKey3));
+        trapKeys.push(new TrapKey(40 + Math.random() * (c.height * 4 - 80), 40 + Math.random() * (c.height * 4 - 80), orangeTrapKey4));
       }
 
       if (key.image == turquoiseKey) {

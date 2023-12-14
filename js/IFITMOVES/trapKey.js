@@ -40,27 +40,52 @@ function forTrapKey() {
             if (trapKey.image == greenTrapKey1) {
                 gotGreenTrapKey1 = true;
                 trapKeys.splice(index, 1);
-                nextKeySet = true;
+                trapKeyCollected = true;
                 backpackItems += 1;
             }
             if (trapKey.image == greenTrapKey2) {
                 gotGreenTrapKey2 = true;
                 trapKeys.splice(index, 1);
-                nextKeySet = true;
+                trapKeyCollected = true;
                 backpackItems += 1;
             }
             if (trapKey.image == greenTrapKey3) {
                 gotGreenTrapKey3 = true;
                 trapKeys.splice(index, 1);
-                nextKeySet = true;
+                trapKeyCollected = true;
                 backpackItems += 1;
             }
             if (trapKey.image == greenTrapKey4) {
                 gotGreenTrapKey4 = true;
                 trapKeys.splice(index, 1);
-                nextKeySet = true;
+                trapKeyCollected = true;
                 backpackItems += 1;
             }
+            if (trapKey.image == orangeTrapKey1) {
+                gotOrangeTrapKey1 = true;
+                trapKeys.splice(index, 1);
+                trapKeyCollected = true;
+                backpackItems += 1;
+            }
+            if (trapKey.image == orangeTrapKey2) {
+                gotOrangeTrapKey2 = true;
+                trapKeys.splice(index, 1);
+                trapKeyCollected = true;
+                backpackItems += 1;
+            }
+            if (trapKey.image == orangeTrapKey3) {
+                gotOrangeTrapKey3 = true;
+                trapKeys.splice(index, 1);
+                trapKeyCollected = true;
+                backpackItems += 1;
+            }
+            if (trapKey.image == orangeTrapKey4) {
+                gotOrangeTrapKey4 = true;
+                trapKeys.splice(index, 1);
+                trapKeyCollected = true;
+                backpackItems += 1;
+            }
+            trapKeyCollect.currentTime = 0;
             trapKeyCollect.play();
         }
         trapKey.update();

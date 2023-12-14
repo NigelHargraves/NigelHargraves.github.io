@@ -41,16 +41,36 @@ function forWall() {
 
     if (hit) {
       if (!wall.horizontal) {
-        if (player.x > wall.x + floor.x) {
-          floor.x -= 2;
-        } else if (player.x < wall.x + floor.x) {
-          floor.x += 2;
+        //player walk in to wall.
+        if (!run) {
+          if (player.x > wall.x + floor.x) {
+            floor.x -= 1;
+          } else if (player.x < wall.x + floor.x) {
+            floor.x += 1;
+          }
+        } else {
+          //player run in to wall.
+          if (player.x > wall.x + floor.x) {
+            floor.x -= 2;
+          } else if (player.x < wall.x + floor.x) {
+            floor.x += 2;
+          }
         }
       } else {
-        if (player.y > wall.y + floor.y) {
-          floor.y -= 2;
-        } else if (player.y < wall.y + floor.y) {
-          floor.y += 2;
+        //player walk in to wall.
+        if (!run) {
+          if (player.y > wall.y + floor.y) {
+            floor.y -= 1;
+          } else if (player.y < wall.y + floor.y) {
+            floor.y += 1;
+          }
+        } else {
+          //player run in to wall.
+          if (player.y > wall.y + floor.y) {
+            floor.y -= 2;
+          } else if (player.y < wall.y + floor.y) {
+            floor.y += 2;
+          }
         }
       }
     }
