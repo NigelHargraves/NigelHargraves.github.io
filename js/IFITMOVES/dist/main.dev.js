@@ -16,7 +16,20 @@ var bullets = [],
     trapKeys = [],
     binaryKeys = []; //variables.
 
-var player, floor, playerAngle, speed, startCount, mx, my, backpackItems, switchTimer, materializeNumber; //booleans.
+var player,
+    floor,
+    playerAngle,
+    speed,
+    startCount,
+    mx,
+    my,
+    backpackItems,
+    switchTimer,
+    materializeNumber,
+    decimalNumber,
+    guessNumber,
+    binaryNumber = "",
+    numberOut = ""; //booleans.
 
 var moveLeft = false,
     moveRight = false,
@@ -382,7 +395,6 @@ function animate() {
   ctx.fillStyle = "rgb(0, 100, 0)";
   ctx.fillRect(0, 0, c.width, c.height);
   floor.update();
-  forBinaryKey();
 
   if (bullets.length > 0) {
     forBullet();
@@ -495,6 +507,7 @@ function animate() {
   doors.forEach(function (door) {
     door.update();
   });
+  forBinaryKey();
   forKey();
   forTrapKey(); //cut trap sound if none in view or trap is off.
 

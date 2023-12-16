@@ -1,5 +1,5 @@
 function init() {
-    playerAngle = 0, speed = 10, startCount = 0, backpackItems = 0, switchTimer = 0, materializeNumber = 1;
+    playerAngle = 0, speed = 10, startCount = 0, backpackItems = 0, switchTimer = 0, materializeNumber = 0;
     floor = (new Floor(stoneFloor));
     player = new Player(c.width / 2, c.height / 2);
 
@@ -19,7 +19,7 @@ function init() {
     doors.push(new Door(2980, 610, true, binaryDoorImage, "white")); //horizonralDoor.
 
 
-    let number = 1;
+    let number = 0;
     for (let i = 3100; i <= 3400; i += 50) {
         binaryKeys.push(new BinaryKey(i, 640, number));
         number += 1;

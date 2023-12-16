@@ -17,7 +17,8 @@ let bullets = [],
 
 //variables.
 let player, floor, playerAngle, speed, startCount, mx,
-    my, backpackItems, switchTimer, materializeNumber;
+    my, backpackItems, switchTimer, materializeNumber, decimalNumber, guessNumber, binaryNumber = "",
+    numberOut = "";
 
 //booleans.
 let moveLeft = false,
@@ -442,7 +443,7 @@ function animate() {
 
     floor.update();
 
-    forBinaryKey();
+
 
 
 
@@ -588,6 +589,8 @@ function animate() {
         door.update();
     });
 
+
+    forBinaryKey();
 
     forKey();
 
