@@ -13,9 +13,10 @@ var bullets = [],
     doors = [],
     keys = [],
     traps = [],
-    trapKeys = []; //variables.
+    trapKeys = [],
+    binaryKeys = []; //variables.
 
-var player, floor, playerAngle, speed, startCount, mx, my, backpackItems, switchTimer; //booleans.
+var player, floor, playerAngle, speed, startCount, mx, my, backpackItems, switchTimer, materializeNumber; //booleans.
 
 var moveLeft = false,
     moveRight = false,
@@ -53,7 +54,8 @@ var moveLeft = false,
     orangeTrapKey3Placed = false,
     orangeTrapKey4Placed = false,
     nextKeySet = false,
-    openBackpack = false; //backgrounds to variables.
+    openBackpack = false,
+    materialize = false; //backgrounds to variables.
 
 var stoneFloor = new Image();
 stoneFloor.src = 'images/IFITMOVES/stoneFloorBackground.png';
@@ -291,6 +293,10 @@ var orangeTrapKeyHole4Filled = new Image();
 orangeTrapKeyHole4Filled.src = 'images/IFITMOVES/orangeTrapKeyHole4Filled.png';
 var orangeTrapKeyHole4Empty = new Image();
 orangeTrapKeyHole4Empty.src = 'images/IFITMOVES/orangeTrapKeyHole4Empty.png';
+var binaryDoorImage = new Image();
+binaryDoorImage.src = 'images/IFITMOVES/binaryDoorImage.png';
+var binaryPad = new Image();
+binaryPad.src = 'images/IFITMOVES/binaryPad.png';
 var backpackContents = document.getElementById("backpack");
 var newLineKeys = document.createElement('br');
 var newLineTrapKeys = document.createElement('br');
@@ -369,12 +375,14 @@ var trapKeyCollect = document.getElementById("audio15");
 var trapKeyFit = document.getElementById("audio16");
 var keyCollect = document.getElementById("audio17");
 var shutdown = document.getElementById("audio18");
+var binaryFade = document.getElementById("audio19");
 
 function animate() {
   //CLS.
   ctx.fillStyle = "rgb(0, 100, 0)";
   ctx.fillRect(0, 0, c.width, c.height);
   floor.update();
+  forBinaryKey();
 
   if (bullets.length > 0) {
     forBullet();

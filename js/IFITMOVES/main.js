@@ -12,11 +12,12 @@ let bullets = [],
     doors = [],
     keys = [],
     traps = [],
-    trapKeys = [];
+    trapKeys = [],
+    binaryKeys = [];
 
 //variables.
 let player, floor, playerAngle, speed, startCount, mx,
-    my, backpackItems, switchTimer;
+    my, backpackItems, switchTimer, materializeNumber;
 
 //booleans.
 let moveLeft = false,
@@ -55,7 +56,8 @@ let moveLeft = false,
     orangeTrapKey3Placed = false,
     orangeTrapKey4Placed = false,
     nextKeySet = false,
-    openBackpack = false;
+    openBackpack = false,
+    materialize = false;
 
 
 
@@ -316,7 +318,10 @@ let orangeTrapKeyHole4Filled = new Image();
 orangeTrapKeyHole4Filled.src = 'images/IFITMOVES/orangeTrapKeyHole4Filled.png';
 let orangeTrapKeyHole4Empty = new Image();
 orangeTrapKeyHole4Empty.src = 'images/IFITMOVES/orangeTrapKeyHole4Empty.png';
-
+let binaryDoorImage = new Image();
+binaryDoorImage.src = 'images/IFITMOVES/binaryDoorImage.png';
+let binaryPad = new Image();
+binaryPad.src = 'images/IFITMOVES/binaryPad.png';
 
 
 
@@ -419,7 +424,7 @@ let trapKeyCollect = document.getElementById("audio15");
 let trapKeyFit = document.getElementById("audio16");
 let keyCollect = document.getElementById("audio17");
 let shutdown = document.getElementById("audio18");
-
+let binaryFade = document.getElementById("audio19");
 
 function animate() {
     //CLS.
@@ -437,7 +442,7 @@ function animate() {
 
     floor.update();
 
-
+    forBinaryKey();
 
 
 
