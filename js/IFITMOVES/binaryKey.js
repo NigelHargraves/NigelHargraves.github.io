@@ -8,6 +8,7 @@ class BinaryKey {
         this.numberOpacity = 0.001;
         this.on = false;
         this.color = "red";
+        this.switched = false;
     }
     draw() {
         ctx.save();
@@ -28,7 +29,14 @@ class BinaryKey {
             ctx.globalAlpha = this.numberOpacity;
             ctx.font = "bold 30px Arial";
             ctx.fillStyle = "lime";
-            ctx.fillText(guessNumber + " ", floor.x + 3005, floor.y + 620);
+            if (guessNumber > 99) {
+                ctx.fillText(guessNumber, floor.x + 3005, floor.y + 620);
+            } else if (guessNumber < 100 && guessNumber > 9) {
+                ctx.fillText(guessNumber, floor.x + 3014, floor.y + 620);
+            } else {
+                ctx.fillText(guessNumber, floor.x + 3022, floor.y + 620);
+            }
+
             ctx.restore();
             if (this.numberOpacity < 1) {
                 this.numberOpacity += 0.001;
@@ -51,17 +59,25 @@ class BinaryKey {
             }
         }
 
+        numberFromArray = "";
         if (this.on) {
-            numberOut += "1";
+            numberOut[this.number] = "1";
         } else {
-            numberOut += "0";
+            numberOut[this.number] = "0";
         }
 
-        if (this.number == 6) {
-            numberOut = "";
+        for (let i = 0; i < numberOut.length; i++) {
+            numberFromArray += numberOut[i];
         }
 
 
+
+
+        if (numberFromArray == binaryNumber) {
+            binaryDoorOn = false;
+        } else {
+            binaryDoorOn = true;
+        }
 
 
         this.draw();
@@ -73,8 +89,32 @@ function forBinaryKey() {
 
 
     binaryKeys.forEach((key, index) => {
+        //walk on key pads.
+        let touchPad = collisionDetection(key.x, key.y, 10, 10, player.x - floor.x, player.y - floor.y, player.r / 5, player.r / 5);
+        if (touchPad) {
+            if (!key.switched) {
+                if (!key.on) {
+                    binarySwitchGreen.currentTime = 0;
+                    binarySwitchGreen.play();
+                    key.on = true;
+                    key.switched = true;
+                } else {
+                    binarySwitchRed.currentTime = 0;
+                    binarySwitchRed.play();
+                    key.on = false;
+                    key.switched = true;
+                }
+            }
+        } else {
+            key.switched = false;
+        }
 
 
+
+
+
+
+        //materialize key pads.
         if (floor.x + 2980 < player.x && floor.y + 1010 > player.y && materializeNumber < 7) {
             materialize = true;
             if (key.number == materializeNumber) {
@@ -85,7 +125,6 @@ function forBinaryKey() {
                 key.materialize = true;
             }
         } else if (materializeNumber == 7) {
-            guessNumber = 126;
             decimalNumber = guessNumber;
             for (let i = 1; i <= 1000; i++) {
                 if (decimalNumber % 2 != 0) {
@@ -106,6 +145,30 @@ function forBinaryKey() {
             binaryNumber = binaryNumber.split("").reverse().join("")
             materializeNumber += 1;
             materialize = false;
+            if (guessNumber < 2) {
+                let text = binaryNumber;
+                binaryNumber = "000000" + text;
+            }
+            if (guessNumber >= 2 && guessNumber < 4) {
+                let text = binaryNumber;
+                binaryNumber = "00000" + text;
+            }
+            if (guessNumber >= 4 && guessNumber < 8) {
+                let text = binaryNumber;
+                binaryNumber = "0000" + text;
+            }
+            if (guessNumber >= 8 && guessNumber < 16) {
+                let text = binaryNumber;
+                binaryNumber = "000" + text;
+            }
+            if (guessNumber >= 16 && guessNumber < 32) {
+                let text = binaryNumber;
+                binaryNumber = "00" + text;
+            }
+            if (guessNumber >= 32 && guessNumber < 64) {
+                let text = binaryNumber;
+                binaryNumber = "0" + text;
+            }
         }
 
 

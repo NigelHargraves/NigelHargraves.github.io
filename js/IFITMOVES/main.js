@@ -17,8 +17,14 @@ let bullets = [],
 
 //variables.
 let player, floor, playerAngle, speed, startCount, mx,
-    my, backpackItems, switchTimer, materializeNumber, decimalNumber, guessNumber, binaryNumber = "",
-    numberOut = "";
+    my, backpackItems, switchTimer, materializeNumber, decimalNumber, guessNumber, binaryDoorTimer;
+
+
+let binaryNumber = "",
+    numberFromArray = "";
+
+
+let numberOut = ["0", "0", "0", "0", "0", "0", "0"];
 
 //booleans.
 let moveLeft = false,
@@ -58,7 +64,9 @@ let moveLeft = false,
     orangeTrapKey4Placed = false,
     nextKeySet = false,
     openBackpack = false,
-    materialize = false;
+    materialize = false,
+    binaryDoorOn = true,
+    binaryDoorPlaySoundOpen = true;
 
 
 
@@ -426,6 +434,10 @@ let trapKeyFit = document.getElementById("audio16");
 let keyCollect = document.getElementById("audio17");
 let shutdown = document.getElementById("audio18");
 let binaryFade = document.getElementById("audio19");
+let binarySwitchRed = document.getElementById("audio20");
+let binarySwitchGreen = document.getElementById("audio21");
+let binaryDoorCorrect = document.getElementById("audio22");
+let binaryDoorSwitchOn = document.getElementById("audio23");
 
 function animate() {
     //CLS.

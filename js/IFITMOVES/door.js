@@ -113,6 +113,7 @@ function forDoor() {
             if (door.color == "pink" && gotPinkKey) {
                 door.on = false;
             }
+
         } else {
             door.on = true;
         }
@@ -170,7 +171,29 @@ function forDoor() {
             switchTimer = 0;
         }
 
-
+        if (door.color == "white" && !binaryDoorOn) {
+            if (binaryDoorPlaySoundOpen) {
+                binaryDoorCorrect.play();
+                binaryDoorPlaySoundOpen = false;
+            }
+            door.on = false;
+            binaryDoorTimer -= 1;
+            if (binaryDoorTimer == 300) {
+                binaryDoorSwitchOn.play();
+            }
+            if (binaryDoorTimer <= 0) {
+                door.on = true;
+                binaryDoorOn = true;
+                binaryDoorTimer = 2000;
+                guessNumber = Math.floor((Math.random() * 126) + 1);
+                materializeNumber = 7;
+                binaryNumber = "";
+                binaryDoorPlaySoundOpen = true;
+                binaryKeys.forEach((key, index) => {
+                    key.on = false;
+                });
+            }
+        }
 
 
 

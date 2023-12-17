@@ -16,20 +16,10 @@ var bullets = [],
     trapKeys = [],
     binaryKeys = []; //variables.
 
-var player,
-    floor,
-    playerAngle,
-    speed,
-    startCount,
-    mx,
-    my,
-    backpackItems,
-    switchTimer,
-    materializeNumber,
-    decimalNumber,
-    guessNumber,
-    binaryNumber = "",
-    numberOut = ""; //booleans.
+var player, floor, playerAngle, speed, startCount, mx, my, backpackItems, switchTimer, materializeNumber, decimalNumber, guessNumber, binaryDoorTimer;
+var binaryNumber = "",
+    numberFromArray = "";
+var numberOut = ["0", "0", "0", "0", "0", "0", "0"]; //booleans.
 
 var moveLeft = false,
     moveRight = false,
@@ -68,7 +58,9 @@ var moveLeft = false,
     orangeTrapKey4Placed = false,
     nextKeySet = false,
     openBackpack = false,
-    materialize = false; //backgrounds to variables.
+    materialize = false,
+    binaryDoorOn = true,
+    binaryDoorPlaySoundOpen = true; //backgrounds to variables.
 
 var stoneFloor = new Image();
 stoneFloor.src = 'images/IFITMOVES/stoneFloorBackground.png';
@@ -389,6 +381,10 @@ var trapKeyFit = document.getElementById("audio16");
 var keyCollect = document.getElementById("audio17");
 var shutdown = document.getElementById("audio18");
 var binaryFade = document.getElementById("audio19");
+var binarySwitchRed = document.getElementById("audio20");
+var binarySwitchGreen = document.getElementById("audio21");
+var binaryDoorCorrect = document.getElementById("audio22");
+var binaryDoorSwitchOn = document.getElementById("audio23");
 
 function animate() {
   //CLS.

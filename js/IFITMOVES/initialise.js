@@ -1,5 +1,6 @@
 function init() {
-    playerAngle = 0, speed = 10, startCount = 0, backpackItems = 0, switchTimer = 0, materializeNumber = 0;
+    playerAngle = 0, speed = 10, startCount = 0, backpackItems = 0, switchTimer = 0, materializeNumber = 0, binaryDoorTimer = 2000,
+        guessNumber = Math.floor((Math.random() * 126) + 1);
     floor = (new Floor(stoneFloor));
     player = new Player(c.width / 2, c.height / 2);
 
@@ -18,18 +19,12 @@ function init() {
     walls.push(new Wall(3480, 610, 840, 20, true)); //horizontal wall + door.
     doors.push(new Door(2980, 610, true, binaryDoorImage, "white")); //horizonralDoor.
 
-
+    //create binary key pads.
     let number = 0;
     for (let i = 3100; i <= 3400; i += 50) {
         binaryKeys.push(new BinaryKey(i, 640, number));
         number += 1;
     }
-
-
-
-
-
-
 
     //bottom rooms.
     walls.push(new Wall(500, 2900, 1000, 20, true)); //horizontal.
