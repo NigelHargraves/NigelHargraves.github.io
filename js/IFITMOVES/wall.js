@@ -79,5 +79,6 @@ function forWall() {
                 }
             }
         });
+        wall.update();
     });
 }

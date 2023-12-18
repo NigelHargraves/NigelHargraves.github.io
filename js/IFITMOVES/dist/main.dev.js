@@ -16,7 +16,7 @@ var bullets = [],
     trapKeys = [],
     binaryKeys = []; //variables.
 
-var player, floor, playerAngle, speed, startCount, mx, my, backpackItems, switchTimer, materializeNumber, decimalNumber, guessNumber, binaryDoorTimer;
+var player, floor, playerAngle, speed, startCount, mx, my, backpackItems, switchTimer, materializeNumber, decimalNumber, guessNumber, binaryDoorTimer, health;
 var binaryNumber = "",
     numberFromArray = "";
 var numberOut = ["0", "0", "0", "0", "0", "0", "0"]; //booleans.
@@ -391,18 +391,16 @@ function animate() {
   ctx.fillStyle = "rgb(0, 100, 0)";
   ctx.fillRect(0, 0, c.width, c.height);
   floor.update();
-
-  if (bullets.length > 0) {
-    forBullet();
-  }
-
-  spiderSplats.forEach(function (splat, index) {
-    if (splat.opacity <= 0.1) {
-      spiderSplats.splice(index, 1);
-    }
-
-    splat.update();
-  }); //create spider.
+  forTrap();
+  doors.forEach(function (door) {
+    door.update();
+  });
+  forSplats();
+  forBinaryKey();
+  forKey();
+  forTrapKey();
+  forWall();
+  forBullet(); //create spider.
 
   var createSpider = Math.random();
 
@@ -438,90 +436,8 @@ function animate() {
     }
 
     portal.update();
-  }); //cut spider sound if none in view.
-
-  var spiderCount = 0;
-  spiders.forEach(function (spider) {
-    var playSound = collisionDetection(spider.x, spider.y, spider.r / 2, spider.r / 2, player.x - floor.x, player.y - floor.y, c.width / 2, c.height / 2);
-
-    if (playSound) {
-      spiderInView = true;
-      return;
-    } else {
-      spiderCount += 1;
-    }
-
-    if (spiderCount == spiders.length) {
-      spiderInView = false;
-    }
   });
-  forTrap();
-  spiders.forEach(function (spider) {
-    spider.update();
-  });
-
-  if (spiderInView) {
-    spiderWalking.play();
-  } else {
-    spiderInView.currentTime = 0;
-    spiderWalking.pause();
-  }
-
-  if (doorInView) {
-    doorBuzz.play();
-  } else {
-    doorBuzz.currentTime = 0;
-    doorBuzz.pause();
-  }
-
-  forWall();
-  walls.forEach(function (wall) {
-    wall.update();
-  }); //cut door sound if none in view.
-
-  var doorCount = 0;
-  doors.forEach(function (door) {
-    var playSound;
-
-    if (door.horizontal) {
-      playSound = collisionDetection(door.x + door.size / 2, door.y, door.size / 2, 10, player.x - floor.x, player.y - floor.y, c.width / 2, c.height / 2);
-    } else {
-      playSound = collisionDetection(door.x, door.y + door.size / 2, 10, door.size / 2, player.x - floor.x, player.y - floor.y, c.width / 2, c.height / 2);
-    }
-
-    if (playSound && door.on) {
-      doorInView = true;
-      return;
-    } else {
-      doorCount += 1;
-    }
-
-    if (doorCount == doors.length) {
-      doorInView = false;
-    }
-  });
-  doors.forEach(function (door) {
-    door.update();
-  });
-  forBinaryKey();
-  forKey();
-  forTrapKey(); //cut trap sound if none in view or trap is off.
-
-  var trapCount = 0;
-  traps.forEach(function (trap) {
-    var playSound = collisionDetection(trap.x, trap.y, trap.size / 2, trap.size / 2, player.x - floor.x, player.y - floor.y, c.width / 2, c.height / 2);
-
-    if (playSound && trap.on) {
-      trapInView = true;
-      return;
-    } else {
-      trapCount += 1;
-    }
-
-    if (trapCount == traps.length) {
-      trapInView = false;
-    }
-  });
+  forSpider();
   player.update();
   forDoor();
 
@@ -646,12 +562,25 @@ function animate() {
   } else {
     backpackContents.style.display = "none";
     displayOnce = false;
-  }
+  } //hud.
+
 
   ctx.drawImage(backpack, 0, 0, 70, 70);
-  ctx.font = "bold 40px Arial";
+  ctx.font = "bold 30px Arial";
   ctx.fillStyle = "black";
   ctx.fillText("Spiders Alive = " + spiders.length, c.width / 2 - 200, 40);
+
+  if (health > 50) {
+    ctx.fillText("❤️️: ", c.width / 2 + 200, 40);
+  } else if (health > 0 && health < 50) {
+    ctx.fillText("💔: ", c.width / 2 + 200, 40);
+  } else if (health <= 0) {
+    ctx.fillText("💀️: ", c.width / 2 + 200, 40);
+    cancelAnimationFrame(animationID);
+  }
+
+  ctx.fillStyle = "red";
+  ctx.fillRect(c.width / 2 + 260, 20, health, 25);
   /*
       ctx.fillText("height = " + c.height, (c.width / 2) - 200, 80); //976
       ctx.fillText("width = " + c.width, (c.width / 2) - 200, 120); //1872

@@ -48,6 +48,9 @@ function () {
       ctx.restore();
       ctx.lineWidth = 1;
       var extra = this.r + 40;
+      ctx.save();
+      ctx.filter = "blur(2px)";
+      ctx.lineWidth = 3;
       ctx.beginPath();
       ctx.moveTo(floor.x + this.x, floor.y + this.y);
       ctx.lineTo(this.x + Math.random() * (extra / 3) + floor.x, this.y + Math.random() * (extra / 3) + floor.y);
@@ -71,6 +74,8 @@ function () {
       ctx.lineTo(this.x + Math.random() * extra + floor.x, this.y + Math.random() * -extra + floor.y);
       ctx.strokeStyle = "white";
       ctx.stroke();
+      ctx.lineWidth = 1;
+      ctx.restore();
     }
   }, {
     key: "update",

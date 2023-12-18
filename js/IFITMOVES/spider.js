@@ -367,3 +367,34 @@ class Spider {
         this.draw();
     }
 }
+
+function forSpider() {
+    spiders.forEach((spider) => {
+        let collide = collisionDetection(player.x - floor.x, player.y - floor.y, player.r / 2.5, player.r / 2.5, spider.x, spider.y, spider.r / 4, spider.r / 4);
+        if (collide) {
+            health -= 0.1;
+        }
+        spider.update();
+    });
+    //cut spider sound if none in view.
+    let spiderCount = 0;
+    spiders.forEach((spider) => {
+        let playSound = collisionDetection(spider.x, spider.y, spider.r / 2, spider.r / 2, player.x - floor.x, player.y - floor.y, c.width / 2, c.height / 2);
+        if (playSound) {
+            spiderInView = true;
+            return;
+        } else {
+            spiderCount += 1;
+        }
+        if (spiderCount == spiders.length) {
+            spiderInView = false;
+        }
+    });
+
+    if (spiderInView) {
+        spiderWalking.play();
+    } else {
+        spiderInView.currentTime = 0;
+        spiderWalking.pause();
+    }
+}

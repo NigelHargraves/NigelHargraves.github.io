@@ -255,5 +255,21 @@ function forTrap() {
       }
     });
     trap.update();
+  }); //cut trap sound if none in view or trap is off.
+
+  var trapCount = 0;
+  traps.forEach(function (trap) {
+    var playSound = collisionDetection(trap.x, trap.y, trap.size / 2, trap.size / 2, player.x - floor.x, player.y - floor.y, c.width / 2, c.height / 2);
+
+    if (playSound && trap.on) {
+      trapInView = true;
+      return;
+    } else {
+      trapCount += 1;
+    }
+
+    if (trapCount == traps.length) {
+      trapInView = false;
+    }
   });
 }

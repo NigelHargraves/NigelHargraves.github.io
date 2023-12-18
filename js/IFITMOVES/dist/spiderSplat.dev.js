@@ -55,3 +55,19 @@ function () {
 
   return SpiderSplat;
 }();
+
+function forSplats() {
+  spiderSplats.forEach(function (splat, index) {
+    var collide = collisionDetection(player.x - floor.x, player.y - floor.y, player.r / 2.5, player.r / 2.5, splat.x, splat.y, splat.r / 2, splat.r / 2);
+
+    if (collide) {
+      health -= 0.1;
+    }
+
+    if (splat.opacity <= 0.1) {
+      spiderSplats.splice(index, 1);
+    }
+
+    splat.update();
+  });
+}

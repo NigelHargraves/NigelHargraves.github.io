@@ -1,7 +1,7 @@
 "use strict";
 
 function init() {
-  playerAngle = 0, speed = 10, startCount = 0, backpackItems = 0, switchTimer = 0, materializeNumber = 0, binaryDoorTimer = 2000, guessNumber = Math.floor(Math.random() * 126 + 1);
+  playerAngle = 0, speed = 10, startCount = 0, backpackItems = 0, switchTimer = 0, materializeNumber = 0, binaryDoorTimer = 2000, guessNumber = Math.floor(Math.random() * 126 + 1), health = 300;
   floor = new Floor(stoneFloor);
   player = new Player(c.width / 2, c.height / 2); //top rooms.
 
@@ -25,7 +25,7 @@ function init() {
 
   doors.push(new Door(3802, 1010, true, keyHoleGreen, "green")); //horizonralDoor.
 
-  walls.push(new Wall(3480, 610, 840, 20, true)); //horizontal wall + door.
+  walls.push(new Wall(3490, 610, 820, 20, true)); //horizontal wall + door.
 
   doors.push(new Door(2980, 610, true, binaryDoorImage, "white")); //horizonralDoor.
   //create binary key pads.

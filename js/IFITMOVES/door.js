@@ -83,7 +83,6 @@ class Door {
 }
 
 function forDoor() {
-
     doors.forEach((door) => {
         let walkOnDoorPad;
 
@@ -117,7 +116,6 @@ function forDoor() {
         } else {
             door.on = true;
         }
-
 
         let hit;
         if (door.horizontal) {
@@ -156,21 +154,17 @@ function forDoor() {
                 spiders.splice(index, 1);
             }
         });
-
-
         if (door.color == "black" && !switchDoorOn) {
             door.image = keyHolefootpadOpen;
             door.on = false;
             switchTimer += 1;
         }
-
         if (switchTimer >= 2000) {
             door.image = keyHolefootpad;
             door.on = true;
             switchDoorOn = true;
             switchTimer = 0;
         }
-
         if (door.color == "white" && !binaryDoorOn) {
             if (binaryDoorPlaySoundOpen) {
                 binaryDoorCorrect.play();
@@ -194,8 +188,31 @@ function forDoor() {
                 });
             }
         }
-
-
-
     });
+    //cut door sound if none in view.
+    let doorCount = 0;
+    doors.forEach((door) => {
+        let playSound;
+        if (door.horizontal) {
+            playSound = collisionDetection(door.x + door.size / 2, door.y, door.size / 2, 10, player.x - floor.x, player.y - floor.y, c.width / 2, c.height / 2);
+        } else {
+            playSound = collisionDetection(door.x, door.y + door.size / 2, 10, door.size / 2, player.x - floor.x, player.y - floor.y, c.width / 2, c.height / 2);
+        }
+
+        if (playSound && door.on) {
+            doorInView = true;
+            return;
+        } else {
+            doorCount += 1;
+        }
+        if (doorCount == doors.length) {
+            doorInView = false;
+        }
+    });
+    if (doorInView) {
+        doorBuzz.play();
+    } else {
+        doorBuzz.currentTime = 0;
+        doorBuzz.pause();
+    }
 }

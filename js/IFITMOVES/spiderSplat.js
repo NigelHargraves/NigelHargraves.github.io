@@ -29,7 +29,6 @@ class SpiderSplat {
 
 
     update() {
-
         if (this.r <= 150) {
             this.r += 1;
         }
@@ -37,9 +36,19 @@ class SpiderSplat {
             this.opacity -= 0.0002;
             this.size -= 0.02;
         }
-
         this.draw();
     }
+}
 
-
+function forSplats() {
+    spiderSplats.forEach((splat, index) => {
+        let collide = collisionDetection(player.x - floor.x, player.y - floor.y, player.r / 2.5, player.r / 2.5, splat.x, splat.y, splat.r / 2, splat.r / 2);
+        if (collide) {
+            health -= 0.1;
+        }
+        if (splat.opacity <= 0.1) {
+            spiderSplats.splice(index, 1)
+        }
+        splat.update();
+    });
 }
