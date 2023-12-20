@@ -3,7 +3,7 @@ class TrapKey {
         this.x = x;
         this.y = y;
         this.image = image;
-        this.teleportTimer = Math.random() * 5000;
+        this.teleportTimer = 1;
         this.timer = 0;
     }
     draw() {
@@ -18,13 +18,26 @@ class TrapKey {
     }
     update() {
         if (this.timer >= this.teleportTimer) {
-            let playSound = collisionDetection(this.x, this.y, 20, 20, player.x - floor.x, player.y - floor.y, c.width / 2, c.height / 2);
-            if (playSound) {
-                trapKeyTeleport.play();
-            }
-            ctx.drawImage(teleportFlash, floor.x + this.x - 20, floor.y + this.y - 20, 40, 40);
-            this.x = 40 + (Math.random() * ((c.height * 4) - 80));
-            this.y = 40 + (Math.random() * ((c.height * 4) - 80));
+            let x = 200 + Math.random() * ((c.height * 4) - 400);
+            let y = 200 + Math.random() * ((c.height * 4) - 400);
+            let wallNumber = 1;
+            walls.forEach((wall) => {
+                //only teleport when new location does not intersect a wall.
+                let hit = collisionDetection(x + floor.x, y + floor.y, 100, 100, wall.x + floor.x, wall.y + floor.y, wall.width / 2, wall.height / 2);
+                if (hit) {
+                    return;
+                }
+                if (wallNumber == walls.length) {
+                    let playSound = collisionDetection(this.x, this.y, 20, 20, player.x - floor.x, player.y - floor.y, c.width / 2, c.height / 2);
+                    if (playSound) {
+                        trapKeyTeleport.play();
+                    }
+                    ctx.drawImage(teleportFlash, floor.x + this.x - 20, floor.y + this.y - 20, 40, 40);
+                    this.x = 40 + (Math.random() * ((c.height * 4) - 80));
+                    this.y = 40 + (Math.random() * ((c.height * 4) - 80));
+                }
+                wallNumber += 1;
+            });
             this.timer = 0;
             this.teleportTimer = Math.random() * 5000;
         }
