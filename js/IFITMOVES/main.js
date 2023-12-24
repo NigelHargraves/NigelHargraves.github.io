@@ -242,10 +242,10 @@ function animate() {
     ctx.fillRect((c.width / 2) + 260, 20, health, 25);
 
 
-    /*
-        ctx.fillText("height = " + c.height, (c.width / 2) - 200, 80); //976
-        ctx.fillText("width = " + c.width, (c.width / 2) - 200, 120); //1872
-    */
+
+    ctx.fillText("height = " + c.height, (c.width / 2) - 200, 80); //976
+    ctx.fillText("width = " + c.width, (c.width / 2) - 200, 120); //1872
+
 
     //call next frame.
     animationId = requestAnimationFrame(animate);
