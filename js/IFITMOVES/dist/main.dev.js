@@ -14,7 +14,8 @@ var bullets = [],
     keys = [],
     traps = [],
     trapKeys = [],
-    binaryKeys = []; //variables.
+    binaryKeys = [],
+    drones = []; //variables.
 
 var player, floor, playerAngle, speed, startCount, mx, my, backpackItems, switchTimer, materializeNumber, decimalNumber, guessNumber, binaryDoorTimer, health;
 var binaryNumber = "",
@@ -115,6 +116,7 @@ function animate() {
   forSpider();
   player.update();
   forDoor();
+  forDrone();
 
   if (startCount < 100) {
     startCount += 1;

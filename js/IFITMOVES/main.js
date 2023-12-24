@@ -13,7 +13,8 @@ let bullets = [],
     keys = [],
     traps = [],
     trapKeys = [],
-    binaryKeys = [];
+    binaryKeys = [],
+    drones = [];
 
 //variables.
 let player, floor, playerAngle, speed, startCount, mx,
@@ -126,7 +127,10 @@ function animate() {
 
     player.update();
 
+
     forDoor();
+
+    forDrone();
 
     if (startCount < 100) {
         startCount += 1;
