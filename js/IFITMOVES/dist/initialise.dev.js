@@ -58,30 +58,30 @@ function init() {
   doors.push(new Door(2990, 3802, false, keyHolePink, "pink")); //verticalDoor.
   //center room.
 
-  walls.push(new Wall(c.height * 2, c.height * 2, 200, 20, true)); //horizontal.
+  walls.push(new Wall(playArea / 2, playArea / 2, 200, 20, true)); //horizontal.
 
-  walls.push(new Wall(c.height * 2 + 90, c.height * 2 + 110, 20, 200, false)); //vertical.
+  walls.push(new Wall(playArea / 2 + 90, playArea / 2 + 110, 20, 200, false)); //vertical.
 
-  walls.push(new Wall(c.height * 2, c.height * 2 + 210, 200, 20, true)); //horizontal.
+  walls.push(new Wall(playArea / 2, playArea / 2 + 210, 200, 20, true)); //horizontal.
 
-  walls.push(new Wall(c.height * 2 - 90, c.height * 2 + 50, 20, 100, false)); //vertical wall + door.
+  walls.push(new Wall(playArea / 2 - 90, playArea / 2 + 50, 20, 100, false)); //vertical wall + door.
 
-  doors.push(new Door(c.height * 2 - 90, c.height * 2 + 100, false, keyHolefootpad, "black")); //verticalDoor.
+  doors.push(new Door(playArea / 2 - 90, playArea / 2 + 100, false, keyHolefootpad, "black")); //verticalDoor.
   //keys.
 
-  keys.push(new Key(42, c.height * 3 + 30, redKey)); //red key.
+  keys.push(new Key(42, playArea - playArea / 4 + 30, redKey)); //red key.
 
-  keys.push(new Key(1042, c.height * 3 + 30, yellowKey)); //yellow key.
+  keys.push(new Key(1042, playArea - playArea / 4 + 30, yellowKey)); //yellow key.
 
-  traps.push(new Trap(2242, c.height * 4 - 500, "green")); //green trap.
+  traps.push(new Trap(2242, playArea - 500, "green")); //green trap.
 
-  keys.push(new Key(2242, c.height * 4 - 500, greenKey)); //green key.
+  keys.push(new Key(2242, playArea - 500, greenKey)); //green key.
 
   keys.push(new Key(1520, 22, turquoiseKey)); //turquoise key.
 
-  keys.push(new Key(c.height * 4 - 280, 220, orangeKey)); //orange key.
+  keys.push(new Key(playArea - 280, 220, orangeKey)); //orange key.
 
-  traps.push(new Trap(c.height * 4 - 280, 220, "orange")); //orange trap.
+  traps.push(new Trap(playArea - 280, 220, "orange")); //orange trap.
 
-  keys.push(new Key(c.height * 2, c.height * 2 + 30, pinkKey)); //pink key.
+  keys.push(new Key(playArea - playArea / 2, playArea - playArea / 2 + 30, pinkKey)); //pink key.
 }

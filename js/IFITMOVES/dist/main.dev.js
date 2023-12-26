@@ -3,7 +3,8 @@
 // Set the canvas element to  variable.
 var ctx = c.getContext("2d");
 c.width = window.innerWidth;
-c.height = window.innerHeight; //arrays.
+c.height = window.innerHeight;
+var playArea = 3904; //arrays.
 
 var bullets = [],
     spiders = [],
@@ -252,9 +253,10 @@ function animate() {
 
   ctx.fillStyle = "red";
   ctx.fillRect(c.width / 2 + 260, 20, health, 25);
-  ctx.fillText("height = " + c.height, c.width / 2 - 200, 80); //976
-
-  ctx.fillText("width = " + c.width, c.width / 2 - 200, 120); //1872
+  /*
+      ctx.fillText("height = " + c.height, (c.width / 2) - 200, 80); //976
+      ctx.fillText("width = " + c.width, (c.width / 2) - 200, 120); //1872
+  */
   //call next frame.
 
   animationId = requestAnimationFrame(animate);

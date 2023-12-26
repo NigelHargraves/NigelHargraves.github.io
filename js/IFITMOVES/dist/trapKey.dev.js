@@ -39,8 +39,8 @@ function () {
       var _this = this;
 
       if (this.timer >= this.teleportTimer) {
-        var x = 200 + Math.random() * (c.height * 4 - 400);
-        var y = 200 + Math.random() * (c.height * 4 - 400);
+        var x = 200 + Math.random() * (playArea - 400);
+        var y = 200 + Math.random() * (playArea - 400);
         var wallNumber = 1;
         walls.forEach(function (wall) {
           //only teleport when new location does not intersect a wall.
@@ -58,8 +58,8 @@ function () {
             }
 
             ctx.drawImage(teleportFlash, floor.x + _this.x - 20, floor.y + _this.y - 20, 40, 40);
-            _this.x = 40 + Math.random() * (c.height * 4 - 80);
-            _this.y = 40 + Math.random() * (c.height * 4 - 80);
+            _this.x = 40 + Math.random() * (playArea - 80);
+            _this.y = 40 + Math.random() * (playArea - 80);
           }
 
           wallNumber += 1;

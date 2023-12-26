@@ -18,8 +18,8 @@ class TrapKey {
     }
     update() {
         if (this.timer >= this.teleportTimer) {
-            let x = 200 + Math.random() * ((c.height * 4) - 400);
-            let y = 200 + Math.random() * ((c.height * 4) - 400);
+            let x = 200 + Math.random() * ((playArea) - 400);
+            let y = 200 + Math.random() * ((playArea) - 400);
             let wallNumber = 1;
             walls.forEach((wall) => {
                 //only teleport when new location does not intersect a wall.
@@ -33,8 +33,8 @@ class TrapKey {
                         trapKeyTeleport.play();
                     }
                     ctx.drawImage(teleportFlash, floor.x + this.x - 20, floor.y + this.y - 20, 40, 40);
-                    this.x = 40 + (Math.random() * ((c.height * 4) - 80));
-                    this.y = 40 + (Math.random() * ((c.height * 4) - 80));
+                    this.x = 40 + (Math.random() * ((playArea) - 80));
+                    this.y = 40 + (Math.random() * ((playArea) - 80));
                 }
                 wallNumber += 1;
             });

@@ -16,8 +16,8 @@ function () {
 
     this.x = c.width / 2.2;
     this.y = c.height / 2.3;
-    this.width = c.height * 4;
-    this.height = c.height * 4;
+    this.width = playArea;
+    this.height = playArea;
     this.image = image;
   } //draw floor.
 

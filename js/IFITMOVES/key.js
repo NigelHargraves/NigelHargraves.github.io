@@ -27,10 +27,10 @@ function forKey() {
             }
             if (key.image == greenKey) {
                 gotGreenKey = true;
-                trapKeys.push(new TrapKey(40 + (Math.random() * ((c.height * 4) - 80)), 40 + (Math.random() * ((c.height * 4) - 80)), orangeTrapKey1));
-                trapKeys.push(new TrapKey(40 + (Math.random() * ((c.height * 4) - 80)), 40 + (Math.random() * ((c.height * 4) - 80)), orangeTrapKey2));
-                trapKeys.push(new TrapKey(40 + (Math.random() * ((c.height * 4) - 80)), 40 + (Math.random() * ((c.height * 4) - 80)), orangeTrapKey3));
-                trapKeys.push(new TrapKey(40 + (Math.random() * ((c.height * 4) - 80)), 40 + (Math.random() * ((c.height * 4) - 80)), orangeTrapKey4));
+                trapKeys.push(new TrapKey(40 + (Math.random() * ((playArea) - 80)), 40 + (Math.random() * ((playArea) - 80)), orangeTrapKey1));
+                trapKeys.push(new TrapKey(40 + (Math.random() * ((playArea) - 80)), 40 + (Math.random() * ((playArea) - 80)), orangeTrapKey2));
+                trapKeys.push(new TrapKey(40 + (Math.random() * ((playArea) - 80)), 40 + (Math.random() * ((playArea) - 80)), orangeTrapKey3));
+                trapKeys.push(new TrapKey(40 + (Math.random() * ((playArea) - 80)), 40 + (Math.random() * ((playArea) - 80)), orangeTrapKey4));
             }
             if (key.image == turquoiseKey) {
                 gotTurquoiseKey = true;
@@ -42,10 +42,10 @@ function forKey() {
             }
             if (key.image == pinkKey) {
                 gotPinkKey = true;
-                trapKeys.push(new TrapKey(40 + (Math.random() * ((c.height * 4) - 80)), 40 + (Math.random() * ((c.height * 4) - 80)), greenTrapKey1));
-                trapKeys.push(new TrapKey(40 + (Math.random() * ((c.height * 4) - 80)), 40 + (Math.random() * ((c.height * 4) - 80)), greenTrapKey2));
-                trapKeys.push(new TrapKey(40 + (Math.random() * ((c.height * 4) - 80)), 40 + (Math.random() * ((c.height * 4) - 80)), greenTrapKey3));
-                trapKeys.push(new TrapKey(40 + (Math.random() * ((c.height * 4) - 80)), 40 + (Math.random() * ((c.height * 4) - 80)), greenTrapKey4));
+                trapKeys.push(new TrapKey(40 + (Math.random() * ((playArea) - 80)), 40 + (Math.random() * ((playArea) - 80)), greenTrapKey1));
+                trapKeys.push(new TrapKey(40 + (Math.random() * ((playArea) - 80)), 40 + (Math.random() * ((playArea) - 80)), greenTrapKey2));
+                trapKeys.push(new TrapKey(40 + (Math.random() * ((playArea) - 80)), 40 + (Math.random() * ((playArea) - 80)), greenTrapKey3));
+                trapKeys.push(new TrapKey(40 + (Math.random() * ((playArea) - 80)), 40 + (Math.random() * ((playArea) - 80)), greenTrapKey4));
             }
             keyCollect.play();
             backpackItems += 1;
