@@ -24,3 +24,4 @@ var binarySwitchRed = document.getElementById("audio20");
 var binarySwitchGreen = document.getElementById("audio21");
 var binaryDoorCorrect = document.getElementById("audio22");
 var binaryDoorSwitchOn = document.getElementById("audio23");
+var droneNoise = document.getElementById("audio24");

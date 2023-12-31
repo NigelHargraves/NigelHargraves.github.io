@@ -22,3 +22,4 @@ let binarySwitchRed = document.getElementById("audio20");
 let binarySwitchGreen = document.getElementById("audio21");
 let binaryDoorCorrect = document.getElementById("audio22");
 let binaryDoorSwitchOn = document.getElementById("audio23");
+let droneNoise = document.getElementById("audio24");

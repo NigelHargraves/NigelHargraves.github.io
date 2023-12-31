@@ -152,11 +152,11 @@ class Player {
             //calc angle to aim point
             let angles = Math.atan2(this.aimy - this.y, this.aimx - this.x);
 
-
-            //calc velocity x & y to aim point.
-            this.velocity.x = (Math.cos(angles) * 1);
-            this.velocity.y = (Math.sin(angles) * 1);
-
+            /*
+                        //calc velocity x & y to aim point.
+                        this.velocity.x = (Math.cos(angles) * 1);
+                        this.velocity.y = (Math.sin(angles) * 1);
+            */
 
 
 

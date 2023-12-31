@@ -149,10 +149,13 @@ function () {
         this.aimx = this.r * Math.cos(playerAngle) / 5;
         this.aimy = this.r * Math.sin(playerAngle) / 5; //calc angle to aim point
 
-        var angles = Math.atan2(this.aimy - this.y, this.aimx - this.x); //calc velocity x & y to aim point.
-
-        this.velocity.x = Math.cos(angles) * 1;
-        this.velocity.y = Math.sin(angles) * 1; //what sound to play.
+        var angles = Math.atan2(this.aimy - this.y, this.aimx - this.x);
+        /*
+                    //calc velocity x & y to aim point.
+                    this.velocity.x = (Math.cos(angles) * 1);
+                    this.velocity.y = (Math.sin(angles) * 1);
+        */
+        //what sound to play.
 
         if (moveForward) {
           rotateStep.currentTime = 0;

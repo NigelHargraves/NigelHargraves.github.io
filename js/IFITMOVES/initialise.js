@@ -3,7 +3,12 @@ function init() {
         guessNumber = Math.floor((Math.random() * 126) + 1), health = 300;
     floor = (new Floor(stoneFloor));
     player = new Player(c.width / 2, c.height / 2);
-    drones.push(new Drone(200, 200, 200, 250));
+    for (let i = 0; i < 10; i++) {
+        let droneX = Math.random() * playArea;
+        let droneY = Math.random() * playArea;
+        drones.push(new Drone(droneX, droneY, droneX, droneY + 50));
+    }
+
 
     //top rooms.
     walls.push(new Wall(500, 500, 20, 1000, false)); //vertical.

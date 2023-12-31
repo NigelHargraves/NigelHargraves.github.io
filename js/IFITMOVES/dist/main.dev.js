@@ -61,7 +61,8 @@ var moveLeft = false,
     openBackpack = false,
     materialize = false,
     binaryDoorOn = true,
-    binaryDoorPlaySoundOpen = true;
+    binaryDoorPlaySoundOpen = true,
+    droneInView = false;
 
 function animate() {
   //CLS.
