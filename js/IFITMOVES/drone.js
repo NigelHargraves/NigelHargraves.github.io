@@ -15,6 +15,7 @@ class Drone {
         this.droneAimx = 0;
         this.droneAimy = 0;
         this.speed = 60;
+        this.fire = false;
     }
     draw() {
 
@@ -24,6 +25,22 @@ class Drone {
         ctx.rotate(this.droneAngle + Math.PI / 2);
         ctx.drawImage(droneShadow, 0 - this.size / 2, 0 - this.size / 2, this.size, this.size);
         ctx.restore();
+
+
+        if (this.fire) {
+            ctx.save();
+            ctx.globalAlpha = Math.random();
+            ctx.filter = "blur(1px)";
+            ctx.beginPath();
+            ctx.lineWidth = 2;
+            ctx.strokeStyle = "red";
+            ctx.moveTo(this.dronex + floor.x, this.droney + floor.y);
+            ctx.lineTo(player.x, player.y);
+            ctx.stroke();
+            ctx.restore();
+        }
+
+
 
 
         ctx.save();
@@ -40,7 +57,7 @@ class Drone {
         ctx.lineTo(20 + this.rotorAimx, 20 + this.rotorAimy);
         ctx.moveTo(-21, 21);
         ctx.lineTo(-20 + this.rotorAimx, 20 + this.rotorAimy);
-        ctx.stroke()
+        ctx.stroke();
 
 
 
@@ -126,12 +143,22 @@ class Drone {
 }
 
 function forDrone() {
+    let laserNotFired = 0;
     drones.forEach((drone, index) => {
-
-
-
-
-
+        let collide = collisionDetection(player.x - floor.x, player.y - floor.y, player.r, player.r, drone.dronex, drone.droney, 200, 200);
+        if (collide) {
+            laserSound.play();
+            drone.fire = true;
+            laserFlash = true;
+            health -= 0.1;
+        } else {
+            drone.fire = false;
+            laserNotFired += 1;
+        }
+        if (laserNotFired == drones.length) {
+            laserSound.currentTime = 0;
+            laserSound.pause();
+        }
         drone.update();
     });
 

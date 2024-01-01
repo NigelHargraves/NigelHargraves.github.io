@@ -200,6 +200,18 @@ let keyHolefootpad = new Image();
 keyHolefootpad.src = 'images/IFITMOVES/keyHoleFootpad.png';
 let keyHolefootpadOpen = new Image();
 keyHolefootpadOpen.src = 'images/IFITMOVES/keyHoleFootpadOpen.png';
+let laserHit = new Image();
+laserHit.src = 'images/IFITMOVES/laserHit.png';
+
+
+
+
+
+
+
+
+
+
 
 //trap images.
 let greenTrapBaseImage = new Image();

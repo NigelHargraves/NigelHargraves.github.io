@@ -16,7 +16,7 @@ var bullets = [],
     traps = [],
     trapKeys = [],
     binaryKeys = [],
-    drones = []; //variables.
+    drones = []; //Global Variables.
 
 var player, floor, playerAngle, speed, startCount, mx, my, backpackItems, switchTimer, materializeNumber, decimalNumber, guessNumber, binaryDoorTimer, health;
 var binaryNumber = "",
@@ -62,7 +62,8 @@ var moveLeft = false,
     materialize = false,
     binaryDoorOn = true,
     binaryDoorPlaySoundOpen = true,
-    droneInView = false;
+    droneInView = false,
+    laserFlash = false;
 
 function animate() {
   //CLS.

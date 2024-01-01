@@ -16,7 +16,7 @@ let bullets = [],
     binaryKeys = [],
     drones = [];
 
-//variables.
+//Global Variables.
 let player, floor, playerAngle, speed, startCount, mx,
     my, backpackItems, switchTimer, materializeNumber, decimalNumber, guessNumber, binaryDoorTimer, health;
 
@@ -67,7 +67,8 @@ let moveLeft = false,
     materialize = false,
     binaryDoorOn = true,
     binaryDoorPlaySoundOpen = true,
-    droneInView = false;
+    droneInView = false,
+    laserFlash = false;
 
 function animate() {
     //CLS.

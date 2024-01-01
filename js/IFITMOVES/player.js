@@ -120,6 +120,13 @@ class Player {
             }
             ctx.restore();
 
+            if (laserFlash) {
+                ctx.globalAlpha = Math.random();
+                ctx.drawImage(laserHit, player.x - 50, player.y - 50, 100, 100);
+                ctx.globalAlpha = 1;
+                laserFlash = false;
+            }
+
         }
 
 

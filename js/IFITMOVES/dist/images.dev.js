@@ -185,7 +185,9 @@ footpadSwitchOn.src = 'images/IFITMOVES/footpadSwitchOn.png';
 var keyHolefootpad = new Image();
 keyHolefootpad.src = 'images/IFITMOVES/keyHoleFootpad.png';
 var keyHolefootpadOpen = new Image();
-keyHolefootpadOpen.src = 'images/IFITMOVES/keyHoleFootpadOpen.png'; //trap images.
+keyHolefootpadOpen.src = 'images/IFITMOVES/keyHoleFootpadOpen.png';
+var laserHit = new Image();
+laserHit.src = 'images/IFITMOVES/laserHit.png'; //trap images.
 
 var greenTrapBaseImage = new Image();
 greenTrapBaseImage.src = 'images/IFITMOVES/greenTrapBaseImage.png';
