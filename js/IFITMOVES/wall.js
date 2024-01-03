@@ -19,43 +19,38 @@ class Wall {
 
 function forWall() {
     walls.forEach((wall) => {
-
         let hit = collisionDetection(player.x, player.y, player.r / 2, player.r / 2, wall.x + floor.x, wall.y + floor.y, wall.width / 2, wall.height / 2);
         if (hit) {
             if (!wall.horizontal) {
-                //player walk in to wall.
+                //player walk in to vertical wall.
                 if (!run) {
                     if (player.x > (wall.x + floor.x)) {
-                        floor.x -= 1;
-
-                    } else if (player.x < (wall.x + floor.x)) {
-                        floor.x += 1;
-
-                    }
-                } else {
-                    //player run in to wall.
-                    if (player.x > (wall.x + floor.x)) {
                         floor.x -= 2;
-
                     } else if (player.x < (wall.x + floor.x)) {
                         floor.x += 2;
-
+                    }
+                } else {
+                    //player run in to vertical wall.
+                    if (player.x > (wall.x + floor.x)) {
+                        floor.x -= 4;
+                    } else if (player.x < (wall.x + floor.x)) {
+                        floor.x += 4;
                     }
                 }
             } else {
-                //player walk in to wall.
+                //player walk in to horizontal wall.
                 if (!run) {
-                    if (player.y > (wall.y + floor.y)) {
-                        floor.y -= 1;
-                    } else if (player.y < (wall.y + floor.y)) {
-                        floor.y += 1;
-                    }
-                } else {
-                    //player run in to wall.
                     if (player.y > (wall.y + floor.y)) {
                         floor.y -= 2;
                     } else if (player.y < (wall.y + floor.y)) {
                         floor.y += 2;
+                    }
+                } else {
+                    //player run in to horizontal wall.
+                    if (player.y > (wall.y + floor.y)) {
+                        floor.y -= 4;
+                    } else if (player.y < (wall.y + floor.y)) {
+                        floor.y += 4;
                     }
                 }
             }
@@ -81,4 +76,5 @@ function forWall() {
         });
         wall.update();
     });
+
 }

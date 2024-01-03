@@ -67,7 +67,7 @@ var moveLeft = false,
 
 function animate() {
   //CLS.
-  ctx.fillStyle = "rgb(0, 100, 0)";
+  ctx.fillStyle = "rgb(0, 0, 0, 0.2)";
   ctx.fillRect(0, 0, c.width, c.height);
   floor.update();
   forTrap();

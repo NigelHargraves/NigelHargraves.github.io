@@ -11,7 +11,10 @@ class Floor {
 
     //draw floor.
     draw() {
-        //walls.push(new Wall(2970, 500, 20, 1000, false)); //vertical.
+
+
+        ctx.drawImage(grassBackground, this.x - c.height, this.y - c.height, playArea + c.height * 2, playArea + c.height * 4);
+
         ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
         ctx.drawImage(telepad, this.x + (c.width * 0.02), this.y + (c.height * 0.02), 100, 100);
         if (switchDoorOn) {
@@ -38,17 +41,6 @@ class Floor {
             //player walk into area edge.
             if (!run) {
                 if (this.x + 4 >= player.x - player.r / 2) {
-                    this.x -= 1;
-                } else if ((this.x - 4) + this.width <= player.x + player.r / 2) {
-                    this.x += 1;
-                } else if (this.y + 4 >= player.y - player.r / 2) {
-                    this.y -= 1;
-                } else if ((this.y - 4) + this.height <= player.y + player.r / 2) {
-                    this.y += 1;
-                }
-            } else {
-                //player run into area edge.
-                if (this.x + 4 >= player.x - player.r / 2) {
                     this.x -= 2;
                 } else if ((this.x - 4) + this.width <= player.x + player.r / 2) {
                     this.x += 2;
@@ -56,6 +48,17 @@ class Floor {
                     this.y -= 2;
                 } else if ((this.y - 4) + this.height <= player.y + player.r / 2) {
                     this.y += 2;
+                }
+            } else {
+                //player run into area edge.
+                if (this.x + 4 >= player.x - player.r / 2) {
+                    this.x -= 3;
+                } else if ((this.x - 4) + this.width <= player.x + player.r / 2) {
+                    this.x += 3;
+                } else if (this.y + 4 >= player.y - player.r / 2) {
+                    this.y -= 3;
+                } else if ((this.y - 4) + this.height <= player.y + player.r / 2) {
+                    this.y += 3;
                 }
             }
         }

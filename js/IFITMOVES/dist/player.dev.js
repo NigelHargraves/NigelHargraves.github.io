@@ -16,6 +16,8 @@ function () {
 
     this.x = x;
     this.y = y;
+    this.shadowX = this.x;
+    this.shadowY = this.y + 10;
     this.velocity = {
       x: 0,
       y: 0
@@ -35,6 +37,12 @@ function () {
     value: function draw() {
       if (playerVisible) {
         ctx.save();
+        ctx.translate(this.shadowX, this.shadowY);
+        ctx.rotate(playerAngle + Math.PI / 2);
+        ctx.globalAlpha = 0.5;
+        ctx.drawImage(playerShadow, 0 - this.r / 2, 0 - this.r / 2, this.r, this.r);
+        ctx.restore();
+        ctx.save();
         ctx.translate(this.x, this.y);
         ctx.rotate(playerAngle + Math.PI / 2);
 
@@ -45,10 +53,6 @@ function () {
         if (playerAngle > Math.PI * 2) {
           playerAngle = 0;
         }
-
-        ctx.globalAlpha = 0.5;
-        ctx.drawImage(playerShadow, 0 - this.r / 2, 0 - this.r / 2, this.r, this.r);
-        ctx.globalAlpha = 1;
 
         if (!moveForward && !fire) {
           ctx.drawImage(playerImage, 8, 0, this.spriteLength, 300, 0 - this.r / 2, 0 - this.r / 2, this.r, this.r);

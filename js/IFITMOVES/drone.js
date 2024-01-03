@@ -15,6 +15,8 @@ class Drone {
         this.droneAimx = 0;
         this.droneAimy = 0;
         this.speed = 60;
+        this.changeSpeed = false;
+        this.speedTimer = 400;
         this.fire = false;
     }
     draw() {
@@ -66,6 +68,24 @@ class Drone {
 
     }
     update() {
+
+
+
+        let speedChange = Math.random();
+        if (speedChange > 0.999 && !this.changeSpeed) {
+            this.changeSpeed = true;
+            this.speed = 20;
+        }
+
+        if (this.changeSpeed) {
+            this.speedTimer -= 1;
+        }
+
+        if (this.speedTimer <= 0) {
+            this.changeSpeed = false;
+            this.speedTimer = 400;
+            this.speed = 60;
+        }
 
         let droneTurn = Math.random();
         if (droneTurn > 0.999 && !this.turn) {

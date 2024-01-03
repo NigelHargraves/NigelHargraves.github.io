@@ -144,6 +144,8 @@ NervousShadow330.src = 'images/IFITMOVES/spider_Idle_Nervous/Idle_Nervous_Shadow
 
 
 //other game images.
+let grassBackground = new Image();
+grassBackground.src = 'images/IFITMOVES/grassBackground.png';
 let stoneFloor = new Image();
 stoneFloor.src = 'images/IFITMOVES/stoneFloorBackground.png';
 let playerImage = new Image();

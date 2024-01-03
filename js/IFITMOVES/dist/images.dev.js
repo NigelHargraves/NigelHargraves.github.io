@@ -130,6 +130,8 @@ NervousShadow315.src = 'images/IFITMOVES/spider_Idle_Nervous/Idle_Nervous_Shadow
 var NervousShadow330 = new Image();
 NervousShadow330.src = 'images/IFITMOVES/spider_Idle_Nervous/Idle_Nervous_Shadow_330.png'; //other game images.
 
+var grassBackground = new Image();
+grassBackground.src = 'images/IFITMOVES/grassBackground.png';
 var stoneFloor = new Image();
 stoneFloor.src = 'images/IFITMOVES/stoneFloorBackground.png';
 var playerImage = new Image();
