@@ -3,14 +3,7 @@
 function init() {
   playerAngle = 0, speed = 10, startCount = 0, backpackItems = 0, switchTimer = 0, materializeNumber = 0, binaryDoorTimer = 2000, guessNumber = Math.floor(Math.random() * 126 + 1), health = 300;
   floor = new Floor(stoneFloor);
-  player = new Player(c.width / 2, c.height / 2);
-
-  for (var i = 0; i < 10; i++) {
-    var droneX = Math.random() * playArea;
-    var droneY = Math.random() * playArea;
-    drones.push(new Drone(droneX, droneY, droneX, droneY + 50));
-  } //top rooms.
-
+  player = new Player(c.width / 2, c.height / 2); //top rooms.
 
   walls.push(new Wall(500, 500, 20, 1000, false)); //vertical.
 
@@ -39,8 +32,8 @@ function init() {
 
   var number = 0;
 
-  for (var _i = 3100; _i <= 3400; _i += 50) {
-    binaryKeys.push(new BinaryKey(_i, 640, number));
+  for (var i = 3100; i <= 3400; i += 50) {
+    binaryKeys.push(new BinaryKey(i, 640, number));
     number += 1;
   } //bottom rooms.
 

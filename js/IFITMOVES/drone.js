@@ -14,6 +14,7 @@ class Drone {
         this.rotorAimy = 0;
         this.droneAimx = 0;
         this.droneAimy = 0;
+        this.speedLimit = 0;
         this.speed = 60;
         this.changeSpeed = false;
         this.speedTimer = 400;
@@ -74,7 +75,7 @@ class Drone {
         let speedChange = Math.random();
         if (speedChange > 0.999 && !this.changeSpeed) {
             this.changeSpeed = true;
-            this.speed = 20;
+            this.speedLimit = (Math.random() * 10) + 10;
         }
 
         if (this.changeSpeed) {
@@ -84,8 +85,21 @@ class Drone {
         if (this.speedTimer <= 0) {
             this.changeSpeed = false;
             this.speedTimer = 400;
-            this.speed = 60;
+            this.speedLimit = (Math.random() * 30) + 30;
         }
+
+        if (this.speed != this.speedLimit) {
+            if (this.speed < this.speedLimit) {
+                this.speed += 0.1;
+            } else {
+                this.speed -= 0.1;
+            }
+        }
+
+
+
+
+
 
         let droneTurn = Math.random();
         if (droneTurn > 0.999 && !this.turn) {
@@ -166,7 +180,7 @@ function forDrone() {
     let laserNotFired = 0;
     drones.forEach((drone, index) => {
         let collide = collisionDetection(player.x - floor.x, player.y - floor.y, player.r, player.r, drone.dronex, drone.droney, 200, 200);
-        if (collide) {
+        if (collide && playerVisible) {
             laserSound.play();
             drone.fire = true;
             laserFlash = true;

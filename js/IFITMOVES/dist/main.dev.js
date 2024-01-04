@@ -19,6 +19,8 @@ var bullets = [],
     drones = []; //Global Variables.
 
 var player, floor, playerAngle, speed, startCount, mx, my, backpackItems, switchTimer, materializeNumber, decimalNumber, guessNumber, binaryDoorTimer, health;
+var userDisplay1 = 960,
+    userDisplay2 = 720;
 var binaryNumber = "",
     numberFromArray = "";
 var numberOut = ["0", "0", "0", "0", "0", "0", "0"]; //booleans.
@@ -79,30 +81,41 @@ function animate() {
   forKey();
   forTrapKey();
   forWall();
-  forBullet(); //create spider.
+  forBullet(); //create drone.
+
+  var createDrone = Math.random();
+
+  if (createDrone > 0.999) {
+    var x = floor.x - c.height;
+    var y = floor.y - c.height;
+    drones.push(new Drone(x, y, x, y + 50));
+  } //create spider.
+
 
   var createSpider = Math.random();
 
-  if (createSpider > 0.997 && portalBuzz.paused) {
-    var x = 200 + Math.random() * (c.height * 4 - 400);
-    var y = 200 + Math.random() * (c.height * 4 - 400);
+  if (createSpider > 0.998 && portalBuzz.paused) {
+    var _x = 200 + Math.random() * (playArea - 400);
+
+    var _y = 200 + Math.random() * (playArea - 400);
+
     var wallNumber = 1;
     walls.forEach(function (wall) {
       //only open portal when portal does not intersect a wall.
-      var hit = collisionDetection(x + floor.x, y + floor.y, 200, 200, wall.x + floor.x, wall.y + floor.y, wall.width / 2, wall.height / 2);
+      var hit = collisionDetection(_x + floor.x, _y + floor.y, 200, 200, wall.x + floor.x, wall.y + floor.y, wall.width / 2, wall.height / 2);
 
       if (hit) {
         return;
       }
 
       if (wallNumber == walls.length) {
-        var playSound = collisionDetection(x, y, 40, 40, player.x - floor.x, player.y - floor.y, c.width / 2, c.height / 2);
+        var playSound = collisionDetection(_x, _y, 40, 40, player.x - floor.x, player.y - floor.y, c.width / 2, c.height / 2);
 
         if (playSound) {
           portalBuzz.play();
         }
 
-        spiderPortals.push(new SpiderPortal(x, y));
+        spiderPortals.push(new SpiderPortal(_x, _y));
       }
 
       wallNumber += 1;
@@ -239,27 +252,44 @@ function animate() {
   } //hud.
 
 
-  ctx.drawImage(backpack, 0, 0, 70, 70);
-  ctx.font = "bold 30px Arial";
+  ctx.drawImage(backpack, 0, 0, c.height * 0.070, c.height * 0.070);
+
+  if (c.height > userDisplay1) {
+    ctx.font = "bold 30px Arial";
+  } else if (c.height > userDisplay2) {
+    ctx.font = "bold 20px Arial";
+  } else {
+    ctx.font = "bold 15px Arial";
+  }
+
   ctx.fillStyle = "black";
-  ctx.fillText("Spiders Alive = " + spiders.length, c.width / 2 - 200, 40);
+  ctx.fillText("Drones = " + drones.length, c.width / 4 + c.height * 0.15, c.height * 0.040);
+  ctx.fillText("Spiders = " + spiders.length, c.width / 2, c.height * 0.040);
 
   if (health > 50) {
-    ctx.fillText("❤️️: ", c.width / 2 + 200, 40);
+    ctx.fillText("❤️️: ", c.width / 2 + c.height * 0.200, c.height * 0.040);
   } else if (health > 0 && health < 50) {
-    ctx.fillText("💔: ", c.width / 2 + 200, 40);
+    ctx.fillText("💔: ", c.width / 2 + c.height * 0.200, c.height * 0.040);
   } else if (health <= 0) {
-    ctx.fillText("💀️: ", c.width / 2 + 200, 40);
+    ctx.fillText("💀️: ", c.width / 2 + c.height * 0.200, c.height * 0.040);
     cancelAnimationFrame(animationID);
   }
 
   ctx.fillStyle = "red";
-  ctx.fillRect(c.width / 2 + 260, 20, health, 25);
+
+  if (c.height > userDisplay1) {
+    ctx.fillRect(c.width / 2 + c.height * 0.260, c.height * 0.020, health, 25);
+  } else if (c.height > userDisplay2) {
+    ctx.fillRect(c.width / 2 + c.height * 0.260, c.height * 0.010, health, 25);
+  } else {
+    ctx.fillRect(c.width / 2 + c.height * 0.260, c.height * 0.005, health, 25);
+  }
   /*
       ctx.fillText("height = " + c.height, (c.width / 2) - 200, 80); //976
       ctx.fillText("width = " + c.width, (c.width / 2) - 200, 120); //1872
   */
   //call next frame.
+
 
   animationId = requestAnimationFrame(animate);
 }

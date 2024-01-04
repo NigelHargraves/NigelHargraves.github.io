@@ -9,12 +9,13 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 var TrapKey =
 /*#__PURE__*/
 function () {
-  function TrapKey(x, y, image) {
+  function TrapKey(x, y, image, imageShadow) {
     _classCallCheck(this, TrapKey);
 
     this.x = x;
     this.y = y;
     this.image = image;
+    this.imageShadow = imageShadow;
     this.teleportTimer = 1;
     this.timer = 0;
   }
@@ -31,6 +32,9 @@ function () {
         }
       }
 
+      ctx.globalAlpha = 0.5;
+      ctx.drawImage(this.imageShadow, floor.x + this.x - 20, floor.y + this.y - 15, 40, 40);
+      ctx.globalAlpha = 1;
       ctx.drawImage(this.image, floor.x + this.x - 20, floor.y + this.y - 20, 40, 40);
     }
   }, {

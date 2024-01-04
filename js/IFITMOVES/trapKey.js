@@ -1,8 +1,9 @@
 class TrapKey {
-    constructor(x, y, image) {
+    constructor(x, y, image, imageShadow) {
         this.x = x;
         this.y = y;
         this.image = image;
+        this.imageShadow = imageShadow;
         this.teleportTimer = 1;
         this.timer = 0;
     }
@@ -14,6 +15,9 @@ class TrapKey {
                 trapKeyTeleport.play();
             }
         }
+        ctx.globalAlpha = 0.5;
+        ctx.drawImage(this.imageShadow, floor.x + this.x - 20, floor.y + this.y - 15, 40, 40);
+        ctx.globalAlpha = 1;
         ctx.drawImage(this.image, floor.x + this.x - 20, floor.y + this.y - 20, 40, 40);
     }
     update() {

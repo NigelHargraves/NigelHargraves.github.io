@@ -20,6 +20,9 @@ function () {
   _createClass(Key, [{
     key: "draw",
     value: function draw() {
+      ctx.globalAlpha = 0.5;
+      ctx.drawImage(keyShadow, floor.x + this.x - 20, floor.y + this.y - 7, 40, 20);
+      ctx.globalAlpha = 1;
       ctx.drawImage(this.image, floor.x + this.x - 20, floor.y + this.y - 10, 40, 20);
     }
   }, {
@@ -47,10 +50,10 @@ function forKey() {
 
       if (key.image == greenKey) {
         gotGreenKey = true;
-        trapKeys.push(new TrapKey(40 + Math.random() * (playArea - 80), 40 + Math.random() * (playArea - 80), orangeTrapKey1));
-        trapKeys.push(new TrapKey(40 + Math.random() * (playArea - 80), 40 + Math.random() * (playArea - 80), orangeTrapKey2));
-        trapKeys.push(new TrapKey(40 + Math.random() * (playArea - 80), 40 + Math.random() * (playArea - 80), orangeTrapKey3));
-        trapKeys.push(new TrapKey(40 + Math.random() * (playArea - 80), 40 + Math.random() * (playArea - 80), orangeTrapKey4));
+        trapKeys.push(new TrapKey(40 + Math.random() * (playArea - 80), 40 + Math.random() * (playArea - 80), orangeTrapKey1, shadowTrapKey1));
+        trapKeys.push(new TrapKey(40 + Math.random() * (playArea - 80), 40 + Math.random() * (playArea - 80), orangeTrapKey2, shadowTrapKey2));
+        trapKeys.push(new TrapKey(40 + Math.random() * (playArea - 80), 40 + Math.random() * (playArea - 80), orangeTrapKey3, shadowTrapKey3));
+        trapKeys.push(new TrapKey(40 + Math.random() * (playArea - 80), 40 + Math.random() * (playArea - 80), orangeTrapKey4, shadowTrapKey4));
       }
 
       if (key.image == turquoiseKey) {
@@ -63,10 +66,10 @@ function forKey() {
 
       if (key.image == pinkKey) {
         gotPinkKey = true;
-        trapKeys.push(new TrapKey(40 + Math.random() * (playArea - 80), 40 + Math.random() * (playArea - 80), greenTrapKey1));
-        trapKeys.push(new TrapKey(40 + Math.random() * (playArea - 80), 40 + Math.random() * (playArea - 80), greenTrapKey2));
-        trapKeys.push(new TrapKey(40 + Math.random() * (playArea - 80), 40 + Math.random() * (playArea - 80), greenTrapKey3));
-        trapKeys.push(new TrapKey(40 + Math.random() * (playArea - 80), 40 + Math.random() * (playArea - 80), greenTrapKey4));
+        trapKeys.push(new TrapKey(40 + Math.random() * (playArea - 80), 40 + Math.random() * (playArea - 80), greenTrapKey1, shadowTrapKey1));
+        trapKeys.push(new TrapKey(40 + Math.random() * (playArea - 80), 40 + Math.random() * (playArea - 80), greenTrapKey2, shadowTrapKey2));
+        trapKeys.push(new TrapKey(40 + Math.random() * (playArea - 80), 40 + Math.random() * (playArea - 80), greenTrapKey3, shadowTrapKey3));
+        trapKeys.push(new TrapKey(40 + Math.random() * (playArea - 80), 40 + Math.random() * (playArea - 80), greenTrapKey4, shadowTrapKey4));
       }
 
       keyCollect.play();

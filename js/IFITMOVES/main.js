@@ -20,6 +20,8 @@ let bullets = [],
 let player, floor, playerAngle, speed, startCount, mx,
     my, backpackItems, switchTimer, materializeNumber, decimalNumber, guessNumber, binaryDoorTimer, health;
 
+let userDisplay1 = 960,
+    userDisplay2 = 720;
 
 let binaryNumber = "",
     numberFromArray = "";
@@ -97,11 +99,23 @@ function animate() {
 
     forBullet();
 
+
+    //create drone.
+    let createDrone = Math.random();
+    if (createDrone > 0.999) {
+        let x = floor.x - c.height;
+        let y = floor.y - c.height;
+        drones.push(new Drone(x, y, x, y + 50));
+    }
+
+
+
+
     //create spider.
     let createSpider = Math.random();
-    if (createSpider > 0.997 && portalBuzz.paused) {
-        let x = 200 + Math.random() * ((c.height * 4) - 400);
-        let y = 200 + Math.random() * ((c.height * 4) - 400);
+    if (createSpider > 0.998 && portalBuzz.paused) {
+        let x = 200 + Math.random() * ((playArea) - 400);
+        let y = 200 + Math.random() * ((playArea) - 400);
         let wallNumber = 1;
         walls.forEach((wall) => {
             //only open portal when portal does not intersect a wall.
@@ -230,20 +244,37 @@ function animate() {
     }
 
     //hud.
-    ctx.drawImage(backpack, 0, 0, 70, 70);
-    ctx.font = "bold 30px Arial";
+    ctx.drawImage(backpack, 0, 0, c.height * 0.070, c.height * 0.070);
+    if (c.height > userDisplay1) {
+        ctx.font = "bold 30px Arial";
+    } else if (c.height > userDisplay2) {
+        ctx.font = "bold 20px Arial";
+    } else {
+        ctx.font = "bold 15px Arial";
+    }
+
     ctx.fillStyle = "black";
-    ctx.fillText("Spiders Alive = " + spiders.length, (c.width / 2) - 200, 40);
+    ctx.fillText("Drones = " + drones.length, (c.width / 4) + c.height * 0.15, c.height * 0.040);
+    ctx.fillText("Spiders = " + spiders.length, (c.width / 2), c.height * 0.040);
+
     if (health > 50) {
-        ctx.fillText("❤️️: ", (c.width / 2) + 200, 40);
+        ctx.fillText("❤️️: ", (c.width / 2) + c.height * 0.200, c.height * 0.040);
     } else if (health > 0 && health < 50) {
-        ctx.fillText("💔: ", (c.width / 2) + 200, 40);
+        ctx.fillText("💔: ", (c.width / 2) + c.height * 0.200, c.height * 0.040);
     } else if (health <= 0) {
-        ctx.fillText("💀️: ", (c.width / 2) + 200, 40);
+        ctx.fillText("💀️: ", (c.width / 2) + c.height * 0.200, c.height * 0.040);
         cancelAnimationFrame(animationID);
     }
     ctx.fillStyle = "red";
-    ctx.fillRect((c.width / 2) + 260, 20, health, 25);
+    if (c.height > userDisplay1) {
+        ctx.fillRect((c.width / 2) + c.height * 0.260, c.height * 0.020, health, 25);
+    } else if (c.height > userDisplay2) {
+        ctx.fillRect((c.width / 2) + c.height * 0.260, c.height * 0.010, health, 25);
+    } else {
+        ctx.fillRect((c.width / 2) + c.height * 0.260, c.height * 0.005, health, 25);
+    }
+
+
 
 
     /*
