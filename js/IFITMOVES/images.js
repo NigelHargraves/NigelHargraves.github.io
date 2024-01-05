@@ -31,6 +31,7 @@ let spiderWalk315 = new Image();
 spiderWalk315.src = 'images/IFITMOVES/spiderWalk/Walk_Body_315.png';
 let spiderWalk330 = new Image();
 spiderWalk330.src = 'images/IFITMOVES/spiderWalk/Walk_Body_330.png';
+
 let spiderWalkShadow0 = new Image();
 spiderWalkShadow0.src = 'images/IFITMOVES/spiderWalk/Walk_Shadow_0.png';
 let spiderWalkShadow30 = new Image();
@@ -63,6 +64,7 @@ let spiderWalkShadow315 = new Image();
 spiderWalkShadow315.src = 'images/IFITMOVES/spiderWalk/Walk_Shadow_315.png';
 let spiderWalkShadow330 = new Image();
 spiderWalkShadow330.src = 'images/IFITMOVES/spiderWalk/Walk_Shadow_330.png';
+
 let Nervous0 = new Image();
 Nervous0.src = 'images/IFITMOVES/spider_Idle_Nervous/Idle_Nervous_Body_0.png';
 let Nervous30 = new Image();
@@ -128,11 +130,73 @@ NervousShadow315.src = 'images/IFITMOVES/spider_Idle_Nervous/Idle_Nervous_Shadow
 let NervousShadow330 = new Image();
 NervousShadow330.src = 'images/IFITMOVES/spider_Idle_Nervous/Idle_Nervous_Shadow_330.png';
 
+let spiderDizzy0 = new Image();
+spiderDizzy0.src = 'images/IFITMOVES/Dizzy/Dizzy_Body_0.png';
+let spiderDizzy30 = new Image();
+spiderDizzy30.src = 'images/IFITMOVES/Dizzy/Dizzy_Body_030.png';
+let spiderDizzy45 = new Image();
+spiderDizzy45.src = 'images/IFITMOVES/Dizzy/Dizzy_Body_045.png';
+let spiderDizzy60 = new Image();
+spiderDizzy60.src = 'images/IFITMOVES/Dizzy/Dizzy_Body_060.png';
+let spiderDizzy90 = new Image();
+spiderDizzy90.src = 'images/IFITMOVES/Dizzy/Dizzy_Body_090.png';
+let spiderDizzy120 = new Image();
+spiderDizzy120.src = 'images/IFITMOVES/Dizzy/Dizzy_Body_120.png';
+let spiderDizzy135 = new Image();
+spiderDizzy135.src = 'images/IFITMOVES/Dizzy/Dizzy_Body_135.png';
+let spiderDizzy150 = new Image();
+spiderDizzy150.src = 'images/IFITMOVES/Dizzy/Dizzy_Body_150.png';
+let spiderDizzy180 = new Image();
+spiderDizzy180.src = 'images/IFITMOVES/Dizzy/Dizzy_Body_180.png';
+let spiderDizzy210 = new Image();
+spiderDizzy210.src = 'images/IFITMOVES/Dizzy/Dizzy_Body_210.png';
+let spiderDizzy225 = new Image();
+spiderDizzy225.src = 'images/IFITMOVES/Dizzy/Dizzy_Body_225.png';
+let spiderDizzy240 = new Image();
+spiderDizzy240.src = 'images/IFITMOVES/Dizzy/Dizzy_Body_240.png';
+let spiderDizzy270 = new Image();
+spiderDizzy270.src = 'images/IFITMOVES/Dizzy/Dizzy_Body_270.png';
+let spiderDizzy300 = new Image();
+spiderDizzy300.src = 'images/IFITMOVES/Dizzy/Dizzy_Body_300.png';
+let spiderDizzy315 = new Image();
+spiderDizzy315.src = 'images/IFITMOVES/Dizzy/Dizzy_Body_315.png';
+let spiderDizzy330 = new Image();
+spiderDizzy330.src = 'images/IFITMOVES/Dizzy/Dizzy_Body_330.png';
 
 
 
-
-
+let spiderDizzyShadow0 = new Image();
+spiderDizzyShadow0.src = 'images/IFITMOVES/Dizzy/Dizzy_Shadow_0.png';
+let spiderDizzyShadow30 = new Image();
+spiderDizzyShadow30.src = 'images/IFITMOVES/Dizzy/Dizzy_Shadow_030.png';
+let spiderDizzyShadow45 = new Image();
+spiderDizzyShadow45.src = 'images/IFITMOVES/Dizzy/Dizzy_Shadow_045.png';
+let spiderDizzyShadow60 = new Image();
+spiderDizzyShadow60.src = 'images/IFITMOVES/Dizzy/Dizzy_Shadow_060.png';
+let spiderDizzyShadow90 = new Image();
+spiderDizzyShadow90.src = 'images/IFITMOVES/Dizzy/Dizzy_Shadow_090.png';
+let spiderDizzyShadow120 = new Image();
+spiderDizzyShadow120.src = 'images/IFITMOVES/Dizzy/Dizzy_Shadow_120.png';
+let spiderDizzyShadow135 = new Image();
+spiderDizzyShadow135.src = 'images/IFITMOVES/Dizzy/Dizzy_Shadow_135.png';
+let spiderDizzyShadow150 = new Image();
+spiderDizzyShadow150.src = 'images/IFITMOVES/Dizzy/Dizzy_Shadow_150.png';
+let spiderDizzyShadow180 = new Image();
+spiderDizzyShadow180.src = 'images/IFITMOVES/Dizzy/Dizzy_Shadow_180.png';
+let spiderDizzyShadow210 = new Image();
+spiderDizzyShadow210.src = 'images/IFITMOVES/Dizzy/Dizzy_Shadow_210.png';
+let spiderDizzyShadow225 = new Image();
+spiderDizzyShadow225.src = 'images/IFITMOVES/Dizzy/Dizzy_Shadow_225.png';
+let spiderDizzyShadow240 = new Image();
+spiderDizzyShadow240.src = 'images/IFITMOVES/Dizzy/Dizzy_Shadow_240.png';
+let spiderDizzyShadow270 = new Image();
+spiderDizzyShadow270.src = 'images/IFITMOVES/Dizzy/Dizzy_Shadow_270.png';
+let spiderDizzyShadow300 = new Image();
+spiderDizzyShadow300.src = 'images/IFITMOVES/Dizzy/Dizzy_Shadow_300.png';
+let spiderDizzyShadow315 = new Image();
+spiderDizzyShadow315.src = 'images/IFITMOVES/Dizzy/Dizzy_Shadow_315.png';
+let spiderDizzyShadow330 = new Image();
+spiderDizzyShadow330.src = 'images/IFITMOVES/Dizzy/Dizzy_Shadow_330.png';
 
 
 
@@ -160,6 +224,8 @@ let playerShadow = new Image();
 playerShadow.src = 'images/IFITMOVES/playerShadow.png';
 let stoneWall = new Image();
 stoneWall.src = 'images/IFITMOVES/wall.png';
+let dizzyStar = new Image();
+dizzyStar.src = 'images/IFITMOVES/dizzyStar.png';
 let telepad = new Image();
 telepad.src = 'images/IFITMOVES/telePad.png';
 let drone = new Image();

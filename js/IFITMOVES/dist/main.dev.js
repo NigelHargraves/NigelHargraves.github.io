@@ -16,7 +16,8 @@ var bullets = [],
     traps = [],
     trapKeys = [],
     binaryKeys = [],
-    drones = []; //Global Variables.
+    drones = [],
+    dizzyStars = []; //Global Variables.
 
 var player, floor, playerAngle, speed, startCount, mx, my, backpackItems, switchTimer, materializeNumber, decimalNumber, guessNumber, binaryDoorTimer, health;
 var userDisplay1 = 960,
@@ -85,7 +86,7 @@ function animate() {
 
   var createDrone = Math.random();
 
-  if (createDrone > 0.999) {
+  if (createDrone > 0.9999) {
     var x = floor.x - c.height;
     var y = floor.y - c.height;
     drones.push(new Drone(x, y, x, y + 50));
@@ -95,9 +96,9 @@ function animate() {
   var createSpider = Math.random();
 
   if (createSpider > 0.998 && portalBuzz.paused) {
-    var _x = 200 + Math.random() * (playArea - 400);
+    var _x = 200 + Math.random() * (playArea - c.height * 0.400);
 
-    var _y = 200 + Math.random() * (playArea - 400);
+    var _y = 200 + Math.random() * (playArea - c.height * 0.400);
 
     var wallNumber = 1;
     walls.forEach(function (wall) {
@@ -130,6 +131,11 @@ function animate() {
     portal.update();
   });
   forSpider();
+
+  if (dizzyStars.length > 0) {
+    forDizzyStars();
+  }
+
   player.update();
   forDoor();
   forDrone();

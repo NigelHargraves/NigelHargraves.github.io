@@ -14,7 +14,8 @@ let bullets = [],
     traps = [],
     trapKeys = [],
     binaryKeys = [],
-    drones = [];
+    drones = [],
+    dizzyStars = [];
 
 //Global Variables.
 let player, floor, playerAngle, speed, startCount, mx,
@@ -25,6 +26,9 @@ let userDisplay1 = 960,
 
 let binaryNumber = "",
     numberFromArray = "";
+
+
+
 
 
 let numberOut = ["0", "0", "0", "0", "0", "0", "0"];
@@ -102,7 +106,7 @@ function animate() {
 
     //create drone.
     let createDrone = Math.random();
-    if (createDrone > 0.999) {
+    if (createDrone > 0.9999) {
         let x = floor.x - c.height;
         let y = floor.y - c.height;
         drones.push(new Drone(x, y, x, y + 50));
@@ -114,8 +118,8 @@ function animate() {
     //create spider.
     let createSpider = Math.random();
     if (createSpider > 0.998 && portalBuzz.paused) {
-        let x = 200 + Math.random() * ((playArea) - 400);
-        let y = 200 + Math.random() * ((playArea) - 400);
+        let x = 200 + Math.random() * ((playArea) - c.height * 0.400);
+        let y = 200 + Math.random() * ((playArea) - c.height * 0.400);
         let wallNumber = 1;
         walls.forEach((wall) => {
             //only open portal when portal does not intersect a wall.
@@ -142,6 +146,10 @@ function animate() {
     });
 
     forSpider();
+    if (dizzyStars.length > 0) {
+        forDizzyStars();
+    }
+
 
     player.update();
 

@@ -38,6 +38,8 @@ class Floor {
             this.x -= player.aimx / speed;
             this.y -= player.aimy / speed;
 
+
+
             //player walk into area edge.
             if (!run) {
                 if (this.x + 4 >= player.x - player.r / 2) {

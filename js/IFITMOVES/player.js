@@ -21,11 +21,7 @@ class Player {
 
     //draw player.
     draw() {
-
-
         if (playerVisible) {
-
-
 
             ctx.save();
             ctx.translate(this.shadowX, this.shadowY);
@@ -33,12 +29,6 @@ class Player {
             ctx.globalAlpha = 0.5;
             ctx.drawImage(playerShadow, 0 - this.r / 2, 0 - this.r / 2, this.r, this.r);
             ctx.restore();
-
-
-
-
-
-
 
             ctx.save();
             ctx.translate(this.x, this.y);
@@ -49,12 +39,6 @@ class Player {
             if (playerAngle > Math.PI * 2) {
                 playerAngle = 0;
             }
-
-
-
-
-
-
 
             if (!moveForward && !fire) {
 
@@ -74,9 +58,6 @@ class Player {
                     this.rotate = 30;
                 }
             }
-
-
-
 
             if (moveForward && !fire) {
                 if (this.walk >= 30) {
@@ -121,8 +102,6 @@ class Player {
                     ctx.drawImage(playerImage, this.spriteLength * 6, 0, this.spriteLength, 300, 0 - this.r / 2, 0 - this.r / 2, this.r, this.r);
                 }
 
-
-
                 if (this.fire >= 0 && this.fire < 6) {
                     ctx.drawImage(playerImage, this.spriteLength * 5, 0, this.spriteLength, 300, 0 - this.r / 2, 0 - this.r / 2, this.r, this.r);
                 }
@@ -166,10 +145,6 @@ class Player {
             this.aimx = this.r * Math.cos(playerAngle) / 5;
             this.aimy = this.r * Math.sin(playerAngle) / 5;
 
-
-
-
-
             //calc angle to aim point
             let angles = Math.atan2(this.aimy - this.y, this.aimx - this.x);
 
@@ -178,10 +153,6 @@ class Player {
                         this.velocity.x = (Math.cos(angles) * 1);
                         this.velocity.y = (Math.sin(angles) * 1);
             */
-
-
-
-
 
             //what sound to play.
             if (moveForward) {
@@ -214,8 +185,6 @@ class Player {
                 switchIsOn.play();
                 switchDoorOn = false;
             }
-
-
         }
 
         this.draw();
