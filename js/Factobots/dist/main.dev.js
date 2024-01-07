@@ -12,9 +12,10 @@ var cameraCenter = {
 //global variables.
 
 var ground, mouseX, mouseY;
+var groundX;
+var groundY;
 var cameraSpeed = 10,
-    scaleX = 1,
-    scaleY = 1;
+    scale = 1;
 var burn = {
   x: Math.random() * playArea,
   y: Math.random() * playArea
@@ -38,7 +39,8 @@ var moveLeft = false,
     moveDown = false,
     moveFaster = false,
     zoom = false,
-    zoomOnce = false;
+    resetZoom = false,
+    saveGroundPosition = true;
 
 function animate() {
   //CLS.
@@ -46,8 +48,7 @@ function animate() {
   ctx.fillRect(0, 0, c.width, c.height);
   ground.update();
   ctx.font = "bold 30px Arial";
-  ctx.fillStyle = "white";
-  ctx.fillText("zoom = " + zoomOnce, 100, 100); //call next frame.
+  ctx.fillStyle = "white"; //call next frame.
 
   animationId = requestAnimationFrame(animate);
 }
@@ -94,12 +95,39 @@ window.addEventListener("keyup", function (e) {
     moveFaster = false;
   }
 });
-var scrollPosition = 0;
-var lastKnownScrollPosition = 0;
+
+function checkScrollDirection(event) {
+  if (checkScrollDirectionIsUp(event)) {
+    if (saveGroundPosition) {
+      groundX = ground.x;
+      groundY = ground.y;
+      saveGroundPosition = false;
+    }
+
+    scale += c.height / 100000;
+    ground.x -= scale * 40000 / c.height;
+    ground.y -= scale * 40000 / c.height;
+    zoom = true;
+  } else {
+    resetZoom = true;
+    saveGroundPosition = false;
+    ground.x = groundX;
+    ground.y = groundY;
+  }
+}
+
+function checkScrollDirectionIsUp(event) {
+  if (event.wheelDelta) {
+    return event.wheelDelta > 0;
+  }
+
+  return event.deltaY < 0;
+}
+
+window.addEventListener("wheel", checkScrollDirection);
 window.addEventListener("mousemove", function (e) {
   mouseX = e.x;
   mouseY = e.y;
 });
-window.addEventListener("wheel", function (e) {});
 initialize();
 animate();

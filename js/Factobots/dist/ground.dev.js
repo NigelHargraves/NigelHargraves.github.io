@@ -20,12 +20,22 @@ function () {
   _createClass(Ground, [{
     key: "draw",
     value: function draw() {
-      ctx.scale(scaleX, scaleY);
+      if (zoom) {
+        ctx.scale(scale, scale);
+        zoom = false;
+      }
+
+      if (resetZoom) {
+        ctx.reset();
+        scale = 1;
+        resetZoom = false;
+      }
+
       ctx.drawImage(grass, this.x, this.y, this.size, this.size);
-      ctx.drawImage(burnium, this.x + burn.x, this.y + burn.y, 10, 10);
-      ctx.drawImage(hardiumOre, this.x + hardOre.x, this.y + hardOre.y, 10, 10);
-      ctx.drawImage(ouzeidBase, this.x + ouzeBase.x, this.y + ouzeBase.y, 10, 10);
-      ctx.drawImage(lifeid, this.x + life.x, this.y + life.y, 10, 10);
+      ctx.drawImage(burnium, this.x + burn.x, this.y + burn.y, 50, 50);
+      ctx.drawImage(hardiumOre, this.x + hardOre.x, this.y + hardOre.y, 50, 50);
+      ctx.drawImage(ouzeidBase, this.x + ouzeBase.x, this.y + ouzeBase.y, 50, 50);
+      ctx.drawImage(lifeid, this.x + life.x, this.y + life.y, 50, 50);
     }
   }, {
     key: "update",
