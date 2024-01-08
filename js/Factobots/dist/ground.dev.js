@@ -25,12 +25,6 @@ function () {
         zoom = false;
       }
 
-      if (resetZoom) {
-        ctx.reset();
-        scale = 1;
-        resetZoom = false;
-      }
-
       ctx.drawImage(grass, this.x, this.y, this.size, this.size);
       ctx.drawImage(burnium, this.x + burn.x, this.y + burn.y, 50, 50);
       ctx.drawImage(hardiumOre, this.x + hardOre.x, this.y + hardOre.y, 50, 50);

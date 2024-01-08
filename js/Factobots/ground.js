@@ -12,11 +12,9 @@ class Ground {
             zoom = false;
         }
 
-        if (resetZoom) {
-            ctx.reset();
-            scale = 1;
-            resetZoom = false;
-        }
+
+
+
 
 
 

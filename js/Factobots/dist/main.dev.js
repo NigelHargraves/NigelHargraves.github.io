@@ -40,7 +40,8 @@ var moveLeft = false,
     moveFaster = false,
     zoom = false,
     resetZoom = false,
-    saveGroundPosition = true;
+    openBuildMenu = false,
+    displayOnce = false;
 
 function animate() {
   //CLS.
@@ -48,7 +49,24 @@ function animate() {
   ctx.fillRect(0, 0, c.width, c.height);
   ground.update();
   ctx.font = "bold 30px Arial";
-  ctx.fillStyle = "white"; //call next frame.
+  ctx.fillStyle = "white";
+
+  if (openBuildMenu) {
+    buildMenu.style.display = "block";
+    buildMenu.style.left = c.width / 4 + "px";
+    buildMenu.style.top = c.height / 8 + "px";
+    buildMenu.style.width = c.width / 2 + "px";
+    buildMenu.style.height = c.height / 1.5 + "px";
+
+    if (!displayOnce) {
+      buildMenu.innerText = 'BUILD MENU \n Empty';
+      displayOnce = true;
+    }
+  } else {
+    buildMenu.style.display = "none";
+    displayOnce = false;
+  } //call next frame.
+
 
   animationId = requestAnimationFrame(animate);
 }
@@ -73,6 +91,10 @@ window.addEventListener("keydown", function (e) {
   if (e.keyCode == 16) {
     moveFaster = true;
   }
+
+  if (e.keyCode == 66) {
+    openBuildMenu = true;
+  }
 });
 window.addEventListener("keyup", function (e) {
   if (e.keyCode == 37 || e.keyCode == 65) {
@@ -94,25 +116,18 @@ window.addEventListener("keyup", function (e) {
   if (e.keyCode == 16) {
     moveFaster = false;
   }
+
+  if (e.keyCode == 27) {
+    openBuildMenu = false;
+  }
 });
 
 function checkScrollDirection(event) {
   if (checkScrollDirectionIsUp(event)) {
-    if (saveGroundPosition) {
-      groundX = ground.x;
-      groundY = ground.y;
-      saveGroundPosition = false;
-    }
-
     scale += c.height / 100000;
-    ground.x -= scale * 40000 / c.height;
-    ground.y -= scale * 40000 / c.height;
     zoom = true;
   } else {
-    resetZoom = true;
-    saveGroundPosition = false;
-    ground.x = groundX;
-    ground.y = groundY;
+    ctx.reset();
   }
 }
 
