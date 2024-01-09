@@ -31,6 +31,9 @@ function () {
     this.changeSpeed = false;
     this.speedTimer = 400;
     this.fire = false;
+    this.damage = 110;
+    this.damageTimer = 100;
+    this.showDamage = false;
   }
 
   _createClass(Drone, [{
@@ -72,6 +75,17 @@ function () {
       ctx.lineTo(-20 + this.rotorAimx, 20 + this.rotorAimy);
       ctx.stroke();
       ctx.restore();
+
+      if (this.showDamage) {
+        ctx.fillStyle = "red";
+        ctx.fillRect(floor.x + this.dronex - this.size / 2, floor.y + this.droney - this.size / 2, this.damage, 10);
+        this.damageTimer -= 1;
+      }
+
+      if (this.damageTimer <= 0) {
+        this.showDamage = false;
+        this.damageTimer = 100;
+      }
     }
   }, {
     key: "update",

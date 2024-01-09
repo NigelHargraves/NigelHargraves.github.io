@@ -62,6 +62,28 @@ function forBullet() {
         spiders.splice(index2, 1);
       }
     });
+    drones.forEach(function (drone, index2) {
+      var hit = collisionDetection(bullet.x, bullet.y, bullet.r, bullet.r, drone.dronex + floor.x, drone.droney + floor.y, drone.size / 2, drone.size / 2); //kill spider.
+
+      if (hit) {
+        //only play splat sound when in view.
+        var playSound = collisionDetection(drone.dronex, drone.droney, drone.size / 2, drone.size / 2, player.x - floor.x, player.y - floor.y, c.width / 2, c.height / 2);
+
+        if (playSound) {
+          droneImpact.currentTime = 0;
+          droneImpact.play();
+        }
+
+        if (drone.damage <= 10) {
+          droneInView = false;
+          drones.splice(index2, 1);
+        } else {
+          drone.damage -= 10;
+          drone.showDamage = true;
+          bullets.splice(index1, 1);
+        }
+      }
+    });
     walls.forEach(function (wall) {
       var hit = collisionDetection(bullet.x, bullet.y, bullet.r, bullet.r, wall.x + floor.x, wall.y + floor.y, wall.width / 2, wall.height / 2); //hit wall.
 

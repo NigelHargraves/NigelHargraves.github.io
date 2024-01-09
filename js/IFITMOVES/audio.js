@@ -24,3 +24,4 @@ let binaryDoorCorrect = document.getElementById("audio22");
 let binaryDoorSwitchOn = document.getElementById("audio23");
 let droneNoise = document.getElementById("audio24");
 let laserSound = document.getElementById("audio25");
+let droneImpact = document.getElementById("audio26");
