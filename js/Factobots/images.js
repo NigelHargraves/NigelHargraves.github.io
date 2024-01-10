@@ -8,3 +8,6 @@ let ouzeidBase = new Image();
 ouzeidBase.src = 'images/Factobots/ouzeidBase.png';
 let lifeid = new Image();
 lifeid.src = 'images/Factobots/lifeid.png';
+
+let wand = new Animation();
+wand.src = 'images/Factobots/wand.gif';

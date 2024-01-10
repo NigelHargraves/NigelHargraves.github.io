@@ -49,7 +49,7 @@ function animate() {
   ctx.fillRect(0, 0, c.width, c.height);
   ground.update();
   ctx.font = "bold 30px Arial";
-  ctx.fillStyle = "white";
+  ctx.fillStyle = "white"; //ctx.draw(wand, 100, 100, 100, 100);
 
   if (openBuildMenu) {
     buildMenu.style.display = "block";

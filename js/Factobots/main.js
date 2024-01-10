@@ -51,6 +51,7 @@ function animate() {
 
 
 
+    //ctx.draw(wand, 100, 100, 100, 100);
 
 
     if (openBuildMenu) {
