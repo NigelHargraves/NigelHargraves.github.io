@@ -22,3 +22,17 @@
     box-shadow: -10px -10px 30px 5px maroon, 10px 10px 30px 5px maroon;
     font: bold 20px Arial;
 }
+
+#inventMenu {
+    position: absolute;
+    display: none;
+    background: black;
+    border-radius: 30px;
+    padding: 10px;
+    border: 10px;
+    color: aliceblue;
+    border-style: solid;
+    border-color: silver;
+    box-shadow: -10px -10px 30px 5px maroon, 10px 10px 30px 5px maroon;
+    font: bold 20px Arial;
+}

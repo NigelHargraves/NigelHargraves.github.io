@@ -86,7 +86,7 @@ function animate() {
 
   var createDrone = Math.random();
 
-  if (createDrone > 0.99) {
+  if (createDrone > 0.9998) {
     var x = floor.x - c.height;
     var y = floor.y - c.height;
     drones.push(new Drone(x, y, x, y + 50));

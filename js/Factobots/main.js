@@ -17,10 +17,10 @@ let cameraSpeed = 10,
     scale = 1;
 
 
-let burn = { x: Math.random() * playArea, y: Math.random() * playArea },
-    hardOre = { x: Math.random() * playArea, y: Math.random() * playArea },
-    ouzeBase = { x: Math.random() * playArea, y: Math.random() * playArea },
-    life = { x: Math.random() * playArea, y: Math.random() * playArea };
+let burn = { x: Math.random() * playArea, y: Math.random() * playArea, resourceSize: c.height * 0.050 },
+    hardOre = { x: Math.random() * playArea, y: Math.random() * playArea, resourceSize: c.height * 0.050 },
+    ouzeBase = { x: Math.random() * playArea, y: Math.random() * playArea, resourceSize: c.height * 0.050 },
+    life = { x: Math.random() * playArea, y: Math.random() * playArea, resourceSize: c.height * 0.050 };
 
 
 //booleans
@@ -32,7 +32,9 @@ let moveLeft = false,
     zoom = false,
     resetZoom = false,
     openBuildMenu = false,
-    displayOnce = false;
+    openInventMenu = false,
+    displayBuildOnce = false,
+    displayInventOnce = false;
 
 
 
@@ -50,9 +52,18 @@ function animate() {
     ctx.fillStyle = "white";
 
 
+    //mine burnium.
+    let readyToMine = collisionDetection(ground.x + mouseX, ground.y + mouseY, 100, 100, ground.x + burn.x, ground.y + burn.y, burn.resourceSize / 2, burn.resourceSize / 2);
+    if (readyToMine) {
+        ctx.drawImage(buildHammer, mouse.x, mouse.y, c.height * 0.200, c.height * 0.200);
+    }
 
-    //ctx.draw(wand, 100, 100, 100, 100);
-
+    readyToMine = false;
+    //mine hardium ore.
+    readyToMine = collisionDetection(ground.x + mouseX, ground.y + mouseY, 100, 100, ground.x + hardOre.x, ground.y + hardOre.y, hardOre.resourceSize / 2, hardOre.resourceSize / 2);
+    if (readyToMine) {
+        ctx.drawImage(buildHammer, mouse.x, mouse.y, c.height * 0.200, c.height * 0.200);
+    }
 
     if (openBuildMenu) {
         buildMenu.style.display = "block";
@@ -60,25 +71,29 @@ function animate() {
         buildMenu.style.top = c.height / 8 + "px";
         buildMenu.style.width = c.width / 2 + "px";
         buildMenu.style.height = c.height / 1.5 + "px";
-
-
-        if (!displayOnce) {
-
+        if (!displayBuildOnce) {
             buildMenu.innerText = 'BUILD MENU \n Empty';
-
-
-
-
-            displayOnce = true;
-
+            displayBuildOnce = true;
         }
-
     } else {
         buildMenu.style.display = "none";
-        displayOnce = false;
+        displayBuildOnce = false;
     }
 
-
+    if (openInventMenu) {
+        inventMenu.style.display = "block";
+        inventMenu.style.right = c.width / 20 + "px";
+        inventMenu.style.top = c.height / 8 + "px";
+        inventMenu.style.width = c.width / 8 + "px";
+        inventMenu.style.height = c.height / 1.5 + "px";
+        if (!displayInventOnce) {
+            inventMenu.innerText = 'Inventry \n Empty';
+            displayInventOnce = true;
+        }
+    } else {
+        inventMenu.style.display = "none";
+        displayInventOnce = false;
+    }
 
 
 
@@ -105,7 +120,18 @@ window.addEventListener("keydown", (e) => {
         moveFaster = true;
     }
     if (e.keyCode == 66) {
-        openBuildMenu = true;
+        if (!openBuildMenu) {
+            openBuildMenu = true;
+        } else {
+            openBuildMenu = false;
+        }
+    }
+    if (e.keyCode == 73) {
+        if (!openInventMenu) {
+            openInventMenu = true;
+        } else {
+            openInventMenu = false;
+        }
     }
 });
 
@@ -127,6 +153,7 @@ window.addEventListener("keyup", (e) => {
     }
     if (e.keyCode == 27) {
         openBuildMenu = false;
+        openInventMenu = false;
     }
 });
 

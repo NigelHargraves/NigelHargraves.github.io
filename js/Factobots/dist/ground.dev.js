@@ -15,6 +15,7 @@ function () {
     this.x = x;
     this.y = y;
     this.size = playArea;
+    this.resourceSize = c.height * 0.050;
   }
 
   _createClass(Ground, [{
@@ -26,10 +27,10 @@ function () {
       }
 
       ctx.drawImage(grass, this.x, this.y, this.size, this.size);
-      ctx.drawImage(burnium, this.x + burn.x, this.y + burn.y, 50, 50);
-      ctx.drawImage(hardiumOre, this.x + hardOre.x, this.y + hardOre.y, 50, 50);
-      ctx.drawImage(ouzeidBase, this.x + ouzeBase.x, this.y + ouzeBase.y, 50, 50);
-      ctx.drawImage(lifeid, this.x + life.x, this.y + life.y, 50, 50);
+      ctx.drawImage(burnium, this.x + burn.x - this.resourceSize / 2, this.y + burn.y - this.resourceSize / 2, this.resourceSize, this.resourceSize);
+      ctx.drawImage(hardiumOre, this.x + hardOre.x - this.resourceSize / 2, this.y + hardOre.y - this.resourceSize / 2, this.resourceSize, this.resourceSize);
+      ctx.drawImage(ouzeidBase, this.x + ouzeBase.x - this.resourceSize / 2, this.y + ouzeBase.y - this.resourceSize / 2, this.resourceSize, this.resourceSize);
+      ctx.drawImage(lifeid, this.x + life.x - this.resourceSize / 2, this.y + life.y - this.resourceSize / 2, this.resourceSize, this.resourceSize);
     }
   }, {
     key: "update",

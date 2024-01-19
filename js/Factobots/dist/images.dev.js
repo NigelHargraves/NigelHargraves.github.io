@@ -10,5 +10,5 @@ var ouzeidBase = new Image();
 ouzeidBase.src = 'images/Factobots/ouzeidBase.png';
 var lifeid = new Image();
 lifeid.src = 'images/Factobots/lifeid.png';
-var wand = new Animation();
-wand.src = 'images/Factobots/wand.gif';
+var buildHammer = new Image();
+buildHammer.src = 'images/Factobots/buildHammer.png';
