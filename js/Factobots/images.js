@@ -10,3 +10,5 @@ let lifeid = new Image();
 lifeid.src = 'images/Factobots/lifeid.png';
 let buildHammer = new Image();
 buildHammer.src = 'images/Factobots/buildHammer.png';
+let pickAxe = new Image();
+pickAxe.src = 'images/Factobots/pickAxe.png';

@@ -12,3 +12,5 @@ var lifeid = new Image();
 lifeid.src = 'images/Factobots/lifeid.png';
 var buildHammer = new Image();
 buildHammer.src = 'images/Factobots/buildHammer.png';
+var pickAxe = new Image();
+pickAxe.src = 'images/Factobots/pickAxe.png';

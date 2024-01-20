@@ -2,13 +2,23 @@
 const ctx = c.getContext("2d");
 c.width = window.innerWidth;
 c.height = window.innerHeight;
+let pointerStyle = document.getElementById("c");
 let playArea = 10000;
-let cameraCenter = { x: c.width / 2, y: c.height / 2 }
-    //arrays.
+let cameraCenter = { x: c.width / 2, y: c.height / 2 },
+    mouse = { x: 0, y: 0 };
+
+
+
+
+
+
+
+
+//arrays.
 
 
 //global variables.
-let ground, mouseX, mouseY;
+let ground;
 
 let groundX;
 let groundY;
@@ -50,20 +60,14 @@ function animate() {
 
     ctx.font = "bold 30px Arial";
     ctx.fillStyle = "white";
+    ctx.fillText("Burnium.x = " + burn.x, (c.width / 2), c.height * 0.040);
+    ctx.fillText("Burnium.y = " + burn.y, (c.width / 2), c.height * 0.080);
+    ctx.fillText("mouse.x = " + ((ground.x * -1) + mouse.x), (c.width / 2), c.height * 0.120);
+    ctx.fillText("mouse.y = " + ((ground.y * -1) + mouse.y), (c.width / 2), c.height * 0.160);
 
 
-    //mine burnium.
-    let readyToMine = collisionDetection(ground.x + mouseX, ground.y + mouseY, 100, 100, ground.x + burn.x, ground.y + burn.y, burn.resourceSize / 2, burn.resourceSize / 2);
-    if (readyToMine) {
-        ctx.drawImage(buildHammer, mouse.x, mouse.y, c.height * 0.200, c.height * 0.200);
-    }
+    handMine();
 
-    readyToMine = false;
-    //mine hardium ore.
-    readyToMine = collisionDetection(ground.x + mouseX, ground.y + mouseY, 100, 100, ground.x + hardOre.x, ground.y + hardOre.y, hardOre.resourceSize / 2, hardOre.resourceSize / 2);
-    if (readyToMine) {
-        ctx.drawImage(buildHammer, mouse.x, mouse.y, c.height * 0.200, c.height * 0.200);
-    }
 
     if (openBuildMenu) {
         buildMenu.style.display = "block";
@@ -179,8 +183,8 @@ window.addEventListener("wheel", checkScrollDirection);
 
 
 window.addEventListener("mousemove", function(e) {
-    mouseX = e.x;
-    mouseY = e.y;
+    mouse.x = e.x;
+    mouse.y = e.y;
 });
 
 
