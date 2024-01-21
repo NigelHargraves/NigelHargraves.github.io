@@ -20,7 +20,10 @@ var ground;
 var groundX;
 var groundY;
 var cameraSpeed = 10,
-    scale = 1;
+    scale = 1,
+    mineAngle = 0,
+    inventryItems = 0,
+    burniumOreAmount = 0;
 var burn = {
   x: Math.random() * playArea,
   y: Math.random() * playArea,
@@ -52,7 +55,9 @@ var moveLeft = false,
     openBuildMenu = false,
     openInventMenu = false,
     displayBuildOnce = false,
-    displayInventOnce = false;
+    displayInventOnce = false,
+    startHandMine = false,
+    swingDown = false;
 
 function animate() {
   //CLS.
@@ -83,22 +88,7 @@ function animate() {
     displayBuildOnce = false;
   }
 
-  if (openInventMenu) {
-    inventMenu.style.display = "block";
-    inventMenu.style.right = c.width / 20 + "px";
-    inventMenu.style.top = c.height / 8 + "px";
-    inventMenu.style.width = c.width / 8 + "px";
-    inventMenu.style.height = c.height / 1.5 + "px";
-
-    if (!displayInventOnce) {
-      inventMenu.innerText = 'Inventry \n Empty';
-      displayInventOnce = true;
-    }
-  } else {
-    inventMenu.style.display = "none";
-    displayInventOnce = false;
-  } //call next frame.
-
+  inventryUpdate(); //call next frame.
 
   animationId = requestAnimationFrame(animate);
 }
@@ -188,6 +178,12 @@ window.addEventListener("wheel", checkScrollDirection);
 window.addEventListener("mousemove", function (e) {
   mouse.x = e.x;
   mouse.y = e.y;
+});
+window.addEventListener("mousedown", function (e) {
+  startHandMine = true;
+});
+window.addEventListener("mouseup", function (e) {
+  startHandMine = false;
 });
 initialize();
 animate();

@@ -24,7 +24,10 @@ let groundX;
 let groundY;
 
 let cameraSpeed = 10,
-    scale = 1;
+    scale = 1,
+    mineAngle = 0,
+    inventryItems = 0,
+    burniumOreAmount = 0;
 
 
 let burn = { x: Math.random() * playArea, y: Math.random() * playArea, resourceSize: c.height * 0.050 },
@@ -44,7 +47,9 @@ let moveLeft = false,
     openBuildMenu = false,
     openInventMenu = false,
     displayBuildOnce = false,
-    displayInventOnce = false;
+    displayInventOnce = false,
+    startHandMine = false,
+    swingDown = false;
 
 
 
@@ -76,7 +81,9 @@ function animate() {
         buildMenu.style.width = c.width / 2 + "px";
         buildMenu.style.height = c.height / 1.5 + "px";
         if (!displayBuildOnce) {
+
             buildMenu.innerText = 'BUILD MENU \n Empty';
+
             displayBuildOnce = true;
         }
     } else {
@@ -84,20 +91,7 @@ function animate() {
         displayBuildOnce = false;
     }
 
-    if (openInventMenu) {
-        inventMenu.style.display = "block";
-        inventMenu.style.right = c.width / 20 + "px";
-        inventMenu.style.top = c.height / 8 + "px";
-        inventMenu.style.width = c.width / 8 + "px";
-        inventMenu.style.height = c.height / 1.5 + "px";
-        if (!displayInventOnce) {
-            inventMenu.innerText = 'Inventry \n Empty';
-            displayInventOnce = true;
-        }
-    } else {
-        inventMenu.style.display = "none";
-        displayInventOnce = false;
-    }
+    inventryUpdate();
 
 
 
@@ -187,8 +181,13 @@ window.addEventListener("mousemove", function(e) {
     mouse.y = e.y;
 });
 
+window.addEventListener("mousedown", function(e) {
+    startHandMine = true;
+});
 
-
+window.addEventListener("mouseup", function(e) {
+    startHandMine = false;
+});
 
 
 
