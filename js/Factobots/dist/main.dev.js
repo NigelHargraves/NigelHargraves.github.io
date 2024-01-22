@@ -22,8 +22,10 @@ var groundY;
 var cameraSpeed = 10,
     scale = 1,
     mineAngle = 0,
-    inventryItems = 0,
-    burniumOreAmount = 0;
+    inventryItems = 50,
+    burniumOreAmount = 0,
+    hardiumOreAmount = 0,
+    hardiumBilletAmount = 50;
 var burn = {
   x: Math.random() * playArea,
   y: Math.random() * playArea,
@@ -66,28 +68,15 @@ function animate() {
   ground.update();
   ctx.font = "bold 30px Arial";
   ctx.fillStyle = "white";
-  ctx.fillText("Burnium.x = " + burn.x, c.width / 2, c.height * 0.040);
-  ctx.fillText("Burnium.y = " + burn.y, c.width / 2, c.height * 0.080);
-  ctx.fillText("mouse.x = " + (ground.x * -1 + mouse.x), c.width / 2, c.height * 0.120);
-  ctx.fillText("mouse.y = " + (ground.y * -1 + mouse.y), c.width / 2, c.height * 0.160);
+  /*
+  ctx.fillText("Burnium.x = " + burn.x, (c.width / 2), c.height * 0.040);
+  ctx.fillText("Burnium.y = " + burn.y, (c.width / 2), c.height * 0.080);
+  ctx.fillText("mouse.x = " + ((ground.x * -1) + mouse.x), (c.width / 2), c.height * 0.120);
+  ctx.fillText("mouse.y = " + ((ground.y * -1) + mouse.y), (c.width / 2), c.height * 0.160);
+  */
+
   handMine();
-
-  if (openBuildMenu) {
-    buildMenu.style.display = "block";
-    buildMenu.style.left = c.width / 4 + "px";
-    buildMenu.style.top = c.height / 8 + "px";
-    buildMenu.style.width = c.width / 2 + "px";
-    buildMenu.style.height = c.height / 1.5 + "px";
-
-    if (!displayBuildOnce) {
-      buildMenu.innerText = 'BUILD MENU \n Empty';
-      displayBuildOnce = true;
-    }
-  } else {
-    buildMenu.style.display = "none";
-    displayBuildOnce = false;
-  }
-
+  build();
   inventryUpdate(); //call next frame.
 
   animationId = requestAnimationFrame(animate);
@@ -184,6 +173,9 @@ window.addEventListener("mousedown", function (e) {
 });
 window.addEventListener("mouseup", function (e) {
   startHandMine = false;
+});
+buildMenu.addEventListener("onmouseover", function (e) {
+  pointerStyle.style.cursor = "grab";
 });
 initialize();
 animate();

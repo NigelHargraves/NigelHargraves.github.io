@@ -13,6 +13,12 @@ function inventryUpdate() {
                 if (burniumOreAmount > 0) {
                     inventMenu.innerText += 'Burnium Ore : ' + burniumOreAmount + ' \n';
                 }
+                if (hardiumOreAmount > 0) {
+                    inventMenu.innerText += 'Hardium Ore : ' + hardiumOreAmount + ' \n';
+                }
+                if (hardiumBilletAmount > 0) {
+                    inventMenu.innerText += 'Hardium Billet : ' + hardiumBilletAmount + ' \n';
+                }
             }
             displayInventOnce = true;
         }
