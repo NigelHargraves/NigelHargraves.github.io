@@ -257,7 +257,9 @@ keyHolefootpad.src = 'images/IFITMOVES/keyHoleFootpad.png';
 var keyHolefootpadOpen = new Image();
 keyHolefootpadOpen.src = 'images/IFITMOVES/keyHoleFootpadOpen.png';
 var laserHit = new Image();
-laserHit.src = 'images/IFITMOVES/laserHit.png'; //trap images.
+laserHit.src = 'images/IFITMOVES/laserHit.png';
+var bullet = new Image();
+bullet.src = 'images/IFITMOVES/bullet.png'; //trap images.
 
 var greenTrapBaseImage = new Image();
 greenTrapBaseImage.src = 'images/IFITMOVES/greenTrapBaseImage.png';

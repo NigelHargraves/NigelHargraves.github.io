@@ -15,11 +15,14 @@ let bullets = [],
     trapKeys = [],
     binaryKeys = [],
     drones = [],
-    dizzyStars = [];
+    dizzyStars = [],
+    munitions = [];
 
 //Global Variables.
 let player, floor, playerAngle, speed, startCount, mx,
-    my, backpackItems, switchTimer, materializeNumber, decimalNumber, guessNumber, binaryDoorTimer, health;
+    my, backpackItems, switchTimer, materializeNumber,
+    decimalNumber, guessNumber, binaryDoorTimer, health,
+    bulletAmount;
 
 let userDisplay1 = 960,
     userDisplay2 = 720;
@@ -102,6 +105,8 @@ function animate() {
     forWall();
 
     forBullet();
+
+    createAmmo();
 
 
     //create drone.
@@ -262,6 +267,8 @@ function animate() {
     }
 
     ctx.fillStyle = "black";
+    ctx.drawImage(bullet, c.width * 0.100, 0, c.height * 0.050, c.height * 0.060);
+    ctx.fillText(" = " + bulletAmount, (c.width / 8), c.height * 0.040);
     ctx.fillText("Drones = " + drones.length, (c.width / 4) + c.height * 0.15, c.height * 0.040);
     ctx.fillText("Spiders = " + spiders.length, (c.width / 2), c.height * 0.040);
 
@@ -318,7 +325,10 @@ window.addEventListener("keydown", (e) => {
         openBackpack = true;
     }
     if (e.keyCode == 32 && !fire && player.fire == 10) {
-        fire = true;
+        if (bulletAmount > 0) {
+            fire = true;
+            bulletAmount -= 1;
+        }
     }
 });
 

@@ -17,9 +17,10 @@ var bullets = [],
     trapKeys = [],
     binaryKeys = [],
     drones = [],
-    dizzyStars = []; //Global Variables.
+    dizzyStars = [],
+    munitions = []; //Global Variables.
 
-var player, floor, playerAngle, speed, startCount, mx, my, backpackItems, switchTimer, materializeNumber, decimalNumber, guessNumber, binaryDoorTimer, health;
+var player, floor, playerAngle, speed, startCount, mx, my, backpackItems, switchTimer, materializeNumber, decimalNumber, guessNumber, binaryDoorTimer, health, bulletAmount;
 var userDisplay1 = 960,
     userDisplay2 = 720;
 var binaryNumber = "",
@@ -82,7 +83,8 @@ function animate() {
   forKey();
   forTrapKey();
   forWall();
-  forBullet(); //create drone.
+  forBullet();
+  createAmmo(); //create drone.
 
   var createDrone = Math.random();
 
@@ -269,6 +271,8 @@ function animate() {
   }
 
   ctx.fillStyle = "black";
+  ctx.drawImage(bullet, c.width * 0.100, 0, c.height * 0.050, c.height * 0.060);
+  ctx.fillText(" = " + bulletAmount, c.width / 8, c.height * 0.040);
   ctx.fillText("Drones = " + drones.length, c.width / 4 + c.height * 0.15, c.height * 0.040);
   ctx.fillText("Spiders = " + spiders.length, c.width / 2, c.height * 0.040);
 
@@ -324,7 +328,10 @@ window.addEventListener("keydown", function (e) {
   }
 
   if (e.keyCode == 32 && !fire && player.fire == 10) {
-    fire = true;
+    if (bulletAmount > 0) {
+      fire = true;
+      bulletAmount -= 1;
+    }
   }
 });
 window.addEventListener("keyup", function (e) {

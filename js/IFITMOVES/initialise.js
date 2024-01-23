@@ -1,6 +1,6 @@
 function init() {
     playerAngle = 0, speed = 10, startCount = 0, backpackItems = 0, switchTimer = 0, materializeNumber = 0, binaryDoorTimer = 2000,
-        guessNumber = Math.floor((Math.random() * 126) + 1), health = 300;
+        guessNumber = Math.floor((Math.random() * 126) + 1), health = 300, bulletAmount = 0;
     floor = (new Floor(stoneFloor));
     player = new Player(c.width / 2, c.height / 2);
 

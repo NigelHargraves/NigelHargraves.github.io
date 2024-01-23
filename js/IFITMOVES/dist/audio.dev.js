@@ -27,3 +27,4 @@ var binaryDoorSwitchOn = document.getElementById("audio23");
 var droneNoise = document.getElementById("audio24");
 var laserSound = document.getElementById("audio25");
 var droneImpact = document.getElementById("audio26");
+var reload = document.getElementById("audio27");

@@ -272,7 +272,8 @@ let keyHolefootpadOpen = new Image();
 keyHolefootpadOpen.src = 'images/IFITMOVES/keyHoleFootpadOpen.png';
 let laserHit = new Image();
 laserHit.src = 'images/IFITMOVES/laserHit.png';
-
+let bullet = new Image();
+bullet.src = 'images/IFITMOVES/bullet.png';
 
 
 

@@ -3,7 +3,7 @@ class DizzyStar {
         this.x = x;
         this.y = y;
         this.size = Math.random() * 60;
-        this.velocity = { x: (Math.random() * 5) - 2.5, y: (Math.random() * 5) - 2.5 }
+        this.velocity = { x: Math.random() - 0.5, y: Math.random() - 0.5 }
         this.opacity = 1;
     }
     draw() {
@@ -14,7 +14,7 @@ class DizzyStar {
     update() {
         this.x += this.velocity.x;
         this.y += this.velocity.y;
-        this.opacity -= 0.1;
+        this.opacity -= 0.01;
         this.draw();
     }
 }
