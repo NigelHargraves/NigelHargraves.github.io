@@ -362,7 +362,8 @@ class Spider {
             if (this.run) {
                 this.runTimer = 0;
             }
-            dizzyStars.push(new DizzyStar(floor.x + this.x, floor.y + this.y));
+            let dizzyStart = { x: (Math.random() * this.r / 2) - this.r / 2, y: (Math.random() * this.r / 2) - this.r / 2 };
+            dizzyStars.push(new DizzyStar(this.x + dizzyStart.x, this.y + dizzyStart.y));
             this.dizzyTimer -= 1;
         }
 

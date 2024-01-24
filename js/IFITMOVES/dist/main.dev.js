@@ -84,7 +84,8 @@ function animate() {
   forTrapKey();
   forWall();
   forBullet();
-  createAmmo(); //create drone.
+  createAmmo();
+  forAmmo(); //create drone.
 
   var createDrone = Math.random();
 

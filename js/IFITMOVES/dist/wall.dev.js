@@ -10,7 +10,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 var Wall =
 /*#__PURE__*/
 function () {
-  function Wall(x, y, width, height, direction) {
+  function Wall(x, y, width, height, direction, pushWall) {
     _classCallCheck(this, Wall);
 
     this.x = x;
@@ -18,6 +18,7 @@ function () {
     this.width = width;
     this.height = height;
     this.horizontal = direction;
+    this.pushWall = pushWall;
   }
 
   _createClass(Wall, [{
@@ -44,32 +45,64 @@ function forWall() {
         //player walk in to vertical wall.
         if (!run) {
           if (player.x > wall.x + floor.x) {
-            floor.x -= 2;
+            if (wall.pushWall) {
+              wall.x -= 2;
+            } else {
+              floor.x -= 2;
+            }
           } else if (player.x < wall.x + floor.x) {
-            floor.x += 2;
+            if (wall.pushWall) {
+              wall.x += 2;
+            } else {
+              floor.x += 2;
+            }
           }
         } else {
           //player run in to vertical wall.
           if (player.x > wall.x + floor.x) {
-            floor.x -= 4;
+            if (wall.pushWall) {
+              wall.x -= 4;
+            } else {
+              floor.x -= 4;
+            }
           } else if (player.x < wall.x + floor.x) {
-            floor.x += 4;
+            if (wall.pushWall) {
+              wall.x += 4;
+            } else {
+              floor.x += 4;
+            }
           }
         }
       } else {
         //player walk in to horizontal wall.
         if (!run) {
           if (player.y > wall.y + floor.y) {
-            floor.y -= 2;
+            if (wall.pushWall) {
+              wall.y -= 2;
+            } else {
+              floor.y -= 2;
+            }
           } else if (player.y < wall.y + floor.y) {
-            floor.y += 2;
+            if (wall.pushWall) {
+              wall.y += 2;
+            } else {
+              floor.y += 2;
+            }
           }
         } else {
           //player run in to horizontal wall.
           if (player.y > wall.y + floor.y) {
-            floor.y -= 4;
+            if (wall.pushWall) {
+              wall.y -= 4;
+            } else {
+              floor.y -= 4;
+            }
           } else if (player.y < wall.y + floor.y) {
-            floor.y += 4;
+            if (wall.pushWall) {
+              wall.y += 4;
+            } else {
+              floor.y += 4;
+            }
           }
         }
       }

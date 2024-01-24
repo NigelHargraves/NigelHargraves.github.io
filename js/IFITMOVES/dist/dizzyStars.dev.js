@@ -26,7 +26,7 @@ function () {
     key: "draw",
     value: function draw() {
       ctx.globalAlpha = this.opacity;
-      ctx.drawImage(dizzyStar, this.x - this.size / 2, this.y - this.size / 2, this.size, this.size);
+      ctx.drawImage(dizzyStar, floor.x + this.x - this.size / 2, floor.y + this.y - this.size / 2, this.size, this.size);
       ctx.globalAlpha = 1;
     }
   }, {

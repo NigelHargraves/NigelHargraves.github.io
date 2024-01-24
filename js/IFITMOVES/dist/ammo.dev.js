@@ -14,7 +14,7 @@ function () {
 
     this.x = x;
     this.y = y;
-    this.countDown = 1000;
+    this.countDown = 5000;
   }
 
   _createClass(Ammo, [{
@@ -36,12 +36,30 @@ function () {
 function createAmmo() {
   var makeAmmo = Math.random();
 
-  if (makeAmmo > 0.99) {
-    munitions.push(new Ammo(40 + Math.random() * (playArea - 80), 40 + Math.random() * (playArea - 80)));
-  }
+  if (makeAmmo > 0.995) {
+    var x = 40 + Math.random() * (playArea - 80);
+    var y = 40 + Math.random() * (playArea - 80);
+    var wallCount = 1;
+    walls.forEach(function (wall) {
+      //only create ammo when location does not intersect a wall.
+      var hit = collisionDetection(x + floor.x, y + floor.y, 100, 100, wall.x + floor.x, wall.y + floor.y, wall.width / 2, wall.height / 2);
 
+      if (hit) {
+        return;
+      }
+
+      if (wallCount == walls.length) {
+        munitions.push(new Ammo(x, y));
+      }
+
+      wallCount++;
+    });
+  }
+}
+
+function forAmmo() {
   munitions.forEach(function (ammo, index) {
-    var collectAmmo = collisionDetection(player.x, player.y, player.r / 2, player.r / 2, ammo.x + floor.x, ammo.y + floor.y, 40, 20);
+    var collectAmmo = collisionDetection(player.x, player.y, player.r / 4, player.r / 4, ammo.x + 20 + floor.x, ammo.y + 10 + floor.y, 40, 20);
 
     if (collectAmmo) {
       bulletAmount += 1;
@@ -50,7 +68,17 @@ function createAmmo() {
       munitions.splice(index, 1);
     }
 
-    if (ammo.countDown <= 0) munitions.splice(index, 1);
+    if (ammo.countDown <= 0) {
+      var playSound = collisionDetection(ammo.x + 20, ammo.y + 10, 40, 20, player.x - floor.x, player.y - floor.y, c.width / 2, c.height / 2);
+
+      if (playSound) {
+        trapKeyTeleport.play();
+      }
+
+      ctx.drawImage(teleportFlash, floor.x + ammo.x, floor.y + ammo.y - 10, 40, 40);
+      munitions.splice(index, 1);
+    }
+
     ammo.update();
   });
 }

@@ -108,6 +108,8 @@ function animate() {
 
     createAmmo();
 
+    forAmmo();
+
 
     //create drone.
     let createDrone = Math.random();
