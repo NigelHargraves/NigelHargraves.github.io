@@ -107,6 +107,12 @@ function () {
   }, {
     key: "update",
     value: function update() {
+      if (this.image == binaryPad) {
+        if (pushWallDoors.horizontal && pushWallDoors.vertical) {
+          this.on = false;
+        }
+      }
+
       this.draw();
     }
   }]);

@@ -9,15 +9,15 @@ function init() {
     //top rooms.
     walls.push(new Wall(500, 500, 20, 1000, false, false)); //vertical.
     walls.push(new Wall(990, 1010, 1000, 20, true, false)); //horizontal.
-    walls.push(new Wall(1480, 450, 20, 900, false, false)); //vertical wall + door.
+    walls.push(new Wall(1480, 450, 20, 900, false, false)); //vertical wall & door space.
     doors.push(new Door(1480, 900, false, keyHoleRed, "red")); //verticalDoor.
     walls.push(new Wall(1990, 1010, 1000, 20, true, false)); //horizontal.
-    walls.push(new Wall(2480, 550, 20, 900, false, false)); //vertical wall + door.
+    walls.push(new Wall(2480, 550, 20, 900, false, false)); //vertical wall & door space.
     doors.push(new Door(2480, 0, false, keyHoleYellow, "yellow")); //verticalDoor.
     walls.push(new Wall(2970, 500, 20, 1000, false, false)); //vertical.
-    walls.push(new Wall(3380, 1010, 840, 20, true, false)); //horizontal wall + door.
+    walls.push(new Wall(3380, 1010, 840, 20, true, false)); //horizontal wall & door space.
     doors.push(new Door(3802, 1010, true, keyHoleGreen, "green")); //horizonralDoor.
-    walls.push(new Wall(3490, 610, 820, 20, true, false)); //horizontal wall + door.
+    walls.push(new Wall(3490, 610, 820, 20, true, false)); //horizontal wall & door space.
     doors.push(new Door(2980, 610, true, binaryDoorImage, "white")); //horizonralDoor.
 
     //create binary key pads.
@@ -29,27 +29,27 @@ function init() {
 
     //bottom rooms.
     walls.push(new Wall(500, 2900, 1000, 20, true, false)); //horizontal.
-    walls.push(new Wall(990, 3350, 20, 900, false, false)); //vertical wall + door.
+    walls.push(new Wall(990, 3350, 20, 900, false, false)); //vertical wall & door space.
     doors.push(new Door(990, 3802, false, keyHoleTurquoise, "turquoise")); //verticalDoor.
     walls.push(new Wall(1500, 2900, 1000, 20, true, false)); //horizontal.
-    walls.push(new Wall(1990, 3452, 20, 900, false, false)); //vertical wall + door.
+    walls.push(new Wall(1990, 3452, 20, 900, false, false)); //vertical wall & door space.
     doors.push(new Door(1990, 2910, false, keyHoleOrange, "orange")); //verticalDoor.
     walls.push(new Wall(2500, 2900, 1000, 20, true, false)); //horizontal.
-    walls.push(new Wall(2990, 3350, 20, 900, false, false)); //vertical wall + door.
+    walls.push(new Wall(2990, 3350, 20, 900, false, false)); //vertical wall & door space.
     doors.push(new Door(2990, 3802, false, keyHolePink, "pink")); //verticalDoor.
 
     //center room.
     walls.push(new Wall(playArea / 2, playArea / 2, 200, 20, true, false)); //horizontal.
     walls.push(new Wall((playArea / 2) + 90, (playArea / 2) + 110, 20, 200, false, false)); //vertical.
     walls.push(new Wall(playArea / 2, (playArea / 2) + 210, 200, 20, true, false)); //horizontal.
-    walls.push(new Wall((playArea / 2) - 90, (playArea / 2) + 50, 20, 100, false, false)); //vertical wall + door.
+    walls.push(new Wall((playArea / 2) - 90, (playArea / 2) + 50, 20, 100, false, false)); //vertical wall & door space.
     doors.push(new Door((playArea / 2) - 90, (playArea / 2) + 100, false, keyHolefootpad, "black")); //verticalDoor.
 
     //pushwall room.
-    walls.push(new Wall(1200, 3300, 400, 20, true, false)); //horizontal.
+    walls.push(new Wall(1200, 3300, 400, 20, true, true)); //horizontal.
     walls.push(new Wall(1390, 3100, 20, 380, false, true)); //vertical wall.
-
-
+    doors.push(new Door(1000, 3010, true, binaryPad, "black")); //horizonralDoor.
+    doors.push(new Door(1100, 2910, false, binaryPad, "black")); //verticalDoor.
 
 
 

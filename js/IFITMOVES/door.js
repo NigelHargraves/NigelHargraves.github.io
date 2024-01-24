@@ -76,7 +76,11 @@ class Door {
 
     }
     update() {
-
+        if (this.image == binaryPad) {
+            if (pushWallDoors.horizontal && pushWallDoors.vertical) {
+                this.on = false;
+            }
+        }
 
         this.draw();
     }
@@ -112,7 +116,6 @@ function forDoor() {
             if (door.color == "pink" && gotPinkKey) {
                 door.on = false;
             }
-
         } else {
             door.on = true;
         }

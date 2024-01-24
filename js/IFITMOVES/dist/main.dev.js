@@ -25,6 +25,10 @@ var userDisplay1 = 960,
     userDisplay2 = 720;
 var binaryNumber = "",
     numberFromArray = "";
+var pushWallDoors = {
+  horizontal: false,
+  vertical: false
+};
 var numberOut = ["0", "0", "0", "0", "0", "0", "0"]; //booleans.
 
 var moveLeft = false,

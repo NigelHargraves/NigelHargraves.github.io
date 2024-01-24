@@ -30,7 +30,7 @@ let userDisplay1 = 960,
 let binaryNumber = "",
     numberFromArray = "";
 
-
+let pushWallDoors = { horizontal: false, vertical: false };
 
 
 

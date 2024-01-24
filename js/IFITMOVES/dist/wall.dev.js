@@ -19,6 +19,7 @@ function () {
     this.height = height;
     this.horizontal = direction;
     this.pushWall = pushWall;
+    this.pushWallAmount = 0;
   }
 
   _createClass(Wall, [{
@@ -43,15 +44,22 @@ function forWall() {
     if (hit) {
       if (!wall.horizontal) {
         //player walk in to vertical wall.
+        //player push vertical wall.
         if (!run) {
           if (player.x > wall.x + floor.x) {
             if (wall.pushWall) {
+              wall.pushWallAmount += 2;
               wall.x -= 2;
+
+              if (wall.pushWallAmount >= 380) {
+                pushWallDoors.vertical = true;
+              }
             } else {
               floor.x -= 2;
             }
           } else if (player.x < wall.x + floor.x) {
             if (wall.pushWall) {
+              wall.pushWallAmount -= 2;
               wall.x += 2;
             } else {
               floor.x += 2;
@@ -59,14 +67,21 @@ function forWall() {
           }
         } else {
           //player run in to vertical wall.
+          //player push vertical wall.
           if (player.x > wall.x + floor.x) {
             if (wall.pushWall) {
+              wall.pushWallAmount += 4;
               wall.x -= 4;
+
+              if (wall.pushWallAmount >= 380) {
+                pushWallDoors.vertical = true;
+              }
             } else {
               floor.x -= 4;
             }
           } else if (player.x < wall.x + floor.x) {
             if (wall.pushWall) {
+              wall.pushWallAmount -= 4;
               wall.x += 4;
             } else {
               floor.x += 4;
@@ -75,15 +90,22 @@ function forWall() {
         }
       } else {
         //player walk in to horizontal wall.
+        //player push horizontal wall.
         if (!run) {
           if (player.y > wall.y + floor.y) {
             if (wall.pushWall) {
+              wall.pushWallAmount += 2;
               wall.y -= 2;
+
+              if (wall.pushWallAmount >= 400) {
+                pushWallDoors.horizontal = true;
+              }
             } else {
               floor.y -= 2;
             }
           } else if (player.y < wall.y + floor.y) {
             if (wall.pushWall) {
+              wall.pushWallAmount -= 2;
               wall.y += 2;
             } else {
               floor.y += 2;
@@ -91,14 +113,21 @@ function forWall() {
           }
         } else {
           //player run in to horizontal wall.
+          //player push horizontal wall.
           if (player.y > wall.y + floor.y) {
             if (wall.pushWall) {
+              wall.pushWallAmount += 4;
               wall.y -= 4;
+
+              if (wall.pushWallAmount >= 400) {
+                pushWallDoors.horizontal = true;
+              }
             } else {
               floor.y -= 4;
             }
           } else if (player.y < wall.y + floor.y) {
             if (wall.pushWall) {
+              wall.pushWallAmount -= 4;
               wall.y += 4;
             } else {
               floor.y += 4;
