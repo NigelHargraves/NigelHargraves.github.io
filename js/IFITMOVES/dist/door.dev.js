@@ -202,14 +202,14 @@ function forDoor() {
       }
     });
 
-    if (door.color == "black" && !switchDoorOn) {
+    if (door.color == 'blue' && !switchDoorOn) {
       door.image = keyHolefootpadOpen;
       door.on = false;
       switchTimer += 1;
     }
 
     if (switchTimer >= 2000) {
-      door.image = keyHolefootpad;
+      door.image = keyHoleFootpad;
       door.on = true;
       switchDoorOn = true;
       switchTimer = 0;

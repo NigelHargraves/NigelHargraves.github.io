@@ -20,7 +20,7 @@ class Wall {
 }
 
 function forWall() {
-    walls.forEach((wall) => {
+    walls.forEach((wall, index) => {
         let hit = collisionDetection(player.x, player.y, player.r / 2, player.r / 2, wall.x + floor.x, wall.y + floor.y, wall.width / 2, wall.height / 2);
         if (hit) {
             if (!wall.horizontal) {
@@ -33,6 +33,7 @@ function forWall() {
                             wall.x -= 2;
                             if (wall.pushWallAmount >= 380) {
                                 pushWallDoors.vertical = true;
+                                walls.splice(index, 1);
                             }
                         } else {
                             floor.x -= 2;
@@ -54,6 +55,7 @@ function forWall() {
                             wall.x -= 4;
                             if (wall.pushWallAmount >= 380) {
                                 pushWallDoors.vertical = true;
+                                walls.splice(index, 1);
                             }
                         } else {
                             floor.x -= 4;
@@ -77,6 +79,7 @@ function forWall() {
                             wall.y -= 2;
                             if (wall.pushWallAmount >= 400) {
                                 pushWallDoors.horizontal = true;
+                                walls.splice(index, 1);
                             }
                         } else {
                             floor.y -= 2;
@@ -98,6 +101,7 @@ function forWall() {
                             wall.y -= 4;
                             if (wall.pushWallAmount >= 400) {
                                 pushWallDoors.horizontal = true;
+                                walls.splice(index, 1);
                             }
                         } else {
                             floor.y -= 4;

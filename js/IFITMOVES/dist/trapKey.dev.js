@@ -141,6 +141,34 @@ function forTrapKey() {
         backpackItems += 1;
       }
 
+      if (trapKey.image == turquoiseTrapKey1) {
+        gotTurquoiseTrapKey1 = true;
+        trapKeys.splice(index, 1);
+        trapKeyCollected = true;
+        backpackItems += 1;
+      }
+
+      if (trapKey.image == turquoiseTrapKey2) {
+        gotTurquoiseTrapKey2 = true;
+        trapKeys.splice(index, 1);
+        trapKeyCollected = true;
+        backpackItems += 1;
+      }
+
+      if (trapKey.image == turquoiseTrapKey3) {
+        gotTurquoiseTrapKey3 = true;
+        trapKeys.splice(index, 1);
+        trapKeyCollected = true;
+        backpackItems += 1;
+      }
+
+      if (trapKey.image == turquoiseTrapKey4) {
+        gotTurquoiseTrapKey4 = true;
+        trapKeys.splice(index, 1);
+        trapKeyCollected = true;
+        backpackItems += 1;
+      }
+
       trapKeyCollect.currentTime = 0;
       trapKeyCollect.play();
     }

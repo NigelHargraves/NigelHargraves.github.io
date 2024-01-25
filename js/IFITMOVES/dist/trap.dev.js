@@ -32,6 +32,10 @@ function () {
         ctx.drawImage(orangeTrapBaseImage, floor.x + this.x - this.size / 2, floor.y + this.y - this.size / 2, this.size, this.size);
       }
 
+      if (this.trapColor == "turquoise") {
+        ctx.drawImage(turquoiseTrapBaseImage, floor.x + this.x - this.size / 2, floor.y + this.y - this.size / 2, this.size, this.size);
+      }
+
       if (this.on) {
         ctx.save();
         ctx.globalAlpha = this.opacity;
@@ -89,6 +93,32 @@ function () {
           ctx.drawImage(orangeTrapKeyHole4Empty, floor.x + this.x + this.size / 2 - 20, floor.y + this.y + this.size / 2 - 20, 40, 40);
         } else {
           ctx.drawImage(orangeTrapKeyHole4Filled, floor.x + this.x + this.size / 2 - 20, floor.y + this.y + this.size / 2 - 20, 40, 40);
+        }
+      }
+
+      if (this.trapColor == "turquoise") {
+        if (!turquoiseTrapKey1Placed) {
+          ctx.drawImage(turquoiseTrapKeyHole1Empty, floor.x + this.x - this.size / 2 - 20, floor.y + this.y - this.size / 2 - 20, 40, 40);
+        } else {
+          ctx.drawImage(turquoiseTrapKeyHole1Filled, floor.x + this.x - this.size / 2 - 20, floor.y + this.y - this.size / 2 - 20, 40, 40);
+        }
+
+        if (!turquoiseTrapKey2Placed) {
+          ctx.drawImage(turquoiseTrapKeyHole2Empty, floor.x + this.x + this.size / 2 - 20, floor.y + this.y - this.size / 2 - 20, 40, 40);
+        } else {
+          ctx.drawImage(turquoiseTrapKeyHole2Filled, floor.x + this.x + this.size / 2 - 20, floor.y + this.y - this.size / 2 - 20, 40, 40);
+        }
+
+        if (!turquoiseTrapKey3Placed) {
+          ctx.drawImage(turquoiseTrapKeyHole3Empty, floor.x + this.x - this.size / 2 - 20, floor.y + this.y + this.size / 2 - 20, 40, 40);
+        } else {
+          ctx.drawImage(turquoiseTrapKeyHole3Filled, floor.x + this.x - this.size / 2 - 20, floor.y + this.y + this.size / 2 - 20, 40, 40);
+        }
+
+        if (!turquoiseTrapKey4Placed) {
+          ctx.drawImage(turquoiseTrapKeyHole4Empty, floor.x + this.x + this.size / 2 - 20, floor.y + this.y + this.size / 2 - 20, 40, 40);
+        } else {
+          ctx.drawImage(turquoiseTrapKeyHole4Filled, floor.x + this.x + this.size / 2 - 20, floor.y + this.y + this.size / 2 - 20, 40, 40);
         }
       }
     }
@@ -198,6 +228,44 @@ function forTrap() {
       }
     }
 
+    if (trap.trapColor == "turquoise") {
+      var _keyPlace5 = collisionDetection(player.x, player.y, player.r / 2, player.r / 2, trap.x + floor.x - trap.size / 2, trap.y + floor.y - trap.size / 2, trap.size / 8, trap.size / 8);
+
+      var _keyPlace6 = collisionDetection(player.x, player.y, player.r / 2, player.r / 2, trap.x + floor.x + trap.size / 2, trap.y + floor.y - trap.size / 2, trap.size / 8, trap.size / 8);
+
+      var _keyPlace7 = collisionDetection(player.x, player.y, player.r / 2, player.r / 2, trap.x + floor.x - trap.size / 2, trap.y + floor.y + trap.size / 2, trap.size / 8, trap.size / 8);
+
+      var _keyPlace8 = collisionDetection(player.x, player.y, player.r / 2, player.r / 2, trap.x + floor.x + trap.size / 2, trap.y + floor.y + trap.size / 2, trap.size / 8, trap.size / 8);
+
+      if (_keyPlace5 && gotTurquoiseTrapKey1) {
+        trapKeyFit.play();
+        turquoiseTrapKey1Placed = true;
+        gotTurquoiseTrapKey1 = false;
+        backpackItems -= 1;
+      }
+
+      if (_keyPlace6 && gotTurquoiseTrapKey2) {
+        trapKeyFit.play();
+        turquoiseTrapKey2Placed = true;
+        gotTurquoiseTrapKey2 = false;
+        backpackItems -= 1;
+      }
+
+      if (_keyPlace7 && gotTurquoiseTrapKey3) {
+        trapKeyFit.play();
+        turquoiseTrapKey3Placed = true;
+        gotTurquoiseTrapKey3 = false;
+        backpackItems -= 1;
+      }
+
+      if (_keyPlace8 && gotTurquoiseTrapKey4) {
+        trapKeyFit.play();
+        turquoiseTrapKey4Placed = true;
+        gotTurquoiseTrapKey4 = false;
+        backpackItems -= 1;
+      }
+    }
+
     if (trap.trapColor == "green") {
       if (greenTrapKey1Placed && greenTrapKey2Placed && greenTrapKey3Placed && greenTrapKey4Placed && trap.on) {
         shutdown.play();
@@ -208,6 +276,14 @@ function forTrap() {
 
     if (trap.trapColor == "orange") {
       if (orangeTrapKey1Placed && orangeTrapKey2Placed && orangeTrapKey3Placed && orangeTrapKey4Placed && trap.on) {
+        shutdown.play();
+        trap.on = false;
+        trapKeyCollected = false;
+      }
+    }
+
+    if (trap.trapColor == "turquoise") {
+      if (turquoiseTrapKey1Placed && turquoiseTrapKey2Placed && turquoiseTrapKey3Placed && turquoiseTrapKey4Placed && trap.on) {
         shutdown.play();
         trap.on = false;
         trapKeyCollected = false;

@@ -43,7 +43,7 @@ function init() {
     walls.push(new Wall((playArea / 2) + 90, (playArea / 2) + 110, 20, 200, false, false)); //vertical.
     walls.push(new Wall(playArea / 2, (playArea / 2) + 210, 200, 20, true, false)); //horizontal.
     walls.push(new Wall((playArea / 2) - 90, (playArea / 2) + 50, 20, 100, false, false)); //vertical wall & door space.
-    doors.push(new Door((playArea / 2) - 90, (playArea / 2) + 100, false, keyHolefootpad, "black")); //verticalDoor.
+    doors.push(new Door((playArea / 2) - 90, (playArea / 2) + 100, false, keyHoleFootpad, "blue")); //verticalDoor.
 
     //pushwall room.
     walls.push(new Wall(1200, 3300, 400, 20, true, true)); //horizontal.
@@ -56,10 +56,14 @@ function init() {
     //keys.
     keys.push(new Key(42, (playArea - playArea / 4) + 30, redKey)); //red key.
     keys.push(new Key(1042, (playArea - playArea / 4) + 30, yellowKey)); //yellow key.
-    traps.push(new Trap(2242, (playArea) - 500, "green")); //green trap.
     keys.push(new Key(2242, (playArea) - 500, greenKey)); //green key.
-    keys.push(new Key(1520, 22, turquoiseKey)); //turquoise key.
-    keys.push(new Key((playArea) - 280, 220, orangeKey)); //orange key.
-    traps.push(new Trap((playArea) - 280, 220, "orange")); //orange trap.
+    keys.push(new Key(1700, 220, turquoiseKey)); //turquoise key.
+    keys.push(new Key((playArea) - 280, 220, orangeKey)); //orange key.  
     keys.push(new Key(playArea - playArea / 2, (playArea - playArea / 2) + 30, pinkKey)); //pink key.
+
+    //traps
+    traps.push(new Trap((playArea) - 280, 220, "orange")); //orange trap.
+    traps.push(new Trap(2242, (playArea) - 500, "green")); //green trap.
+    traps.push(new Trap(1700, 220, "turquoise")); //turquoise trap.
+
 }

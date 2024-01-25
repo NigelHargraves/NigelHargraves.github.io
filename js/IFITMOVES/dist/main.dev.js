@@ -66,6 +66,14 @@ var moveLeft = false,
     orangeTrapKey2Placed = false,
     orangeTrapKey3Placed = false,
     orangeTrapKey4Placed = false,
+    gotTurquoiseTrapKey1 = false,
+    gotTurquoiseTrapKey2 = false,
+    gotTurquoiseTrapKey3 = false,
+    gotTurquoiseTrapKey4 = false,
+    turquoiseTrapKey1Placed = false,
+    turquoiseTrapKey2Placed = false,
+    turquoiseTrapKey3Placed = false,
+    turquoiseTrapKey4Placed = false,
     openBackpack = false,
     materialize = false,
     binaryDoorOn = true,
@@ -242,6 +250,22 @@ function animate() {
 
         if (gotOrangeTrapKey4) {
           backpackContents.appendChild(orangeTrapKey4Backpack);
+        }
+
+        if (gotTurquoiseTrapKey1) {
+          backpackContents.appendChild(turquoiseTrapKey1Backpack);
+        }
+
+        if (gotTurquoiseTrapKey2) {
+          backpackContents.appendChild(turquoiseTrapKey2Backpack);
+        }
+
+        if (gotTurquoiseTrapKey3) {
+          backpackContents.appendChild(turquoiseTrapKey3Backpack);
+        }
+
+        if (gotTurquoiseTrapKey4) {
+          backpackContents.appendChild(turquoiseTrapKey4Backpack);
         }
 
         backpackContents.appendChild(newLineTrapKeys);

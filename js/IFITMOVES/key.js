@@ -26,7 +26,10 @@ function forKey() {
             }
             if (key.image == yellowKey) {
                 gotYellowKey = true;
-
+                trapKeys.push(new TrapKey(40 + (Math.random() * ((playArea) - 80)), 40 + (Math.random() * ((playArea) - 80)), turquoiseTrapKey1, shadowTrapKey1));
+                trapKeys.push(new TrapKey(40 + (Math.random() * ((playArea) - 80)), 40 + (Math.random() * ((playArea) - 80)), turquoiseTrapKey2, shadowTrapKey2));
+                trapKeys.push(new TrapKey(40 + (Math.random() * ((playArea) - 80)), 40 + (Math.random() * ((playArea) - 80)), turquoiseTrapKey3, shadowTrapKey3));
+                trapKeys.push(new TrapKey(40 + (Math.random() * ((playArea) - 80)), 40 + (Math.random() * ((playArea) - 80)), turquoiseTrapKey4, shadowTrapKey4));
             }
             if (key.image == greenKey) {
                 gotGreenKey = true;
