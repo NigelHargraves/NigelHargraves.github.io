@@ -220,9 +220,8 @@ function forDrone() {
         if (playSound) {
             droneInView = true;
             return;
-        } else {
-            droneCount += 1;
         }
+        droneCount += 1;
         if (droneCount == drones.length) {
             droneInView = false;
         }

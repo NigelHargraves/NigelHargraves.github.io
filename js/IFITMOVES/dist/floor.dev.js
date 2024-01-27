@@ -39,8 +39,8 @@ function () {
   }, {
     key: "update",
     value: function update() {
-      if (moveForward) {
-        if (run) {
+      if (moveForward || moveBackward) {
+        if (run && moveForward) {
           speed = 5;
         } else {
           speed = 10;

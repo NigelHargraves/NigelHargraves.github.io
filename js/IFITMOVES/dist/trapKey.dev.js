@@ -64,12 +64,12 @@ function () {
             ctx.drawImage(teleportFlash, floor.x + _this.x - 20, floor.y + _this.y - 20, 40, 40);
             _this.x = 40 + Math.random() * (playArea - 80);
             _this.y = 40 + Math.random() * (playArea - 80);
+            _this.timer = 0;
+            _this.teleportTimer = Math.random() * 5000;
           }
 
           wallNumber += 1;
         });
-        this.timer = 0;
-        this.teleportTimer = Math.random() * 5000;
       }
 
       this.timer += 1;

@@ -29,16 +29,15 @@ class Floor {
     //update floor.
     update() {
 
-        if (moveForward) {
-            if (run) {
+        if (moveForward || moveBackward) {
+            if (run && moveForward) {
                 speed = 5;
             } else {
                 speed = 10;
             }
+
             this.x -= player.aimx / speed;
             this.y -= player.aimy / speed;
-
-
 
             //player walk into area edge.
             if (!run) {

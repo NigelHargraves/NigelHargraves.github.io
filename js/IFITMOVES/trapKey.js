@@ -39,11 +39,11 @@ class TrapKey {
                     ctx.drawImage(teleportFlash, floor.x + this.x - 20, floor.y + this.y - 20, 40, 40);
                     this.x = 40 + (Math.random() * ((playArea) - 80));
                     this.y = 40 + (Math.random() * ((playArea) - 80));
+                    this.timer = 0;
+                    this.teleportTimer = Math.random() * 5000;
                 }
                 wallNumber += 1;
             });
-            this.timer = 0;
-            this.teleportTimer = Math.random() * 5000;
         }
         this.timer += 1;
         this.draw();

@@ -34,6 +34,7 @@ var numberOut = ["0", "0", "0", "0", "0", "0", "0"]; //booleans.
 var moveLeft = false,
     moveRight = false,
     moveForward = false,
+    moveBackward = false,
     run = false,
     fire = false,
     spiderInView = false,
@@ -110,7 +111,7 @@ function animate() {
 
   var createSpider = Math.random();
 
-  if (createSpider > 0.998 && portalBuzz.paused) {
+  if (createSpider > 0.998 && portalBuzz.paused && spiders.length < 20) {
     var _x = 200 + Math.random() * (playArea - c.height * 0.400);
 
     var _y = 200 + Math.random() * (playArea - c.height * 0.400);
@@ -348,7 +349,11 @@ window.addEventListener("keydown", function (e) {
     moveForward = true;
   }
 
-  if (e.keyCode == 16) {
+  if (e.keyCode == 83 || e.keyCode == 40) {
+    moveBackward = true;
+  }
+
+  if (e.keyCode == 82) {
     run = true;
   }
 
@@ -376,7 +381,11 @@ window.addEventListener("keyup", function (e) {
     moveForward = false;
   }
 
-  if (e.keyCode == 16) {
+  if (e.keyCode == 83 || e.keyCode == 40) {
+    moveBackward = false;
+  }
+
+  if (e.keyCode == 82) {
     run = false;
   }
 

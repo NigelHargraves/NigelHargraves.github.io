@@ -40,6 +40,7 @@ let numberOut = ["0", "0", "0", "0", "0", "0", "0"];
 let moveLeft = false,
     moveRight = false,
     moveForward = false,
+    moveBackward = false,
     run = false,
     fire = false,
     spiderInView = false,
@@ -132,7 +133,7 @@ function animate() {
 
     //create spider.
     let createSpider = Math.random();
-    if (createSpider > 0.998 && portalBuzz.paused) {
+    if (createSpider > 0.998 && portalBuzz.paused && spiders.length < 20) {
         let x = 200 + Math.random() * ((playArea) - c.height * 0.400);
         let y = 200 + Math.random() * ((playArea) - c.height * 0.400);
         let wallNumber = 1;
@@ -161,6 +162,7 @@ function animate() {
     });
 
     forSpider();
+
     if (dizzyStars.length > 0) {
         forDizzyStars();
     }
@@ -340,7 +342,10 @@ window.addEventListener("keydown", (e) => {
     if (e.keyCode == 87 || e.keyCode == 38) {
         moveForward = true;
     }
-    if (e.keyCode == 16) {
+    if (e.keyCode == 83 || e.keyCode == 40) {
+        moveBackward = true;
+    }
+    if (e.keyCode == 82) {
         run = true;
     }
     if (e.keyCode == 66) {
@@ -364,7 +369,10 @@ window.addEventListener("keyup", (e) => {
     if (e.keyCode == 87 || e.keyCode == 38) {
         moveForward = false;
     }
-    if (e.keyCode == 16) {
+    if (e.keyCode == 83 || e.keyCode == 40) {
+        moveBackward = false;
+    }
+    if (e.keyCode == 82) {
         run = false;
     }
     if (e.keyCode == 66) {

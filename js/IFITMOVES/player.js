@@ -59,7 +59,7 @@ class Player {
                 }
             }
 
-            if (moveForward && !fire) {
+            if (moveForward || moveBackward && !fire) {
                 if (this.walk >= 30) {
                     ctx.drawImage(playerImage, this.spriteLength, 0, this.spriteLength, 300, 0 - this.r / 2, 0 - this.r / 2, this.r, this.r);
                 }
@@ -112,18 +112,13 @@ class Player {
                 }
             }
             ctx.restore();
-
             if (laserFlash) {
                 ctx.globalAlpha = Math.random();
                 ctx.drawImage(laserHit, player.x - 50, player.y - 50, 100, 100);
                 ctx.globalAlpha = 1;
                 laserFlash = false;
             }
-
         }
-
-
-
     }
 
     //update player.
@@ -132,18 +127,25 @@ class Player {
 
             //move aim point.
             if (moveRight) {
-                //increase angle by PI/180.
+                //increase angle by 1°.
                 playerAngle += Math.PI / 180;
             }
             if (moveLeft) {
-                //decrease angle by PI/180.
+                //decrease angle by 1°.
                 playerAngle -= Math.PI / 180;
             }
 
-
+            if (moveBackward) {
+                playerAngle += 180 * (Math.PI / 180);
+            }
             //calculate aim point.
             this.aimx = this.r * Math.cos(playerAngle) / 5;
             this.aimy = this.r * Math.sin(playerAngle) / 5;
+
+            if (moveBackward) {
+                playerAngle -= 180 * (Math.PI / 180);
+            }
+
 
             //calc angle to aim point
             let angles = Math.atan2(this.aimy - this.y, this.aimx - this.x);
@@ -155,16 +157,14 @@ class Player {
             */
 
             //what sound to play.
-            if (moveForward) {
+            if (moveForward || moveBackward) {
                 rotateStep.currentTime = 0;
-                rotateStep.paused;
-                if (!run) {
-                    running.currentTime = 0;
+                rotateStep.pause();
+                if (!run && moveForward || moveBackward) {
                     running.pause();
                     walking.play();
-                } else {
-                    walking.currentTime = 0;
-                    walking.paused;
+                } else if (run && moveForward) {
+                    walking.pause();
                     running.play();
                 }
             } else {

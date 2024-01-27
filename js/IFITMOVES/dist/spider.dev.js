@@ -384,10 +384,10 @@ function () {
         }
 
         var dizzyStart = {
-          x: Math.random() * this.r / 2 - this.r / 2,
-          y: Math.random() * this.r / 2 - this.r / 2
+          x: Math.random() * this.r / 2,
+          y: Math.random() * this.r / 2
         };
-        dizzyStars.push(new DizzyStar(this.x + dizzyStart.x, this.y + dizzyStart.y));
+        dizzyStars.push(new DizzyStar(this.x - this.r / 3 + dizzyStart.x, this.y - this.r / 3 + dizzyStart.y));
         this.dizzyTimer -= 1;
       }
 
@@ -471,9 +471,9 @@ function forSpider() {
     if (playSound) {
       spiderInView = true;
       return;
-    } else {
-      spiderCount += 1;
     }
+
+    spiderCount += 1;
 
     if (spiderCount == spiders.length) {
       spiderInView = false;
@@ -483,7 +483,7 @@ function forSpider() {
   if (spiderInView) {
     spiderWalking.play();
   } else {
-    spiderInView.currentTime = 0;
+    spiderWalking.currentTime = 0;
     spiderWalking.pause();
   }
 }

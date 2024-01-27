@@ -2,38 +2,35 @@
 class Spider {
     //construct spider data.
     constructor(image, imageShadow, x, y) {
-        this.image = image;
-        this.imageShadow = imageShadow;
-        this.imageAngle = 360;
-        this.x = x;
-        this.y = y;
-        this.velocity = {
-            x: 0,
-            y: 0
-        };
-        this.aimx = 0;
-        this.aimy = 0;
-        this.spiderAngle = -Math.PI / 2;
-        this.spriteLength = 256;
-        this.r = 200;
-        this.walkX = 0;
-        this.walkY = 0;
-        this.frameCount = 0;
-        this.frameSpeed = 5;
-        this.spiderSpeed = 95;
-        this.run = false;
-        this.idle = false;
-        this.runTimer = 0;
-        this.idleTimer = 0;
-        this.changeDirection = 0.999;
-        this.dizzy = false;
-        this.dizzyDelay = 10;
-        this.dizzyTimer = 100;
-    }
-
-
-
-    //draw spider.
+            this.image = image;
+            this.imageShadow = imageShadow;
+            this.imageAngle = 360;
+            this.x = x;
+            this.y = y;
+            this.velocity = {
+                x: 0,
+                y: 0
+            };
+            this.aimx = 0;
+            this.aimy = 0;
+            this.spiderAngle = -Math.PI / 2;
+            this.spriteLength = 256;
+            this.r = 200;
+            this.walkX = 0;
+            this.walkY = 0;
+            this.frameCount = 0;
+            this.frameSpeed = 5;
+            this.spiderSpeed = 95;
+            this.run = false;
+            this.idle = false;
+            this.runTimer = 0;
+            this.idleTimer = 0;
+            this.changeDirection = 0.999;
+            this.dizzy = false;
+            this.dizzyDelay = 10;
+            this.dizzyTimer = 100;
+        }
+        //draw spider.
     draw() {
 
         if (this.imageAngle == 360) {
@@ -251,7 +248,6 @@ class Spider {
         }
     }
     update() {
-
         let changeDirection = Math.random();
         if (changeDirection > this.changeDirection && !this.dizzy) {
             let direction = Math.random();
@@ -362,8 +358,8 @@ class Spider {
             if (this.run) {
                 this.runTimer = 0;
             }
-            let dizzyStart = { x: (Math.random() * this.r / 2) - this.r / 2, y: (Math.random() * this.r / 2) - this.r / 2 };
-            dizzyStars.push(new DizzyStar(this.x + dizzyStart.x, this.y + dizzyStart.y));
+            let dizzyStart = { x: Math.random() * this.r / 2, y: Math.random() * this.r / 2 };
+            dizzyStars.push(new DizzyStar((this.x - this.r / 3) + dizzyStart.x, (this.y - this.r / 3) + dizzyStart.y));
             this.dizzyTimer -= 1;
         }
 
@@ -441,9 +437,8 @@ function forSpider() {
         if (playSound) {
             spiderInView = true;
             return;
-        } else {
-            spiderCount += 1;
         }
+        spiderCount += 1;
         if (spiderCount == spiders.length) {
             spiderInView = false;
         }
@@ -452,7 +447,7 @@ function forSpider() {
     if (spiderInView) {
         spiderWalking.play();
     } else {
-        spiderInView.currentTime = 0;
+        spiderWalking.currentTime = 0;
         spiderWalking.pause();
     }
 }
