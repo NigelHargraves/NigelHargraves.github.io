@@ -7,19 +7,44 @@ canvas.height = window.innerHeight;
 var notes = [],
     upperNotes = [],
     stars = [],
-    chords = [];
-var chordChange = 'C';
+    chords = [],
+    bubbles = [];
+var chordChange = 'C',
+    delay = 0;
+var cross;
 var changeChordNotes = false,
-    changeChordUpperNotes = false;
+    changeChordUpperNotes = false,
+    start = false,
+    playSoundOnce = true;
 
 function animate() {
   //CLS.
   ctx.fillStyle = "rgb(0, 0, 0, 0.2)";
   ctx.fillRect(0, 0, canvas.width, canvas.height);
-  forNote();
-  forUpperNote();
-  forStar();
-  forChord(); //call next frame.
+
+  if (!start) {
+    delay += 1;
+
+    if (delay >= 500) {
+      start = true;
+    }
+  }
+
+  if (start) {
+    if (playSoundOnce) {
+      CBass.play();
+      CVoice.play();
+      playSoundOnce = false;
+    }
+
+    forNote();
+    forUpperNote();
+    forStar();
+    forChord();
+    forBubble();
+    cross.update();
+  } //call next frame.
+
 
   animationId = requestAnimationFrame(animate);
 }

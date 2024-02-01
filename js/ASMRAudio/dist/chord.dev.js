@@ -20,7 +20,23 @@ function () {
       x: (Math.random() - 0.5) * 3,
       y: (Math.random() - 0.5) * 3
     };
+
+    if (this.velocity.x < 0 && this.velocity.x > -1) {
+      this.velocity.x += -0.5;
+    } else if (this.velocity.x > 0 && this.velocity.x < 1) {
+      this.velocity.x += 0.5;
+    }
+
+    if (this.velocity.y < 0 && this.velocity.y > -1) {
+      this.velocity.y += -0.5;
+    } else if (this.velocity.y > 0 && this.velocity.y < 1) {
+      this.velocity.y += 0.5;
+    }
+
     this.opacity = 1;
+    this.lineWidth = 1;
+    this.bounceTimer = 0;
+    this.changeVelocityTimer = 6000;
   }
 
   _createClass(Chord, [{
@@ -30,7 +46,9 @@ function () {
       ctx.beginPath();
       ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
       ctx.strokeStyle = "red";
+      ctx.lineWidth = this.lineWidth;
       ctx.stroke();
+      ctx.lineWidth = 1;
       ctx.beginPath();
       ctx.moveTo(this.x, this.y);
       ctx.lineTo(this.x, 0);
@@ -55,23 +73,65 @@ function () {
       this.x += this.velocity.x;
       this.y += this.velocity.y;
 
-      if (this.x + this.r >= canvas.width || this.x - this.r <= 0) {
-        this.velocity.x = -this.velocity.x;
+      function changeChord() {
+        CBass.currentTime = 0;
+        DBass.currentTime = 0;
+        FBass.currentTime = 0;
+        GBass.currentTime = 0;
+        CBass.pause();
+        DBass.pause();
+        FBass.pause();
+        GBass.pause();
+        CVoice.currentTime = 0;
+        DVoice.currentTime = 0;
+        FVoice.currentTime = 0;
+        GVoice.currentTime = 0;
+        CVoice.pause();
+        DVoice.pause();
+        FVoice.pause();
+        GVoice.pause();
+        CBell.currentTime = 0;
+        DBell.currentTime = 0;
+        FBell.currentTime = 0;
+        GBell.currentTime = 0;
+        CBell.pause();
+        DBell.pause();
+        FBell.pause();
+        GBell.pause();
+        CVoice.volume = 1;
+        DVoice.volume = 1;
+        FVoice.volume = 1;
+        GVoice.volume = 1;
 
         if (chordChange == 'C') {
           chordChange = 'D';
           DBass.play();
+          DVoice.play();
+          DBell.play();
         } else if (chordChange == 'D') {
           chordChange = 'F';
           FBass.play();
+          FVoice.play();
+          FBell.play();
         } else if (chordChange == 'F') {
           chordChange = 'G';
           GBass.play();
+          GVoice.play();
+          GBell.play();
         } else {
           chordChange = 'C';
           CBass.play();
+          CVoice.play();
+          CBell.play();
         }
 
+        return 300;
+      }
+
+      if (this.x + this.r >= canvas.width || this.x - this.r <= 0) {
+        this.velocity.x = -this.velocity.x;
+        bubbles.push(new Bubble(canvas.width / 2, canvas.height / 2));
+        this.bounceTimer = changeChord();
         changeChordNotes = true;
         changeChordUpperNotes = true;
         this.opacity = 1;
@@ -112,25 +172,13 @@ function () {
         upperNotes.push(new UpperNote(this.x, this.y, upperNote1));
         upperNotes.push(new UpperNote(this.x, this.y, upperNote2));
         upperNotes.push(new UpperNote(this.x, this.y, upperNote3));
+        this.lineWidth = 10;
       }
 
       if (this.y + this.r >= canvas.height || this.y - this.r <= 0) {
         this.velocity.y = -this.velocity.y;
-
-        if (chordChange == 'C') {
-          chordChange = 'D';
-          DBass.play();
-        } else if (chordChange == 'D') {
-          chordChange = 'F';
-          FBass.play();
-        } else if (chordChange == 'F') {
-          chordChange = 'G';
-          GBass.play();
-        } else {
-          chordChange = 'C';
-          CBass.play();
-        }
-
+        bubbles.push(new Bubble(canvas.width / 2, canvas.height / 2));
+        this.bounceTimer = changeChord();
         changeChordNotes = true;
         changeChordUpperNotes = true;
         this.opacity = 1;
@@ -171,11 +219,61 @@ function () {
         upperNotes.push(new UpperNote(this.x, this.y, upperNote1));
         upperNotes.push(new UpperNote(this.x, this.y, upperNote2));
         upperNotes.push(new UpperNote(this.x, this.y, upperNote3));
+        this.lineWidth = 10;
       }
 
       if (this.opacity > 0.2) {
         stars.push(new Star(this.x, this.y, starRed));
         this.opacity -= 0.01;
+      }
+
+      if (this.lineWidth > 1) {
+        this.lineWidth -= 0.1;
+      }
+
+      if (this.changeVelocityTimer <= 0) {
+        this.velocity = {
+          x: (Math.random() - 0.5) * 3,
+          y: (Math.random() - 0.5) * 3
+        };
+
+        if (this.velocity.x < 0 && this.velocity.x > -1) {
+          this.velocity.x += -0.5;
+        } else if (this.velocity.x > 0 && this.velocity.x < 1) {
+          this.velocity.x += 0.5;
+        }
+
+        if (this.velocity.y < 0 && this.velocity.y > -1) {
+          this.velocity.y += -0.5;
+        } else if (this.velocity.y > 0 && this.velocity.y < 1) {
+          this.velocity.y += 0.5;
+        }
+
+        this.changeVelocityTimer = 6000;
+      }
+
+      this.changeVelocityTimer -= 1;
+
+      if (this.x <= 100 || this.x >= canvas.width - 100 || this.y <= 100 || this.y >= canvas.height - 100 && this.bounceTimer <= 0) {
+        if (CVoice.volume >= 0.1) {
+          CVoice.volume -= 0.01;
+        }
+
+        if (DVoice.volume >= 0.1) {
+          DVoice.volume -= 0.01;
+        }
+
+        if (FVoice.volume >= 0.1) {
+          FVoice.volume -= 0.01;
+        }
+
+        if (GVoice.volume >= 0.1) {
+          GVoice.volume -= 0.01;
+        }
+      }
+
+      if (this.bounceTimer >= 0) {
+        this.bounceTimer -= 1;
       }
 
       this.draw();

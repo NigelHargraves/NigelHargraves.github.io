@@ -1,0 +1,30 @@
+"use strict";
+
+//audio to variables.
+var CNote = document.getElementById("audio1");
+var CSDFNote = document.getElementById("audio2");
+var DNote = document.getElementById("audio3");
+var DSEFNote = document.getElementById("audio4");
+var ENote = document.getElementById("audio5");
+var FNote = document.getElementById("audio6");
+var FSGFNote = document.getElementById("audio7");
+var GNote = document.getElementById("audio8");
+var GSAFNote = document.getElementById("audio9");
+var ANote = document.getElementById("audio10");
+var ASBFNote = document.getElementById("audio11");
+var BNote = document.getElementById("audio12");
+var DBass = document.getElementById("audio13");
+var GBass = document.getElementById("audio14");
+var BBass = document.getElementById("audio15");
+var CUNote = document.getElementById("audio16");
+var CSDFUNote = document.getElementById("audio17");
+var DUNote = document.getElementById("audio18");
+var DSEFUNote = document.getElementById("audio19");
+var EUNote = document.getElementById("audio20");
+var FUNote = document.getElementById("audio21");
+var FSGFUNote = document.getElementById("audio22");
+var GUNote = document.getElementById("audio23");
+var GSAFUNote = document.getElementById("audio24");
+var AUNote = document.getElementById("audio25");
+var ASBFUNote = document.getElementById("audio26");
+var BUNote = document.getElementById("audio27");

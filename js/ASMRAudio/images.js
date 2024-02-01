@@ -4,3 +4,5 @@ let starRed = new Image();
 starRed.src = 'images/ASMRAudio/starRed.png';
 let starGreen = new Image();
 starGreen.src = 'images/ASMRAudio/starGreen.png';
+let starDSB = new Image();
+starDSB.src = 'images/ASMRAudio/starDeepSkyBlue.png';

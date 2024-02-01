@@ -6,3 +6,5 @@ var starRed = new Image();
 starRed.src = 'images/ASMRAudio/starRed.png';
 var starGreen = new Image();
 starGreen.src = 'images/ASMRAudio/starGreen.png';
+var starDSB = new Image();
+starDSB.src = 'images/ASMRAudio/starDeepSkyBlue.png';

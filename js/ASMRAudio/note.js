@@ -5,15 +5,18 @@ class Note {
         this.note = note;
         this.r = 10;
         this.velocity = { x: (Math.random() - 0.5) * 2, y: (Math.random() - 0.5) * 2 };
-        this.opacity = 0.4;
-        this.noteLife = 1000;
+        this.opacity = 0.2;
+        this.noteLife = 500;
+        this.lineWidth = 1;
     }
     draw() {
         ctx.globalAlpha = this.opacity;
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
-        ctx.strokeStyle = "white";
+        ctx.strokeStyle = "deepskyblue";
+        ctx.lineWidth = this.lineWidth;
         ctx.stroke();
+        ctx.lineWidth = 1;
         ctx.globalApha = 1;
     }
     update() {
@@ -21,30 +24,24 @@ class Note {
         this.y += this.velocity.y;
         if (this.x + this.r >= canvas.width || this.x - this.r <= 0) {
             this.velocity.x = -this.velocity.x;
-            if (this.note.ended) {
-                this.note.play();
-            } else {
-                this.note.currentTime = 0.1;
-                this.note.play();
-            }
+            this.note.play();
             this.opacity = 1;
-
+            this.lineWidth = 3;
         }
         if (this.y + this.r >= canvas.height || this.y - this.r <= 0) {
             this.velocity.y = -this.velocity.y;
-            if (this.note.ended) {
-                this.note.play();
-            } else {
-                this.note.currentTime = 0.1;
-                this.note.play();
-            }
+            this.note.play();
             this.opacity = 1;
-
+            this.lineWidth = 3;
         }
 
-        if (this.opacity > 0.4) {
-            stars.push(new Star(this.x, this.y, star));
+        if (this.opacity > 0.2) {
+            stars.push(new Star(this.x, this.y, starDSB));
             this.opacity -= 0.01;
+        }
+
+        if (this.lineWidth > 1) {
+            this.lineWidth -= 0.1;
         }
 
         this.noteLife -= 0.1;
@@ -108,6 +105,28 @@ function forNote() {
         if (note.noteLife <= 0) {
             notes.splice(index, 1);
         }
+
+
+        if (note.x <= (canvas.width / 2) + 0.4 && note.x >= (canvas.width / 2) - 0.4) {
+            note.note.play();
+            note.opacity = 1;
+            note.lineWidth = 3;
+            cross.opacity = 1;
+        }
+
+        if (note.y <= (canvas.height / 2) + 0.4 && note.y >= (canvas.height / 2) - 0.4) {
+            note.note.play();
+            note.opacity = 1;
+            note.lineWidth = 3;
+            cross.opacity = 1;
+        }
+
+
+
+
+
+
+
         note.update();
     });
     changeChordNotes = false;
