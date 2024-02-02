@@ -28,14 +28,18 @@ function () {
   _createClass(Note, [{
     key: "draw",
     value: function draw() {
+      ctx.save();
+      ctx.translate(square.x, square.y);
+      ctx.rotate(square.rotateAngle);
       ctx.globalAlpha = this.opacity;
       ctx.beginPath();
-      ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+      ctx.arc(this.x - canvas.width / 2, this.y - canvas.height / 2, this.r, 0, Math.PI * 2);
       ctx.strokeStyle = "darkorchid";
       ctx.lineWidth = this.lineWidth;
       ctx.stroke();
       ctx.lineWidth = 1;
       ctx.globalAlpha = 0.2;
+      ctx.restore();
     }
   }, {
     key: "update",
@@ -49,6 +53,7 @@ function () {
         this.note.currentTime = 0.1;
         this.note.play();
         square.opacity = 1;
+        square.lineWidth = 5;
       }
 
       if (this.x <= squareCorners.topRight.x + 1 && this.x >= squareCorners.topRight.x - 1 && this.y <= squareCorners.topRight.y + 1 && this.y >= squareCorners.topRight.y - 1) {
@@ -60,6 +65,7 @@ function () {
         this.note.currentTime = 0.1;
         this.note.play();
         square.opacity = 1;
+        square.lineWidth = 5;
       }
 
       if (this.x <= squareCorners.bottomRight.x + 1 && this.x >= squareCorners.bottomRight.x - 1 && this.y <= squareCorners.bottomRight.y + 1 && this.y >= squareCorners.bottomRight.y - 1) {
@@ -71,6 +77,7 @@ function () {
         this.note.currentTime = 0.1;
         this.note.play();
         square.opacity = 1;
+        square.lineWidth = 5;
       }
 
       if (this.x <= squareCorners.bottomLeft.x + 1 && this.x >= squareCorners.bottomLeft.x - 1 && this.y <= squareCorners.bottomLeft.y + 1 && this.y >= squareCorners.bottomLeft.y - 1) {
@@ -82,6 +89,7 @@ function () {
         this.note.currentTime = 0.1;
         this.note.play();
         square.opacity = 1;
+        square.lineWidth = 5;
       }
 
       if (this.lineWidth > 1) {
@@ -90,6 +98,7 @@ function () {
 
       if (this.opacity > 0.2) {
         this.opacity -= 0.01;
+        tails.push(new Tail(this.x, this.y));
       }
 
       if (this.xDirection) {

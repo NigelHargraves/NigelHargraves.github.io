@@ -28,7 +28,13 @@ function () {
       ctx.strokeStyle = "aqua";
       ctx.lineWidth = this.lineWidth;
       ctx.stroke();
-      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(this.x, 0);
+      ctx.lineTo(this.x, canvas.height);
+      ctx.moveTo(0, this.y - this.r);
+      ctx.lineTo(canvas.width, this.y - this.r);
+      ctx.stroke();
+      ctx.lineWidth = 0.1;
       ctx.globalAlpha = 0.2;
     }
   }, {
@@ -38,7 +44,7 @@ function () {
         this.opacity -= 0.01;
       }
 
-      if (this.lineWidth > 1) {
+      if (this.lineWidth > 0.1) {
         this.lineWidth -= 0.01;
       }
 

@@ -64,28 +64,88 @@ function () {
 
         if (this.key == 'D') {
           this.key = 'G';
-          notes[0].note = GNote;
-          notes[1].note = BNote;
-          notes[2].note = DNote;
-          notes[3].note = GUNote;
-          notes[4].note = BUNote;
-          notes[5].note = DUNote;
+          notes[0].note = GNote1;
+          notes[1].note = BNote1;
+          notes[2].note = DNote1;
+          notes[3].note = GUNote1;
+          notes[4].note = BUNote1;
+          notes[5].note = DUNote1;
+          notes[6].note = GNote2;
+          notes[7].note = BNote2;
+          notes[8].note = DNote2;
+          notes[9].note = GUNote2;
+          notes[10].note = BUNote2;
+          notes[11].note = DUNote2;
         } else if (this.key == 'G') {
-          this.key = 'B';
-          notes[0].note = BNote;
-          notes[1].note = DNote;
-          notes[2].note = FSGFNote;
-          notes[3].note = BUNote;
-          notes[4].note = DUNote;
-          notes[5].note = FSGFUNote;
+          this.key = 'Bm';
+          notes[0].note = BNote1;
+          notes[1].note = DNote1;
+          notes[2].note = FSGFNote1;
+          notes[3].note = BUNote1;
+          notes[4].note = DUNote1;
+          notes[5].note = FSGFUNote1;
+          notes[6].note = BNote2;
+          notes[7].note = DNote2;
+          notes[8].note = FSGFNote2;
+          notes[9].note = BUNote2;
+          notes[10].note = DUNote2;
+          notes[11].note = FSGFUNote2;
+        } else if (this.key == 'Bm') {
+          this.key = 'C';
+          notes[0].note = CNote1;
+          notes[1].note = ENote1;
+          notes[2].note = GNote1;
+          notes[3].note = CUNote1;
+          notes[4].note = EUNote1;
+          notes[5].note = GUNote1;
+          notes[6].note = CNote2;
+          notes[7].note = ENote2;
+          notes[8].note = GNote2;
+          notes[9].note = CUNote2;
+          notes[10].note = EUNote2;
+          notes[11].note = GUNote2;
+        } else if (this.key == 'C') {
+          this.key = 'F';
+          notes[0].note = FNote1;
+          notes[1].note = ANote1;
+          notes[2].note = CNote1;
+          notes[3].note = FUNote1;
+          notes[4].note = AUNote1;
+          notes[5].note = CUNote1;
+          notes[6].note = FNote2;
+          notes[7].note = ANote2;
+          notes[8].note = CNote2;
+          notes[9].note = FUNote2;
+          notes[10].note = AUNote2;
+          notes[11].note = CUNote2;
+        } else if (this.key == 'F') {
+          this.key = 'Em';
+          notes[0].note = ENote1;
+          notes[1].note = GNote1;
+          notes[2].note = BNote1;
+          notes[3].note = EUNote1;
+          notes[4].note = GUNote1;
+          notes[5].note = BUNote1;
+          notes[6].note = ENote2;
+          notes[7].note = GNote2;
+          notes[8].note = BNote2;
+          notes[9].note = EUNote2;
+          notes[10].note = GUNote2;
+          notes[11].note = BUNote2;
         } else {
           this.key = 'D';
-          notes[0].note = DNote;
-          notes[1].note = FSGFNote;
-          notes[2].note = ANote;
-          notes[3].note = DUNote;
-          notes[4].note = FSGFUNote;
-          notes[5].note = AUNote;
+          notes[0].note = DNote1;
+          notes[1].note = FSGFNote1;
+          notes[2].note = ANote1;
+          notes[3].note = DUNote1;
+          notes[4].note = FSGFUNote1;
+          notes[5].note = AUNote1;
+          notes[6].note = DNote2;
+          notes[7].note = FSGFNote2;
+          notes[8].note = ANote2;
+          notes[9].note = DUNote2;
+          notes[10].note = FSGFUNote2;
+          notes[11].note = AUNote2;
         }
 
         if (this.key == 'D') {
@@ -98,9 +158,24 @@ function () {
           GBass.play();
         }
 
-        if (this.key == 'B') {
+        if (this.key == 'Bm') {
           BBass.currentTime = 0.1;
           BBass.play();
+        }
+
+        if (this.key == 'C') {
+          CBass.currentTime = 0.1;
+          CBass.play();
+        }
+
+        if (this.key == 'F') {
+          FBass.currentTime = 0.1;
+          FBass.play();
+        }
+
+        if (this.key == 'Em') {
+          EBass.currentTime = 0.1;
+          EBass.play();
         }
       }
 
