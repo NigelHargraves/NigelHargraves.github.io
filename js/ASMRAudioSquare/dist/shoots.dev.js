@@ -6,33 +6,35 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-var Tail =
+var Shoot =
 /*#__PURE__*/
 function () {
-  function Tail(x, y) {
-    _classCallCheck(this, Tail);
+  function Shoot(x, y) {
+    _classCallCheck(this, Shoot);
 
     this.x = x;
     this.y = y;
-    this.opacity = 1;
     this.velocity = {
-      x: Math.random() - 0.5,
-      y: Math.random() - 0.5
+      x: 0,
+      y: 0
+    };
+    this.angle = 0;
+    this.center = {
+      x: canvas.width / 2,
+      y: canvas.height / 2
     };
   }
 
-  _createClass(Tail, [{
+  _createClass(Shoot, [{
     key: "draw",
     value: function draw() {
       ctx.save();
       ctx.translate(square.x, square.y);
       ctx.rotate(square.rotateAngle);
-      ctx.globalAlpha = this.opacity;
       ctx.beginPath();
-      ctx.arc(this.x - canvas.width / 2, this.y - canvas.height / 2, 1, 0, Math.PI * 2);
-      ctx.strokeStyle = "silver";
-      ctx.stroke();
-      ctx.globalAlpha = 0.2;
+      ctx.arc(this.x - this.center.x, this.y - this.center.y, 5, 0, Math.PI * 2);
+      ctx.fillStyle = "aquamarine";
+      ctx.fill();
       ctx.restore();
     }
   }, {
@@ -40,24 +42,25 @@ function () {
     value: function update() {
       this.x += this.velocity.x;
       this.y += this.velocity.y;
-
-      if (this.opacity > 0) {
-        this.opacity -= 0.001;
-      }
-
+      this.angle = Math.atan2(this.center.y - this.y, this.center.x - this.x);
+      this.velocity.x = Math.cos(this.angle) * 3;
+      this.velocity.y = Math.sin(this.angle) * 3;
       this.draw();
     }
   }]);
 
-  return Tail;
+  return Shoot;
 }();
 
-function forTails() {
-  tails.forEach(function (tail, index) {
-    if (tail.opacity <= 0.01) {
-      tails.splice(index, 1);
+function forShoots() {
+  shoots.forEach(function (shoot, index) {
+    var collide = collisionDetection(shoot.x, shoot.y, 1, 1, shoot.center.x, shoot.center.y, 2, 2);
+
+    if (collide) {
+      floatNotes.push(new FloatNote(shoot.x, shoot.y));
+      shoots.splice(index, 1);
     }
 
-    tail.update();
+    shoot.update();
   });
 }

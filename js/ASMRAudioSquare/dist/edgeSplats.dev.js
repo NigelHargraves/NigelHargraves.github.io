@@ -6,58 +6,54 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-var Tail =
+var EdgeSplat =
 /*#__PURE__*/
 function () {
-  function Tail(x, y) {
-    _classCallCheck(this, Tail);
+  function EdgeSplat(x, y) {
+    _classCallCheck(this, EdgeSplat);
 
     this.x = x;
     this.y = y;
-    this.opacity = 1;
     this.velocity = {
       x: Math.random() - 0.5,
       y: Math.random() - 0.5
     };
+    this.opacity = 1;
   }
 
-  _createClass(Tail, [{
+  _createClass(EdgeSplat, [{
     key: "draw",
     value: function draw() {
-      ctx.save();
-      ctx.translate(square.x, square.y);
-      ctx.rotate(square.rotateAngle);
       ctx.globalAlpha = this.opacity;
+      ctx.save();
+      ctx.translate(this.x, this.y);
+      ctx.rotate(square.rotateAngle);
       ctx.beginPath();
-      ctx.arc(this.x - canvas.width / 2, this.y - canvas.height / 2, 1, 0, Math.PI * 2);
-      ctx.strokeStyle = "silver";
+      ctx.arc(0, 0, 1, 0, Math.PI * 2);
+      ctx.strokeStyle = "aquamarine";
       ctx.stroke();
-      ctx.globalAlpha = 0.2;
       ctx.restore();
+      ctx.globalAlpha = 0.2;
     }
   }, {
     key: "update",
     value: function update() {
       this.x += this.velocity.x;
       this.y += this.velocity.y;
-
-      if (this.opacity > 0) {
-        this.opacity -= 0.001;
-      }
-
+      this.opacity -= 0.001;
       this.draw();
     }
   }]);
 
-  return Tail;
+  return EdgeSplat;
 }();
 
-function forTails() {
-  tails.forEach(function (tail, index) {
-    if (tail.opacity <= 0.01) {
-      tails.splice(index, 1);
+function forEdgeSplats() {
+  edgeSplats.forEach(function (es, index) {
+    if (es.opacity <= 0.05) {
+      edgeSplats.splice(index, 1);
     }
 
-    tail.update();
+    es.update();
   });
 }

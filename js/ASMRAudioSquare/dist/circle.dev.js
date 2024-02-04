@@ -22,6 +22,10 @@ function () {
   _createClass(Circle, [{
     key: "draw",
     value: function draw() {
+      ctx.beginPath();
+      ctx.arc(canvas.width / 2, canvas.height / 2, 5, 0, Math.PI * 2);
+      ctx.fillStyle = "aqua";
+      ctx.fill();
       ctx.globalAlpha = this.opacity;
       ctx.beginPath();
       ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);

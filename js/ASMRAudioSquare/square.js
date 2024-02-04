@@ -26,7 +26,7 @@ class Square {
         if (this.lineWidth > 0.2) {
             this.lineWidth -= 0.1;
         }
-        this.rotateAngle += (Math.PI / 180) / 100;
+        this.rotateAngle += (Math.PI / 180) / 20;
         if (this.rotateAngle >= Math.PI * 2) {
             this.rotateAngle = 0;
         }

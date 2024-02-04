@@ -24,6 +24,7 @@ function () {
       x: 0,
       y: 0
     };
+    this.blur = 5;
     DBass.currentTime = 0.1;
     DBass.play();
   }
@@ -37,7 +38,10 @@ function () {
       ctx.lineWidth = this.lineWidth;
       ctx.globalAlpha = this.opacity;
       ctx.strokeStyle = "aqua";
+      ctx.save();
+      ctx.filter = "blur(" + this.blur + "px)";
       ctx.stroke();
+      ctx.restore();
       ctx.lineWidth = 1;
       ctx.globalAlpha = 0.2;
     }
@@ -45,24 +49,29 @@ function () {
     key: "update",
     value: function update() {
       if (this.opacity > 0.2) {
-        this.opacity -= 0.01;
+        this.opacity -= 0.001;
       }
 
       if (this.lineWidth > 1) {
         this.lineWidth -= 0.01;
       }
 
+      if (this.blur > 1) {
+        this.blur -= 0.01;
+      }
+
       this.point.x = this.bigRadius * Math.cos(this.angle);
       this.point.y = this.bigRadius * Math.sin(this.angle);
-      this.angle += Math.PI / 180 / 4;
+      this.angle += Math.PI / 180 / 2;
 
       if (this.angle <= Math.PI + Math.PI / 2 + 0.001 && this.angle >= Math.PI + Math.PI / 2 - 0.001) {
         this.opacity = 1;
         this.lineWidth = 5;
         circle.opacity = 1;
         circle.lineWidth = 5;
+        this.blur = 5;
 
-        if (this.key == 'D') {
+        if (this.key == 'Dm') {
           this.key = 'G';
           notes[0].note = GNote1;
           notes[1].note = BNote1;
@@ -105,20 +114,6 @@ function () {
           notes[10].note = EUNote2;
           notes[11].note = GUNote2;
         } else if (this.key == 'C') {
-          this.key = 'F';
-          notes[0].note = FNote1;
-          notes[1].note = ANote1;
-          notes[2].note = CNote1;
-          notes[3].note = FUNote1;
-          notes[4].note = AUNote1;
-          notes[5].note = CUNote1;
-          notes[6].note = FNote2;
-          notes[7].note = ANote2;
-          notes[8].note = CNote2;
-          notes[9].note = FUNote2;
-          notes[10].note = AUNote2;
-          notes[11].note = CUNote2;
-        } else if (this.key == 'F') {
           this.key = 'Em';
           notes[0].note = ENote1;
           notes[1].note = GNote1;
@@ -132,23 +127,37 @@ function () {
           notes[9].note = EUNote2;
           notes[10].note = GUNote2;
           notes[11].note = BUNote2;
+        } else if (this.key == 'Em') {
+          this.key = 'F';
+          notes[0].note = FNote1;
+          notes[1].note = ANote1;
+          notes[2].note = CNote1;
+          notes[3].note = FUNote1;
+          notes[4].note = AUNote1;
+          notes[5].note = CUNote1;
+          notes[6].note = FNote2;
+          notes[7].note = ANote2;
+          notes[8].note = CNote2;
+          notes[9].note = FUNote2;
+          notes[10].note = AUNote2;
+          notes[11].note = CUNote2;
         } else {
-          this.key = 'D';
+          this.key = 'Dm';
           notes[0].note = DNote1;
-          notes[1].note = FSGFNote1;
+          notes[1].note = FNote1;
           notes[2].note = ANote1;
           notes[3].note = DUNote1;
-          notes[4].note = FSGFUNote1;
+          notes[4].note = FUNote1;
           notes[5].note = AUNote1;
           notes[6].note = DNote2;
-          notes[7].note = FSGFNote2;
+          notes[7].note = FNote2;
           notes[8].note = ANote2;
           notes[9].note = DUNote2;
-          notes[10].note = FSGFUNote2;
+          notes[10].note = FUNote2;
           notes[11].note = AUNote2;
         }
 
-        if (this.key == 'D') {
+        if (this.key == 'Dm') {
           DBass.currentTime = 0.1;
           DBass.play();
         }

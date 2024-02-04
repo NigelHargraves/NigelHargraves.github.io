@@ -27,6 +27,9 @@ class Note {
         ctx.restore();
     }
     update() {
+
+
+
         if (this.x <= squareCorners.topLeft.x + 1 && this.x >= squareCorners.topLeft.x - 1 &&
             this.y <= squareCorners.topLeft.y + 1 && this.y >= squareCorners.topLeft.y - 1) {
             this.xDirection = true;
@@ -38,6 +41,8 @@ class Note {
             this.note.play();
             square.opacity = 1;
             square.lineWidth = 5;
+            createTails(this.x, this.y)
+            shoots.push(new Shoot(this.x, this.y));
         }
         if (this.x <= squareCorners.topRight.x + 1 && this.x >= squareCorners.topRight.x - 1 &&
             this.y <= squareCorners.topRight.y + 1 && this.y >= squareCorners.topRight.y - 1) {
@@ -50,6 +55,9 @@ class Note {
             this.note.play();
             square.opacity = 1;
             square.lineWidth = 5;
+            createTails(this.x, this.y)
+            shoots.push(new Shoot(this.x, this.y));
+
         }
         if (this.x <= squareCorners.bottomRight.x + 1 && this.x >= squareCorners.bottomRight.x - 1 &&
             this.y <= squareCorners.bottomRight.y + 1 && this.y >= squareCorners.bottomRight.y - 1) {
@@ -62,6 +70,8 @@ class Note {
             this.note.play();
             square.opacity = 1;
             square.lineWidth = 5;
+            createTails(this.x, this.y)
+            shoots.push(new Shoot(this.x, this.y));
         }
         if (this.x <= squareCorners.bottomLeft.x + 1 && this.x >= squareCorners.bottomLeft.x - 1 &&
             this.y <= squareCorners.bottomLeft.y + 1 && this.y >= squareCorners.bottomLeft.y - 1) {
@@ -74,6 +84,8 @@ class Note {
             this.note.play();
             square.opacity = 1;
             square.lineWidth = 5;
+            createTails(this.x, this.y)
+            shoots.push(new Shoot(this.x, this.y));
         }
 
         if (this.lineWidth > 1) {
@@ -82,7 +94,6 @@ class Note {
 
         if (this.opacity > 0.2) {
             this.opacity -= 0.01;
-            tails.push(new Tail(this.x, this.y))
         }
 
 
@@ -108,6 +119,12 @@ class Note {
 
         }
         this.draw();
+    }
+}
+
+function createTails(x, y) {
+    for (let i = 0; i < 10; i++) {
+        tails.push(new Tail(x, y))
     }
 }
 
