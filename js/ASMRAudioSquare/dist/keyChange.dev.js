@@ -25,8 +25,6 @@ function () {
       y: 0
     };
     this.blur = 5;
-    DBass.currentTime = 0.1;
-    DBass.play();
   }
 
   _createClass(Key, [{

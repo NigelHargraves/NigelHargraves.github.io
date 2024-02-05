@@ -53,7 +53,7 @@ function () {
         this.note.currentTime = 0.1;
         this.note.play();
         square.opacity = 1;
-        square.lineWidth = 5;
+        square.lineWidth = 2;
         createTails(this.x, this.y);
         shoots.push(new Shoot(this.x, this.y));
       }
@@ -67,7 +67,7 @@ function () {
         this.note.currentTime = 0.1;
         this.note.play();
         square.opacity = 1;
-        square.lineWidth = 5;
+        square.lineWidth = 2;
         createTails(this.x, this.y);
         shoots.push(new Shoot(this.x, this.y));
       }
@@ -81,7 +81,7 @@ function () {
         this.note.currentTime = 0.1;
         this.note.play();
         square.opacity = 1;
-        square.lineWidth = 5;
+        square.lineWidth = 2;
         createTails(this.x, this.y);
         shoots.push(new Shoot(this.x, this.y));
       }
@@ -95,7 +95,7 @@ function () {
         this.note.currentTime = 0.1;
         this.note.play();
         square.opacity = 1;
-        square.lineWidth = 5;
+        square.lineWidth = 2;
         createTails(this.x, this.y);
         shoots.push(new Shoot(this.x, this.y));
       }
@@ -132,7 +132,7 @@ function () {
 }();
 
 function createTails(x, y) {
-  for (var i = 0; i < 10; i++) {
+  for (var i = 0; i < 5; i++) {
     tails.push(new Tail(x, y));
   }
 }

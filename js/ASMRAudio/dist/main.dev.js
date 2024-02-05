@@ -8,7 +8,8 @@ var notes = [],
     upperNotes = [],
     stars = [],
     chords = [],
-    bubbles = [];
+    bubbles = [],
+    whiteStars = [];
 var chordChange = 'C',
     delay = 0;
 var cross;
@@ -21,6 +22,11 @@ function animate() {
   //CLS.
   ctx.fillStyle = "rgb(0, 0, 0, 0.2)";
   ctx.fillRect(0, 0, canvas.width, canvas.height);
+  ctx.font = "bold 50px Arial";
+  ctx.fillStyle = "white";
+  ctx.globalAlpha = 0.01;
+  ctx.fillText("𝔸𝕊𝕄ℝ 𝔸𝕌𝔻𝕀𝕆", canvas.width / 2.4, canvas.height / 2);
+  ctx.globalAlpha = 1;
 
   if (!start) {
     delay += 1;
@@ -42,6 +48,7 @@ function animate() {
     forStar();
     forChord();
     forBubble();
+    forWhiteStars();
     cross.update();
   } //call next frame.
 

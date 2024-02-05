@@ -6,54 +6,50 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-var Square =
+var WhiteStar =
 /*#__PURE__*/
 function () {
-  function Square(x, y) {
-    _classCallCheck(this, Square);
+  function WhiteStar(x, y) {
+    _classCallCheck(this, WhiteStar);
 
     this.x = x;
     this.y = y;
-    this.opacity = 0.2;
-    this.rotateAngle = 0;
-    this.lineWidth = 5;
+    this.opacity = 1;
+    this.velocity = {
+      x: (Math.random() - 0.5) / 10,
+      y: (Math.random() - 0.5) / 10
+    };
   }
 
-  _createClass(Square, [{
+  _createClass(WhiteStar, [{
     key: "draw",
     value: function draw() {
-      ctx.save();
-      ctx.translate(this.x, this.y);
-      ctx.rotate(this.rotateAngle);
-      ctx.beginPath();
-      ctx.rect(0 - canvas.height / 4, 0 - canvas.height / 4, canvas.height / 2, canvas.height / 2);
-      ctx.strokeStyle = "gold";
       ctx.globalAlpha = this.opacity;
-      ctx.lineWidth = this.lineWidth;
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, 1, 0, Math.PI * 2);
+      ctx.strokeStyle = "white";
       ctx.stroke();
-      ctx.restore();
-      ctx.globalAlpha = 0.2;
+      ctx.globalApha = 1;
     }
   }, {
     key: "update",
     value: function update() {
-      if (this.opacity > 0.2) {
-        this.opacity -= 0.1;
-      }
-
-      if (this.lineWidth > 0.2) {
-        this.lineWidth -= 0.1;
-      }
-
-      this.rotateAngle += Math.PI / 180 / 20;
-
-      if (this.rotateAngle >= Math.PI * 2) {
-        this.rotateAngle = 0;
-      }
-
+      this.x += this.velocity.x;
+      this.y += this.velocity.y;
+      this.opacity -= 0.0001;
       this.draw();
     }
   }]);
 
-  return Square;
+  return WhiteStar;
 }();
+
+function forWhiteStars() {
+  whiteStars.forEach(function (ws, index) {
+    if (ws.opacity <= 0.05) {
+      whiteStars.splice(index, 1);
+    }
+
+    ws.update();
+  });
+}

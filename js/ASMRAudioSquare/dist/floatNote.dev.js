@@ -52,282 +52,282 @@ function playLowStringNotes() {
 
   if (key.key == 'Dm') {
     if (randomNote == 0) {
-      Dls.volume = 0.5;
+      Dls.volume = volume;
       Dls.play();
     }
 
     if (randomNote == 1) {
-      Fls.volume = 0.5;
+      Fls.volume = volume;
       Fls.play();
     }
 
     if (randomNote == 2) {
-      Als.volume = 0.5;
+      Als.volume = volume;
       Als.play();
     }
 
     if (randomNote == 3) {
-      Dms.volume = 0.5;
+      Dms.volume = volume;
       Dms.play();
     }
 
     if (randomNote == 4) {
-      Fms.volume = 0.5;
+      Fms.volume = volume;
       Fms.play();
     }
 
     if (randomNote == 5) {
-      Ams.volume = 0.5;
+      Ams.volume = volume;
       Ams.play();
     }
 
     if (randomNote == 6) {
-      Dhs.volume = 0.5;
+      Dhs.volume = volume;
       Dhs.play();
     }
 
     if (randomNote == 7) {
-      Fhs.volume = 0.5;
+      Fhs.volume = volume;
       Fhs.play();
     }
 
     if (randomNote == 8) {
-      Ahs.volume = 0.5;
+      Ahs.volume = volume;
       Ahs.play();
     }
   }
 
   if (key.key == 'G') {
     if (randomNote == 0) {
-      Gls.volume = 0.5;
+      Gls.volume = volume;
       Gls.play();
     }
 
     if (randomNote == 1) {
-      Bls.volume = 0.5;
+      Bls.volume = volume;
       Bls.play();
     }
 
     if (randomNote == 2) {
-      Dls.volume = 0.5;
+      Dls.volume = volume;
       Dls.play();
     }
 
     if (randomNote == 3) {
-      Gms.volume = 0.5;
+      Gms.volume = volume;
       Gms.play();
     }
 
     if (randomNote == 4) {
-      Bms.volume = 0.5;
+      Bms.volume = volume;
       Bms.play();
     }
 
     if (randomNote == 5) {
-      Dms.volume = 0.5;
+      Dms.volume = volume;
       Dms.play();
     }
 
     if (randomNote == 6) {
-      Ghs.volume = 0.5;
+      Ghs.volume = volume;
       Ghs.play();
     }
 
     if (randomNote == 7) {
-      Bhs.volume = 0.5;
+      Bhs.volume = volume;
       Bhs.play();
     }
 
     if (randomNote == 8) {
-      Dhs.volume = 0.5;
+      Dhs.volume = volume;
       Dhs.play();
     }
   }
 
   if (key.key == 'Bm') {
     if (randomNote == 0) {
-      Bls.volume = 0.5;
+      Bls.volume = volume;
       Bls.play();
     }
 
     if (randomNote == 1) {
-      Dls.volume = 0.5;
+      Dls.volume = volume;
       Dls.play();
     }
 
     if (randomNote == 2) {
-      FSls.volume = 0.5;
+      FSls.volume = volume;
       FSls.play();
     }
 
     if (randomNote == 3) {
-      Bms.volume = 0.5;
+      Bms.volume = volume;
       Bms.play();
     }
 
     if (randomNote == 4) {
-      Dms.volume = 0.5;
+      Dms.volume = volume;
       Dms.play();
     }
 
     if (randomNote == 5) {
-      FSms.volume = 0.5;
+      FSms.volume = volume;
       FSms.play();
     }
 
     if (randomNote == 6) {
-      Bhs.volume = 0.5;
+      Bhs.volume = volume;
       Bhs.play();
     }
 
     if (randomNote == 7) {
-      Dhs.volume = 0.5;
+      Dhs.volume = volume;
       Dhs.play();
     }
 
     if (randomNote == 8) {
-      FShs.volume = 0.5;
+      FShs.volume = volume;
       FShs.play();
     }
   }
 
   if (key.key == 'C') {
     if (randomNote == 0) {
-      Cls.volume = 0.5;
+      Cls.volume = volume;
       Cls.play();
     }
 
     if (randomNote == 1) {
-      Els.volume = 0.5;
+      Els.volume = volume;
       Els.play();
     }
 
     if (randomNote == 2) {
-      Gls.volume = 0.5;
+      Gls.volume = volume;
       Gls.play();
     }
 
     if (randomNote == 3) {
-      Cms.volume = 0.5;
+      Cms.volume = volume;
       Cms.play();
     }
 
     if (randomNote == 4) {
-      Ems.volume = 0.5;
+      Ems.volume = volume;
       Ems.play();
     }
 
     if (randomNote == 5) {
-      Gms.volume = 0.5;
+      Gms.volume = volume;
       Gms.play();
     }
 
     if (randomNote == 6) {
-      Chs.volume = 0.5;
+      Chs.volume = volume;
       Chs.play();
     }
 
     if (randomNote == 7) {
-      Ehs.volume = 0.5;
+      Ehs.volume = volume;
       Ehs.play();
     }
 
     if (randomNote == 8) {
-      Ghs.volume = 0.5;
+      Ghs.volume = volume;
       Ghs.play();
     }
   }
 
   if (key.key == 'F') {
     if (randomNote == 0) {
-      Fls.volume = 0.5;
+      Fls.volume = volume;
       Fls.play();
     }
 
     if (randomNote == 1) {
-      Als.volume = 0.5;
+      Als.volume = volume;
       Als.play();
     }
 
     if (randomNote == 2) {
-      Cls.volume = 0.5;
+      Cls.volume = volume;
       Cls.play();
     }
 
     if (randomNote == 3) {
-      Fms.volume = 0.5;
+      Fms.volume = volume;
       Fms.play();
     }
 
     if (randomNote == 4) {
-      Ams.volume = 0.5;
+      Ams.volume = volume;
       Ams.play();
     }
 
     if (randomNote == 5) {
-      Cms.volume = 0.5;
+      Cms.volume = volume;
       Cms.play();
     }
 
     if (randomNote == 6) {
-      Fhs.volume = 0.5;
+      Fhs.volume = volume;
       Fhs.play();
     }
 
     if (randomNote == 7) {
-      Ahs.volume = 0.5;
+      Ahs.volume = volume;
       Ahs.play();
     }
 
     if (randomNote == 8) {
-      Chs.volume = 0.5;
+      Chs.volume = volume;
       Chs.play();
     }
   }
 
   if (key.key == 'Em') {
     if (randomNote == 0) {
-      Els.volume = 0.5;
+      Els.volume = volume;
       Els.play();
     }
 
     if (randomNote == 1) {
-      Gls.volume = 0.5;
+      Gls.volume = volume;
       Gls.play();
     }
 
     if (randomNote == 2) {
-      Bls.volume = 0.5;
+      Bls.volume = volume;
       Bls.play();
     }
 
     if (randomNote == 3) {
-      Ems.volume = 0.5;
+      Ems.volume = volume;
       Ems.play();
     }
 
     if (randomNote == 4) {
-      Gms.volume = 0.5;
+      Gms.volume = volume;
       Gms.play();
     }
 
     if (randomNote == 5) {
-      Bms.volume = 0.5;
+      Bms.volume = volume;
       Bms.play();
     }
 
     if (randomNote == 6) {
-      Ehs.volume = 0.5;
+      Ehs.volume = volume;
       Ehs.play();
     }
 
     if (randomNote == 7) {
-      Ghs.volume = 0.5;
+      Ghs.volume = volume;
       Ghs.play();
     }
 
     if (randomNote == 8) {
-      Bhs.volume = 0.5;
+      Bhs.volume = volume;
       Bhs.play();
     }
   }

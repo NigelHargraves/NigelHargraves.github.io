@@ -24,7 +24,12 @@ let squareCorners = {
 };
 
 let speed = 1,
-    nextStar = 0;
+    nextStar = 0,
+    volume = 0.1,
+    delay = 0;
+
+let start = false,
+    playSoundOnce = true;
 
 notes.push(new Note((canvas.width / 2) - (canvas.height / 4), (canvas.height / 2) - (canvas.height / 4), speed - (Math.random() / 10), DNote1));
 notes.push(new Note((canvas.width / 2) - (canvas.height / 4), (canvas.height / 2) - (canvas.height / 4), speed - (Math.random() / 10), FNote1));
@@ -43,23 +48,45 @@ function animate() {
     //CLS.
     ctx.fillStyle = "rgb(0, 0, 0, 0.2)";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
-    nextStar++;
-    if (nextStar >= 10) {
-        stars.push(new Star(Math.random() * canvas.width, Math.random() * canvas.height));
-        nextStar = 0;
+    ctx.font = "bold 50px Arial";
+    ctx.fillStyle = "white";
+    ctx.globalAlpha = 0.005;
+    ctx.fillText("𝔸𝕊𝕄ℝ 𝔸𝕌𝔻𝕀𝕆", (canvas.width / 2.4), canvas.height / 2);
+    ctx.globalAlpha = 0.2;
+
+
+    if (!start) {
+        delay += 1;
+        if (delay >= 500) {
+            start = true;
+        }
     }
 
-    forStars();
-    forNote();
-    forTails();
-    forShoots();
-    forFloatNotes();
-    forEdgeSplats();
 
-    square.update();
-    circle.update();
-    key.update();
+    if (start) {
+        if (playSoundOnce) {
+            DBass.currentTime = 0.1;
+            DBass.play();
+            playSoundOnce = false;
+        }
+        nextStar++;
+        if (nextStar >= 10) {
+            stars.push(new Star(Math.random() * canvas.width, Math.random() * canvas.height));
+            nextStar = 0;
+        }
 
+
+        forStars();
+        forNote();
+        forTails();
+        forShoots();
+        forFloatNotes();
+        forEdgeSplats();
+
+        square.update();
+        circle.update();
+        key.update();
+    }
 
 
 

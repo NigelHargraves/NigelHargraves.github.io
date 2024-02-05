@@ -10,8 +10,6 @@ class Key {
         this.angle = 0 - (Math.PI / 2);
         this.point = { x: 0, y: 0 };
         this.blur = 5;
-        DBass.currentTime = 0.1;
-        DBass.play();
     }
     draw() {
         ctx.globalAlpha = this.opacity;

@@ -30,11 +30,6 @@ class Square {
         if (this.rotateAngle >= Math.PI * 2) {
             this.rotateAngle = 0;
         }
-        /*
-        ctx.font = "bold 30px Arial";
-        ctx.fillStyle = "white";
-        ctx.fillText("Angle = " + this.rotateAngle, (canvas.width / 2), canvas.height * 0.040);
-        */
         this.draw();
     }
 }
