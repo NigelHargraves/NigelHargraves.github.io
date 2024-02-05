@@ -52,7 +52,7 @@ notes.push(new Note(canvas.width / 2 - canvas.height / 4, canvas.height / 2 - ca
 
 function animate() {
   //CLS.
-  ctx.fillStyle = "rgb(0, 0, 0, 0.2)";
+  ctx.fillStyle = "rgb(0, 0, 0, 0.4)";
   ctx.fillRect(0, 0, canvas.width, canvas.height);
   ctx.font = "bold 50px Arial";
   ctx.fillStyle = "white";
