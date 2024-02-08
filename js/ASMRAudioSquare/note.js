@@ -11,6 +11,7 @@ class Note {
         this.yDirection = false;
         this.left = false;
         this.up = false;
+        this.range = 0.5;
     }
     draw() {
         ctx.save();
@@ -30,8 +31,8 @@ class Note {
 
 
 
-        if (this.x <= squareCorners.topLeft.x + 1 && this.x >= squareCorners.topLeft.x - 1 &&
-            this.y <= squareCorners.topLeft.y + 1 && this.y >= squareCorners.topLeft.y - 1) {
+        if (this.x <= squareCorners.topLeft.x + this.range && this.x >= squareCorners.topLeft.x - this.range &&
+            this.y <= squareCorners.topLeft.y + this.range && this.y >= squareCorners.topLeft.y - this.range) {
             this.xDirection = true;
             this.yDirection = false;
             this.left = false;
@@ -44,8 +45,8 @@ class Note {
             createTails(this.x, this.y)
             shoots.push(new Shoot(this.x, this.y));
         }
-        if (this.x <= squareCorners.topRight.x + 1 && this.x >= squareCorners.topRight.x - 1 &&
-            this.y <= squareCorners.topRight.y + 1 && this.y >= squareCorners.topRight.y - 1) {
+        if (this.x <= squareCorners.topRight.x + this.range && this.x >= squareCorners.topRight.x - this.range &&
+            this.y <= squareCorners.topRight.y + this.range && this.y >= squareCorners.topRight.y - this.range) {
             this.xDirection = false;
             this.yDirection = true;
             this.up = false;
@@ -59,8 +60,8 @@ class Note {
             shoots.push(new Shoot(this.x, this.y));
 
         }
-        if (this.x <= squareCorners.bottomRight.x + 1 && this.x >= squareCorners.bottomRight.x - 1 &&
-            this.y <= squareCorners.bottomRight.y + 1 && this.y >= squareCorners.bottomRight.y - 1) {
+        if (this.x <= squareCorners.bottomRight.x + this.range && this.x >= squareCorners.bottomRight.x - this.range &&
+            this.y <= squareCorners.bottomRight.y + this.range && this.y >= squareCorners.bottomRight.y - this.range) {
             this.xDirection = true;
             this.yDirection = false;
             this.left = true;
@@ -73,8 +74,8 @@ class Note {
             createTails(this.x, this.y)
             shoots.push(new Shoot(this.x, this.y));
         }
-        if (this.x <= squareCorners.bottomLeft.x + 1 && this.x >= squareCorners.bottomLeft.x - 1 &&
-            this.y <= squareCorners.bottomLeft.y + 1 && this.y >= squareCorners.bottomLeft.y - 1) {
+        if (this.x <= squareCorners.bottomLeft.x + this.range && this.x >= squareCorners.bottomLeft.x - this.range &&
+            this.y <= squareCorners.bottomLeft.y + this.range && this.y >= squareCorners.bottomLeft.y - this.range) {
             this.xDirection = false;
             this.yDirection = true;
             this.up = true;

@@ -64,11 +64,218 @@ function () {
         this.lineOpacity -= 0.01;
       }
 
+      if (this.note != 0 && this.velocity < 0.04 && this.velocity > -0.04) {
+        splashes.push(new Splash(this.x, this.y, 'white'));
+        this.opacity = 1;
+        this.lineWidth = 3;
+      }
+
+      if (this.note != 0 && Math.floor(this.y) == canvas.height / 2) {
+        if (newChord == 0) {
+          if (this.note == 1) {
+            FLSilky.play();
+          }
+
+          if (this.note == 2) {
+            ALSilky.play();
+          }
+
+          if (this.note == 3) {
+            CLSilky.play();
+          }
+
+          if (this.note == 4) {
+            FUSilky.play();
+          }
+
+          if (this.note == 5) AUSilky.play();
+
+          if (this.note == 6) {
+            CUSilky.play();
+          }
+
+          if (this.note == 7) {
+            FLWG.play();
+          }
+
+          if (this.note == 8) {
+            ALWG.play();
+          }
+
+          if (this.note == 9) {
+            CLWG.play();
+          }
+
+          if (this.note == 10) {
+            FUWG.play();
+          }
+
+          if (this.note == 11) {
+            AUWG.play();
+          }
+
+          if (this.note == 12) {
+            CUWG.play();
+          }
+        }
+
+        if (newChord == 1) {
+          if (this.note == 1) {
+            FLSilky.play();
+          }
+
+          if (this.note == 2) {
+            BFLSilky.play();
+          }
+
+          if (this.note == 3) {
+            DLSilky.play();
+          }
+
+          if (this.note == 4) {
+            FUSilky.play();
+          }
+
+          if (this.note == 5) {
+            BFUSilky.play();
+          }
+
+          if (this.note == 6) {
+            DUSilky.play();
+          }
+
+          if (this.note == 7) {
+            FLWG.play();
+          }
+
+          if (this.note == 8) {
+            BFLWG.play();
+          }
+
+          if (this.note == 9) {
+            DLWG.play();
+          }
+
+          if (this.note == 10) {
+            FUWG.play();
+          }
+
+          if (this.note == 11) {
+            BFUWG.play();
+          }
+
+          if (this.note == 12) {
+            DUWG.play();
+          }
+        }
+
+        if (newChord == 2) {
+          if (this.note == 1) {
+            DLSilky.play();
+          }
+
+          if (this.note == 2) {
+            FLSilky.play();
+          }
+
+          if (this.note == 3) {
+            ALSilky.play();
+          }
+
+          if (this.note == 4) {
+            DUSilky.play();
+          }
+
+          if (this.note == 5) {
+            FUSilky.play();
+          }
+
+          if (this.note == 6) {
+            AUSilky.play();
+          }
+
+          if (this.note == 7) {
+            DLWG.play();
+          }
+
+          if (this.note == 8) {
+            FLWG.play();
+          }
+
+          if (this.note == 9) {
+            ALWG.play();
+          }
+
+          if (this.note == 10) {
+            DUWG.play();
+          }
+
+          if (this.note == 11) {
+            FUWG.play();
+          }
+
+          if (this.note == 12) {
+            AUWG.play();
+          }
+        }
+
+        if (newChord == -1) {
+          if (this.note == 1) {
+            CLSilky.play();
+          }
+
+          if (this.note == 2) {
+            ELSilky.play();
+          }
+
+          if (this.note == 3) {
+            GLSilky.play();
+          }
+
+          if (this.note == 4) {
+            CUSilky.play();
+          }
+
+          if (this.note == 5) {
+            EUSilky.play();
+          }
+
+          if (this.note == 6) {
+            GUSilky.play();
+          }
+
+          if (this.note == 7) {
+            CLWG.play();
+          }
+
+          if (this.note == 8) {
+            ELWG.play();
+          }
+
+          if (this.note == 9) {
+            GLWG.play();
+          }
+
+          if (this.note == 10) {
+            CUWG.play();
+          }
+
+          if (this.note == 11) {
+            EUWG.play();
+          }
+
+          if (this.note == 12) {
+            GUWG.play();
+          }
+        }
+      }
+
       if (this.note == 0 && this.velocity < 0.01 && this.velocity > -0.01) {
         if (eject) {
-          ejectNotes.push(new EjectNote(this.x, this.y));
-          ejectNotes.push(new EjectNote(this.x, this.y));
-          ejectNotes.push(new EjectNote(this.x, this.y));
+          for (var i = 1; i < 4; i++) {
+            ejectNotes.push(new EjectNote(this.x, this.y, i, 'coral'));
+          }
+
           eject = false;
         }
 
@@ -169,6 +376,36 @@ function () {
               CUSilky.currentTime = 0.1;
               CUSilky.play();
             }
+
+            if (this.note == 7) {
+              FLWG.currentTime = 0.1;
+              FLWG.play();
+            }
+
+            if (this.note == 8) {
+              ALWG.currentTime = 0.1;
+              ALWG.play();
+            }
+
+            if (this.note == 9) {
+              CLWG.currentTime = 0.1;
+              CLWG.play();
+            }
+
+            if (this.note == 10) {
+              FUWG.currentTime = 0.1;
+              FUWG.play();
+            }
+
+            if (this.note == 11) {
+              AUWG.currentTime = 0.1;
+              AUWG.play();
+            }
+
+            if (this.note == 12) {
+              CUWG.currentTime = 0.1;
+              CUWG.play();
+            }
           }
 
           if (newChord == 1) {
@@ -200,6 +437,36 @@ function () {
             if (this.note == 6) {
               DUSilky.currentTime = 0.1;
               DUSilky.play();
+            }
+
+            if (this.note == 7) {
+              FLWG.currentTime = 0.1;
+              FLWG.play();
+            }
+
+            if (this.note == 8) {
+              BFLWG.currentTime = 0.1;
+              BFLWG.play();
+            }
+
+            if (this.note == 9) {
+              DLWG.currentTime = 0.1;
+              DLWG.play();
+            }
+
+            if (this.note == 10) {
+              FUWG.currentTime = 0.1;
+              FUWG.play();
+            }
+
+            if (this.note == 11) {
+              BFUWG.currentTime = 0.1;
+              BFUWG.play();
+            }
+
+            if (this.note == 12) {
+              DUWG.currentTime = 0.1;
+              DUWG.play();
             }
           }
 
@@ -233,6 +500,36 @@ function () {
               AUSilky.currentTime = 0.1;
               AUSilky.play();
             }
+
+            if (this.note == 7) {
+              DLWG.currentTime = 0.1;
+              DLWG.play();
+            }
+
+            if (this.note == 8) {
+              FLWG.currentTime = 0.1;
+              FLWG.play();
+            }
+
+            if (this.note == 9) {
+              ALWG.currentTime = 0.1;
+              ALWG.play();
+            }
+
+            if (this.note == 10) {
+              DUWG.currentTime = 0.1;
+              DUWG.play();
+            }
+
+            if (this.note == 11) {
+              FUWG.currentTime = 0.1;
+              FUWG.play();
+            }
+
+            if (this.note == 12) {
+              AUWG.currentTime = 0.1;
+              AUWG.play();
+            }
           }
 
           if (newChord == -1) {
@@ -264,6 +561,36 @@ function () {
             if (this.note == 6) {
               GUSilky.currentTime = 0.1;
               GUSilky.play();
+            }
+
+            if (this.note == 7) {
+              CLWG.currentTime = 0.1;
+              CLWG.play();
+            }
+
+            if (this.note == 8) {
+              ELWG.currentTime = 0.1;
+              ELWG.play();
+            }
+
+            if (this.note == 9) {
+              GLWG.currentTime = 0.1;
+              GLWG.play();
+            }
+
+            if (this.note == 10) {
+              CUWG.currentTime = 0.1;
+              CUWG.play();
+            }
+
+            if (this.note == 11) {
+              EUWG.currentTime = 0.1;
+              EUWG.play();
+            }
+
+            if (this.note == 12) {
+              GUWG.currentTime = 0.1;
+              GUWG.play();
             }
           }
         }

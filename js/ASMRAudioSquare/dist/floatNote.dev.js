@@ -346,7 +346,7 @@ function forFloatNotes() {
     }
 
     if (fn.r <= 1) {
-      for (var i = 0; i < 10; i++) {
+      for (var i = 0; i < 6; i++) {
         edgeSplats.push(new EdgeSplat(fn.x, fn.y));
       }
 
