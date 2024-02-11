@@ -1,6 +1,8 @@
 function notesToPlay() {
-    let noteToPlay = Math.floor(Math.random() * 13);
-    if (chordToPlay == 0 || chordToPlay == 1 || chordToPlay == 6) {
+    if (chordToPlay == 1) {
+        playFirstDChord = true;
+    }
+    if ((chordToPlay == 0 && playFirstDChord) || chordToPlay == 1 || chordToPlay == 6) {
         if (noteToPlay == 1) {
             DO1.currentTime = 0.1;
             DO1.play();
@@ -50,7 +52,7 @@ function notesToPlay() {
             AO4.play();
         }
     }
-    if (chordToPlay == 2 || chordToPlay == 8) {
+    if ((chordToPlay == 0 && !playFirstDChord) || chordToPlay == 2 || chordToPlay == 8) {
         if (noteToPlay == 1) {
             AO1.currentTime = 0.1;
             AO1.play();
@@ -101,6 +103,7 @@ function notesToPlay() {
         }
     }
     if (chordToPlay == 3) {
+        playFirstDChord = false;
         if (noteToPlay == 1) {
             BO1.currentTime = 0.1;
             BO1.play();

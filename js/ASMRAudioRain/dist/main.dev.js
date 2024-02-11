@@ -7,8 +7,11 @@ canvas.height = window.innerHeight;
 var clouds = [],
     rainDrops = [],
     splashes = [],
-    bigDrops = [];
-var chordToPlay = 0;
+    bigDrops = [],
+    dropHits = [];
+var chordToPlay = 0,
+    noteToPlay = 1;
+var playFirstDChord = true;
 clouds.push(new Cloud(Math.random() * (canvas.width - 300), Math.random() * canvas.height / 2, false));
 clouds.push(new Cloud(Math.random() * (canvas.width - 300), Math.random() * canvas.height / 2, true));
 clouds.push(new Cloud(Math.random() * (canvas.width - 300), Math.random() * canvas.height / 2, false));
@@ -28,7 +31,8 @@ function animate() {
   forRainDrops();
   forClouds();
   forSplashes();
-  forBigDrops(); //call next frame.
+  forBigDrops();
+  forDropHits(); //call next frame.
 
   animationId = requestAnimationFrame(animate);
 }

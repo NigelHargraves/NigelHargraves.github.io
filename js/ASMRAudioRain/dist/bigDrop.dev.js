@@ -42,7 +42,7 @@ function () {
         this.velocity += this.gravity;
       }
 
-      if (this.y >= canvas.height / 2 - 1 && this.y <= canvas.height / 2 + 1) {
+      if (this.y >= canvas.height / 8 - 1 && this.y <= canvas.height / 8 + 1) {
         bigDrops.push(new BigDrop(canvas.width / 2, 0));
       }
 
@@ -55,27 +55,39 @@ function () {
 
 function bassNoteToPlay() {
   if (chordToPlay == 1) {
+    DUBass.volume = 0.2;
     DUBass.play();
+    DChord.play();
   }
 
   if (chordToPlay == 2 || chordToPlay == 8) {
+    ABass.volume = 0.2;
     ABass.play();
+    AChord.play();
   }
 
   if (chordToPlay == 3) {
+    BBass.volume = 0.2;
     BBass.play();
+    BmChord.play();
   }
 
   if (chordToPlay == 4) {
+    FSBass.volume = 0.2;
     FSBass.play();
+    FSmChord.play();
   }
 
   if (chordToPlay == 5 || chordToPlay == 7) {
+    GBass.volume = 0.2;
     GBass.play();
+    GChord.play();
   }
 
   if (chordToPlay == 6) {
+    DLBass.volume = 0.2;
     DLBass.play();
+    DChord.play();
   }
 }
 
@@ -89,6 +101,7 @@ function forBigDrops() {
         }));
       }
 
+      noteToPlay = 1;
       bigDrops.splice(index, 1);
       drumBass.volume = 0.1;
       drumBass.play();

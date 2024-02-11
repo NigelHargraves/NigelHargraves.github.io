@@ -30,6 +30,10 @@ function forRainDrops() {
                 splashes.push(new Splash(rd.x, rd.y, 'DeepSkyBlue', { x: Math.random() - 0.5, y: Math.random() - 1 }));
             }
             notesToPlay();
+            noteToPlay++;
+            if (noteToPlay == 13) {
+                noteToPlay = 1;
+            }
             rainDrops.splice(index, 1);
         }
         rd.update();

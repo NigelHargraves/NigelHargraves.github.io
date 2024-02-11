@@ -54,6 +54,12 @@ function forRainDrops() {
       }
 
       notesToPlay();
+      noteToPlay++;
+
+      if (noteToPlay == 13) {
+        noteToPlay = 1;
+      }
+
       rainDrops.splice(index, 1);
     }
 
