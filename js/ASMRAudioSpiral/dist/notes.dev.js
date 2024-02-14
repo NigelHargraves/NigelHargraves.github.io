@@ -37,7 +37,7 @@ function () {
     value: function draw() {
       //draw big circle.
       ctx.globalAlpha = this.bigOpacity;
-      ctx.lineWidth = 0.1;
+      ctx.lineWidth = 0.2;
       ctx.beginPath();
       ctx.arc(x, y, 400, 0, Math.PI * 2);
       ctx.strokeStyle = strokeStyle;
@@ -93,7 +93,7 @@ function () {
 
       if (this.measure >= this.distance) {
         for (var i = 0; i < 10; i++) {
-          dusts.push(new Dust(this.x, this.y, this.velocity.x + Math.random() - 0.5, this.velocity.y + Math.random() - 0.5, this.number));
+          dusts.push(new Dust(this.x, this.y, (this.velocity.x + Math.random() - 0.5) / 6, (this.velocity.y + Math.random() - 0.5) / 6, this.number));
         }
 
         strokeStyle = color[this.number];
@@ -147,7 +147,7 @@ function forNotes() {
         }
       }
 
-      if (chord.chord == 'C3' || chord.chord == 'C4') {
+      if (chord.chord == 'C3') {
         for (var _i5 = 0; _i5 < 24; _i5++) {
           notes[_i5].note = chordC2[_i5];
         }
@@ -174,6 +174,12 @@ function forNotes() {
       if (chord.chord == 'Gsus4') {
         for (var _i9 = 0; _i9 < 24; _i9++) {
           notes[_i9].note = chordGsus4[_i9];
+        }
+      }
+
+      if (chord.chord == 'Dm') {
+        for (var _i10 = 0; _i10 < 24; _i10++) {
+          notes[_i10].note = chordDm[_i10];
         }
       }
     }

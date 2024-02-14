@@ -8,16 +8,21 @@ class Dust {
     }
     draw() {
         ctx.beginPath();
-        ctx.arc(this.x, this.y, 0.1, 0, Math.PI * 2);
+        ctx.arc(this.x, this.y, 0.2, 0, Math.PI * 2);
         ctx.globalAlpha = this.opacity;
-        ctx.strokeStyle = color[this.number];
+        if (this.number == 24) {
+            ctx.strokeStyle = chord.color;
+        } else {
+            ctx.strokeStyle = color[this.number];
+        }
+
         ctx.stroke();
         ctx.strokeStyle = 'white';
         ctx.globalAlpha = 1;
     }
     update() {
         if (this.opacity > 0) {
-            this.opacity -= 0.01;
+            this.opacity -= 0.005;
         }
         this.x += -this.velocity.x;
         this.y += -this.velocity.y;

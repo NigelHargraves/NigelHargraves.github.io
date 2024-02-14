@@ -20,7 +20,7 @@ class Note {
     draw() {
         //draw big circle.
         ctx.globalAlpha = this.bigOpacity;
-        ctx.lineWidth = 0.1;
+        ctx.lineWidth = 0.2;
         ctx.beginPath();
         ctx.arc(x, y, 400, 0, Math.PI * 2);
         ctx.strokeStyle = strokeStyle;
@@ -72,7 +72,7 @@ class Note {
 
         if (this.measure >= this.distance) {
             for (let i = 0; i < 10; i++) {
-                dusts.push(new Dust(this.x, this.y, this.velocity.x + Math.random() - 0.5, this.velocity.y + Math.random() - 0.5, this.number));
+                dusts.push(new Dust(this.x, this.y, (this.velocity.x + Math.random() - 0.5) / 6, (this.velocity.y + Math.random() - 0.5) / 6, this.number));
             }
             strokeStyle = color[this.number];
             this.note.play();
@@ -124,7 +124,7 @@ function forNotes() {
                     notes[i].note = chordC1[i];
                 }
             }
-            if (chord.chord == 'C3' || chord.chord == 'C4') {
+            if (chord.chord == 'C3') {
                 for (let i = 0; i < 24; i++) {
                     notes[i].note = chordC2[i];
                 }
@@ -147,6 +147,11 @@ function forNotes() {
             if (chord.chord == 'Gsus4') {
                 for (let i = 0; i < 24; i++) {
                     notes[i].note = chordGsus4[i];
+                }
+            }
+            if (chord.chord == 'Dm') {
+                for (let i = 0; i < 24; i++) {
+                    notes[i].note = chordDm[i];
                 }
             }
         }

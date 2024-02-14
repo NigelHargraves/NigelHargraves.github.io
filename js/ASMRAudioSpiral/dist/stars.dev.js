@@ -6,61 +6,47 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-var Dust =
+var Star =
 /*#__PURE__*/
 function () {
-  function Dust(x, y, vx, vy, number) {
-    _classCallCheck(this, Dust);
+  function Star(x, y) {
+    _classCallCheck(this, Star);
 
     this.x = x;
     this.y = y;
-    this.velocity = {
-      x: vx,
-      y: vy
-    };
-    this.number = number;
-    this.opacity = 1;
+    this.rotateAngle = 0;
   }
 
-  _createClass(Dust, [{
+  _createClass(Star, [{
     key: "draw",
     value: function draw() {
+      ctx.save();
+      ctx.translate(x, y);
+      ctx.rotate(this.rotateAngle);
       ctx.beginPath();
-      ctx.arc(this.x, this.y, 0.2, 0, Math.PI * 2);
-      ctx.globalAlpha = this.opacity;
-
-      if (this.number == 24) {
-        ctx.strokeStyle = chord.color;
-      } else {
-        ctx.strokeStyle = color[this.number];
-      }
-
-      ctx.stroke();
+      ctx.arc(this.x, this.y, 1, 0, Math.PI * 2);
       ctx.strokeStyle = 'white';
-      ctx.globalAlpha = 1;
+      ctx.stroke();
+      ctx.restore();
     }
   }, {
     key: "update",
     value: function update() {
-      if (this.opacity > 0) {
-        this.opacity -= 0.005;
+      this.rotateAngle -= Math.PI / 180 / 20;
+
+      if (this.rotateAngle <= -Math.PI * 2) {
+        this.rotateAngle = 0;
       }
 
-      this.x += -this.velocity.x;
-      this.y += -this.velocity.y;
       this.draw();
     }
   }]);
 
-  return Dust;
+  return Star;
 }();
 
-function forDusts() {
-  dusts.forEach(function (dust, index) {
-    if (dust.opacity <= 0) {
-      dusts.splice(index, 1);
-    }
-
-    dust.update();
+function forStars() {
+  stars.forEach(function (star, index) {
+    star.update();
   });
 }

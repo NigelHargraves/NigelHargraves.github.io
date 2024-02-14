@@ -3,12 +3,12 @@ const ctx = canvas.getContext("2d");
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
-
 let notes = [],
     chordAm1 = [],
     chordAm2 = [],
     chordF1 = [],
     chordF2 = [],
+    chordDm = [],
     chordC1 = [],
     chordC2 = [],
     chordG = [],
@@ -16,321 +16,115 @@ let notes = [],
     chordDm7 = [],
     chordGsus4 = [],
     dusts = [],
-    spirals = [];
-
-
+    spirals = [],
+    stars = [];
 
 let radius = 400,
     angle = Math.PI / 12,
     x = canvas.width / 2,
     y = canvas.height / 2,
     pointx = 0,
-    pointy = 0;
-
+    pointy = 0,
+    delay = 0,
+    acceleration = 1.5;
 
 let strokeStyle = 'white';
 
+let start = false,
+    playSoundOnce = true;
 
-let acceleration = 2;
-
-
-chordAm1.push(AO1Piano1);
-chordAm1.push(CO1Piano1);
-chordAm1.push(EO1Piano1);
-chordAm1.push(AO2Piano1);
-chordAm1.push(CO2Piano1);
-chordAm1.push(EO2Piano1);
-chordAm1.push(AO3Piano1);
-chordAm1.push(CO3Piano1);
-chordAm1.push(EO3Piano1);
-chordAm1.push(AO4Piano1);
-chordAm1.push(CO4Piano1);
-chordAm1.push(EO4Piano1);
-chordAm1.push(EO4Piano2);
-chordAm1.push(CO4Piano2);
-chordAm1.push(AO4Piano2);
-chordAm1.push(EO3Piano2);
-chordAm1.push(CO3Piano2);
-chordAm1.push(AO3Piano2);
-chordAm1.push(EO2Piano2);
-chordAm1.push(CO2Piano2);
-chordAm1.push(AO2Piano2);
-chordAm1.push(EO1Piano2);
-chordAm1.push(CO1Piano2);
-chordAm1.push(AO1Piano2);
-
-
-chordAm2.push(CO1Piano1);
-chordAm2.push(EO1Piano1);
-chordAm2.push(AO1Piano1);
-chordAm2.push(CO2Piano1);
-chordAm2.push(EO2Piano1);
-chordAm2.push(AO2Piano1);
-chordAm2.push(CO3Piano1);
-chordAm2.push(EO3Piano1);
-chordAm2.push(AO3Piano1);
-chordAm2.push(CO4Piano1);
-chordAm2.push(EO4Piano1);
-chordAm2.push(AO4Piano1);
-chordAm2.push(AO4Piano2);
-chordAm2.push(CO4Piano2);
-chordAm2.push(EO4Piano2);
-chordAm2.push(AO3Piano2);
-chordAm2.push(CO3Piano2);
-chordAm2.push(EO3Piano2);
-chordAm2.push(AO2Piano2);
-chordAm2.push(CO2Piano2);
-chordAm2.push(EO2Piano2);
-chordAm2.push(AO1Piano2);
-chordAm2.push(CO1Piano2);
-chordAm2.push(EO1Piano2);
-
-chordF1.push(AO1Piano1);
-chordF1.push(CO1Piano1);
-chordF1.push(FO1Piano1);
-chordF1.push(AO2Piano1);
-chordF1.push(CO2Piano1);
-chordF1.push(FO2Piano1);
-chordF1.push(AO3Piano1);
-chordF1.push(CO3Piano1);
-chordF1.push(FO3Piano1);
-chordF1.push(AO4Piano1);
-chordF1.push(CO4Piano1);
-chordF1.push(FO4Piano1);
-chordF1.push(FO4Piano2);
-chordF1.push(CO4Piano2);
-chordF1.push(AO4Piano2);
-chordF1.push(FO3Piano2);
-chordF1.push(CO3Piano2);
-chordF1.push(AO3Piano2);
-chordF1.push(FO2Piano2);
-chordF1.push(CO2Piano2);
-chordF1.push(AO2Piano2);
-chordF1.push(FO1Piano2);
-chordF1.push(CO1Piano2);
-chordF1.push(AO1Piano2);
-
-chordF2.push(CO1Piano1);
-chordF2.push(FO1Piano1);
-chordF2.push(AO1Piano1);
-chordF2.push(CO2Piano1);
-chordF2.push(FO2Piano1);
-chordF2.push(AO2Piano1);
-chordF2.push(CO3Piano1);
-chordF2.push(FO3Piano1);
-chordF2.push(AO3Piano1);
-chordF2.push(CO4Piano1);
-chordF2.push(FO4Piano1);
-chordF2.push(AO4Piano1);
-chordF2.push(AO4Piano2);
-chordF2.push(CO4Piano2);
-chordF2.push(FO4Piano2);
-chordF2.push(AO3Piano2);
-chordF2.push(CO3Piano2);
-chordF2.push(FO3Piano2);
-chordF2.push(AO2Piano2);
-chordF2.push(CO2Piano2);
-chordF2.push(FO2Piano2);
-chordF2.push(AO1Piano2);
-chordF2.push(CO1Piano2);
-chordF2.push(FO1Piano2);
-
-chordC1.push(EO1Piano1);
-chordC1.push(CO1Piano1);
-chordC1.push(GO1Piano1);
-chordC1.push(EO2Piano1);
-chordC1.push(CO2Piano1);
-chordC1.push(GO2Piano1);
-chordC1.push(EO3Piano1);
-chordC1.push(CO3Piano1);
-chordC1.push(GO3Piano1);
-chordC1.push(EO4Piano1);
-chordC1.push(CO4Piano1);
-chordC1.push(GO4Piano1);
-chordC1.push(GO4Piano2);
-chordC1.push(CO4Piano2);
-chordC1.push(EO4Piano2);
-chordC1.push(GO3Piano2);
-chordC1.push(CO3Piano2);
-chordC1.push(EO3Piano2);
-chordC1.push(GO2Piano2);
-chordC1.push(CO2Piano2);
-chordC1.push(EO2Piano2);
-chordC1.push(GO1Piano2);
-chordC1.push(CO1Piano2);
-chordC1.push(EO1Piano2);
-
-chordC2.push(CO1Piano1);
-chordC2.push(EO1Piano1);
-chordC2.push(GO1Piano1);
-chordC2.push(CO2Piano1);
-chordC2.push(EO2Piano1);
-chordC2.push(GO2Piano1);
-chordC2.push(CO3Piano1);
-chordC2.push(EO3Piano1);
-chordC2.push(GO3Piano1);
-chordC2.push(CO4Piano1);
-chordC2.push(EO4Piano1);
-chordC2.push(GO4Piano1);
-chordC2.push(GO4Piano2);
-chordC2.push(EO4Piano2);
-chordC2.push(CO4Piano2);
-chordC2.push(GO3Piano2);
-chordC2.push(EO3Piano2);
-chordC2.push(CO3Piano2);
-chordC2.push(GO2Piano2);
-chordC2.push(EO2Piano2);
-chordC2.push(CO2Piano2);
-chordC2.push(GO1Piano2);
-chordC2.push(EO1Piano2);
-chordC2.push(CO1Piano2);
-
-chordG.push(BO1Piano1);
-chordG.push(DO1Piano1);
-chordG.push(GO1Piano1);
-chordG.push(BO2Piano1);
-chordG.push(DO2Piano1);
-chordG.push(GO2Piano1);
-chordG.push(BO3Piano1);
-chordG.push(DO3Piano1);
-chordG.push(GO3Piano1);
-chordG.push(BO4Piano1);
-chordG.push(DO4Piano1);
-chordG.push(GO4Piano1);
-chordG.push(GO4Piano2);
-chordG.push(DO4Piano2);
-chordG.push(BO4Piano2);
-chordG.push(GO3Piano2);
-chordG.push(DO3Piano2);
-chordG.push(BO3Piano2);
-chordG.push(GO2Piano2);
-chordG.push(DO2Piano2);
-chordG.push(BO2Piano2);
-chordG.push(GO1Piano2);
-chordG.push(DO1Piano2);
-chordG.push(BO1Piano2);
-
-chordE7.push(DO1Piano1);
-chordE7.push(AFO1Piano1);
-chordE7.push(BO1Piano1);
-chordE7.push(DO2Piano1);
-chordE7.push(AFO2Piano1);
-chordE7.push(BO2Piano1);
-chordE7.push(DO3Piano1);
-chordE7.push(AFO3Piano1);
-chordE7.push(BO3Piano1);
-chordE7.push(DO4Piano1);
-chordE7.push(AFO4Piano1);
-chordE7.push(BO4Piano1);
-chordE7.push(BO4Piano2);
-chordE7.push(AFO4Piano2);
-chordE7.push(DO4Piano2);
-chordE7.push(BO3Piano2);
-chordE7.push(AFO3Piano2);
-chordE7.push(DO3Piano2);
-chordE7.push(BO2Piano2);
-chordE7.push(AFO2Piano2);
-chordE7.push(DO2Piano2);
-chordE7.push(BO1Piano2);
-chordE7.push(AFO1Piano2);
-chordE7.push(DO1Piano2);
-
-chordDm7.push(DO1Piano1);
-chordDm7.push(FO1Piano1);
-chordDm7.push(AO1Piano1);
-chordDm7.push(DO2Piano1);
-chordDm7.push(FO2Piano1);
-chordDm7.push(AO2Piano1);
-chordDm7.push(DO3Piano1);
-chordDm7.push(FO3Piano1);
-chordDm7.push(AO3Piano1);
-chordDm7.push(DO4Piano1);
-chordDm7.push(FO4Piano1);
-chordDm7.push(AO4Piano1);
-chordDm7.push(AO4Piano2);
-chordDm7.push(FO4Piano2);
-chordDm7.push(DO4Piano2);
-chordDm7.push(AO3Piano2);
-chordDm7.push(FO3Piano2);
-chordDm7.push(DO3Piano2);
-chordDm7.push(AO2Piano2);
-chordDm7.push(FO2Piano2);
-chordDm7.push(DO2Piano2);
-chordDm7.push(AO1Piano2);
-chordDm7.push(FO1Piano2);
-chordDm7.push(DO1Piano2);
-
-chordGsus4.push(CO1Piano1);
-chordGsus4.push(DO1Piano1);
-chordGsus4.push(GO1Piano1);
-chordGsus4.push(CO2Piano1);
-chordGsus4.push(DO2Piano1);
-chordGsus4.push(GO2Piano1);
-chordGsus4.push(CO3Piano1);
-chordGsus4.push(DO3Piano1);
-chordGsus4.push(GO3Piano1);
-chordGsus4.push(CO4Piano1);
-chordGsus4.push(DO4Piano1);
-chordGsus4.push(GO4Piano1);
-chordGsus4.push(GO4Piano2);
-chordGsus4.push(DO4Piano2);
-chordGsus4.push(CO4Piano2);
-chordGsus4.push(GO3Piano2);
-chordGsus4.push(DO3Piano2);
-chordGsus4.push(CO3Piano2);
-chordGsus4.push(GO2Piano2);
-chordGsus4.push(DO2Piano2);
-chordGsus4.push(CO2Piano2);
-chordGsus4.push(GO1Piano2);
-chordGsus4.push(DO1Piano2);
-chordGsus4.push(CO1Piano2);
-
+createChords();
 
 let color = [];
 
-
-
 for (let i = 0; i < 24; i++) {
-    let hue1 = Math.random() * 360;
-    let hue2 = Math.random() * 360;
-    let hue3 = Math.random() * 360;
+    let hue1 = (Math.random() * 340) + 20;
+    let hue2 = (Math.random() * 340) + 20;
+    let hue3 = (Math.random() * 340) + 20;
     color.push('rgb(' + hue1 + ',' + hue2 + ',' + hue3 + ')')
     pointx = radius * Math.cos(angle);
     pointy = radius * Math.sin(angle);
     notes.push(new Note(x + pointx, y + pointy, acceleration, chordAm1[i], i + 1, i));
-    acceleration -= 0.002;
+    acceleration -= 0.001;
     angle += Math.PI / 12;
 }
 
-ABass.play();
-
-
 let chord = new Chord(x, y, 'Am1');
 
-spirals.push(new Spiral(x, y, false, color[Math.floor(Math.random() * 24)]));
+spirals.push(new Spiral(x, y, true, 0));
+spirals.push(new Spiral(x, y, false, 0));
+spirals.push(new Spiral(x, y, true, Math.PI));
+spirals.push(new Spiral(x, y, false, Math.PI));
+spirals.push(new Spiral(x, y, true, Math.PI / 2));
+spirals.push(new Spiral(x, y, false, Math.PI / 2));
+spirals.push(new Spiral(x, y, true, -Math.PI / 2));
+spirals.push(new Spiral(x, y, false, -Math.PI / 2));
 
+for (let i = 0; i < 200; i++) {
+    stars.push(new Star(-canvas.width + Math.random() * (canvas.width * 2), -canvas.height + Math.random() * (canvas.height * 2)))
+}
+
+setVolume();
 
 function animate() {
     //CLS.
     ctx.fillStyle = "rgb(0, 0, 0, 0.4)";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.font = "bold 50px Arial";
+    ctx.fillStyle = "white";
+    ctx.globalAlpha = 0.01;
+    ctx.fillText("𝔸𝕊𝕄ℝ 𝔸𝕌𝔻𝕀𝕆", (canvas.width / 2.4), canvas.height / 2);
+    ctx.globalAlpha = 0.4;
 
-
-    let createSpiral = Math.random();
-    if (createSpiral > 0.999) {
-        spirals.push(new Spiral(Math.random() * canvas.width, Math.random() * canvas.height, true, color[Math.floor(Math.random() * 24)]));
+    if (!start) {
+        delay += 1;
+        if (delay >= 500) {
+            start = true;
+        }
     }
 
 
-    forNotes();
+    if (start) {
+        if (playSoundOnce) {
+            ABass.play();
+            AO1Piano1.play();
+            CO1Piano1.play();
+            EO1Piano1.play();
+            AO2Piano1.play();
+            CO2Piano1.play();
+            EO2Piano1.play();
+            AO3Piano1.play();
+            CO3Piano1.play();
+            EO3Piano1.play();
+            AO4Piano1.play();
+            CO4Piano1.play();
+            EO4Piano1.play();
+            AO1Piano2.play();
+            CO1Piano2.play();
+            EO1Piano2.play();
+            AO2Piano2.play();
+            CO2Piano2.play();
+            EO2Piano2.play();
+            AO3Piano2.play();
+            CO3Piano2.play();
+            EO3Piano2.play();
+            AO4Piano2.play();
+            CO4Piano2.play();
+            EO4Piano2.play();
+            playSoundOnce = false;
+        }
 
-    forDusts();
+        forDusts();
 
-    forSpirals()
+        forNotes();
 
-    chord.update();
+        forSpirals()
 
+        forStars()
 
+        chord.update();
+
+    }
 
 
     //call next frame.

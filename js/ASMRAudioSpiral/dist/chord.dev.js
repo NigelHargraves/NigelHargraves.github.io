@@ -38,7 +38,7 @@ function () {
   }, {
     key: "update",
     value: function update() {
-      if (this.opacity > 0.2) {
+      if (this.opacity > 0.4) {
         this.opacity -= 0.01;
       }
 
@@ -58,6 +58,10 @@ function () {
         this.color = color[Math.floor(Math.random() * 24)];
 
         if (this.start) {
+          for (var i = 0; i < 20; i++) {
+            dusts.push(new Dust(x, y, (Math.random() - 0.5) * 4, (Math.random() - 0.5) * 4, 24));
+          }
+
           this.lineWidth = 3;
           this.opacity = 1;
 
@@ -104,9 +108,9 @@ function () {
             CBass.play();
             this.chord = 'C3';
           } else if (this.chord == 'C3') {
-            CBass.play();
-            this.chord = 'C4';
-          } else if (this.chord == 'C4') {
+            FBass.play();
+            this.chord = 'Dm';
+          } else if (this.chord == 'Dm') {
             ABass.play();
             this.chord = 'Am1';
           }
