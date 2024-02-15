@@ -9,7 +9,7 @@ var notes = [],
     chordAm2 = [],
     chordF1 = [],
     chordF2 = [],
-    chordDm = [],
+    chordCaug = [],
     chordC1 = [],
     chordC2 = [],
     chordG = [],
@@ -106,6 +106,7 @@ function animate() {
       AO4Piano2.play();
       CO4Piano2.play();
       EO4Piano2.play();
+      AmChord.play();
       playSoundOnce = false;
     }
 

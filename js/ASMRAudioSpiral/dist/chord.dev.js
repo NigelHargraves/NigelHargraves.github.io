@@ -68,51 +68,83 @@ function () {
           if (this.chord == 'Am1') {
             FBass.play();
             this.chord = 'F1';
+            FChord.currentTime = 0.1;
+            FChord.play();
           } else if (this.chord == 'F1') {
             CBass.play();
             this.chord = 'C1';
+            CChord.currentTime = 0.1;
+            CChord.play();
           } else if (this.chord == 'C1') {
             BBass.play();
             this.chord = 'G1';
+            GChord.currentTime = 0.1;
+            GChord.play();
           } else if (this.chord == 'G1') {
             ABass.play();
             this.chord = 'Am2';
+            AmChord.currentTime = 0.1;
+            AmChord.play();
           } else if (this.chord == 'Am2') {
             FBass.play();
             this.chord = 'F2';
+            FChord.currentTime = 0.1;
+            FChord.play();
           } else if (this.chord == 'F2') {
             CBass.play();
             this.chord = 'C2';
+            CChord.currentTime = 0.1;
+            CChord.play();
           } else if (this.chord == 'C2') {
             BBass.play();
             this.chord = 'G2';
+            GChord.currentTime = 0.1;
+            GChord.play();
           } else if (this.chord == 'G2') {
             ABass.play();
             this.chord = 'Am3';
+            AmChord.currentTime = 0.1;
+            AmChord.play();
           } else if (this.chord == 'Am3') {
             FBass.play();
             this.chord = 'F3';
+            FChord.currentTime = 0.1;
+            FChord.play();
           } else if (this.chord == 'F3') {
             EBass.play();
             this.chord = 'E7';
+            E7Chord.currentTime = 0.1;
+            E7Chord.play();
           } else if (this.chord == 'E7') {
             ABass.play();
             this.chord = 'Am4';
+            AmChord.currentTime = 0.1;
+            AmChord.play();
           } else if (this.chord == 'Am4') {
             DBass.play();
             this.chord = 'Dm7';
+            Dm7Chord.currentTime = 0.1;
+            Dm7Chord.play();
           } else if (this.chord == 'Dm7') {
             GBass.play();
             this.chord = 'Gsus4';
+            Gsus4Chord.currentTime = 0.1;
+            Gsus4Chord.play();
           } else if (this.chord == 'Gsus4') {
             CBass.play();
             this.chord = 'C3';
+            CChord.currentTime = 0.1;
+            CChord.play();
           } else if (this.chord == 'C3') {
-            FBass.play();
-            this.chord = 'Dm';
-          } else if (this.chord == 'Dm') {
+            CBass.play();
+            this.chord = 'Caug';
+            CaugChord.currentTime = 0.1;
+            CaugChord.play();
+          } else if (this.chord == 'Caug') {
             ABass.play();
             this.chord = 'Am1';
+            AmChord.currentTime = 0.1;
+            AmChord.play();
           }
         }
 

@@ -66,11 +66,11 @@ class Note {
         }
 
         if (this.measure <= 0) {
-
             this.in = false;
         }
 
         if (this.measure >= this.distance) {
+            this.r = 10;
             for (let i = 0; i < 10; i++) {
                 dusts.push(new Dust(this.x, this.y, (this.velocity.x + Math.random() - 0.5) / 6, (this.velocity.y + Math.random() - 0.5) / 6, this.number));
             }
@@ -149,9 +149,9 @@ function forNotes() {
                     notes[i].note = chordGsus4[i];
                 }
             }
-            if (chord.chord == 'Dm') {
+            if (chord.chord == 'Caug') {
                 for (let i = 0; i < 24; i++) {
-                    notes[i].note = chordDm[i];
+                    notes[i].note = chordCaug[i];
                 }
             }
         }

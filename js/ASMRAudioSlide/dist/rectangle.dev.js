@@ -25,6 +25,12 @@ function () {
       ctx.moveTo(this.x, this.y - canvas.height / 10);
       ctx.lineTo(this.x + canvas.width / 2, this.y - canvas.height / 10);
       ctx.strokeStyle = 'white';
+      ctx.stroke(); //draw bass line.
+
+      ctx.beginPath();
+      ctx.moveTo(this.x, this.y + canvas.height / 2 + canvas.height / 10);
+      ctx.lineTo(this.x + canvas.width / 2, this.y + canvas.height / 2 + canvas.height / 10);
+      ctx.strokeStyle = 'white';
       ctx.stroke(); //draw notes rectangle.
 
       ctx.beginPath();

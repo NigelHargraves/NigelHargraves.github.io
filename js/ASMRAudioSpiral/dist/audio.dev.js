@@ -72,7 +72,16 @@ var GBass = document.getElementById("audio68");
 var ABass = document.getElementById("audio69");
 var BBass = document.getElementById("audio70");
 var CBass = document.getElementById("audio71");
-var volume = 0.2;
+var CChord = document.getElementById("audio72");
+var Dm7Chord = document.getElementById("audio73");
+var E7Chord = document.getElementById("audio74");
+var FChord = document.getElementById("audio75");
+var GChord = document.getElementById("audio76");
+var Gsus4Chord = document.getElementById("audio77");
+var AmChord = document.getElementById("audio78");
+var CaugChord = document.getElementById("audio79");
+var volume = 0.2,
+    chordVolume = 0.4;
 
 function setVolume() {
   AO1Piano1.volume = volume;
@@ -146,4 +155,12 @@ function setVolume() {
   ABass.volume = volume;
   BBass.volume = volume;
   CBass.volume = volume;
+  CChord.volume = chordVolume;
+  Dm7Chord.volume = chordVolume;
+  E7Chord.volume = chordVolume;
+  FChord.volume = chordVolume;
+  GChord.volume = chordVolume;
+  Gsus4Chord.volume = chordVolume;
+  AmChord.volume = chordVolume;
+  CaugChord.volume = chordVolume;
 }

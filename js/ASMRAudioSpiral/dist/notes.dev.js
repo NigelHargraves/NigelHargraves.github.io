@@ -92,6 +92,8 @@ function () {
       }
 
       if (this.measure >= this.distance) {
+        this.r = 10;
+
         for (var i = 0; i < 10; i++) {
           dusts.push(new Dust(this.x, this.y, (this.velocity.x + Math.random() - 0.5) / 6, (this.velocity.y + Math.random() - 0.5) / 6, this.number));
         }
@@ -177,9 +179,9 @@ function forNotes() {
         }
       }
 
-      if (chord.chord == 'Dm') {
+      if (chord.chord == 'Caug') {
         for (var _i10 = 0; _i10 < 24; _i10++) {
-          notes[_i10].note = chordDm[_i10];
+          notes[_i10].note = chordCaug[_i10];
         }
       }
     }
