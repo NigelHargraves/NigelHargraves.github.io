@@ -4,25 +4,34 @@
 var ctx = canvas.getContext("2d");
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
+x = canvas.width / 2;
+y = canvas.height / 2;
+var gradient = ctx.createRadialGradient(x, y, canvas.width / 8, x, y, canvas.height);
+gradient.addColorStop(0, "rgba(0, 0, 0,0.4)");
+gradient.addColorStop(1, 'rgba(25, 25, 112,0.2)');
 var start = false,
     playNow = true;
 var rectangle = new Rectangle(),
     chord = new Chord(),
-    bass = new Bass();
+    bass = new Bass(),
+    snareDrum = new Snare(),
+    highHat = new Hat();
 var notes = [],
     chordC = [],
     chordG = [],
     chordAm = [],
-    chordF = [];
+    chordF = [],
+    particles = [],
+    bounceLines = [];
 createChords();
 var chordToPlay = 'G';
-var speed = 1,
+var speed = 0.001,
     noteNumber = 0,
     delay = 0;
 
 for (var i = rectangle.x; i < canvas.width / 2 + rectangle.x; i += rectangle.space) {
-  notes.push(new Note(i + rectangle.space / 2, rectangle.y, speed, chordC[noteNumber]));
-  speed -= 0.01;
+  notes.push(new Note(i + rectangle.space / 2, rectangle.y, 1, chordC[noteNumber], speed));
+  speed -= 0.0001;
   noteNumber++;
 }
 
@@ -30,11 +39,12 @@ setVolume();
 
 function animate() {
   //CLS.
-  ctx.fillStyle = "rgb(0, 0, 0, 0.4)";
+  ctx.fillStyle = gradient;
+  ctx.globalAlpha = 0.2;
   ctx.fillRect(0, 0, canvas.width, canvas.height);
   ctx.font = "bold 50px Arial";
-  ctx.fillStyle = "white";
-  ctx.globalAlpha = 0.005;
+  ctx.fillStyle = 'white';
+  ctx.globalAlpha = 0.01;
   ctx.fillText("𝔸𝕊𝕄ℝ 𝔸𝕌𝔻𝕀𝕆", canvas.width / 2.4, canvas.height / 2);
   ctx.globalAlpha = 0.4;
 
@@ -69,7 +79,11 @@ function animate() {
     rectangle.update();
     chord.update();
     bass.update();
+    snareDrum.update();
+    highHat.update();
     forNotes();
+    forParticles();
+    forBounceLines();
   } //call next frame.
 
 

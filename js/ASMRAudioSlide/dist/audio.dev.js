@@ -38,8 +38,11 @@ var GO4Note = document.getElementById("audio34");
 var AO4Note = document.getElementById("audio35");
 var BO4Note = document.getElementById("audio36");
 var drumBass = document.getElementById("audio37");
+var snare = document.getElementById("audio38");
+var hat = document.getElementById("audio39");
 
 function setVolume() {
   var volume = 0.1;
   drumBass.volume = volume;
+  hat.volume = volume;
 }

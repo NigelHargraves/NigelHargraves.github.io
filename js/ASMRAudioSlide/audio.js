@@ -36,7 +36,8 @@ let GO4Note = document.getElementById("audio34");
 let AO4Note = document.getElementById("audio35");
 let BO4Note = document.getElementById("audio36");
 let drumBass = document.getElementById("audio37");
-
+let snare = document.getElementById("audio38");
+let hat = document.getElementById("audio39");
 
 
 
@@ -44,5 +45,5 @@ let drumBass = document.getElementById("audio37");
 function setVolume() {
     let volume = 0.1;
     drumBass.volume = volume;
-
+    hat.volume = volume;
 }

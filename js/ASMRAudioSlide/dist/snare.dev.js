@@ -6,23 +6,22 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-var Bass =
+var Snare =
 /*#__PURE__*/
 function () {
-  function Bass() {
-    _classCallCheck(this, Bass);
+  function Snare() {
+    _classCallCheck(this, Snare);
 
-    this.x = rectangle.x;
-    this.y = rectangle.y + canvas.height / 2 + canvas.height / 10;
+    this.x = rectangle.x + canvas.width / 2 + canvas.width / 10;
+    this.y = canvas.height / 50;
     this.r = canvas.width / 2 / 12 / 4;
     this.velocity = 4;
-    this.left = false;
-    this.opacity = 1;
-    this.lineWidth = 5;
-    this.particleTime = 50;
+    this.up = false;
+    this.opacity = 0.4;
+    this.lineWidth = 1;
   }
 
-  _createClass(Bass, [{
+  _createClass(Snare, [{
     key: "draw",
     value: function draw() {
       ctx.beginPath();
@@ -44,37 +43,35 @@ function () {
         this.lineWidth -= 0.1;
       }
 
-      if (!this.left) {
-        this.particleTime -= 0.2;
+      if (!this.up) {
         particles.push(new Particle(this.x, this.y, {
-          x: -this.velocity / 4,
-          y: (Math.random() - 0.5) / 2
-        }, this.particleTime));
+          x: (Math.random() - 0.5) / 2,
+          y: -this.velocity / 4
+        }, 50));
 
-        if (this.x < x) {
+        if (this.y < y) {
           this.r += 0.1;
         } else {
           this.r -= 0.1;
         }
 
-        this.x += this.velocity;
+        this.y += this.velocity;
       } else {
-        this.particleTime -= 0.2;
         particles.push(new Particle(this.x, this.y, {
-          x: this.velocity / 4,
-          y: (Math.random() - 0.5) / 2
-        }, this.particleTime));
+          x: (Math.random() - 0.5) / 2,
+          y: this.velocity / 4
+        }, 50));
 
-        if (this.x < x) {
+        if (this.y < y) {
           this.r += 0.07;
         } else {
           this.r -= 0.07;
         }
 
-        this.x -= this.velocity;
+        this.y -= this.velocity;
       }
 
-      if (this.x == rectangle.x) {
+      if (this.y >= y - 1 && this.y <= y + 1) {
         for (var i = 0; i < 20; i++) {
           particles.push(new Particle(this.x, this.y, {
             x: (Math.random() - 0.5) * 2,
@@ -82,57 +79,25 @@ function () {
           }, 50));
         }
 
-        this.particleTime = 50;
-        this.r = canvas.width / 2 / 12 / 4;
+        snare.play();
         this.opacity = 1;
         this.lineWidth = 5;
-        changeBass();
-        this.left = false;
       }
 
-      if (this.x == rectangle.x + canvas.width / 2) {
-        for (var _i = 0; _i < 20; _i++) {
-          particles.push(new Particle(this.x, this.y, {
-            x: (Math.random() - 0.5) * 2,
-            y: (Math.random() - 0.5) * 2
-          }, 50));
-        }
-
-        this.particleTime = 50;
+      if (this.y <= canvas.height / 50) {
+        this.y = canvas.height / 50;
         this.r = canvas.width / 2 / 12 / 4;
-        this.opacity = 1;
-        this.lineWidth = 5;
-        changeBass();
-        this.left = true;
+        this.up = false;
+      }
+
+      if (this.y == canvas.height / 50 + canvas.width / 2) {
+        this.r = canvas.width / 2 / 12 / 4;
+        this.up = true;
       }
 
       this.draw();
     }
   }]);
 
-  return Bass;
+  return Snare;
 }();
-
-function changeBass() {
-  drumBass.play();
-
-  if (chordToPlay == 'C') {
-    FBass.currentTime = 0.1;
-    FBass.play();
-  }
-
-  if (chordToPlay == 'G') {
-    CBass.currentTime = 0.1;
-    CBass.play();
-  }
-
-  if (chordToPlay == 'Am') {
-    GBass.currentTime = 0.1;
-    GBass.play();
-  }
-
-  if (chordToPlay == 'F') {
-    ABass.currentTime = 0.1;
-    ABass.play();
-  }
-}
