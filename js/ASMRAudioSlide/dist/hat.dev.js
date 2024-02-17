@@ -24,10 +24,13 @@ function () {
   _createClass(Hat, [{
     key: "draw",
     value: function draw() {
-      ctx.beginPath();
-      ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
       ctx.globalAlpha = this.opacity;
       ctx.lineWidth = this.lineWidth;
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, 4, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
       ctx.stroke();
       ctx.globalAlpha = 0.4;
       ctx.lineWidth = 1;
@@ -111,8 +114,6 @@ function () {
 
       if (this.y >= canvas.height / 50 + canvas.width / 2) {
         this.y = canvas.height / 50 + canvas.width / 2;
-        this.opacity = 1;
-        this.lineWidth = 5;
         this.r = canvas.width / 2 / 12 / 4;
         this.up = true;
       }

@@ -40,9 +40,12 @@ var BO4Note = document.getElementById("audio36");
 var drumBass = document.getElementById("audio37");
 var snare = document.getElementById("audio38");
 var hat = document.getElementById("audio39");
+var crash = document.getElementById("audio40");
 
 function setVolume() {
-  var volume = 0.1;
+  var volume = 0.1,
+      crashVolume = 0.5;
   drumBass.volume = volume;
   hat.volume = volume;
+  crash.volume = crashVolume;
 }

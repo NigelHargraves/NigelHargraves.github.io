@@ -22,9 +22,10 @@ var notes = [],
     chordAm = [],
     chordF = [],
     particles = [],
-    bounceLines = [];
+    bounceLines = [],
+    stars = [];
 createChords();
-var chordToPlay = 'G';
+var chordToPlay = 'C1';
 var speed = 0.001,
     noteNumber = 0,
     delay = 0;
@@ -76,11 +77,21 @@ function animate() {
       playNow = false;
     }
 
+    var createStar = Math.random();
+
+    if (createStar > 0.99) {
+      ctx.save();
+      ctx.translate(x, y);
+      stars.push(new Star(Math.random() * canvas.width - canvas.width / 2, Math.random() * canvas.height - canvas.height / 2));
+      ctx.restore();
+    }
+
     rectangle.update();
     chord.update();
     bass.update();
     snareDrum.update();
     highHat.update();
+    forStars();
     forNotes();
     forParticles();
     forBounceLines();

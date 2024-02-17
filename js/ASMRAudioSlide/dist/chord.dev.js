@@ -30,6 +30,9 @@ function () {
       ctx.globalAlpha = this.opacity;
       ctx.lineWidth = this.lineWidth;
       ctx.stroke();
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, 4, 0, Math.PI * 2);
+      ctx.fill();
       ctx.globalAlpha = 0.4;
       ctx.lineWidth = 1;
     }
@@ -114,17 +117,41 @@ function () {
 }();
 
 function changeChord() {
-  if (chordToPlay == 'C') {
+  if (chordToPlay == 'C1') {
+    chordToPlay = 'G1';
+  } else if (chordToPlay == 'G1') {
+    chordToPlay = 'Am1';
+  } else if (chordToPlay == 'Am1') {
+    chordToPlay = 'F1';
+  } else if (chordToPlay == 'F1') {
+    chordToPlay = 'C2';
+  } else if (chordToPlay == 'C2') {
+    chordToPlay = 'Am2';
+  } else if (chordToPlay == 'Am2') {
+    chordToPlay = 'F2';
+  } else if (chordToPlay == 'F2') {
+    chordToPlay = 'G2';
+  } else if (chordToPlay == 'G2') {
+    chordToPlay = 'C1';
+  }
+
+  crash.play();
+
+  if (chordToPlay == 'C1') {
     CChord.play();
-    chordToPlay = 'G';
-  } else if (chordToPlay == 'G') {
+  } else if (chordToPlay == 'G1') {
     GChord.play();
-    chordToPlay = 'Am';
-  } else if (chordToPlay == 'Am') {
+  } else if (chordToPlay == 'Am1') {
     AmChord.play();
-    chordToPlay = 'F';
-  } else if (chordToPlay == 'F') {
+  } else if (chordToPlay == 'F1') {
     FChord.play();
-    chordToPlay = 'C';
+  } else if (chordToPlay == 'C2') {
+    CChord.play();
+  } else if (chordToPlay == 'Am2') {
+    AmChord.play();
+  } else if (chordToPlay == 'F2') {
+    FChord.play();
+  } else if (chordToPlay == 'G2') {
+    GChord.play();
   }
 }

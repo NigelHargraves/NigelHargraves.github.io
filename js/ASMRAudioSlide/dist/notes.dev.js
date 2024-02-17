@@ -28,6 +28,9 @@ function () {
     key: "draw",
     value: function draw() {
       ctx.beginPath();
+      ctx.arc(this.x, this.y, 2, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.beginPath();
       ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
       ctx.globalAlpha = this.opacity;
       ctx.lineWidth = this.lineWidth;
@@ -77,14 +80,15 @@ function () {
       }
 
       if (this.y >= rectangle.y + canvas.height / 2) {
-        for (var i = 0; i < 10; i++) {
-          particles.push(new Particle(this.x - this.r * 2 + Math.random() * (this.r * 4), this.y, {
+        this.velocity = this.setVelocity;
+
+        for (var i = 0; i < 20; i++) {
+          particles.push(new Particle(this.x - rectangle.space / 2 + Math.random() * rectangle.space, this.y, {
             x: 0,
-            y: (-this.velocity + Math.random()) / 2
+            y: Math.random() * -2
           }, 40));
         }
 
-        this.velocity = this.setVelocity;
         this.r = canvas.width / 2 / 12 / 4;
         this.note.play();
         this.y = rectangle.y + canvas.height / 2;
@@ -95,14 +99,15 @@ function () {
       }
 
       if (this.y <= rectangle.y) {
-        for (var _i = 0; _i < 10; _i++) {
-          particles.push(new Particle(this.x - this.r * 2 + Math.random() * (this.r * 4), this.y, {
+        this.velocity = this.setVelocity;
+
+        for (var _i = 0; _i < 20; _i++) {
+          particles.push(new Particle(this.x - rectangle.space / 2 + Math.random() * rectangle.space, this.y, {
             x: 0,
-            y: (this.velocity + Math.random()) / 2
+            y: Math.random() * 2
           }, 40));
         }
 
-        this.velocity = this.setVelocity;
         this.r = canvas.width / 2 / 12 / 4;
         this.note.play();
         this.y = rectangle.y;
@@ -120,25 +125,25 @@ function () {
 }();
 
 function forNotes() {
-  if (chordToPlay == 'G') {
+  if (chordToPlay == 'C1' || chordToPlay == 'C2') {
     for (var i = 0; i < 12; i++) {
       notes[i].note = chordC[i];
     }
   }
 
-  if (chordToPlay == 'Am') {
+  if (chordToPlay == 'G1' || chordToPlay == 'G2') {
     for (var _i2 = 0; _i2 < 12; _i2++) {
       notes[_i2].note = chordG[_i2];
     }
   }
 
-  if (chordToPlay == 'F') {
+  if (chordToPlay == 'Am1' || chordToPlay == 'Am2') {
     for (var _i3 = 0; _i3 < 12; _i3++) {
       notes[_i3].note = chordAm[_i3];
     }
   }
 
-  if (chordToPlay == 'C') {
+  if (chordToPlay == 'F1' || chordToPlay == 'F2') {
     for (var _i4 = 0; _i4 < 12; _i4++) {
       notes[_i4].note = chordF[_i4];
     }

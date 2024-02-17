@@ -28,11 +28,12 @@ let notes = [],
     chordAm = [],
     chordF = [],
     particles = [],
-    bounceLines = [];
+    bounceLines = [],
+    stars = [];
 
 createChords();
 
-let chordToPlay = 'G';
+let chordToPlay = 'C1';
 
 let speed = 0.001,
     noteNumber = 0,
@@ -87,6 +88,14 @@ function animate() {
             playNow = false;
         }
 
+        let createStar = Math.random();
+        if (createStar > 0.99) {
+            ctx.save();
+            ctx.translate(x, y);
+            stars.push(new Star(Math.random() * canvas.width - canvas.width / 2, Math.random() * canvas.height - canvas.height / 2));
+            ctx.restore();
+        }
+
         rectangle.update();
 
         chord.update();
@@ -96,6 +105,8 @@ function animate() {
         snareDrum.update();
 
         highHat.update();
+
+        forStars();
 
         forNotes();
 

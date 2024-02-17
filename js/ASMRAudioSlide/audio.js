@@ -38,12 +38,14 @@ let BO4Note = document.getElementById("audio36");
 let drumBass = document.getElementById("audio37");
 let snare = document.getElementById("audio38");
 let hat = document.getElementById("audio39");
-
+let crash = document.getElementById("audio40");
 
 
 
 function setVolume() {
-    let volume = 0.1;
+    let volume = 0.1,
+        crashVolume = 0.5;
     drumBass.volume = volume;
     hat.volume = volume;
+    crash.volume = crashVolume;
 }

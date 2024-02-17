@@ -20,7 +20,8 @@ function () {
   _createClass(Rectangle, [{
     key: "draw",
     value: function draw() {
-      //draw chord line.
+      ctx.lineWidth = 0.2; //draw chord line.
+
       ctx.beginPath();
       ctx.arc(this.x, this.y - canvas.height / 10, 4, 0, Math.PI * 2);
       ctx.arc(this.x + canvas.width / 2, this.y - canvas.height / 10, 4, 0, Math.PI * 2);
@@ -38,36 +39,38 @@ function () {
       ctx.beginPath();
       ctx.moveTo(this.x, this.y + canvas.height / 2 + canvas.height / 10);
       ctx.lineTo(this.x + canvas.width / 2, this.y + canvas.height / 2 + canvas.height / 10);
-      ctx.strokeStyle = 'white';
       ctx.stroke(); //draw snare line.
 
       ctx.beginPath();
-      ctx.arc(this.x + canvas.width / 2 + canvas.width / 10, canvas.height / 50, 4, 0, Math.PI * 2);
-      ctx.arc(this.x + canvas.width / 2 + canvas.width / 10, canvas.height / 50 + canvas.width / 2, 4, 0, Math.PI * 2);
+      ctx.moveTo(this.x + (canvas.width / 2 + canvas.width / 10) - 10, canvas.height / 50);
+      ctx.lineTo(this.x + (canvas.width / 2 + canvas.width / 10) + 10, canvas.height / 50);
+      ctx.moveTo(this.x + (canvas.width / 2 + canvas.width / 10) - 10, canvas.height / 50 + canvas.width / 2);
+      ctx.lineTo(this.x + (canvas.width / 2 + canvas.width / 10) + 10, canvas.height / 50 + canvas.width / 2);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.arc(this.x + canvas.width / 2 + canvas.width / 10, y, 4, 0, Math.PI * 2);
       ctx.fill();
       ctx.beginPath();
       ctx.moveTo(this.x + canvas.width / 2 + canvas.width / 10, canvas.height / 50);
       ctx.lineTo(this.x + canvas.width / 2 + canvas.width / 10, canvas.height / 50 + canvas.width / 2);
-      ctx.moveTo(this.x + (canvas.width / 2 + canvas.width / 10) - 10, y);
-      ctx.lineTo(this.x + (canvas.width / 2 + canvas.width / 10) + 10, y);
-      ctx.strokeStyle = 'white';
       ctx.stroke(); //draw hat line.
 
       ctx.beginPath();
-      ctx.arc(this.x - canvas.width / 10, canvas.height / 50, 4, 0, Math.PI * 2);
-      ctx.arc(this.x - canvas.width / 10, canvas.height / 50 + canvas.width / 2, 4, 0, Math.PI * 2);
-      ctx.fill();
-      ctx.beginPath();
       ctx.moveTo(this.x - canvas.width / 10, canvas.height / 50);
       ctx.lineTo(this.x - canvas.width / 10, canvas.height / 50 + canvas.width / 2);
+      ctx.moveTo(this.x - canvas.width / 10 - 10, canvas.height / 50);
+      ctx.lineTo(this.x - canvas.width / 10 + 10, canvas.height / 50);
+      ctx.moveTo(this.x - canvas.width / 10 - 10, canvas.height / 50 + canvas.width / 2);
+      ctx.lineTo(this.x - canvas.width / 10 + 10, canvas.height / 50 + canvas.width / 2);
+      ctx.stroke(); //draw hat beats.
+
+      ctx.beginPath();
 
       for (var i = canvas.height / 50 + (canvas.height / 50 + canvas.width / 2) / 6; i < canvas.height / 50 + canvas.width / 2; i += (canvas.height / 50 + canvas.width / 2) / 6) {
-        ctx.moveTo(this.x - canvas.width / 10 - 10, i);
-        ctx.lineTo(this.x - canvas.width / 10 + 10, i);
+        ctx.arc(this.x - canvas.width / 10, i, 4, 0, Math.PI * 2);
       }
 
-      ctx.strokeStyle = 'white';
-      ctx.stroke(); //draw rectangle.
+      ctx.fill(); //draw rectangle.
 
       ctx.beginPath();
       ctx.rect(this.x, this.y, canvas.width / 2, canvas.height / 2);
@@ -84,21 +87,28 @@ function () {
 
       var opp = 0,
           adj = 0,
-          hyp = 0;
+          hyp = 0,
+          width = 0;
 
       for (var _i2 = 0; _i2 < notes.length - 1; _i2++) {
         ctx.beginPath();
-        opp = (notes[_i2 + 1].x - notes[_i2].x) * 2;
-        adj = (notes[_i2 + 1].y - notes[_i2].y) * 2;
+        opp = Math.pow(notes[_i2 + 1].x - notes[_i2].x, 2);
+        adj = Math.pow(notes[_i2 + 1].y - notes[_i2].y, 2);
         if (adj < 0) adj *= -1;
-        hyp = Math.sqrt(opp + adj);
+        hyp = Math.sqrt(opp + adj) / 40;
         ctx.moveTo(notes[_i2].x, notes[_i2].y);
         ctx.lineTo(notes[_i2 + 1].x, notes[_i2 + 1].y);
-        ctx.lineWidth = 3 - hyp / 25;
+        width = 5 - hyp;
+
+        if (width <= 0.1) {
+          width = 0.1;
+        }
+
+        ctx.lineWidth = width;
         ctx.stroke();
       }
 
-      ctx.lineWidth = 1;
+      ctx.lineWidth = 0.2;
     }
   }, {
     key: "update",
