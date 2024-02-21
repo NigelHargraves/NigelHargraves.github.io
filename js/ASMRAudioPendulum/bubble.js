@@ -68,7 +68,7 @@ function forBubbles() {
         if (bubble.x - bubble.r < 1 || bubble.x + bubble.r > canvas.width - 1 || bubble.y - bubble.r < 1) {
             bubble.hitEdge = true;
         }
-        if (bubble.hitEdge) {
+        if (bubble.hitEdge && bubble.r > 10) {
             bubble.r -= 1;
         }
         if (bubble.r <= 2 && bubble.pop) {

@@ -96,7 +96,7 @@ function forBubbles() {
       bubble.hitEdge = true;
     }
 
-    if (bubble.hitEdge) {
+    if (bubble.hitEdge && bubble.r > 10) {
       bubble.r -= 1;
     }
 
