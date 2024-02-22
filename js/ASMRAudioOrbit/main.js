@@ -7,6 +7,7 @@ let center = { x: canvas.width / 2, y: canvas.height / 2 };
 
 let notes = [],
     particles = [],
+    zigzags = [],
     chordC = [],
     chordF = [],
     chordG = [],
@@ -83,6 +84,18 @@ function animate() {
             playNow = false;
         }
 
+        let createZigzags = Math.random();
+        if (createZigzags > 0.9) {
+            let direction = Math.random();
+            if (direction > 0.5) {
+                zigzags.push(new Zigzag(Math.random() * canvas.width, Math.random() * canvas.height, 'x'))
+            } else {
+                zigzags.push(new Zigzag(Math.random() * canvas.width, Math.random() * canvas.height, 'y'))
+            }
+
+        }
+
+
         cross.update();
 
         chord.update();
@@ -90,6 +103,10 @@ function animate() {
         forNotes();
 
         forParticles();
+
+        forZigzags();
+
+
     }
 
     //call next frame.

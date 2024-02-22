@@ -10,6 +10,7 @@ var center = {
 };
 var notes = [],
     particles = [],
+    zigzags = [],
     chordC = [],
     chordF = [],
     chordG = [],
@@ -83,10 +84,23 @@ function animate() {
       playNow = false;
     }
 
+    var createZigzags = Math.random();
+
+    if (createZigzags > 0.9) {
+      var direction = Math.random();
+
+      if (direction > 0.5) {
+        zigzags.push(new Zigzag(Math.random() * canvas.width, Math.random() * canvas.height, 'x'));
+      } else {
+        zigzags.push(new Zigzag(Math.random() * canvas.width, Math.random() * canvas.height, 'y'));
+      }
+    }
+
     cross.update();
     chord.update();
     forNotes();
     forParticles();
+    forZigzags();
   } //call next frame.
 
 
