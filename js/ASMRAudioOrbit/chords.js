@@ -12,4 +12,9 @@ function createChords() {
     chordGsus4.push(C31, D31, G31, C41, D41, G41, C51, D51, G51, C61, D61, G61);
     chordGsus4.push(C32, D32, G32, C42, D42, G42, C52, D52, G52, C62, D62, G62);
 
+    chordEm.push(B31, E31, G31, B41, E41, G41, B51, E51, G51, B61, E61, G61);
+    chordEm.push(B32, E32, G32, B42, E42, G42, B52, E52, G52, B62, E62, G62);
+
+    chordDm.push(D31, F31, A31, D41, F41, A41, D51, F51, A51, D61, F61, A61);
+    chordDm.push(D32, F32, A32, D42, F42, A42, D52, F52, A52, D62, F62, A62);
 }

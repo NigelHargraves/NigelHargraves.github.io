@@ -8,8 +8,8 @@ class DropHit {
     draw() {
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
-        ctx.strokeStyle = 'blue';
-        ctx.lineWidth = 0.1;
+        ctx.strokeStyle = 'lightblue';
+        ctx.lineWidth = 0.2;
         ctx.globalAlpha = this.opacity;
         ctx.stroke();
         ctx.lineWidth = 1;
@@ -18,7 +18,7 @@ class DropHit {
     }
     update() {
         this.r += 1;
-        this.opacity -= 0.001;
+        this.opacity -= 0.005;
         this.draw();
     }
 }

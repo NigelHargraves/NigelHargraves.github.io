@@ -41,6 +41,7 @@ class Chord {
         if (this.angle <= 0 - (Math.PI / 2) + 0.01 && this.angle >= 0 - (Math.PI / 2) - 0.01) {
             this.opacity = 1;
             this.lineWidth = 3;
+            cross.colorTop = 'red';
             cross.opacityTop = 1;
             cross.lineWidthTop = 3;
             cross.opacityCenter = 1;
@@ -56,6 +57,7 @@ class Chord {
         if (this.angle <= 0 - (Math.PI) + 0.01 && this.angle >= 0 - (Math.PI) - 0.01) {
             this.opacity = 1;
             this.lineWidth = 3;
+            cross.colorLeft = 'red';
             cross.opacityLeft = 1;
             cross.lineWidthLeft = 3;
             cross.opacityCenter = 1;
@@ -71,6 +73,7 @@ class Chord {
         if (this.angle <= 0 - (Math.PI + Math.PI / 2) + 0.01 && this.angle >= 0 - (Math.PI + Math.PI / 2) - 0.01) {
             this.opacity = 1;
             this.lineWidth = 3;
+            cross.colorBottom = 'red';
             cross.opacityBottom = 1;
             cross.lineWidthBottom = 3;
             cross.opacityCenter = 1;
@@ -86,6 +89,7 @@ class Chord {
         if (this.angle <= 0 - (Math.PI * 2) + 0.01 && this.angle >= 0 - (Math.PI * 2) - 0.01) {
             this.opacity = 1;
             this.lineWidth = 3;
+            cross.colorRight = 'red';
             cross.opacityRight = 1;
             cross.lineWidthRight = 3;
             cross.opacityCenter = 1;
@@ -120,10 +124,10 @@ function chordChange() {
         FBass.play();
         FVox.play();
     } else if (chordToPlay == 'F1') {
-        chordToPlay = 'G';
+        chordToPlay = 'G1';
         GBass.play();
         GVox.play();
-    } else if (chordToPlay == 'G') {
+    } else if (chordToPlay == 'G1') {
         chordToPlay = 'C2';
         CBass.play();
         CVox.play();
@@ -145,8 +149,25 @@ function chordChange() {
         CBass.play();
         CVoxEnd.play();
     } else if (chordToPlay == 'C4') {
+        chordToPlay = 'Em';
+        EBass.play();
+        EmVox.play();
+    } else if (chordToPlay == 'Em') {
+        chordToPlay = 'Dm';
+        DBass.play();
+        DmVox.play();
+    } else if (chordToPlay == 'Dm') {
+        chordToPlay = 'G2';
+        GBass.play();
+        GVox.play();
+    } else if (chordToPlay == 'G2') {
+        chordToPlay = 'C5';
+        CBass.play();
+        CVox.play();
+    } else if (chordToPlay == 'C5') {
         chordToPlay = 'C1';
         CBass.play();
+        CVox.currentTime = 0;
         CVox.play();
     }
 }

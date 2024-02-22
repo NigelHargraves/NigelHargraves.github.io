@@ -23,6 +23,10 @@ function () {
     this.lineWidthBottom = 0.2;
     this.lineWidthLeft = 0.2;
     this.lineWidthRight = 0.2;
+    this.colorTop = 'white';
+    this.colorBottom = 'white';
+    this.colorLeft = 'white';
+    this.colorRight = 'white';
     this.topLine = true;
     this.bottomLine = false;
     this.leftLine = false;
@@ -32,7 +36,8 @@ function () {
   _createClass(Cross, [{
     key: "draw",
     value: function draw() {
-      ctx.strokeStyle = 'white';
+      ctx.strokeStyle = 'white'; //center globe.
+
       ctx.beginPath();
       ctx.arc(center.x, center.y, 10, 0, Math.PI * 2);
       ctx.globalAlpha = this.opacityCenter;
@@ -43,6 +48,7 @@ function () {
       ctx.lineTo(this.x, 0);
       ctx.globalAlpha = this.opacityTop;
       ctx.lineWidth = this.lineWidthTop;
+      ctx.strokeStyle = this.colorTop;
       ctx.stroke();
       ctx.globalAlpha = 0.4;
       ctx.lineWidth = 1; //bottom line.
@@ -52,6 +58,7 @@ function () {
       ctx.lineTo(this.x, canvas.height);
       ctx.globalAlpha = this.opacityBottom;
       ctx.lineWidth = this.lineWidthBottom;
+      ctx.strokeStyle = this.colorBottom;
       ctx.stroke();
       ctx.globalAlpha = 0.4;
       ctx.lineWidth = 1; //left line.
@@ -61,6 +68,7 @@ function () {
       ctx.lineTo(0, this.y);
       ctx.globalAlpha = this.opacityLeft;
       ctx.lineWidth = this.lineWidthLeft;
+      ctx.strokeStyle = this.colorLeft;
       ctx.stroke();
       ctx.globalAlpha = 0.4;
       ctx.lineWidth = 1; //right line.
@@ -70,6 +78,7 @@ function () {
       ctx.lineTo(canvas.width, this.y);
       ctx.globalAlpha = this.opacityRight;
       ctx.lineWidth = this.lineWidthRight;
+      ctx.strokeStyle = this.colorRight;
       ctx.stroke();
       ctx.lineWidth = 1;
       ctx.globalAlpha = 0.4;

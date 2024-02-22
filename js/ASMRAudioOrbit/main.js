@@ -12,6 +12,8 @@ let notes = [],
     chordF = [],
     chordG = [],
     chordGsus4 = [],
+    chordDm = [],
+    chordEm = [],
     color = [];
 
 let start = false,

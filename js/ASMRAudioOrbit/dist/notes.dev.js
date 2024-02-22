@@ -62,10 +62,12 @@ function () {
         this.lineWidth = 3;
 
         if (this.number < 12) {
+          cross.colorTop = this.color;
           cross.opacityTop = 1;
           cross.lineWidthTop = 3;
           cross.opacityCenter = 1;
         } else {
+          cross.colorBottom = this.color;
           cross.opacityBottom = 1;
           cross.lineWidthBottom = 3;
           cross.opacityCenter = 1;
@@ -81,10 +83,12 @@ function () {
         this.lineWidth = 3;
 
         if (this.number < 12) {
-          cross.opacityLeftp = 1;
-          cross.lineWidthLeftp = 3;
+          cross.colorLeft = this.color;
+          cross.opacityLeft = 1;
+          cross.lineWidthLeft = 3;
           cross.opacityCenter = 1;
         } else {
+          cross.colorRight = this.color;
           cross.opacityRight = 1;
           cross.lineWidthRight = 3;
           cross.opacityCenter = 1;
@@ -100,10 +104,12 @@ function () {
         this.lineWidth = 3;
 
         if (this.number < 12) {
+          cross.colorBottom = this.color;
           cross.opacityBottom = 1;
           cross.lineWidthBottom = 3;
           cross.opacityCenter = 1;
         } else {
+          cross.colorTop = this.color;
           cross.opacityTop = 1;
           cross.lineWidthTop = 3;
           cross.opacityCenter = 1;
@@ -119,10 +125,12 @@ function () {
         this.lineWidth = 3;
 
         if (this.number < 12) {
+          cross.colorRight = this.color;
           cross.opacityRight = 1;
           cross.lineWidthRight = 3;
           cross.opacityCenter = 1;
         } else {
+          cross.colorLeft = this.color;
           cross.opacityLeft = 1;
           cross.lineWidthLeft = 3;
           cross.opacityCenter = 1;
@@ -144,7 +152,7 @@ function () {
 }();
 
 function forNotes() {
-  if (chordToPlay == 'C1' || chordToPlay == 'C2' || chordToPlay == 'C3' || chordToPlay == 'C4') {
+  if (chordToPlay == 'C1' || chordToPlay == 'C2' || chordToPlay == 'C3' || chordToPlay == 'C4' || chordToPlay == 'C5') {
     for (var i = 0; i < 24; i++) {
       notes[i].note = chordC[i];
     }
@@ -156,7 +164,7 @@ function forNotes() {
     }
   }
 
-  if (chordToPlay == 'G') {
+  if (chordToPlay == 'G1' || chordToPlay == 'G2') {
     for (var _i2 = 0; _i2 < 24; _i2++) {
       notes[_i2].note = chordG[_i2];
     }
@@ -165,6 +173,18 @@ function forNotes() {
   if (chordToPlay == 'Gsus4') {
     for (var _i3 = 0; _i3 < 24; _i3++) {
       notes[_i3].note = chordGsus4[_i3];
+    }
+  }
+
+  if (chordToPlay == 'Em') {
+    for (var _i4 = 0; _i4 < 24; _i4++) {
+      notes[_i4].note = chordEm[_i4];
+    }
+  }
+
+  if (chordToPlay == 'Dm') {
+    for (var _i5 = 0; _i5 < 24; _i5++) {
+      notes[_i5].note = chordDm[_i5];
     }
   }
 

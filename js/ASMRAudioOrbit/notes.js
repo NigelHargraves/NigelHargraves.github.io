@@ -43,10 +43,12 @@ class Note {
             this.opacity = 1;
             this.lineWidth = 3;
             if (this.number < 12) {
+                cross.colorTop = this.color;
                 cross.opacityTop = 1;
                 cross.lineWidthTop = 3;
                 cross.opacityCenter = 1;
             } else {
+                cross.colorBottom = this.color;
                 cross.opacityBottom = 1;
                 cross.lineWidthBottom = 3;
                 cross.opacityCenter = 1;
@@ -60,10 +62,12 @@ class Note {
             this.opacity = 1;
             this.lineWidth = 3;
             if (this.number < 12) {
-                cross.opacityLeftp = 1;
-                cross.lineWidthLeftp = 3;
+                cross.colorLeft = this.color;
+                cross.opacityLeft = 1;
+                cross.lineWidthLeft = 3;
                 cross.opacityCenter = 1;
             } else {
+                cross.colorRight = this.color;
                 cross.opacityRight = 1;
                 cross.lineWidthRight = 3;
                 cross.opacityCenter = 1;
@@ -76,10 +80,12 @@ class Note {
             this.opacity = 1;
             this.lineWidth = 3;
             if (this.number < 12) {
+                cross.colorBottom = this.color;
                 cross.opacityBottom = 1;
                 cross.lineWidthBottom = 3;
                 cross.opacityCenter = 1;
             } else {
+                cross.colorTop = this.color;
                 cross.opacityTop = 1;
                 cross.lineWidthTop = 3;
                 cross.opacityCenter = 1;
@@ -92,10 +98,12 @@ class Note {
             this.opacity = 1;
             this.lineWidth = 3;
             if (this.number < 12) {
+                cross.colorRight = this.color;
                 cross.opacityRight = 1;
                 cross.lineWidthRight = 3;
                 cross.opacityCenter = 1;
             } else {
+                cross.colorLeft = this.color;
                 cross.opacityLeft = 1;
                 cross.lineWidthLeft = 3;
                 cross.opacityCenter = 1;
@@ -114,7 +122,7 @@ class Note {
 }
 
 function forNotes() {
-    if (chordToPlay == 'C1' || chordToPlay == 'C2' || chordToPlay == 'C3' || chordToPlay == 'C4') {
+    if (chordToPlay == 'C1' || chordToPlay == 'C2' || chordToPlay == 'C3' || chordToPlay == 'C4' || chordToPlay == 'C5') {
         for (let i = 0; i < 24; i++) {
             notes[i].note = chordC[i];
         }
@@ -124,7 +132,7 @@ function forNotes() {
             notes[i].note = chordF[i];
         }
     }
-    if (chordToPlay == 'G') {
+    if (chordToPlay == 'G1' || chordToPlay == 'G2') {
         for (let i = 0; i < 24; i++) {
             notes[i].note = chordG[i];
         }
@@ -132,6 +140,16 @@ function forNotes() {
     if (chordToPlay == 'Gsus4') {
         for (let i = 0; i < 24; i++) {
             notes[i].note = chordGsus4[i];
+        }
+    }
+    if (chordToPlay == 'Em') {
+        for (let i = 0; i < 24; i++) {
+            notes[i].note = chordEm[i];
+        }
+    }
+    if (chordToPlay == 'Dm') {
+        for (let i = 0; i < 24; i++) {
+            notes[i].note = chordDm[i];
         }
     }
     notes.forEach((note, index) => {
