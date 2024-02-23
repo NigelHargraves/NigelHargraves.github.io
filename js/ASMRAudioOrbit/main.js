@@ -21,6 +21,7 @@ let start = false,
 
 let delay = 0,
     speed = 5,
+    innerSpeed = 1,
     chord,
     noteNumber = 0;
 
@@ -39,9 +40,10 @@ for (let i = 70; i <= 430; i += 30) {
     let hue3 = (Math.random() * 260) + 100;
     color.push('rgb(' + hue1 + ',' + hue2 + ',' + hue3 + ')')
     if (i <= 400) {
-        notes.push(new Note(center.x, center.y, i, speed, noteNumber, color[noteNumber]));
+        notes.push(new Note(center.x, center.y, i, speed, noteNumber, color[noteNumber], innerSpeed));
         noteNumber++;
     }
+    innerSpeed += 0.01;
     speed += 0.01;
     if (i > 400) {
         chord = new Chord(center.x, center.y, i + 30, speed + 0.1);
@@ -55,8 +57,9 @@ for (let i = -70; i >= -400; i += -30) {
     let hue2 = (Math.random() * 260) + 100;
     let hue3 = (Math.random() * 260) + 100;
     color.push('rgb(' + hue1 + ',' + hue2 + ',' + hue3 + ')')
-    notes.push(new Note(center.x, center.y, i, speed, noteNumber, color[noteNumber]));
+    notes.push(new Note(center.x, center.y, i, speed, noteNumber, color[noteNumber], innerSpeed));
     noteNumber++;
+    innerSpeed += 0.01;
     speed += 0.01;
 }
 

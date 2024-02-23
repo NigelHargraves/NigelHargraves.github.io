@@ -26,6 +26,18 @@ function () {
     this.lineWidth = 3;
     this.changeChord = false;
     this.changeChordTimer = 0;
+    this.inner1 = {
+      x: 0,
+      y: 0
+    };
+    this.inner2 = {
+      x: 0,
+      y: 0
+    };
+    this.innerAngle1 = 0 - Math.PI / 2;
+    this.innerAngle2 = 0;
+    this.innerSpeed = 4;
+    this.innerOrbitRadius = 15;
   }
 
   _createClass(Chord, [{
@@ -37,7 +49,21 @@ function () {
       ctx.lineWidth = this.lineWidth;
       ctx.globalAlpha = this.opacity;
       ctx.strokeStyle = "red";
+      ctx.fillStyle = 'red';
       ctx.stroke();
+      ctx.beginPath();
+      ctx.arc(this.x + this.point.x + this.inner1.x, this.y + this.point.y + this.inner1.y, 1, 0, Math.PI * 2);
+      ctx.fillStyle = this.color;
+      ctx.fill();
+      ctx.beginPath();
+      ctx.arc(this.x + this.point.x - this.inner1.x, this.y + this.point.y - this.inner1.y, 1, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.beginPath();
+      ctx.arc(this.x + this.point.x + this.inner2.x, this.y + this.point.y + this.inner2.y, 1, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.beginPath();
+      ctx.arc(this.x + this.point.x - this.inner2.x, this.y + this.point.y - this.inner2.y, 1, 0, Math.PI * 2);
+      ctx.fill();
       ctx.lineWidth = 1;
       ctx.globalAlpha = 0.4;
     }
@@ -54,7 +80,28 @@ function () {
 
       this.point.x = this.orbitRadius * Math.cos(this.angle);
       this.point.y = this.orbitRadius * Math.sin(this.angle);
-      this.angle -= Math.PI / 180 / this.speed; //top.
+      this.angle -= Math.PI / 180 / this.speed;
+
+      if (this.angle <= -Math.PI * 2) {
+        this.angle = 0;
+      }
+
+      this.inner1.x = this.innerOrbitRadius * Math.cos(this.innerAngle1);
+      this.inner1.y = this.innerOrbitRadius * Math.sin(this.innerAngle1);
+      this.innerAngle1 -= Math.PI / 180 / this.innerSpeed;
+
+      if (this.innerAngle1 <= -Math.PI * 2) {
+        this.innerAngle1 = 0;
+      }
+
+      this.inner2.x = this.innerOrbitRadius * Math.cos(this.innerAngle2);
+      this.inner2.y = this.innerOrbitRadius * Math.sin(this.innerAngle2);
+      this.innerAngle2 -= Math.PI / 180 / this.innerSpeed;
+
+      if (this.innerAngle2 <= -Math.PI * 2) {
+        this.innerAngle2 = 0;
+      } //top.
+
 
       if (this.angle <= 0 - Math.PI / 2 + 0.01 && this.angle >= 0 - Math.PI / 2 - 0.01) {
         this.opacity = 1;
@@ -138,10 +185,6 @@ function () {
 
       if (!this.changeChord) {
         this.changeChordTimer += 1;
-      }
-
-      if (this.angle <= -Math.PI * 2) {
-        this.angle = 0;
       }
 
       this.draw();

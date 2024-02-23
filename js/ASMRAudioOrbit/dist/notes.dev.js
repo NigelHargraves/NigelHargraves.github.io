@@ -9,7 +9,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 var Note =
 /*#__PURE__*/
 function () {
-  function Note(x, y, orbitRadius, speed, number, color) {
+  function Note(x, y, orbitRadius, speed, number, color, innerSpeed) {
     _classCallCheck(this, Note);
 
     this.x = x;
@@ -19,11 +19,23 @@ function () {
       y: 0
     };
     this.orbitRadius = orbitRadius;
+    this.inner1 = {
+      x: 0,
+      y: 0
+    };
+    this.inner2 = {
+      x: 0,
+      y: 0
+    };
+    this.innerOrbitRadius = 10;
     this.speed = speed;
     this.number = number;
     this.color = color;
     this.note = chordC[this.number];
     this.angle = 0 - Math.PI / 2;
+    this.innerAngle1 = 0 - Math.PI / 2;
+    this.innerAngle2 = 0;
+    this.innerSpeed = innerSpeed;
     this.opacity = 1;
     this.r = 10;
     this.lineWidth = 3;
@@ -39,6 +51,19 @@ function () {
       ctx.globalAlpha = this.opacity;
       ctx.strokeStyle = this.color;
       ctx.stroke();
+      ctx.beginPath();
+      ctx.arc(this.x + this.point.x + this.inner1.x, this.y + this.point.y + this.inner1.y, 1, 0, Math.PI * 2);
+      ctx.fillStyle = this.color;
+      ctx.fill();
+      ctx.beginPath();
+      ctx.arc(this.x + this.point.x - this.inner1.x, this.y + this.point.y - this.inner1.y, 1, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.beginPath();
+      ctx.arc(this.x + this.point.x + this.inner2.x, this.y + this.point.y + this.inner2.y, 1, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.beginPath();
+      ctx.arc(this.x + this.point.x - this.inner2.x, this.y + this.point.y - this.inner2.y, 1, 0, Math.PI * 2);
+      ctx.fill();
       ctx.lineWidth = 1;
       ctx.globalAlpha = 0.4;
     }
@@ -55,7 +80,28 @@ function () {
 
       this.point.x = this.orbitRadius * Math.cos(this.angle);
       this.point.y = this.orbitRadius * Math.sin(this.angle);
-      this.angle -= Math.PI / 180 / this.speed; //top.
+      this.angle -= Math.PI / 180 / this.speed;
+
+      if (this.angle <= -Math.PI * 2) {
+        this.angle = 0;
+      }
+
+      this.inner1.x = this.innerOrbitRadius * Math.cos(this.innerAngle1);
+      this.inner1.y = this.innerOrbitRadius * Math.sin(this.innerAngle1);
+      this.innerAngle1 -= Math.PI / 180 / this.innerSpeed;
+
+      if (this.innerAngle1 <= -Math.PI * 2) {
+        this.innerAngle1 = 0;
+      }
+
+      this.inner2.x = this.innerOrbitRadius * Math.cos(this.innerAngle2);
+      this.inner2.y = this.innerOrbitRadius * Math.sin(this.innerAngle2);
+      this.innerAngle2 -= Math.PI / 180 / this.innerSpeed;
+
+      if (this.innerAngle2 <= -Math.PI * 2) {
+        this.innerAngle2 = 0;
+      } //top.
+
 
       if (this.angle <= 0 - Math.PI / 2 + 0.01 && this.angle >= 0 - Math.PI / 2 - 0.01) {
         this.opacity = 1;
@@ -138,10 +184,6 @@ function () {
 
         particles.push(new Particle(this.x + this.point.x, this.y + this.point.y, this.color));
         this.note.play();
-      }
-
-      if (this.angle <= -Math.PI * 2) {
-        this.angle = 0;
       }
 
       this.draw();

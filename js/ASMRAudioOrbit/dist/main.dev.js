@@ -22,6 +22,7 @@ var start = false,
     playNow = true;
 var delay = 0,
     speed = 5,
+    innerSpeed = 1,
     chord,
     noteNumber = 0;
 var cross = new Cross(center.x, center.y);
@@ -35,10 +36,11 @@ for (var i = 70; i <= 430; i += 30) {
   color.push('rgb(' + hue1 + ',' + hue2 + ',' + hue3 + ')');
 
   if (i <= 400) {
-    notes.push(new Note(center.x, center.y, i, speed, noteNumber, color[noteNumber]));
+    notes.push(new Note(center.x, center.y, i, speed, noteNumber, color[noteNumber], innerSpeed));
     noteNumber++;
   }
 
+  innerSpeed += 0.01;
   speed += 0.01;
 
   if (i > 400) {
@@ -54,8 +56,9 @@ for (var _i = -70; _i >= -400; _i += -30) {
   var _hue3 = Math.random() * 260 + 100;
 
   color.push('rgb(' + _hue + ',' + _hue2 + ',' + _hue3 + ')');
-  notes.push(new Note(center.x, center.y, _i, speed, noteNumber, color[noteNumber]));
+  notes.push(new Note(center.x, center.y, _i, speed, noteNumber, color[noteNumber], innerSpeed));
   noteNumber++;
+  innerSpeed += 0.01;
   speed += 0.01;
 }
 
