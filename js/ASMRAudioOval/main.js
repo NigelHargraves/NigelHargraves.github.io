@@ -11,7 +11,8 @@ let start = false,
     playNow = true;
 
 let delay = 0,
-    velocity = 4;
+    velocity = 4,
+    selectColor = 0;
 
 let oval = new Oval(center.x, center.y);
 let chord = new Chord(0, -center.y);
@@ -19,15 +20,20 @@ let chord = new Chord(0, -center.y);
 
 let notes = [],
     particles = [],
-    smallOvals = [];
+    smallOvals = [],
+    color = [];
 
 for (let i = 0; i < 24; i++) {
+    let hue1 = (Math.random() * 260) + 100;
+    let hue2 = (Math.random() * 260) + 100;
+    let hue3 = (Math.random() * 260) + 100;
+    color.push('rgb(' + hue1 + ',' + hue2 + ',' + hue3 + ')')
     if (i < 11) {
-        notes.push(new Note(center.x, center.y, velocity, 0 - (Math.PI / 2)));
+        notes.push(new Note(center.x, center.y, velocity, 0 - (Math.PI / 2), color[selectColor]));
     } else {
-        notes.push(new Note(center.x, center.y, velocity, 0 - (-Math.PI / 2)));
+        notes.push(new Note(center.x, center.y, velocity, 0 - (-Math.PI / 2), color[selectColor]));
     }
-
+    selectColor += 1;
     velocity += 0.01;
 }
 
@@ -47,7 +53,7 @@ function animate() {
     ctx.fillStyle = 'white';
     ctx.globalAlpha = 0.04;
     ctx.fillText("𝔸𝕊𝕄ℝ 𝔸𝕌𝔻𝕀𝕆", center.x - (center.x / 6), center.y);
-    ctx.globalAlpha = 0.6;
+    ctx.globalAlpha = 0.4;
 
     if (!start) {
         delay += 1;
@@ -64,8 +70,8 @@ function animate() {
 
 
         let createOvals = Math.random();
-        if (createOvals > 0.999) {
-            smallOvals.push(new Ovals(Math.random() * canvas.width, Math.random() * canvas.height));
+        if (createOvals > 0.998) {
+            smallOvals.push(new Ovals(Math.random() * canvas.width, Math.random() * canvas.height, color[Math.floor(Math.random() * 24)]));
         }
 
 

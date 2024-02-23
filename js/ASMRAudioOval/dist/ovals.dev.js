@@ -9,11 +9,12 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 var Ovals =
 /*#__PURE__*/
 function () {
-  function Ovals(x, y) {
+  function Ovals(x, y, color) {
     _classCallCheck(this, Ovals);
 
     this.x = x;
     this.y = y;
+    this.color = color;
     this.velocity = {
       x: Math.random() - 0.5,
       y: Math.random() - 0.5
@@ -29,7 +30,6 @@ function () {
     };
     this.opacity = 0.01;
     this.brighten = true;
-    this.time = 0;
     this.direction = Math.random();
 
     if (this.direction > 0.5) {
@@ -44,10 +44,10 @@ function () {
     value: function draw() {
       ctx.beginPath();
       ctx.ellipse(this.x, this.y, this.radius.x, this.radius.y, this.rotation.x, this.rotation.y, Math.PI * 2);
-      ctx.strokeStyle = 'Gainsboro';
+      ctx.strokeStyle = this.color;
       ctx.globalAlpha = this.opacity;
       ctx.stroke();
-      ctx.globalAlpha = 0.6;
+      ctx.globalAlpha = 0.4;
     }
   }, {
     key: "update",
@@ -74,10 +74,6 @@ function () {
       }
 
       if (this.opacity >= 1) {
-        this.time += 1;
-      }
-
-      if (this.time > 100) {
         this.brighten = false;
       }
 

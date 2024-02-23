@@ -9,13 +9,14 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 var Note =
 /*#__PURE__*/
 function () {
-  function Note(x, y, speed, angle) {
+  function Note(x, y, speed, angle, color) {
     _classCallCheck(this, Note);
 
     this.x = x;
     this.y = y;
     this.speed = speed;
     this.angle = angle;
+    this.color = color;
     this.smallRadius = 10;
     this.bigRadius = {
       x: canvas.height / 4,
@@ -32,8 +33,8 @@ function () {
   _createClass(Note, [{
     key: "draw",
     value: function draw() {
-      ctx.strokeStyle = "White";
-      ctx.fillStyle = "White";
+      ctx.strokeStyle = this.color;
+      ctx.fillStyle = this.color;
       ctx.save();
       ctx.translate(this.x, this.y);
       ctx.rotate(oval.rotation.x);
@@ -46,7 +47,7 @@ function () {
       ctx.globalAlpha = this.opacity;
       ctx.stroke();
       ctx.lineWidth = 1;
-      ctx.globalAlpha = 0.6;
+      ctx.globalAlpha = 0.4;
       ctx.restore();
     }
   }, {
@@ -60,18 +61,22 @@ function () {
         this.opacity -= 0.01;
       }
 
-      if (this.x + this.point.x <= center.x + 2 && this.x + this.point.x >= center.x - 2) {
-        particles.push(new Particle(this.point.x, this.point.y, 'white'));
-        this.lineWidth = 3;
-        this.opacity = 1;
-      }
-
       this.point.x = oval.radius.x * Math.cos(this.angle);
       this.point.y = oval.radius.y * Math.sin(this.angle);
       this.angle += Math.PI / 180 / this.speed;
 
       if (this.angle >= Math.PI * 2) {
         this.angle = 0;
+      }
+
+      if (this.x + this.point.x <= center.x + 2 && this.x + this.point.x >= center.x - 2) {
+        for (var i = 0; i < 10; i++) {
+          particles.push(new Particle(this.point.x, this.point.y, this.color));
+        }
+
+        chord.color = this.color;
+        this.lineWidth = 3;
+        this.opacity = 1;
       }
 
       this.draw();

@@ -1,9 +1,10 @@
 class Note {
-    constructor(x, y, speed, angle) {
+    constructor(x, y, speed, angle, color) {
         this.x = x;
         this.y = y;
         this.speed = speed;
         this.angle = angle;
+        this.color = color;
         this.smallRadius = 10;
         this.bigRadius = { x: canvas.height / 4, y: canvas.height / 8 };
         this.point = { x: 0, y: 0 };
@@ -11,8 +12,8 @@ class Note {
         this.opacity = 0.2;
     }
     draw() {
-        ctx.strokeStyle = "White";
-        ctx.fillStyle = "White";
+        ctx.strokeStyle = this.color;
+        ctx.fillStyle = this.color;
         ctx.save();
         ctx.translate(this.x, this.y);
         ctx.rotate(oval.rotation.x);
@@ -25,7 +26,7 @@ class Note {
         ctx.globalAlpha = this.opacity;
         ctx.stroke();
         ctx.lineWidth = 1;
-        ctx.globalAlpha = 0.6;
+        ctx.globalAlpha = 0.4;
         ctx.restore();
     }
     update() {
@@ -38,16 +39,6 @@ class Note {
             this.opacity -= 0.01;
         }
 
-        if (this.x + this.point.x <= center.x + 2 && this.x + this.point.x >= center.x - 2) {
-
-            particles.push(new Particle(this.point.x, this.point.y, 'white'));
-
-            this.lineWidth = 3;
-            this.opacity = 1;
-        }
-
-
-
         this.point.x = oval.radius.x * Math.cos(this.angle);
         this.point.y = oval.radius.y * Math.sin(this.angle);
 
@@ -55,6 +46,16 @@ class Note {
         if (this.angle >= Math.PI * 2) {
             this.angle = 0;
         }
+
+        if (this.x + this.point.x <= center.x + 2 && this.x + this.point.x >= center.x - 2) {
+            for (let i = 0; i < 10; i++) {
+                particles.push(new Particle(this.point.x, this.point.y, this.color));
+            }
+            chord.color = this.color;
+            this.lineWidth = 3;
+            this.opacity = 1;
+        }
+
         this.draw();
     }
 }

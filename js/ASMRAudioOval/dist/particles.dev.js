@@ -33,7 +33,7 @@ function () {
       ctx.arc(this.x, this.y, 0.2, 0, Math.PI * 2);
       ctx.globalAlpha = this.opacity;
       ctx.stroke();
-      ctx.globalAlpha = 0.6;
+      ctx.globalAlpha = 0.4;
       ctx.restore();
     }
   }, {

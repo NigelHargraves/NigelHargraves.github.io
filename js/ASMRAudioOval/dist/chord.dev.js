@@ -14,6 +14,10 @@ function () {
 
     this.x = x;
     this.y = y;
+    this.color = 'white';
+    this.chordColor = 'blueviolet';
+    this.opacity = 1;
+    this.lineWidth = 5;
     this.velocity = 1;
     this.up = false;
   }
@@ -24,6 +28,8 @@ function () {
       ctx.save();
       ctx.translate(center.x, center.y);
       ctx.rotate(oval.rotation.x);
+      ctx.strokeStyle = this.color;
+      ctx.fillStyle = this.color;
       ctx.beginPath();
       ctx.arc(0, -center.y, 4, 0, Math.PI * 2);
       ctx.fill();
@@ -36,16 +42,27 @@ function () {
       ctx.stroke();
       ctx.beginPath();
       ctx.arc(this.x, this.y, 20, 0, Math.PI * 2);
-      ctx.strokeStyle = "White";
+      ctx.strokeStyle = this.chordColor;
+      ctx.lineWidth = this.lineWidth;
+      ctx.globalAlpha = this.opacity;
       ctx.stroke();
       ctx.beginPath();
       ctx.arc(this.x, this.y, 4, 0, Math.PI * 2);
       ctx.fill();
       ctx.restore();
+      ctx.globalAlpha = 0.4;
     }
   }, {
     key: "update",
     value: function update() {
+      if (this.lineWidth > 1) {
+        this.lineWidth -= 0.1;
+      }
+
+      if (this.opacity > 0.2) {
+        this.opacity -= 0.01;
+      }
+
       if (this.up) {
         this.y += this.velocity;
       } else {
@@ -53,18 +70,26 @@ function () {
       }
 
       if (this.y >= center.y) {
+        this.opacity = 1;
+        this.lineWidth = 5;
+
         for (var i = 0; i < 20; i++) {
-          particles.push(new Particle(this.x, this.y, 'white'));
+          particles.push(new Particle(this.x, this.y, this.chordColor));
         }
 
+        this.color = this.chordColor;
         this.up = false;
       }
 
       if (this.y <= -center.y) {
+        this.opacity = 1;
+        this.lineWidth = 5;
+
         for (var _i = 0; _i < 20; _i++) {
-          particles.push(new Particle(this.x, this.y, 'white'));
+          particles.push(new Particle(this.x, this.y, this.chordColor));
         }
 
+        this.color = this.chordColor;
         this.up = true;
       }
 
