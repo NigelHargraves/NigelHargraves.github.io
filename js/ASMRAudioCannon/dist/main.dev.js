@@ -11,7 +11,19 @@ var center = {
 var start = false,
     playNow = true,
     showChords = false;
-var delay = 0;
+var delay = 0,
+    createChord = 0;
+var cannons = [],
+    notes = [],
+    particles = [],
+    chords = [];
+cannons.push(new Cannon(50, canvas.height - 20, 0 - Math.random() * (Math.PI / 2), true));
+cannons.push(new Cannon(150, canvas.height - 20, 0 - Math.random() * (Math.PI / 2), true));
+cannons.push(new Cannon(250, canvas.height - 20, 0 - Math.random() * (Math.PI / 2), true));
+cannons.push(new Cannon(canvas.width - 50, canvas.height - 20, 0 - Math.PI / 2 - Math.random() * (Math.PI / 2), false));
+cannons.push(new Cannon(canvas.width - 150, canvas.height - 20, 0 - Math.PI / 2 - Math.random() * (Math.PI / 2), false));
+cannons.push(new Cannon(canvas.width - 250, canvas.height - 20, 0 - Math.PI / 2 - Math.random() * (Math.PI / 2), false));
+chords.push(new Chord(center.x, 0));
 
 function animate() {
   //CLS.
@@ -41,6 +53,18 @@ function animate() {
     if (playNow) {
       playNow = false;
     }
+
+    createChord++;
+
+    if (createChord >= 1000) {
+      chords.push(new Chord(center.x, 0));
+      createChord = 0;
+    }
+
+    forCannons();
+    forNotes();
+    forParticles();
+    forChords();
   } //call next frame.
 
 
