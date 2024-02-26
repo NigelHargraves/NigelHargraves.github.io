@@ -20,6 +20,8 @@ function () {
     this.lineWidth = 5;
     this.velocity = 1;
     this.up = false;
+    this.dontChangeChord = true;
+    this.timer = 100;
   }
 
   _createClass(Chord, [{
@@ -43,6 +45,7 @@ function () {
       ctx.beginPath();
       ctx.arc(this.x, this.y, 20, 0, Math.PI * 2);
       ctx.strokeStyle = this.chordColor;
+      ctx.fillStyle = this.chordColor;
       ctx.lineWidth = this.lineWidth;
       ctx.globalAlpha = this.opacity;
       ctx.stroke();
@@ -69,7 +72,19 @@ function () {
         this.y += -this.velocity;
       }
 
+      if (this.dontChangeChord) {
+        this.timer -= 1;
+      }
+
+      if (this.timer <= 0) {
+        this.dontChangeChord = false;
+      }
+
       if (this.y >= center.y) {
+        if (!this.dontChangeChord) {
+          chordChange();
+        }
+
         this.opacity = 1;
         this.lineWidth = 5;
 
@@ -82,6 +97,11 @@ function () {
       }
 
       if (this.y <= -center.y) {
+        if (!this.dontChangeChord) {
+          chordChange();
+        }
+
+        this;
         this.opacity = 1;
         this.lineWidth = 5;
 
@@ -99,3 +119,63 @@ function () {
 
   return Chord;
 }();
+
+function chordChange() {
+  if (chordToPlay == 'Am') {
+    chordToPlay = 'C';
+    CBass.play();
+    CVox.play();
+  } else if (chordToPlay == 'C') {
+    chordToPlay = 'Bm';
+    BBass.play();
+    BmVox.play();
+  } else if (chordToPlay == 'Bm') {
+    chordToPlay = 'D';
+    DBass.play();
+    DVox.play();
+  } else if (chordToPlay == 'D') {
+    chordToPlay = 'Cm';
+    CBass.play();
+    CmVox.play();
+  } else if (chordToPlay == 'Cm') {
+    chordToPlay = 'E';
+    EBass.play();
+    EVox.play();
+  } else if (chordToPlay == 'E') {
+    chordToPlay = 'Dm';
+    DBass.play();
+    DmVox.play();
+  } else if (chordToPlay == 'Dm') {
+    chordToPlay = 'F';
+    FBass.play();
+    FVox.play();
+  } else if (chordToPlay == 'F') {
+    chordToPlay = 'Em';
+    EBass.play();
+    EmVox.play();
+  } else if (chordToPlay == 'Em') {
+    chordToPlay = 'G';
+    GBass.play();
+    GVox.play();
+  } else if (chordToPlay == 'G') {
+    chordToPlay = 'Fm';
+    FBass.play();
+    FmVox.play();
+  } else if (chordToPlay == 'Fm') {
+    chordToPlay = 'A';
+    ABass.play();
+    AVox.play();
+  } else if (chordToPlay == 'A') {
+    chordToPlay = 'Gm';
+    GBass.play();
+    GmVox.play();
+  } else if (chordToPlay == 'Gm') {
+    chordToPlay = 'B';
+    BBass.play();
+    BVox.play();
+  } else if (chordToPlay == 'B') {
+    chordToPlay = 'Am';
+    ABass.play();
+    AmVox.play();
+  }
+}

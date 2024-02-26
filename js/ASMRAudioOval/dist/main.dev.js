@@ -12,13 +12,29 @@ var start = false,
     playNow = true;
 var delay = 0,
     velocity = 4,
-    selectColor = 0;
+    selectColor = 0,
+    chordToPlay = 'Am';
 var oval = new Oval(center.x, center.y);
 var chord = new Chord(0, -center.y);
+var chordAm = [],
+    chordC = [],
+    chordBm = [],
+    chordD = [],
+    chordCm = [],
+    chordE = [],
+    chordDm = [],
+    chordF = [],
+    chordEm = [],
+    chordG = [],
+    chordFm = [],
+    chordA = [],
+    chordGm = [],
+    chordB = [];
 var notes = [],
     particles = [],
     smallOvals = [],
     color = [];
+createChords();
 
 for (var i = 0; i < 24; i++) {
   var hue1 = Math.random() * 260 + 100;
@@ -27,14 +43,16 @@ for (var i = 0; i < 24; i++) {
   color.push('rgb(' + hue1 + ',' + hue2 + ',' + hue3 + ')');
 
   if (i < 11) {
-    notes.push(new Note(center.x, center.y, velocity, 0 - Math.PI / 2, color[selectColor]));
+    notes.push(new Note(center.x, center.y, velocity, 0 - Math.PI / 2, color[selectColor], chordAm[selectColor]));
   } else {
-    notes.push(new Note(center.x, center.y, velocity, 0 - -Math.PI / 2, color[selectColor]));
+    notes.push(new Note(center.x, center.y, velocity, 0 - -Math.PI / 2, color[selectColor], chordAm[selectColor]));
   }
 
   selectColor += 1;
   velocity += 0.01;
 }
+
+setVolume();
 
 function animate() {
   //CLS.
@@ -45,6 +63,9 @@ function animate() {
   ctx.globalAlpha = 0.04;
   ctx.fillText("𝔸𝕊𝕄ℝ 𝔸𝕌𝔻𝕀𝕆", center.x - center.x / 6, center.y);
   ctx.globalAlpha = 0.4;
+  ctx.font = "bold 20px Arial";
+  ctx.fillStyle = "white";
+  ctx.fillText(chordToPlay, 0, canvas.height * 0.02);
 
   if (!start) {
     delay += 1;
@@ -56,12 +77,14 @@ function animate() {
 
   if (start) {
     if (playNow) {
+      ABass.play();
+      AmVox.play();
       playNow = false;
     }
 
     var createOvals = Math.random();
 
-    if (createOvals > 0.998) {
+    if (createOvals > 0.99) {
       smallOvals.push(new Ovals(Math.random() * canvas.width, Math.random() * canvas.height, color[Math.floor(Math.random() * 24)]));
     }
 

@@ -9,7 +9,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 var Note =
 /*#__PURE__*/
 function () {
-  function Note(x, y, speed, angle, color) {
+  function Note(x, y, speed, angle, color, note) {
     _classCallCheck(this, Note);
 
     this.x = x;
@@ -17,6 +17,7 @@ function () {
     this.speed = speed;
     this.angle = angle;
     this.color = color;
+    this.note = note;
     this.smallRadius = 10;
     this.bigRadius = {
       x: canvas.height / 4,
@@ -70,6 +71,8 @@ function () {
       }
 
       if (this.x + this.point.x <= center.x + 2 && this.x + this.point.x >= center.x - 2) {
+        this.note.play();
+
         for (var i = 0; i < 10; i++) {
           particles.push(new Particle(this.point.x, this.point.y, this.color));
         }
@@ -87,6 +90,90 @@ function () {
 }();
 
 function forNote() {
+  if (chordToPlay == 'Am') {
+    for (var i = 0; i < 24; i++) {
+      notes[i].note = chordAm[i];
+    }
+  }
+
+  if (chordToPlay == 'C') {
+    for (var _i = 0; _i < 24; _i++) {
+      notes[_i].note = chordC[_i];
+    }
+  }
+
+  if (chordToPlay == 'Bm') {
+    for (var _i2 = 0; _i2 < 24; _i2++) {
+      notes[_i2].note = chordBm[_i2];
+    }
+  }
+
+  if (chordToPlay == 'D') {
+    for (var _i3 = 0; _i3 < 24; _i3++) {
+      notes[_i3].note = chordD[_i3];
+    }
+  }
+
+  if (chordToPlay == 'Cm') {
+    for (var _i4 = 0; _i4 < 24; _i4++) {
+      notes[_i4].note = chordCm[_i4];
+    }
+  }
+
+  if (chordToPlay == 'E') {
+    for (var _i5 = 0; _i5 < 24; _i5++) {
+      notes[_i5].note = chordE[_i5];
+    }
+  }
+
+  if (chordToPlay == 'Dm') {
+    for (var _i6 = 0; _i6 < 24; _i6++) {
+      notes[_i6].note = chordDm[_i6];
+    }
+  }
+
+  if (chordToPlay == 'F') {
+    for (var _i7 = 0; _i7 < 24; _i7++) {
+      notes[_i7].note = chordF[_i7];
+    }
+  }
+
+  if (chordToPlay == 'Em') {
+    for (var _i8 = 0; _i8 < 24; _i8++) {
+      notes[_i8].note = chordEm[_i8];
+    }
+  }
+
+  if (chordToPlay == 'G') {
+    for (var _i9 = 0; _i9 < 24; _i9++) {
+      notes[_i9].note = chordG[_i9];
+    }
+  }
+
+  if (chordToPlay == 'Fm') {
+    for (var _i10 = 0; _i10 < 24; _i10++) {
+      notes[_i10].note = chordFm[_i10];
+    }
+  }
+
+  if (chordToPlay == 'A') {
+    for (var _i11 = 0; _i11 < 24; _i11++) {
+      notes[_i11].note = chordA[_i11];
+    }
+  }
+
+  if (chordToPlay == 'Gm') {
+    for (var _i12 = 0; _i12 < 24; _i12++) {
+      notes[_i12].note = chordGm[_i12];
+    }
+  }
+
+  if (chordToPlay == 'B') {
+    for (var _i13 = 0; _i13 < 24; _i13++) {
+      notes[_i13].note = chordB[_i13];
+    }
+  }
+
   notes.forEach(function (note, index) {
     note.update();
   });

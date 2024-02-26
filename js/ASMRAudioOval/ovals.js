@@ -3,8 +3,10 @@ class Ovals {
         this.x = x;
         this.y = y;
         this.color = color;
+        this.angle = 0;
+        this.point = { x: 0, y: 0 };
         this.velocity = { x: Math.random() - 0.5, y: Math.random() - 0.5 };
-        this.radiusNumber = Math.random() * 200;
+        this.radiusNumber = Math.random() * 60;
         this.radius = { x: this.radiusNumber, y: this.radiusNumber / 2 };
         this.rotation = { x: 0, y: 0 };
         this.opacity = 0.01;
@@ -23,11 +25,30 @@ class Ovals {
         ctx.strokeStyle = this.color;
         ctx.globalAlpha = this.opacity;
         ctx.stroke();
+        ctx.save();
+        ctx.translate(this.x, this.y);
+        ctx.rotate(this.rotation.x);
+        ctx.beginPath();
+        ctx.arc(0 + this.point.x, 0 + this.point.y, 2, 0, Math.PI * 2);
+        ctx.arc(0 - this.point.x, 0 - this.point.y, 2, 0, Math.PI * 2);
+        ctx.fillStyle = this.color;
+        ctx.fill();
+        ctx.restore();
         ctx.globalAlpha = 0.4;
     }
     update() {
         this.x += this.velocity.x;
         this.y += this.velocity.y;
+
+        this.point.x = this.radius.x * Math.cos(this.angle);
+        this.point.y = this.radius.y * Math.sin(this.angle);
+
+        this.angle += (Math.PI / 180) / 4;
+
+
+        if (this.angle >= Math.PI * 2) {
+            this.angle = 0;
+        }
         if (this.rotateUp) {
             this.rotation.x -= 0.001;
         } else {
@@ -57,7 +78,7 @@ function forOvals() {
 
     smallOvals.forEach((ov, index) => {
 
-        if (!ov.brighten && ov.opacity < 0.1) {
+        if (!ov.brighten && ov.opacity < 0.01) {
             smallOvals.splice(index, 1);
         }
 

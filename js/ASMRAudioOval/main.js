@@ -12,10 +12,33 @@ let start = false,
 
 let delay = 0,
     velocity = 4,
-    selectColor = 0;
+    selectColor = 0,
+    chordToPlay = 'Am';
 
 let oval = new Oval(center.x, center.y);
 let chord = new Chord(0, -center.y);
+
+
+
+let chordAm = [],
+    chordC = [],
+    chordBm = [],
+    chordD = [],
+    chordCm = [],
+    chordE = [],
+    chordDm = [],
+    chordF = [],
+    chordEm = [],
+    chordG = [],
+    chordFm = [],
+    chordA = [],
+    chordGm = [],
+    chordB = [];
+
+
+
+
+
 
 
 let notes = [],
@@ -23,15 +46,24 @@ let notes = [],
     smallOvals = [],
     color = [];
 
+
+
+
+createChords();
+
+
+
+
+
 for (let i = 0; i < 24; i++) {
     let hue1 = (Math.random() * 260) + 100;
     let hue2 = (Math.random() * 260) + 100;
     let hue3 = (Math.random() * 260) + 100;
     color.push('rgb(' + hue1 + ',' + hue2 + ',' + hue3 + ')')
     if (i < 11) {
-        notes.push(new Note(center.x, center.y, velocity, 0 - (Math.PI / 2), color[selectColor]));
+        notes.push(new Note(center.x, center.y, velocity, 0 - (Math.PI / 2), color[selectColor], chordAm[selectColor]));
     } else {
-        notes.push(new Note(center.x, center.y, velocity, 0 - (-Math.PI / 2), color[selectColor]));
+        notes.push(new Note(center.x, center.y, velocity, 0 - (-Math.PI / 2), color[selectColor], chordAm[selectColor]));
     }
     selectColor += 1;
     velocity += 0.01;
@@ -40,7 +72,7 @@ for (let i = 0; i < 24; i++) {
 
 
 
-
+setVolume();
 
 
 
@@ -55,6 +87,11 @@ function animate() {
     ctx.fillText("𝔸𝕊𝕄ℝ 𝔸𝕌𝔻𝕀𝕆", center.x - (center.x / 6), center.y);
     ctx.globalAlpha = 0.4;
 
+    ctx.font = "bold 20px Arial";
+    ctx.fillStyle = "white";
+    ctx.fillText(chordToPlay, 0, canvas.height * 0.02);
+
+
     if (!start) {
         delay += 1;
         if (delay >= 100) {
@@ -64,13 +101,14 @@ function animate() {
 
     if (start) {
         if (playNow) {
-
+            ABass.play();
+            AmVox.play();
             playNow = false;
         }
 
 
         let createOvals = Math.random();
-        if (createOvals > 0.998) {
+        if (createOvals > 0.99) {
             smallOvals.push(new Ovals(Math.random() * canvas.width, Math.random() * canvas.height, color[Math.floor(Math.random() * 24)]));
         }
 

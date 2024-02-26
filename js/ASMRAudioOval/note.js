@@ -1,10 +1,11 @@
 class Note {
-    constructor(x, y, speed, angle, color) {
+    constructor(x, y, speed, angle, color, note) {
         this.x = x;
         this.y = y;
         this.speed = speed;
         this.angle = angle;
         this.color = color;
+        this.note = note;
         this.smallRadius = 10;
         this.bigRadius = { x: canvas.height / 4, y: canvas.height / 8 };
         this.point = { x: 0, y: 0 };
@@ -48,6 +49,7 @@ class Note {
         }
 
         if (this.x + this.point.x <= center.x + 2 && this.x + this.point.x >= center.x - 2) {
+            this.note.play();
             for (let i = 0; i < 10; i++) {
                 particles.push(new Particle(this.point.x, this.point.y, this.color));
             }
@@ -61,12 +63,77 @@ class Note {
 }
 
 function forNote() {
-
+    if (chordToPlay == 'Am') {
+        for (let i = 0; i < 24; i++) {
+            notes[i].note = chordAm[i];
+        }
+    }
+    if (chordToPlay == 'C') {
+        for (let i = 0; i < 24; i++) {
+            notes[i].note = chordC[i];
+        }
+    }
+    if (chordToPlay == 'Bm') {
+        for (let i = 0; i < 24; i++) {
+            notes[i].note = chordBm[i];
+        }
+    }
+    if (chordToPlay == 'D') {
+        for (let i = 0; i < 24; i++) {
+            notes[i].note = chordD[i];
+        }
+    }
+    if (chordToPlay == 'Cm') {
+        for (let i = 0; i < 24; i++) {
+            notes[i].note = chordCm[i];
+        }
+    }
+    if (chordToPlay == 'E') {
+        for (let i = 0; i < 24; i++) {
+            notes[i].note = chordE[i];
+        }
+    }
+    if (chordToPlay == 'Dm') {
+        for (let i = 0; i < 24; i++) {
+            notes[i].note = chordDm[i];
+        }
+    }
+    if (chordToPlay == 'F') {
+        for (let i = 0; i < 24; i++) {
+            notes[i].note = chordF[i];
+        }
+    }
+    if (chordToPlay == 'Em') {
+        for (let i = 0; i < 24; i++) {
+            notes[i].note = chordEm[i];
+        }
+    }
+    if (chordToPlay == 'G') {
+        for (let i = 0; i < 24; i++) {
+            notes[i].note = chordG[i];
+        }
+    }
+    if (chordToPlay == 'Fm') {
+        for (let i = 0; i < 24; i++) {
+            notes[i].note = chordFm[i];
+        }
+    }
+    if (chordToPlay == 'A') {
+        for (let i = 0; i < 24; i++) {
+            notes[i].note = chordA[i];
+        }
+    }
+    if (chordToPlay == 'Gm') {
+        for (let i = 0; i < 24; i++) {
+            notes[i].note = chordGm[i];
+        }
+    }
+    if (chordToPlay == 'B') {
+        for (let i = 0; i < 24; i++) {
+            notes[i].note = chordB[i];
+        }
+    }
     notes.forEach((note, index) => {
-
-
-
-
         note.update();
     });
 }
