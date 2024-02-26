@@ -62,7 +62,7 @@ function () {
 
 function forBubble() {
   bubbles.forEach(function (bubble, index) {
-    var collide = collisionDetection(bubble.x, bubble.y, 2, 2, chords[0].x, chords[0].y, 2, 2);
+    var collide = collideDetection(bubble.x, bubble.y, 2, 2, chords[0].x, chords[0].y, 2, 2);
 
     if (collide) {
       bubble.expand = true;
