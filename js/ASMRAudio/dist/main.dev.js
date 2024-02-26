@@ -10,6 +10,12 @@ var notes = [],
     chords = [],
     bubbles = [],
     whiteStars = [];
+var note1;
+var note2;
+var note3;
+var upperNote1;
+var upperNote2;
+var upperNote3;
 var chordChange = 'C',
     delay = 0;
 var cross;

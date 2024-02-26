@@ -41,12 +41,7 @@ class Chord {
         ctx.globalApha = 1;
     }
     update() {
-        let note1;
-        let note2;
-        let note3;
-        let upperNote1;
-        let upperNote2;
-        let upperNote3;
+
         this.x += this.velocity.x;
         this.y += this.velocity.y;
 

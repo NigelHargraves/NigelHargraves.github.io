@@ -10,6 +10,13 @@ let notes = [],
     bubbles = [],
     whiteStars = [];
 
+let note1;
+let note2;
+let note3;
+let upperNote1;
+let upperNote2;
+let upperNote3;
+
 let chordChange = 'C',
     delay = 0;
 

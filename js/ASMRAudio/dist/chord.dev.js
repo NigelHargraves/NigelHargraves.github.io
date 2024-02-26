@@ -64,12 +64,6 @@ function () {
   }, {
     key: "update",
     value: function update() {
-      var note1;
-      var note2;
-      var note3;
-      var upperNote1;
-      var upperNote2;
-      var upperNote3;
       this.x += this.velocity.x;
       this.y += this.velocity.y;
 
