@@ -11,7 +11,8 @@ var clouds = [],
     dropHits = [];
 var chordToPlay = 0,
     noteToPlay = 1;
-var playFirstDChord = true;
+var playFirstDChord = true,
+    showChords = true;
 clouds.push(new Cloud(Math.random() * (canvas.width - 300), Math.random() * canvas.height / 2, false));
 clouds.push(new Cloud(Math.random() * (canvas.width - 300), Math.random() * canvas.height / 2, true));
 clouds.push(new Cloud(Math.random() * (canvas.width - 300), Math.random() * canvas.height / 2, false));
@@ -28,6 +29,13 @@ function animate() {
   ctx.globalAlpha = 0.01;
   ctx.fillText("𝔸𝕊𝕄ℝ 𝔸𝕌𝔻𝕀𝕆", canvas.width / 2.4, canvas.height / 2);
   ctx.globalAlpha = 0.4;
+
+  if (showChords) {
+    ctx.font = "bold 20px Arial";
+    ctx.fillStyle = "white";
+    ctx.fillText(chordToPlay, 0, canvas.height * 0.02);
+  }
+
   forRainDrops();
   forClouds();
   forSplashes();

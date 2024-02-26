@@ -9,7 +9,8 @@ var center = {
   y: canvas.height / 2
 };
 var start = false,
-    playNow = true;
+    playNow = true,
+    showChords = false;
 var delay = 0,
     velocity = 4,
     selectColor = 0,
@@ -63,9 +64,12 @@ function animate() {
   ctx.globalAlpha = 0.04;
   ctx.fillText("𝔸𝕊𝕄ℝ 𝔸𝕌𝔻𝕀𝕆", center.x - center.x / 6, center.y);
   ctx.globalAlpha = 0.4;
-  ctx.font = "bold 20px Arial";
-  ctx.fillStyle = "white";
-  ctx.fillText(chordToPlay, 0, canvas.height * 0.02);
+
+  if (showChords) {
+    ctx.font = "bold 20px Arial";
+    ctx.fillStyle = "white";
+    ctx.fillText(chordToPlay, 0, canvas.height * 0.02);
+  }
 
   if (!start) {
     delay += 1;
