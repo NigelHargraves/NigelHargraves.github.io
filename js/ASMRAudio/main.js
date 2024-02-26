@@ -60,9 +60,6 @@ function animate() {
         cross.update();
     }
 
-
-
-
     //call next frame.
     animationId = requestAnimationFrame(animate);
 
