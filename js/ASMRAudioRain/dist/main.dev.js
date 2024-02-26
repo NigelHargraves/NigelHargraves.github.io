@@ -12,7 +12,7 @@ var clouds = [],
 var chordToPlay = 0,
     noteToPlay = 1;
 var playFirstDChord = true,
-    showChords = true;
+    showChords = false;
 clouds.push(new Cloud(Math.random() * (canvas.width - 300), Math.random() * canvas.height / 2, false));
 clouds.push(new Cloud(Math.random() * (canvas.width - 300), Math.random() * canvas.height / 2, true));
 clouds.push(new Cloud(Math.random() * (canvas.width - 300), Math.random() * canvas.height / 2, false));
