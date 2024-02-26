@@ -106,6 +106,8 @@ class Chord {
         if (this.x + this.r >= canvas.width || this.x - this.r <= 0) {
             this.velocity.x = -this.velocity.x;
 
+            whiteStars.push(new WhiteStar(Math.random() * canvas.width, Math.random() * canvas.height));
+
             bubbles.push(new Bubble(canvas.width / 2, canvas.height / 2));
 
 
