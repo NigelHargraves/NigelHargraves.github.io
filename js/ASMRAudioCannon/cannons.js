@@ -33,7 +33,28 @@ class Cannon {
 
 
         if (this.count == (Math.floor(this.fireTime / 2))) {
-            notes.push(new Note(this.x, this.y, { x: this.aimPoint.x / 20, y: this.aimPoint.y / 20 }));
+            let thisNote = 0;
+            if (chordToPlay == 'D1' || chordToPlay == 'D2') {
+                thisNote = chordD[noteNumber];
+            }
+            if (chordToPlay == 'A1' || chordToPlay == 'A2') {
+                thisNote = chordA[noteNumber];
+            }
+            if (chordToPlay == 'G1' || chordToPlay == 'G2') {
+                thisNote = chordG[noteNumber];
+            }
+            if (chordToPlay == 'Bm') {
+                thisNote = chordBm[noteNumber];
+            }
+            if (chordToPlay == 'F#m') {
+                thisNote = chordF$m[noteNumber];
+            }
+            notes.push(new Note(this.x, this.y, { x: this.aimPoint.x / 20, y: this.aimPoint.y / 20 }, thisNote));
+            for (let i = 0; i < 10; i++) {
+                particles.push(new Particle(this.x, this.y, { x: this.aimPoint.x / (30 + (Math.random() * 10)), y: this.aimPoint.y / (30 + (Math.random() * 10)) }));
+            }
+            noteNumber++;
+            if (noteNumber > 23) noteNumber = 0;
         }
 
         if (this.count >= this.fireTime) {

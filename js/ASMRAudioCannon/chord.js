@@ -35,11 +35,93 @@ class Chord {
 function forChords() {
     chords.forEach((chord, index) => {
         if (chord.y >= canvas.height - chord.r) {
+            if (!dontChangeChord) {
+                changeChord();
+            } else {
+                drumBass.play();
+                DBass.play();
+                DChord.play();
+                dontChangeChord = false;
+            }
+
             for (let i = 0; i < 100; i++) {
-                particles.push(new Particle(chord.x, chord.y + chord.r));
+                particles.push(new Particle(chord.x, chord.y + chord.r, { x: Math.random() - 0.5, y: Math.random() - 1 }));
             }
             chords.splice(index, 1);
         }
         chord.update();
     });
+}
+
+function changeChord() {
+    // noteNumber = 0;
+    if (chordToPlay == 'D1') {
+        chordToPlay = 'A1';
+        drumBass.play();
+        CSBass.play();
+        AChord.play();
+    } else if (chordToPlay == 'A1') {
+        chordToPlay = 'Bm';
+        drumBass.play();
+        BBass.play();
+        BmChord.play();
+    } else if (chordToPlay == 'Bm') {
+        chordToPlay = 'F#m';
+        drumBass.play();
+        ABass.play();
+        FSmChord.play();
+    } else if (chordToPlay == 'F#m') {
+        chordToPlay = 'G1';
+        drumBass.play();
+        BBass.play();
+        GChord.play();
+    } else if (chordToPlay == 'G1') {
+        chordToPlay = 'D2';
+        drumBass.play();
+        FSBass.play();
+        DChord.play();
+    } else if (chordToPlay == 'D2') {
+        chordToPlay = 'G2';
+        drumBass.play();
+        BBass.play();
+        GChord.play();
+    } else if (chordToPlay == 'G2') {
+        chordToPlay = 'A2';
+        drumBass.play();
+        CSBass.play();
+        AChord.play();
+    } else if (chordToPlay == 'A2') {
+        chordToPlay = 'D1';
+        drumBass.play();
+        DBass.play();
+        DChord.play();
+    }
+
+
+    if (chordToPlay == 'D1' || chordToPlay == 'D2') {
+        for (let i = 0; i < notes.length; i++) {
+            notes[i].note = chordD[i];
+        }
+    }
+    if (chordToPlay == 'A1' || chordToPlay == 'A2') {
+        for (let i = 0; i < notes.length; i++) {
+            notes[i].note = chordA[i];
+        }
+    }
+    if (chordToPlay == 'Bm') {
+        for (let i = 0; i < notes.length; i++) {
+            notes[i].note = chordBm[i];
+        }
+    }
+    if (chordToPlay == 'F#m') {
+        for (let i = 0; i < notes.length; i++) {
+            notes[i].note = chordF$m[i];
+        }
+    }
+    if (chordToPlay == 'G1' || chordToPlay == 'G2') {
+        for (let i = 0; i < notes.length; i++) {
+            notes[i].note = chordG[i];
+        }
+    }
+
 }

@@ -10,9 +10,17 @@ var center = {
 };
 var start = false,
     playNow = true,
-    showChords = false;
+    showChords = false,
+    dontChangeChord = true;
 var delay = 0,
-    createChord = 0;
+    createChord = 0,
+    noteNumber = 0,
+    chordToPlay = 'D1';
+var chordD = [],
+    chordA = [],
+    chordBm = [],
+    chordF$m = [],
+    chordG = [];
 var cannons = [],
     notes = [],
     particles = [],
@@ -24,6 +32,7 @@ cannons.push(new Cannon(canvas.width - 50, canvas.height - 20, 0 - Math.PI / 2 -
 cannons.push(new Cannon(canvas.width - 150, canvas.height - 20, 0 - Math.PI / 2 - Math.random() * (Math.PI / 2), false));
 cannons.push(new Cannon(canvas.width - 250, canvas.height - 20, 0 - Math.PI / 2 - Math.random() * (Math.PI / 2), false));
 chords.push(new Chord(center.x, 0));
+createChords();
 
 function animate() {
   //CLS.
@@ -56,7 +65,7 @@ function animate() {
 
     createChord++;
 
-    if (createChord >= 1000) {
+    if (createChord >= 800) {
       chords.push(new Chord(center.x, 0));
       createChord = 0;
     }

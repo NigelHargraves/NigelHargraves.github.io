@@ -9,10 +9,21 @@ let center = { x: canvas.width / 2, y: canvas.height / 2 };
 
 let start = false,
     playNow = true,
-    showChords = false;
+    showChords = false,
+    dontChangeChord = true;
 
 let delay = 0,
-    createChord = 0;
+    createChord = 0,
+    noteNumber = 0,
+    chordToPlay = 'D1';
+
+
+let chordD = [],
+    chordA = [],
+    chordBm = [],
+    chordF$m = [],
+    chordG = [];
+
 
 let cannons = [],
     notes = [],
@@ -28,7 +39,7 @@ cannons.push(new Cannon(canvas.width - 250, canvas.height - 20, 0 - (Math.PI / 2
 
 chords.push(new Chord(center.x, 0));
 
-
+createChords();
 
 
 function animate() {
@@ -62,7 +73,7 @@ function animate() {
 
         createChord++;
 
-        if (createChord >= 1000) {
+        if (createChord >= 800) {
             chords.push(new Chord(center.x, 0));
             createChord = 0;
         }
