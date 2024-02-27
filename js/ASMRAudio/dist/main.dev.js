@@ -37,7 +37,7 @@ function animate() {
   if (!start) {
     delay += 1;
 
-    if (delay >= 500) {
+    if (delay >= 100) {
       start = true;
     }
   }
