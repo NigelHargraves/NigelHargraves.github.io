@@ -9,7 +9,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 var Note =
 /*#__PURE__*/
 function () {
-  function Note(x, y, velocity, note) {
+  function Note(x, y, velocity, note, color) {
     _classCallCheck(this, Note);
 
     this.x = x;
@@ -17,6 +17,7 @@ function () {
     this.r = 5;
     this.velocity = velocity;
     this.note = note;
+    this.color = color;
     this.angles = 0;
     this.gravity = 0.00002;
     this.acceleration = 0;
@@ -27,7 +28,7 @@ function () {
     value: function draw() {
       ctx.beginPath();
       ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
-      ctx.strokeStyle = 'white';
+      ctx.strokeStyle = this.color;
       ctx.stroke();
     }
   }, {
@@ -54,7 +55,7 @@ function forNotes() {
         particles.push(new Particle(note.x, note.y, {
           x: Math.random() - 0.5,
           y: Math.random() - 1
-        }));
+        }, note.color));
       }
 
       notes.splice(index, 1);

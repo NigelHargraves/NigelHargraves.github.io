@@ -1,10 +1,11 @@
 class Note {
-    constructor(x, y, velocity, note) {
+    constructor(x, y, velocity, note, color) {
         this.x = x;
         this.y = y;
         this.r = 5;
         this.velocity = velocity;
         this.note = note;
+        this.color = color;
         this.angles = 0;
         this.gravity = 0.00002;
         this.acceleration = 0;
@@ -12,7 +13,7 @@ class Note {
     draw() {
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
-        ctx.strokeStyle = 'white';
+        ctx.strokeStyle = this.color;
         ctx.stroke();
     }
     update() {
@@ -30,7 +31,7 @@ function forNotes() {
             note.note.currentTime = 0;
             note.note.play();
             for (let i = 0; i < 20; i++) {
-                particles.push(new Particle(note.x, note.y, { x: Math.random() - 0.5, y: Math.random() - 1 }));
+                particles.push(new Particle(note.x, note.y, { x: Math.random() - 0.5, y: Math.random() - 1 }, note.color));
             }
             notes.splice(index, 1);
         }

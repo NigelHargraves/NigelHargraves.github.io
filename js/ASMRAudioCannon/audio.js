@@ -69,3 +69,14 @@ let G8 = document.getElementById("audio65");
 let A8 = document.getElementById("audio66");
 let B8 = document.getElementById("audio67");
 let CS8 = document.getElementById("audio68");
+
+function setVolume() {
+    let bassVolume = 0.4;
+    drumBass.volume = 0.1;
+    DBass.volume = bassVolume;
+    CSBass.volume = bassVolume;
+    BBass.volume = bassVolume;
+    ABass.volume = bassVolume;
+    GBass.volume = bassVolume;
+    FSBass.volume = bassVolume;
+}

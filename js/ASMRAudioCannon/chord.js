@@ -12,7 +12,7 @@ class Chord {
     draw() {
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
-        ctx.strokeStyle = 'white';
+        ctx.strokeStyle = 'cyan';
         ctx.lineWidth = this.lineWidth;
         ctx.globalAlpha = this.opacity;
         ctx.stroke();
@@ -45,7 +45,7 @@ function forChords() {
             }
 
             for (let i = 0; i < 100; i++) {
-                particles.push(new Particle(chord.x, chord.y + chord.r, { x: Math.random() - 0.5, y: Math.random() - 1 }));
+                particles.push(new Particle(chord.x, chord.y + chord.r, { x: Math.random() - 0.5, y: Math.random() - Math.random() - 1 }, 'cyan'));
             }
             chords.splice(index, 1);
         }
@@ -115,7 +115,7 @@ function changeChord() {
     }
     if (chordToPlay == 'F#m') {
         for (let i = 0; i < notes.length; i++) {
-            notes[i].note = chordF$m[i];
+            notes[i].note = chordFSm[i];
         }
     }
     if (chordToPlay == 'G1' || chordToPlay == 'G2') {

@@ -9,12 +9,13 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 var Particle =
 /*#__PURE__*/
 function () {
-  function Particle(x, y, velocity) {
+  function Particle(x, y, velocity, color) {
     _classCallCheck(this, Particle);
 
     this.x = x;
     this.y = y;
     this.velocity = velocity;
+    this.color = color;
     this.opacity = 1;
     this.gravity = 0.00001;
     this.acceleration = 0;
@@ -25,7 +26,7 @@ function () {
     value: function draw() {
       ctx.beginPath();
       ctx.arc(this.x, this.y, 0.4, 0, Math.PI * 2);
-      ctx.strokeStyle = 'white';
+      ctx.strokeStyle = this.color;
       ctx.globalAlpha = this.opacity;
       ctx.stroke();
       ctx.globalAlpha = 0.4;

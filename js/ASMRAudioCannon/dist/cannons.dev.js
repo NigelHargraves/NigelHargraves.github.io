@@ -9,7 +9,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 var Cannon =
 /*#__PURE__*/
 function () {
-  function Cannon(x, y, angle, direction) {
+  function Cannon(x, y, angle, direction, color) {
     _classCallCheck(this, Cannon);
 
     this.x = x;
@@ -17,12 +17,14 @@ function () {
     this.r = 20;
     this.angle = angle;
     this.left = direction;
+    this.color = color;
+    this.oldAngle = this.angle;
     this.aimPoint = {
       x: 0,
       y: 0
     };
     this.fireInterval = 1000;
-    this.fireTime = Math.floor(Math.random() * this.fireInterval);
+    this.fireTime = Math.floor(Math.random() * this.fireInterval) + 200;
     this.count = 0;
   }
 
@@ -30,8 +32,8 @@ function () {
     key: "draw",
     value: function draw() {
       ctx.beginPath();
-      ctx.strokeStyle = 'white';
-      ctx.fillStyle = 'white';
+      ctx.strokeStyle = this.color;
+      ctx.fillStyle = this.color;
       ctx.moveTo(this.x, this.y);
       ctx.lineTo(this.x + this.aimPoint.x, this.y + this.aimPoint.y);
       ctx.lineWidth = 10;
@@ -48,8 +50,8 @@ function () {
   }, {
     key: "update",
     value: function update() {
-      this.aimPoint.x = 50 * Math.cos(this.angle);
-      this.aimPoint.y = 50 * Math.sin(this.angle);
+      this.aimPoint.x = 50 * Math.cos(this.oldAngle);
+      this.aimPoint.y = 50 * Math.sin(this.oldAngle);
 
       if (this.count == Math.floor(this.fireTime / 2)) {
         var thisNote = 0;
@@ -71,19 +73,20 @@ function () {
         }
 
         if (chordToPlay == 'F#m') {
-          thisNote = chordF$m[noteNumber];
+          thisNote = chordFSm[noteNumber];
         }
 
         notes.push(new Note(this.x, this.y, {
           x: this.aimPoint.x / 20,
           y: this.aimPoint.y / 20
-        }, thisNote));
+        }, thisNote, color[Math.floor(Math.random() * 24)]));
+        thisNote.play();
 
         for (var i = 0; i < 10; i++) {
           particles.push(new Particle(this.x, this.y, {
             x: this.aimPoint.x / (30 + Math.random() * 10),
             y: this.aimPoint.y / (30 + Math.random() * 10)
-          }));
+          }, color[noteNumber]));
         }
 
         noteNumber++;
@@ -98,7 +101,15 @@ function () {
         }
 
         this.count = 0;
-        this.fireTime = Math.floor(Math.random() * this.fireInterval);
+        this.fireTime = Math.floor(Math.random() * this.fireInterval) + 200;
+      }
+
+      if (this.oldAngle < this.angle + 0.0001) {
+        this.oldAngle += 0.01;
+      }
+
+      if (this.oldAngle > this.angle - 0.0001) {
+        this.oldAngle -= 0.01;
       }
 
       this.count++;

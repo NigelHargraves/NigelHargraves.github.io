@@ -27,7 +27,7 @@ function () {
     value: function draw() {
       ctx.beginPath();
       ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
-      ctx.strokeStyle = 'white';
+      ctx.strokeStyle = 'cyan';
       ctx.lineWidth = this.lineWidth;
       ctx.globalAlpha = this.opacity;
       ctx.stroke();
@@ -67,8 +67,8 @@ function forChords() {
       for (var i = 0; i < 100; i++) {
         particles.push(new Particle(chord.x, chord.y + chord.r, {
           x: Math.random() - 0.5,
-          y: Math.random() - 1
-        }));
+          y: Math.random() - Math.random() - 1
+        }, 'cyan'));
       }
 
       chords.splice(index, 1);
@@ -142,7 +142,7 @@ function changeChord() {
 
   if (chordToPlay == 'F#m') {
     for (var _i3 = 0; _i3 < notes.length; _i3++) {
-      notes[_i3].note = chordF$m[_i3];
+      notes[_i3].note = chordFSm[_i3];
     }
   }
 

@@ -1,9 +1,9 @@
 class Particle {
-    constructor(x, y, velocity) {
+    constructor(x, y, velocity, color) {
         this.x = x;
         this.y = y;
-
         this.velocity = velocity;
+        this.color = color;
         this.opacity = 1;
         this.gravity = 0.00001;
         this.acceleration = 0;
@@ -11,7 +11,7 @@ class Particle {
     draw() {
         ctx.beginPath();
         ctx.arc(this.x, this.y, 0.4, 0, Math.PI * 2);
-        ctx.strokeStyle = 'white';
+        ctx.strokeStyle = this.color;
         ctx.globalAlpha = this.opacity;
         ctx.stroke();
         ctx.globalAlpha = 0.4;

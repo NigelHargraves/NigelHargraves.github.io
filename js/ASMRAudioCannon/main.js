@@ -21,26 +21,38 @@ let delay = 0,
 let chordD = [],
     chordA = [],
     chordBm = [],
-    chordF$m = [],
+    chordFSm = [],
     chordG = [];
 
 
 let cannons = [],
     notes = [],
     particles = [],
-    chords = [];
+    chords = [],
+    color = [];
 
-cannons.push(new Cannon(50, canvas.height - 20, 0 - Math.random() * (Math.PI / 2), true));
-cannons.push(new Cannon(150, canvas.height - 20, 0 - Math.random() * (Math.PI / 2), true));
-cannons.push(new Cannon(250, canvas.height - 20, 0 - Math.random() * (Math.PI / 2), true));
-cannons.push(new Cannon(canvas.width - 50, canvas.height - 20, 0 - (Math.PI / 2) - Math.random() * (Math.PI / 2), false));
-cannons.push(new Cannon(canvas.width - 150, canvas.height - 20, 0 - (Math.PI / 2) - Math.random() * (Math.PI / 2), false));
-cannons.push(new Cannon(canvas.width - 250, canvas.height - 20, 0 - (Math.PI / 2) - Math.random() * (Math.PI / 2), false));
+for (let i = 0; i < 24; i++) {
+    let hue1 = (Math.random() * 260) + 100;
+    let hue2 = (Math.random() * 260) + 100;
+    let hue3 = (Math.random() * 260) + 100;
+    color.push('rgb(' + hue1 + ',' + hue2 + ',' + hue3 + ')')
+}
+
+
+
+
+
+cannons.push(new Cannon(50, canvas.height - 20, 0 - Math.random() * (Math.PI / 2), true, 'red'));
+cannons.push(new Cannon(150, canvas.height - 20, 0 - Math.random() * (Math.PI / 2), true, 'yellow'));
+cannons.push(new Cannon(250, canvas.height - 20, 0 - Math.random() * (Math.PI / 2), true, 'green'));
+cannons.push(new Cannon(canvas.width - 50, canvas.height - 20, 0 - (Math.PI / 2) - Math.random() * (Math.PI / 2), false, 'red'));
+cannons.push(new Cannon(canvas.width - 150, canvas.height - 20, 0 - (Math.PI / 2) - Math.random() * (Math.PI / 2), false, 'yellow'));
+cannons.push(new Cannon(canvas.width - 250, canvas.height - 20, 0 - (Math.PI / 2) - Math.random() * (Math.PI / 2), false, 'green'));
 
 chords.push(new Chord(center.x, 0));
 
 createChords();
-
+setVolume();
 
 function animate() {
     //CLS.
@@ -78,12 +90,9 @@ function animate() {
             createChord = 0;
         }
 
-
-
+        forNotes();
 
         forCannons();
-
-        forNotes();
 
         forParticles();
 
