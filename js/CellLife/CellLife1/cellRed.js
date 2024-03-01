@@ -6,6 +6,8 @@ class RedCell {
         this.r = rangeRed;
         this.velocity = { x: 0, y: 0 };
         this.angle = 0;
+        this.cellLife = 1000 + Math.random() * 10000;
+        this.kill = false;
     }
     draw() {
         ctx.beginPath();
@@ -14,31 +16,69 @@ class RedCell {
         ctx.fill();
     }
     update() {
+
+        redCells.forEach((RC, index) => {
+            let opp = 0,
+                adj = 0,
+                hyp = 0;
+            if (this.cellNumber != RC.cellNumber) {
+                let collide = collisionDetection(this.x, this.y, cellImpactSize, RC.x, RC.y, cellImpactSize);
+                if (collide) {
+                    opp = Math.pow(this.x - RC.x, 2);
+                    adj = Math.pow(this.y - RC.y, 2);
+                    if (opp < 0) opp *= -1;
+                    if (adj < 0) adj *= -1;
+                    hyp = Math.sqrt(opp + adj) / 10;
+                    this.angle = Math.atan2(RC.y - this.y, RC.x - this.x);
+                    this.velocity.x += -Math.cos(this.angle) * hyp;
+                    this.velocity.y += -Math.sin(this.angle) * hyp;
+                }
+            }
+        });
         this.x += this.velocity.x;
         this.y += this.velocity.y;
+
+        //mutate cell
+        this.cellLife -= 1;
+        if (this.cellLife < 0) {
+            let mutate = Math.random();
+            if (mutate > 0.999) {
+                let changePerameter = Math.random();
+                let changeUp = Math.random();
+                if (changePerameter > 0.5) {
+                    if (changeUp > 0.5) {
+                        rangeRed += 0.5;
+                    } else {
+                        rangeRed -= 0.5;
+                    }
+                    if (rangeRed < repelRedRange + 1) {
+                        rangeRed = repelRedRange + 1;
+                    }
+                } else {
+                    if (changeUp > 0.5) {
+                        repelRedRange += 0.5;
+                    } else {
+                        repelRedRange -= 0.5;
+                    }
+                    if (repelRedRange < 5) {
+                        repelRedRange = 5;
+                    }
+                }
+            }
+            this.kill = true;
+        }
+
         this.draw();
     }
 }
 
 function forRedCells() {
-
-
-    redCells.forEach((RC1, index) => {
-        redCells.forEach((RC2, index) => {
-            if (RC1.cellNumber != RC2.cellNumber) {
-                let collide = collisionDetection(RC1.x, RC1.y, cellImpactSize, RC2.x, RC2.y, cellImpactSize);
-                if (collide) {
-                    RC1.angle = Math.atan2(RC2.y - RC1.y, RC2.x - RC1.x);
-                    RC1.velocity.x = -Math.cos(RC1.angle) * simulationSpeed;
-                    RC1.velocity.y = -Math.sin(RC1.angle) * simulationSpeed;
-                }
-            }
-        });
-    });
-
-
-    let repelRadius = 2;
     redCells.forEach((RC, index) => {
+        if (RC.kill) {
+            let newNumber = RC.cellNumber;
+            redCells.splice(index, 1);
+            redCells.push(new RedCell(Math.random() * canvas.width, Math.random() * canvas.height, newNumber));
+        }
         if (RC.x < 0) {
             RC.x = canvas.width;
         }

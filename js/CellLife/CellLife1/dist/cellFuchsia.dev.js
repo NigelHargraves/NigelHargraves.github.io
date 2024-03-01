@@ -6,16 +6,16 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-var YellowCell =
+var FuchsiaCell =
 /*#__PURE__*/
 function () {
-  function YellowCell(x, y, cellNumber) {
-    _classCallCheck(this, YellowCell);
+  function FuchsiaCell(x, y, cellNumber) {
+    _classCallCheck(this, FuchsiaCell);
 
     this.x = x;
     this.y = y;
     this.cellNumber = cellNumber;
-    this.r = rangeYellow;
+    this.r = rangeFuchsia;
     this.velocity = {
       x: 0,
       y: 0
@@ -25,12 +25,12 @@ function () {
     this.kill = false;
   }
 
-  _createClass(YellowCell, [{
+  _createClass(FuchsiaCell, [{
     key: "draw",
     value: function draw() {
       ctx.beginPath();
       ctx.arc(this.x, this.y, celSize, 0, Math.PI * 2);
-      ctx.fillStyle = 'yellow';
+      ctx.fillStyle = 'fuchsia';
       ctx.fill();
     }
   }, {
@@ -38,21 +38,21 @@ function () {
     value: function update() {
       var _this = this;
 
-      yellowCells.forEach(function (YC, index) {
+      fuchsiaCells.forEach(function (FC, index) {
         var opp = 0,
             adj = 0,
             hyp = 0;
 
-        if (_this.cellNumber != YC.cellNumber) {
-          var collide = collisionDetection(_this.x, _this.y, cellImpactSize, YC.x, YC.y, cellImpactSize);
+        if (_this.cellNumber != FC.cellNumber) {
+          var collide = collisionDetection(_this.x, _this.y, cellImpactSize, FC.x, FC.y, cellImpactSize);
 
           if (collide) {
-            opp = Math.pow(_this.x - YC.x, 2);
-            adj = Math.pow(_this.y - YC.y, 2);
+            opp = Math.pow(_this.x - FC.x, 2);
+            adj = Math.pow(_this.y - FC.y, 2);
             if (opp < 0) opp *= -1;
             if (adj < 0) adj *= -1;
             hyp = Math.sqrt(opp + adj) / 10;
-            _this.angle = Math.atan2(YC.y - _this.y, YC.x - _this.x);
+            _this.angle = Math.atan2(FC.y - _this.y, FC.x - _this.x);
             _this.velocity.x += -Math.cos(_this.angle) * hyp;
             _this.velocity.y += -Math.sin(_this.angle) * hyp;
           }
@@ -72,23 +72,23 @@ function () {
 
           if (changePerameter > 0.5) {
             if (changeUp > 0.5) {
-              rangeYellow += 0.5;
+              rangeFuchsia += 0.5;
             } else {
-              rangeYellow -= 0.5;
+              rangeFuchsia -= 0.5;
             }
 
-            if (rangeYellow < repelYellowRange + 1) {
-              rangeYellow = repelYellowRange + 1;
+            if (rangeFuchsia < repelFuchsiaRange + 1) {
+              rangeFuchsia = repelFuchsiaRange + 1;
             }
           } else {
             if (changeUp > 0.5) {
-              repelYellowRange += 0.5;
+              repelFuchsiaRange += 0.5;
             } else {
-              repelYellowRange -= 0.5;
+              repelFuchsiaRange -= 0.5;
             }
 
-            if (repelYellowRange < 5) {
-              repelYellowRange = 5;
+            if (repelFuchsiaRange < 5) {
+              repelFuchsiaRange = 5;
             }
           }
         }
@@ -100,50 +100,50 @@ function () {
     }
   }]);
 
-  return YellowCell;
+  return FuchsiaCell;
 }();
 
-function forYellowCells() {
-  yellowCells.forEach(function (YC, index) {
-    if (YC.kill) {
-      var newNumber = YC.cellNumber;
-      yellowCells.splice(index, 1);
-      yellowCells.push(new YellowCell(Math.random() * canvas.width, Math.random() * canvas.height, newNumber));
+function forFuchsiaCells() {
+  fuchsiaCells.forEach(function (FC, index) {
+    if (FC.kill) {
+      var newNumber = FC.cellNumber;
+      fuchsiaCells.splice(index, 1);
+      fuchsiaCells.push(new FuchsiaCell(Math.random() * canvas.width, Math.random() * canvas.height, newNumber));
     }
 
-    if (YC.x < 0) {
-      YC.x = canvas.width;
+    if (FC.x < 0) {
+      FC.x = canvas.width;
     }
 
-    if (YC.x > canvas.width) {
-      YC.x = 0;
+    if (FC.x > canvas.width) {
+      FC.x = 0;
     }
 
-    if (YC.y < 0) {
-      YC.y = canvas.height;
+    if (FC.y < 0) {
+      FC.y = canvas.height;
     }
 
-    if (YC.y > canvas.height) {
-      YC.y = 0;
+    if (FC.y > canvas.height) {
+      FC.y = 0;
     }
 
     redCells.forEach(function (RC, index) {
-      var attract = collisionDetection(YC.x, YC.y, YC.r, RC.x, RC.y, RC.r);
+      var attract = collisionDetection(FC.x, FC.y, FC.r, RC.x, RC.y, RC.r);
 
       if (attract) {
-        var repel = collisionDetection(YC.x, YC.y, repelYellowRange, RC.x, RC.y, repelRedRange);
+        var repel = collisionDetection(FC.x, FC.y, repelFuchsiaRange, RC.x, RC.y, repelBlueRange);
 
         if (!repel) {
-          YC.angle = Math.atan2(RC.y - YC.y, RC.x - YC.x);
-          YC.velocity.x = Math.cos(YC.angle) * simulationSpeed;
-          YC.velocity.y = Math.sin(YC.angle) * simulationSpeed;
+          FC.angle = Math.atan2(RC.y - FC.y, RC.x - FC.x);
+          FC.velocity.x = Math.cos(FC.angle) * simulationSpeed;
+          FC.velocity.y = Math.sin(FC.angle) * simulationSpeed;
         } else {
-          YC.angle = Math.atan2(RC.y - YC.y, RC.x - YC.x);
-          YC.velocity.x = -Math.cos(YC.angle) * simulationSpeed;
-          YC.velocity.y = -Math.sin(YC.angle) * simulationSpeed;
+          FC.angle = Math.atan2(RC.y - FC.y, RC.x - FC.x);
+          FC.velocity.x = -Math.cos(FC.angle) * simulationSpeed;
+          FC.velocity.y = -Math.sin(FC.angle) * simulationSpeed;
         }
       }
     });
-    YC.update();
+    FC.update();
   });
 }
