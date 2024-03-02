@@ -6,7 +6,7 @@ class RedCell {
         this.r = rangeRed;
         this.velocity = { x: 0, y: 0 };
         this.angle = 0;
-        this.cellLife = 1000 + Math.random() * 10000;
+        this.cellLife = 1000 + Math.random() * 1000;
         this.kill = false;
     }
     draw() {
@@ -47,25 +47,25 @@ class RedCell {
                 let changeUp = Math.random();
                 if (changePerameter > 0.5) {
                     if (changeUp > 0.5) {
-                        rangeRed += 0.5;
+                        rangeRed += 1;
                     } else {
-                        rangeRed -= 0.5;
-                    }
-                    if (rangeRed < repelRedRange + 1) {
-                        rangeRed = repelRedRange + 1;
+                        rangeRed -= 1;
                     }
                 } else {
                     if (changeUp > 0.5) {
-                        repelRedRange += 0.5;
+                        repelRedRange += 1;
                     } else {
-                        repelRedRange -= 0.5;
-                    }
-                    if (repelRedRange < 5) {
-                        repelRedRange = 5;
+                        repelRedRange -= 1;
                     }
                 }
             }
             this.kill = true;
+            if (repelRedRange < 5) {
+                repelRedRange = 5;
+            }
+            if (rangeRed < repelRedRange + 1) {
+                rangeRed = repelRedRange + 1;
+            }
         }
 
         this.draw();
@@ -76,8 +76,10 @@ function forRedCells() {
     redCells.forEach((RC, index) => {
         if (RC.kill) {
             let newNumber = RC.cellNumber;
+            let newx = RC.x;
+            let newy = RC.y;
             redCells.splice(index, 1);
-            redCells.push(new RedCell(Math.random() * canvas.width, Math.random() * canvas.height, newNumber));
+            redCells.push(new RedCell(newx, newy, newNumber));
         }
         if (RC.x < 0) {
             RC.x = canvas.width;

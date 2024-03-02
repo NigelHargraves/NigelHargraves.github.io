@@ -6,7 +6,7 @@ class YellowCell {
         this.r = rangeYellow;
         this.velocity = { x: 0, y: 0 };
         this.angle = 0;
-        this.cellLife = 1000 + Math.random() * 10000;
+        this.cellLife = 1000 + Math.random() * 1000;
         this.kill = false;
     }
     draw() {
@@ -46,25 +46,25 @@ class YellowCell {
                 let changeUp = Math.random();
                 if (changePerameter > 0.5) {
                     if (changeUp > 0.5) {
-                        rangeYellow += 0.5;
+                        rangeYellow += 1;
                     } else {
-                        rangeYellow -= 0.5;
-                    }
-                    if (rangeYellow < repelYellowRange + 1) {
-                        rangeYellow = repelYellowRange + 1;
+                        rangeYellow -= 1;
                     }
                 } else {
                     if (changeUp > 0.5) {
-                        repelYellowRange += 0.5;
+                        repelYellowRange += 1;
                     } else {
-                        repelYellowRange -= 0.5;
-                    }
-                    if (repelYellowRange < 5) {
-                        repelYellowRange = 5;
+                        repelYellowRange -= 1;
                     }
                 }
             }
             this.kill = true;
+            if (repelYellowRange < 5) {
+                repelYellowRange = 5;
+            }
+            if (rangeYellow < repelYellowRange + 1) {
+                rangeYellow = repelYellowRange + 1;
+            }
         }
 
         this.draw();
@@ -75,8 +75,10 @@ function forYellowCells() {
     yellowCells.forEach((YC, index) => {
         if (YC.kill) {
             let newNumber = YC.cellNumber;
+            let newx = YC.x;
+            let newy = YC.y;
             yellowCells.splice(index, 1);
-            yellowCells.push(new YellowCell(Math.random() * canvas.width, Math.random() * canvas.height, newNumber));
+            yellowCells.push(new YellowCell(newx, newy, newNumber));
         }
         if (YC.x < 0) {
             YC.x = canvas.width;

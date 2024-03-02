@@ -21,7 +21,7 @@ function () {
       y: 0
     };
     this.angle = 0;
-    this.cellLife = 1000 + Math.random() * 10000;
+    this.cellLife = 1000 + Math.random() * 1000;
     this.kill = false;
   }
 
@@ -72,28 +72,28 @@ function () {
 
           if (changePerameter > 0.5) {
             if (changeUp > 0.5) {
-              rangeFuchsia += 0.5;
+              rangeFuchsia += 1;
             } else {
-              rangeFuchsia -= 0.5;
-            }
-
-            if (rangeFuchsia < repelFuchsiaRange + 1) {
-              rangeFuchsia = repelFuchsiaRange + 1;
+              rangeFuchsia -= 1;
             }
           } else {
             if (changeUp > 0.5) {
-              repelFuchsiaRange += 0.5;
+              repelFuchsiaRange += 1;
             } else {
-              repelFuchsiaRange -= 0.5;
-            }
-
-            if (repelFuchsiaRange < 5) {
-              repelFuchsiaRange = 5;
+              repelFuchsiaRange -= 1;
             }
           }
         }
 
         this.kill = true;
+
+        if (repelFuchsiaRange < 5) {
+          repelFuchsiaRange = 5;
+        }
+
+        if (rangeFuchsia < repelFuchsiaRange + 1) {
+          rangeFuchsia = repelFuchsiaRange + 1;
+        }
       }
 
       this.draw();
@@ -107,8 +107,10 @@ function forFuchsiaCells() {
   fuchsiaCells.forEach(function (FC, index) {
     if (FC.kill) {
       var newNumber = FC.cellNumber;
+      var newx = FC.x;
+      var newy = FC.y;
       fuchsiaCells.splice(index, 1);
-      fuchsiaCells.push(new FuchsiaCell(Math.random() * canvas.width, Math.random() * canvas.height, newNumber));
+      fuchsiaCells.push(new FuchsiaCell(newx, newy, newNumber));
     }
 
     if (FC.x < 0) {
@@ -127,6 +129,15 @@ function forFuchsiaCells() {
       FC.y = 0;
     }
 
+    yellowCells.forEach(function (YC, index) {
+      var repel = collisionDetection(FC.x, FC.y, FC.r, YC.x, YC.y, YC.r);
+
+      if (repel) {
+        FC.angle = Math.atan2(YC.y - FC.y, YC.x - FC.x);
+        FC.velocity.x = -Math.cos(FC.angle) * simulationSpeed;
+        FC.velocity.y = -Math.sin(FC.angle) * simulationSpeed;
+      }
+    });
     redCells.forEach(function (RC, index) {
       var attract = collisionDetection(FC.x, FC.y, FC.r, RC.x, RC.y, RC.r);
 

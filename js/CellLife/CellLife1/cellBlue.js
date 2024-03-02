@@ -6,7 +6,7 @@ class BlueCell {
         this.r = rangeBlue;
         this.velocity = { x: 0, y: 0 };
         this.angle = 0;
-        this.cellLife = 1000 + Math.random() * 10000;
+        this.cellLife = 1000 + Math.random() * 1000;
         this.kill = false;
     }
     draw() {
@@ -46,25 +46,25 @@ class BlueCell {
                 let changeUp = Math.random();
                 if (changePerameter > 0.5) {
                     if (changeUp > 0.5) {
-                        rangeBlue += 0.5;
+                        rangeBlue += 1;
                     } else {
-                        rangeBlue -= 0.1;
-                    }
-                    if (rangeBlue < repelBlueRange + 1) {
-                        rangeBlue = repelBlueRange + 1;
+                        rangeBlue -= 1;
                     }
                 } else {
                     if (changeUp > 0.5) {
-                        repelBlueRange += 0.5;
+                        repelBlueRange += 1;
                     } else {
-                        repelBlueRange -= 0.5;
-                    }
-                    if (repelBlueRange < 5) {
-                        repelBlueRange = 5;
+                        repelBlueRange -= 1;
                     }
                 }
             }
             this.kill = true;
+            if (repelBlueRange < 5) {
+                repelBlueRange = 5;
+            }
+            if (rangeBlue < repelBlueRange + 1) {
+                rangeBlue = repelBlueRange + 1;
+            }
         }
 
         this.draw();
@@ -75,8 +75,10 @@ function forBlueCells() {
     blueCells.forEach((BC, index) => {
         if (BC.kill) {
             let newNumber = BC.cellNumber;
+            let newx = BC.x;
+            let newy = BC.y;
             blueCells.splice(index, 1);
-            blueCells.push(new BlueCell(Math.random() * canvas.width, Math.random() * canvas.height, newNumber));
+            blueCells.push(new BlueCell(newx, newy, newNumber));
         }
         if (BC.x < 0) {
             BC.x = canvas.width;

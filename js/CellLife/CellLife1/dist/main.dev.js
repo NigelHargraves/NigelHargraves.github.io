@@ -62,10 +62,10 @@ function animate() {
     if (showInfo) {
       ctx.font = "bold 30px Arial";
       ctx.fillStyle = "white";
-      ctx.fillText('Red            ' + repelRedRange + ' ' + rangeRed, 0, canvas.height * 0.04);
-      ctx.fillText('Yellow       ' + repelYellowRange + ' ' + rangeYellow, 0, canvas.height * 0.08);
-      ctx.fillText('Blue           ' + repelBlueRange + ' ' + rangeBlue, 0, canvas.height * 0.12);
-      ctx.fillText('Fuchsia     ' + repelFuchsiaRange + ' ' + rangeFuchsia, 0, canvas.height * 0.16);
+      ctx.fillText('Red            ' + repelRedRange + ' , ' + rangeRed, 0, canvas.height * 0.04);
+      ctx.fillText('Yellow       ' + repelYellowRange + ' , ' + rangeYellow, 0, canvas.height * 0.08);
+      ctx.fillText('Blue           ' + repelBlueRange + ' , ' + rangeBlue, 0, canvas.height * 0.12);
+      ctx.fillText('Fuchsia     ' + repelFuchsiaRange + ' , ' + rangeFuchsia, 0, canvas.height * 0.16);
     }
   } //call next frame.
 

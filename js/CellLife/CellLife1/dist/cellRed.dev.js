@@ -21,7 +21,7 @@ function () {
       y: 0
     };
     this.angle = 0;
-    this.cellLife = 1000 + Math.random() * 10000;
+    this.cellLife = 1000 + Math.random() * 1000;
     this.kill = false;
   }
 
@@ -72,28 +72,28 @@ function () {
 
           if (changePerameter > 0.5) {
             if (changeUp > 0.5) {
-              rangeRed += 0.5;
+              rangeRed += 1;
             } else {
-              rangeRed -= 0.5;
-            }
-
-            if (rangeRed < repelRedRange + 1) {
-              rangeRed = repelRedRange + 1;
+              rangeRed -= 1;
             }
           } else {
             if (changeUp > 0.5) {
-              repelRedRange += 0.5;
+              repelRedRange += 1;
             } else {
-              repelRedRange -= 0.5;
-            }
-
-            if (repelRedRange < 5) {
-              repelRedRange = 5;
+              repelRedRange -= 1;
             }
           }
         }
 
         this.kill = true;
+
+        if (repelRedRange < 5) {
+          repelRedRange = 5;
+        }
+
+        if (rangeRed < repelRedRange + 1) {
+          rangeRed = repelRedRange + 1;
+        }
       }
 
       this.draw();
@@ -107,8 +107,10 @@ function forRedCells() {
   redCells.forEach(function (RC, index) {
     if (RC.kill) {
       var newNumber = RC.cellNumber;
+      var newx = RC.x;
+      var newy = RC.y;
       redCells.splice(index, 1);
-      redCells.push(new RedCell(Math.random() * canvas.width, Math.random() * canvas.height, newNumber));
+      redCells.push(new RedCell(newx, newy, newNumber));
     }
 
     if (RC.x < 0) {
