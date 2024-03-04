@@ -13,36 +13,37 @@ var start = false,
     showChords = true;
 var delay = 0,
     speed = 1,
-    scaleToPlay = 'C';
+    chordToPlay = 'E1';
 var pentagon = new Pentagon(center.x, center.y);
 var startPoint = {
   x: center.x + 400 * Math.cos(0),
   y: center.y + 400 * Math.sin(0)
 };
+var chordE = [],
+    chordA = [],
+    chordB = [],
+    chordGsus4 = [],
+    chordC = [],
+    chordF = [],
+    chordBsus4 = [],
+    chordG = [],
+    chordFSm7 = [];
 var color = [],
-    notes = [];
-var scaleC = [CO1, DO1, EO1, FO1, GO1, AO1, BO1, CO2, DO2, EO2, FO2, GO2, AO2, BO2, CO3, DO3, EO3, FO3, GO3, AO3, BO3, CO4, DO4, EO4, FO4, GO4, AO4, BO4];
-var scaleEm = [CO1, DO1, EO1, FSO1, GO1, AO1, BO1, CO2, DO2, EO2, FSO2, GO2, AO2, BO2, CO3, DO3, EO3, FSO3, GO3, AO3, BO3, CO4, DO4, EO4, FSO4, GO4, AO4, BO4];
-var scaleGm = [CO1, DO1, EbO1, FO1, GO1, AO1, BbO1, CO2, DO2, EbO2, FO2, GO2, AO2, BbO2, CO3, DO3, EbO3, FO3, GO3, AO3, BbO3, CO4, DO4, EbO4, FO4, GO4, AO4, BbO4];
+    notes = [],
+    smallPentagons = [],
+    particles = [];
+createChords();
 
-for (var i = 0; i < 24; i++) {
+for (var i = 0; i < 36; i++) {
   var hue1 = Math.random() * 260 + 100;
   var hue2 = Math.random() * 260 + 100;
   var hue3 = Math.random() * 260 + 100;
   color.push('rgb(' + hue1 + ',' + hue2 + ',' + hue3 + ')');
-}
-
-for (var _i = 0; _i < 28; _i++) {
-  notes.push(new Notes(startPoint.x, startPoint.y, speed, _i, scaleC[_i]));
+  notes.push(new Notes(startPoint.x, startPoint.y, speed, i, chordE[i], color[i]));
   speed -= speed / 200;
-
-  if (_i == 13) {
-    startPoint = {
-      x: center.x + 400 * Math.cos(Math.PI * 2 / 5),
-      y: center.y + 400 * Math.sin(Math.PI * 2 / 5)
-    };
-  }
 }
+
+setVolume();
 
 function animate() {
   //CLS.
@@ -71,11 +72,19 @@ function animate() {
     if (showChords) {
       ctx.font = "bold 20px Arial";
       ctx.fillStyle = "white";
-      ctx.fillText(pentagon.rotateAngle, 0, canvas.height * 0.02);
+      ctx.fillText(chordToPlay, 0, canvas.height * 0.02);
+    }
+
+    var createPentaons = Math.random();
+
+    if (createPentaons > 0.99) {
+      smallPentagons.push(new SmallPentagon(Math.random() * canvas.width, Math.random() * canvas.height, color[Math.floor(Math.random() * 36)]));
     }
 
     pentagon.update();
     forNotes();
+    forSmallPentagons();
+    forParticles();
   } //call next frame.
 
 

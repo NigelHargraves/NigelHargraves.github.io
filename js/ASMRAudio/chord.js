@@ -98,7 +98,7 @@ class Chord {
             }
 
 
-            return 300;
+            //return 300;
         }
 
 

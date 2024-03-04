@@ -117,9 +117,8 @@ function () {
           CBass.play();
           CVoice.play();
           CBell.play();
-        }
+        } //return 300;
 
-        return 300;
       }
 
       if (this.x + this.r >= canvas.width || this.x - this.r <= 0) {
