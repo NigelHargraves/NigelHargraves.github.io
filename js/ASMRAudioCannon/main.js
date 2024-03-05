@@ -29,7 +29,8 @@ let cannons = [],
     notes = [],
     particles = [],
     chords = [],
-    color = [];
+    color = [],
+    circles = [];
 
 for (let i = 0; i < 24; i++) {
     let hue1 = (Math.random() * 260) + 100;
@@ -98,6 +99,13 @@ function animate() {
 
         forChords();
 
+        let createCircle = Math.random();
+        if (createCircle > 0.99) {
+            circles.push(new Circle(Math.random() * canvas.width, Math.random() * canvas.height));
+        }
+
+
+        forCircles()
     }
 
     //call next frame.

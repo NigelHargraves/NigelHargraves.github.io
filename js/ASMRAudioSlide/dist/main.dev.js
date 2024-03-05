@@ -10,12 +10,8 @@ var gradient = ctx.createRadialGradient(x, y, canvas.width / 8, x, y, canvas.hei
 gradient.addColorStop(0, "rgba(0, 0, 0,0.4)");
 gradient.addColorStop(1, 'rgba(25, 25, 112,0.2)');
 var start = false,
-    playNow = true;
-var rectangle = new Rectangle(),
-    chord = new Chord(),
-    bass = new Bass(),
-    snareDrum = new Snare(),
-    highHat = new Hat();
+    playNow = true,
+    showChords = false;
 var notes = [],
     chordC = [],
     chordG = [],
@@ -23,15 +19,29 @@ var notes = [],
     chordF = [],
     particles = [],
     bounceLines = [],
-    stars = [];
+    stars = [],
+    colors = [];
 createChords();
+
+for (var i = 0; i < 16; i++) {
+  var hue1 = Math.random() * 260 + 100;
+  var hue2 = Math.random() * 260 + 100;
+  var hue3 = Math.random() * 260 + 100;
+  colors.push('rgb(' + hue1 + ',' + hue2 + ',' + hue3 + ')');
+}
+
+var rectangle = new Rectangle(),
+    chord = new Chord(),
+    bass = new Bass(),
+    snareDrum = new Snare(),
+    highHat = new Hat();
 var chordToPlay = 'C1';
 var speed = 0.001,
     noteNumber = 0,
     delay = 0;
 
-for (var i = rectangle.x; i < canvas.width / 2 + rectangle.x; i += rectangle.space) {
-  notes.push(new Note(i + rectangle.space / 2, rectangle.y, 1, chordC[noteNumber], speed));
+for (var _i = rectangle.x; _i < canvas.width / 2 + rectangle.x; _i += rectangle.space) {
+  notes.push(new Note(_i + rectangle.space / 2, rectangle.y, 1, chordC[noteNumber], speed, colors[noteNumber]));
   speed -= 0.0001;
   noteNumber++;
 }
@@ -58,6 +68,12 @@ function animate() {
   }
 
   if (start) {
+    if (showChords) {
+      ctx.font = "bold 20px Arial";
+      ctx.fillStyle = "white";
+      ctx.fillText(chordToPlay, 0, canvas.height * 0.02);
+    }
+
     if (playNow) {
       CChord.play();
       CBass.play();
@@ -102,3 +118,12 @@ function animate() {
 }
 
 animate();
+window.addEventListener("keydown", function (e) {
+  if (e.keyCode == 32) {
+    if (showChords) {
+      showChords = false;
+    } else {
+      showChords = true;
+    }
+  }
+});

@@ -66,8 +66,8 @@ function forChords() {
 
       for (var i = 0; i < 100; i++) {
         particles.push(new Particle(chord.x, chord.y + chord.r, {
-          x: Math.random() - 0.5,
-          y: Math.random() - Math.random() - 1
+          x: (Math.random() - 0.5) / Math.random(),
+          y: (Math.random() - Math.random() - 1) / Math.random()
         }, 'cyan'));
       }
 

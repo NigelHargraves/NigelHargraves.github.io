@@ -10,8 +10,11 @@ class Bass {
         this.particleTime = 50;
         this.beatCount = 0;
         this.extraBeat = false;
+        this.color = colors[12];
     }
     draw() {
+        ctx.strokeStyle = this.color;
+        ctx.fillStyle = this.color;
         if (this.extraBeat) {
             ctx.beginPath();
             ctx.arc(rectangle.x + rectangle.space * 2, rectangle.y + canvas.height / 2 + canvas.height / 10, 4, 0, Math.PI * 2);
@@ -41,7 +44,7 @@ class Bass {
         }
         if (!this.left) {
             this.particleTime -= 0.2;
-            particles.push(new Particle(this.x, this.y, { x: (-this.velocity) / 4, y: (Math.random() - 0.5) / 2 }, this.particleTime));
+            particles.push(new Particle(this.x, this.y, { x: (-this.velocity) / 4, y: (Math.random() - 0.5) / 2 }, this.particleTime, this.color, 0.2));
             if (this.x < x) {
                 this.r += 0.1;
             } else {
@@ -50,7 +53,7 @@ class Bass {
             this.x += this.velocity;
         } else {
             this.particleTime -= 0.2;
-            particles.push(new Particle(this.x, this.y, { x: (this.velocity) / 4, y: (Math.random() - 0.5) / 2 }, this.particleTime));
+            particles.push(new Particle(this.x, this.y, { x: (this.velocity) / 4, y: (Math.random() - 0.5) / 2 }, this.particleTime, this.color, 0.2));
             if (this.x < x) {
                 this.r += 0.07;
             } else {
@@ -62,7 +65,7 @@ class Bass {
             this.extraBeat = false;
             this.beatCount++;
             for (let i = 0; i < 20; i++) {
-                particles.push(new Particle(this.x, this.y, { x: (Math.random() - 0.5) * 2, y: (Math.random() - 0.5) * 2 }, 50));
+                particles.push(new Particle(this.x, this.y, { x: (Math.random() - 0.5) * 2, y: (Math.random() - 0.5) * 2 }, 50, this.color, 0.2));
             }
             this.particleTime = 50;
             this.r = ((canvas.width / 2) / 12) / 4;
@@ -75,14 +78,14 @@ class Bass {
             this.opacity = 1;
             this.lineWidth = 5;
             for (let i = 0; i < 20; i++) {
-                particles.push(new Particle(this.x, this.y, { x: (Math.random() - 0.5) * 2, y: (Math.random() - 0.5) * 2 }, 50));
+                particles.push(new Particle(this.x, this.y, { x: (Math.random() - 0.5) * 2, y: (Math.random() - 0.5) * 2 }, 50, this.color, 0.2));
             }
             drumBass.play();
         }
         if (this.x == rectangle.x + canvas.width / 2) {
             this.beatCount++;
             for (let i = 0; i < 20; i++) {
-                particles.push(new Particle(this.x, this.y, { x: (Math.random() - 0.5) * 2, y: (Math.random() - 0.5) * 2 }, 50));
+                particles.push(new Particle(this.x, this.y, { x: (Math.random() - 0.5) * 2, y: (Math.random() - 0.5) * 2 }, 50, this.color, 0.2));
             }
             this.particleTime = 50;
             this.r = ((canvas.width / 2) / 12) / 4;

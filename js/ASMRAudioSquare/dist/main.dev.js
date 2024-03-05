@@ -36,7 +36,8 @@ var speed = 1,
     volume = 0.1,
     delay = 0;
 var start = false,
-    playSoundOnce = true;
+    playSoundOnce = true,
+    showChords = false;
 notes.push(new Note(canvas.width / 2 - canvas.height / 4, canvas.height / 2 - canvas.height / 4, speed - Math.random() / 10, DNote1));
 notes.push(new Note(canvas.width / 2 - canvas.height / 4, canvas.height / 2 - canvas.height / 4, speed - Math.random() / 10, FNote1));
 notes.push(new Note(canvas.width / 2 - canvas.height / 4, canvas.height / 2 - canvas.height / 4, speed - Math.random() / 10, ANote1));
@@ -75,6 +76,12 @@ function animate() {
       playSoundOnce = false;
     }
 
+    if (showChords) {
+      ctx.font = "bold 20px Arial";
+      ctx.fillStyle = "white";
+      ctx.fillText(key.key, 0, canvas.height * 0.02);
+    }
+
     nextStar++;
 
     if (nextStar >= 10) {
@@ -98,3 +105,12 @@ function animate() {
 }
 
 animate();
+window.addEventListener("keydown", function (e) {
+  if (e.keyCode == 32) {
+    if (showChords) {
+      showChords = false;
+    } else {
+      showChords = true;
+    }
+  }
+});

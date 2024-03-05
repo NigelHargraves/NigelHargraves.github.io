@@ -85,7 +85,6 @@ function animate() {
             ctx.font = "bold 20px Arial";
             ctx.fillStyle = "white";
             ctx.fillText(chordToPlay, 0, canvas.height * 0.02);
-
         }
 
 

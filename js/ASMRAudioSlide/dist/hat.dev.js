@@ -19,11 +19,14 @@ function () {
     this.up = true;
     this.opacity = 0.4;
     this.lineWidth = 1;
+    this.color = colors[14];
   }
 
   _createClass(Hat, [{
     key: "draw",
     value: function draw() {
+      ctx.strokeStyle = this.color;
+      ctx.fillStyle = this.color;
       ctx.globalAlpha = this.opacity;
       ctx.lineWidth = this.lineWidth;
       ctx.beginPath();
@@ -50,7 +53,7 @@ function () {
         particles.push(new Particle(this.x, this.y, {
           x: (Math.random() - 0.5) / 2,
           y: -this.velocity / 4
-        }, 50));
+        }, 50, this.color, 0.2));
 
         if (this.y < y) {
           this.r += 0.1;
@@ -63,7 +66,7 @@ function () {
         particles.push(new Particle(this.x, this.y, {
           x: (Math.random() - 0.5) / 2,
           y: this.velocity / 4
-        }, 50));
+        }, 50, this.color, 0.2));
 
         if (this.y < y) {
           this.r += 0.07;
@@ -81,7 +84,7 @@ function () {
               particles.push(new Particle(this.x, this.y, {
                 x: (Math.random() - 0.5) * 2,
                 y: (Math.random() - 0.5) * 2
-              }, 50));
+              }, 50, this.color, 0.2));
             }
 
             hat.play();
@@ -96,7 +99,7 @@ function () {
               particles.push(new Particle(this.x, this.y + 12, {
                 x: (Math.random() - 0.5) * 2,
                 y: (Math.random() - 0.5) * 2
-              }, 50));
+              }, 50, this.color, 0.2));
             }
 
             hat.play();

@@ -29,7 +29,8 @@ var radius = 400,
     acceleration = 1.5;
 var strokeStyle = 'white';
 var start = false,
-    playSoundOnce = true;
+    playSoundOnce = true,
+    showChords = false;
 createChords();
 var color = [];
 
@@ -74,7 +75,7 @@ function animate() {
   if (!start) {
     delay += 1;
 
-    if (delay >= 500) {
+    if (delay >= 100) {
       start = true;
     }
   }
@@ -115,6 +116,20 @@ function animate() {
     forSpirals();
     forStars();
     chord.update();
+
+    if (showChords) {
+      ctx.font = "bold 20px Arial";
+      ctx.fillStyle = "white";
+      var thisChord;
+
+      if (chord.chord == 'E7' || chord.chord == 'Dm7' || chord.chord == 'Gsus4' || chord.chord == 'Caug') {
+        thisChord = chord.chord;
+      } else {
+        thisChord = chord.chord.substring(0, chord.chord.length - 1);
+      }
+
+      ctx.fillText(thisChord, 0, canvas.height * 0.02);
+    }
   } //call next frame.
 
 
@@ -122,3 +137,12 @@ function animate() {
 }
 
 animate();
+window.addEventListener("keydown", function (e) {
+  if (e.keyCode == 32) {
+    if (showChords) {
+      showChords = false;
+    } else {
+      showChords = true;
+    }
+  }
+});

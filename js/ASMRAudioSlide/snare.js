@@ -9,9 +9,11 @@ class Snare {
         this.lineWidth = 1;
         this.beatCount = 0;
         this.extraBeat = false;
+        this.color = colors[15];
     }
     draw() {
-
+        ctx.strokeStyle = this.color;
+        ctx.fillStyle = this.color;
         if (this.extraBeat) {
             ctx.beginPath();
             ctx.arc(this.x, y - rectangle.space * 2, 4, 0, Math.PI * 2);
@@ -40,7 +42,7 @@ class Snare {
             this.beatCount = -1;
         }
         if (!this.up) {
-            particles.push(new Particle(this.x, this.y, { x: (Math.random() - 0.5) / 2, y: (-this.velocity) / 4 }, 50));
+            particles.push(new Particle(this.x, this.y, { x: (Math.random() - 0.5) / 2, y: (-this.velocity) / 4 }, 50, this.color, 0.2));
             if (this.y < y) {
                 this.r += 0.1;
             } else {
@@ -48,7 +50,7 @@ class Snare {
             }
             this.y += this.velocity;
         } else {
-            particles.push(new Particle(this.x, this.y, { x: (Math.random() - 0.5) / 2, y: (this.velocity) / 4 }, 50));
+            particles.push(new Particle(this.x, this.y, { x: (Math.random() - 0.5) / 2, y: (this.velocity) / 4 }, 50, this.color, 0.2));
             if (this.y < y) {
                 this.r += 0.07;
             } else {
@@ -59,7 +61,7 @@ class Snare {
 
         if (this.y >= y - 1 && this.y <= y + 1) {
             for (let i = 0; i < 20; i++) {
-                particles.push(new Particle(this.x, this.y, { x: (Math.random() - 0.5) * 2, y: (Math.random() - 0.5) * 2 }, 50));
+                particles.push(new Particle(this.x, this.y, { x: (Math.random() - 0.5) * 2, y: (Math.random() - 0.5) * 2 }, 50, this.color, 0.2));
             }
             snare.play();
             this.opacity = 1;
@@ -70,7 +72,7 @@ class Snare {
             this.opacity = 1;
             this.lineWidth = 5;
             for (let i = 0; i < 20; i++) {
-                particles.push(new Particle(this.x, this.y, { x: (Math.random() - 0.5) * 2, y: (Math.random() - 0.5) * 2 }, 50));
+                particles.push(new Particle(this.x, this.y, { x: (Math.random() - 0.5) * 2, y: (Math.random() - 0.5) * 2 }, 50, this.color, 0.2));
             }
             snare.currentTime = 0;
             snare.play();

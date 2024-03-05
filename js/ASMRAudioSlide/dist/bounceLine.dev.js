@@ -9,18 +9,20 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 var BounceLine =
 /*#__PURE__*/
 function () {
-  function BounceLine(x, y, top) {
+  function BounceLine(x, y, top, color) {
     _classCallCheck(this, BounceLine);
 
     this.x = x;
     this.y = y;
     this.top = top;
+    this.color = color;
     this.lineWidth = 15;
   }
 
   _createClass(BounceLine, [{
     key: "draw",
     value: function draw() {
+      ctx.strokeStyle = this.color;
       ctx.beginPath();
 
       if (this.top) {
@@ -31,7 +33,6 @@ function () {
         ctx.lineTo(this.x + rectangle.space, this.y - this.lineWidth / 2);
       }
 
-      ctx.strokeStyle = 'white';
       ctx.lineWidth = this.lineWidth;
       ctx.stroke();
       ctx.lineWidth = 1;

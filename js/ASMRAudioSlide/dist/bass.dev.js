@@ -22,11 +22,15 @@ function () {
     this.particleTime = 50;
     this.beatCount = 0;
     this.extraBeat = false;
+    this.color = colors[12];
   }
 
   _createClass(Bass, [{
     key: "draw",
     value: function draw() {
+      ctx.strokeStyle = this.color;
+      ctx.fillStyle = this.color;
+
       if (this.extraBeat) {
         ctx.beginPath();
         ctx.arc(rectangle.x + rectangle.space * 2, rectangle.y + canvas.height / 2 + canvas.height / 10, 4, 0, Math.PI * 2);
@@ -65,7 +69,7 @@ function () {
         particles.push(new Particle(this.x, this.y, {
           x: -this.velocity / 4,
           y: (Math.random() - 0.5) / 2
-        }, this.particleTime));
+        }, this.particleTime, this.color, 0.2));
 
         if (this.x < x) {
           this.r += 0.1;
@@ -79,7 +83,7 @@ function () {
         particles.push(new Particle(this.x, this.y, {
           x: this.velocity / 4,
           y: (Math.random() - 0.5) / 2
-        }, this.particleTime));
+        }, this.particleTime, this.color, 0.2));
 
         if (this.x < x) {
           this.r += 0.07;
@@ -98,7 +102,7 @@ function () {
           particles.push(new Particle(this.x, this.y, {
             x: (Math.random() - 0.5) * 2,
             y: (Math.random() - 0.5) * 2
-          }, 50));
+          }, 50, this.color, 0.2));
         }
 
         this.particleTime = 50;
@@ -117,7 +121,7 @@ function () {
           particles.push(new Particle(this.x, this.y, {
             x: (Math.random() - 0.5) * 2,
             y: (Math.random() - 0.5) * 2
-          }, 50));
+          }, 50, this.color, 0.2));
         }
 
         drumBass.play();
@@ -130,7 +134,7 @@ function () {
           particles.push(new Particle(this.x, this.y, {
             x: (Math.random() - 0.5) * 2,
             y: (Math.random() - 0.5) * 2
-          }, 50));
+          }, 50, this.color, 0.2));
         }
 
         this.particleTime = 50;

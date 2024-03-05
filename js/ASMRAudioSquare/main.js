@@ -29,7 +29,8 @@ let speed = 1,
     delay = 0;
 
 let start = false,
-    playSoundOnce = true;
+    playSoundOnce = true,
+    showChords = false;
 
 notes.push(new Note((canvas.width / 2) - (canvas.height / 4), (canvas.height / 2) - (canvas.height / 4), speed - (Math.random() / 10), DNote1));
 notes.push(new Note((canvas.width / 2) - (canvas.height / 4), (canvas.height / 2) - (canvas.height / 4), speed - (Math.random() / 10), FNote1));
@@ -69,6 +70,13 @@ function animate() {
             DBass.play();
             playSoundOnce = false;
         }
+
+        if (showChords) {
+            ctx.font = "bold 20px Arial";
+            ctx.fillStyle = "white";
+            ctx.fillText(key.key, 0, canvas.height * 0.02);
+        }
+
         nextStar++;
         if (nextStar >= 10) {
             stars.push(new Star(Math.random() * canvas.width, Math.random() * canvas.height));
@@ -94,8 +102,14 @@ function animate() {
     animationId = requestAnimationFrame(animate);
 }
 
-
-
-
-
 animate();
+
+window.addEventListener("keydown", (e) => {
+    if (e.keyCode == 32) {
+        if (showChords) {
+            showChords = false;
+        } else {
+            showChords = true;
+        }
+    }
+});

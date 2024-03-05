@@ -7,6 +7,8 @@ class Rectangle {
     draw() {
         ctx.lineWidth = 0.2;
         //draw chord line.
+        ctx.strokeStyle = chord.color;
+        ctx.fillStyle = chord.color;
         ctx.beginPath();
         ctx.arc(this.x, this.y - canvas.height / 10, 4, 0, Math.PI * 2);
         ctx.arc(this.x + canvas.width / 2, this.y - canvas.height / 10, 4, 0, Math.PI * 2);
@@ -14,9 +16,10 @@ class Rectangle {
         ctx.beginPath();
         ctx.moveTo(this.x, this.y - canvas.height / 10);
         ctx.lineTo(this.x + canvas.width / 2, this.y - canvas.height / 10);
-        ctx.strokeStyle = 'white';
         ctx.stroke();
         //draw bass line.
+        ctx.strokeStyle = bass.color;
+        ctx.fillStyle = bass.color;
         ctx.beginPath();
         ctx.arc(this.x, this.y + canvas.height / 2 + canvas.height / 10, 4, 0, Math.PI * 2);
         ctx.arc(this.x + canvas.width / 2, this.y + canvas.height / 2 + canvas.height / 10, 4, 0, Math.PI * 2);
@@ -26,6 +29,8 @@ class Rectangle {
         ctx.lineTo(this.x + canvas.width / 2, this.y + canvas.height / 2 + canvas.height / 10);
         ctx.stroke();
         //draw snare line.
+        ctx.strokeStyle = snareDrum.color;
+        ctx.fillStyle = snareDrum.color;
         ctx.beginPath();
         ctx.moveTo(this.x + (canvas.width / 2 + canvas.width / 10) - 10, canvas.height / 50);
         ctx.lineTo(this.x + (canvas.width / 2 + canvas.width / 10) + 10, canvas.height / 50);
@@ -40,6 +45,8 @@ class Rectangle {
         ctx.lineTo(this.x + canvas.width / 2 + canvas.width / 10, canvas.height / 50 + canvas.width / 2);
         ctx.stroke();
         //draw hat line.
+        ctx.strokeStyle = highHat.color;
+        ctx.fillStyle = highHat.color;
         ctx.beginPath();
         ctx.moveTo(this.x - canvas.width / 10, canvas.height / 50);
         ctx.lineTo(this.x - canvas.width / 10, canvas.height / 50 + canvas.width / 2);
@@ -55,6 +62,7 @@ class Rectangle {
         }
         ctx.fill();
         //draw rectangle.
+        ctx.strokeStyle = 'white';
         ctx.beginPath();
         ctx.rect(this.x, this.y, canvas.width / 2, canvas.height / 2);
         ctx.stroke();

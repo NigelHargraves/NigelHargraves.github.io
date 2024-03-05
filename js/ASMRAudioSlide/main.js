@@ -14,13 +14,8 @@ gradient.addColorStop(1, 'rgba(25, 25, 112,0.2)');
 
 
 let start = false,
-    playNow = true;
-
-let rectangle = new Rectangle(),
-    chord = new Chord(),
-    bass = new Bass(),
-    snareDrum = new Snare(),
-    highHat = new Hat();
+    playNow = true,
+    showChords = false;
 
 let notes = [],
     chordC = [],
@@ -29,9 +24,28 @@ let notes = [],
     chordF = [],
     particles = [],
     bounceLines = [],
-    stars = [];
+    stars = [],
+    colors = [];
 
 createChords();
+
+for (let i = 0; i < 16; i++) {
+    let hue1 = (Math.random() * 260) + 100;
+    let hue2 = (Math.random() * 260) + 100;
+    let hue3 = (Math.random() * 260) + 100;
+    colors.push('rgb(' + hue1 + ',' + hue2 + ',' + hue3 + ')')
+}
+
+
+let rectangle = new Rectangle(),
+    chord = new Chord(),
+    bass = new Bass(),
+    snareDrum = new Snare(),
+    highHat = new Hat();
+
+
+
+
 
 let chordToPlay = 'C1';
 
@@ -40,7 +54,7 @@ let speed = 0.001,
     delay = 0;
 
 for (let i = rectangle.x; i < (canvas.width / 2) + rectangle.x; i += rectangle.space) {
-    notes.push(new Note(i + (rectangle.space / 2), rectangle.y, 1, chordC[noteNumber], speed));
+    notes.push(new Note(i + (rectangle.space / 2), rectangle.y, 1, chordC[noteNumber], speed, colors[noteNumber]));
     speed -= 0.0001;
     noteNumber++;
 }
@@ -69,6 +83,13 @@ function animate() {
     }
 
     if (start) {
+
+        if (showChords) {
+            ctx.font = "bold 20px Arial";
+            ctx.fillStyle = "white";
+            ctx.fillText(chordToPlay, 0, canvas.height * 0.02);
+        }
+
         if (playNow) {
             CChord.play();
             CBass.play();
@@ -121,5 +142,14 @@ function animate() {
 
 }
 
-
 animate();
+
+window.addEventListener("keydown", (e) => {
+    if (e.keyCode == 32) {
+        if (showChords) {
+            showChords = false;
+        } else {
+            showChords = true;
+        }
+    }
+});

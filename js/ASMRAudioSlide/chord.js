@@ -8,8 +8,11 @@ class Chord {
         this.opacity = 1;
         this.lineWidth = 5;
         this.particleTime = 100;
+        this.color = colors[13];
     }
     draw() {
+        ctx.strokeStyle = this.color;
+        ctx.fillStyle = this.color;
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
         ctx.globalAlpha = this.opacity;
@@ -31,7 +34,7 @@ class Chord {
         }
         if (!this.left) {
             this.particleTime -= 0.1;
-            particles.push(new Particle(this.x, this.y, { x: (-this.velocity) / 2, y: (Math.random() - 0.5) / 2 }, this.particleTime));
+            particles.push(new Particle(this.x, this.y, { x: (-this.velocity) / 2, y: (Math.random() - 0.5) / 2 }, this.particleTime, this.color, 0.2));
             if (this.x < x) {
                 this.r += 0.03;
             } else {
@@ -40,7 +43,7 @@ class Chord {
             this.x += this.velocity;
         } else {
             this.particleTime -= 0.1;
-            particles.push(new Particle(this.x, this.y, { x: (this.velocity) / 2, y: (Math.random() - 0.5) / 2 }, this.particleTime));
+            particles.push(new Particle(this.x, this.y, { x: (this.velocity) / 2, y: (Math.random() - 0.5) / 2 }, this.particleTime, this.color, 0.2));
             if (this.x < x) {
                 this.r += 0.01;
             } else {
@@ -49,8 +52,8 @@ class Chord {
             this.x -= this.velocity;
         }
         if (this.x == rectangle.x) {
-            for (let i = 0; i < 20; i++) {
-                particles.push(new Particle(this.x, this.y, { x: (Math.random() - 0.5) * 2, y: (Math.random() - 0.5) * 2 }, 50));
+            for (let i = 0; i < 40; i++) {
+                particles.push(new Particle(this.x, this.y, { x: (Math.random() - 0.5) / Math.random(), y: (Math.random() - 0.5) / Math.random() }, 50, this.color, 0.2));
             }
             this.particleTime = 100;
             this.r = ((canvas.width / 2) / 12) / 4;
@@ -60,8 +63,8 @@ class Chord {
             this.left = false;
         }
         if (this.x == rectangle.x + canvas.width / 2) {
-            for (let i = 0; i < 20; i++) {
-                particles.push(new Particle(this.x, this.y, { x: (Math.random() - 0.5) * 2, y: (Math.random() - 0.5) * 2 }, 50));
+            for (let i = 0; i < 40; i++) {
+                particles.push(new Particle(this.x, this.y, { x: (Math.random() - 0.5) / Math.random(), y: (Math.random() - 0.5) / Math.random() }, 50, this.color, 0.2));
             }
             this.particleTime = 100;
             this.r = ((canvas.width / 2) / 12) / 4;

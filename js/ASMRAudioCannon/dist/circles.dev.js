@@ -6,29 +6,34 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-var Particle =
+var Circle =
 /*#__PURE__*/
 function () {
-  function Particle(x, y, velocity, endTime, color, radius) {
-    _classCallCheck(this, Particle);
+  function Circle(x, y) {
+    _classCallCheck(this, Circle);
 
     this.x = x;
     this.y = y;
-    this.velocity = velocity;
-    this.endTime = endTime;
-    this.color = color;
-    this.r = radius;
-    this.opacity = 1;
+    this.r = 1;
+    this.inflate = true;
+    this.velocity = {
+      x: (Math.random() - 0.5) / 10,
+      y: (Math.random() - 0.5) / 10
+    };
+    this.color = color[Math.floor(Math.random() * 24)];
+    this.opacity = 0.01;
   }
 
-  _createClass(Particle, [{
+  _createClass(Circle, [{
     key: "draw",
     value: function draw() {
-      ctx.strokeStyle = this.color;
       ctx.beginPath();
       ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+      ctx.strokeStyle = this.color;
       ctx.globalAlpha = this.opacity;
+      ctx.lineWidth = 0.2;
       ctx.stroke();
+      ctx.lineWidth = 1;
       ctx.globalAlpha = 0.4;
     }
   }, {
@@ -36,20 +41,43 @@ function () {
     value: function update() {
       this.x += this.velocity.x;
       this.y += this.velocity.y;
-      this.opacity -= Math.random() / this.endTime;
+
+      if (this.inflate) {
+        this.r += 0.01;
+      }
+
+      if (this.r >= 50) {
+        this.inflate = false;
+      }
+
+      if (this.opacity < 1) {
+        this.opacity += 0.0001;
+      }
+
       this.draw();
     }
   }]);
 
-  return Particle;
+  return Circle;
 }();
 
-function forParticles() {
-  particles.forEach(function (particle, index) {
-    if (particle.opacity < 0) {
-      particles.splice(index, 1);
+function forCircles() {
+  circles.forEach(function (circle, index) {
+    if (!circle.inflate) {
+      circle.r -= 1;
+
+      if (circle.r <= 2) {
+        for (var i = 0; i < 20; i++) {
+          particles.push(new Particle(circle.x, circle.y, {
+            x: Math.random() - 0.5,
+            y: Math.random() - 0.5
+          }, circle.color));
+        }
+
+        circles.splice(index, 1);
+      }
     }
 
-    particle.update();
+    circle.update();
   });
 }

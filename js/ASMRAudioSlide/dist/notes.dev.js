@@ -9,7 +9,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 var Note =
 /*#__PURE__*/
 function () {
-  function Note(x, y, velocity, note, acceleration) {
+  function Note(x, y, velocity, note, acceleration, color) {
     _classCallCheck(this, Note);
 
     this.x = x;
@@ -18,6 +18,7 @@ function () {
     this.setVelocity = this.velocity;
     this.note = note;
     this.acceleration = acceleration;
+    this.color = color;
     this.r = canvas.width / 2 / 12 / 4;
     this.up = false;
     this.opacity = 1;
@@ -27,6 +28,8 @@ function () {
   _createClass(Note, [{
     key: "draw",
     value: function draw() {
+      ctx.strokeStyle = this.color;
+      ctx.fillStyle = this.color;
       ctx.beginPath();
       ctx.arc(this.x, this.y, 2, 0, Math.PI * 2);
       ctx.fill();
@@ -86,13 +89,13 @@ function () {
           particles.push(new Particle(this.x - rectangle.space / 2 + Math.random() * rectangle.space, this.y, {
             x: 0,
             y: Math.random() * -2
-          }, 40));
+          }, 40, this.color, 0.4));
         }
 
         this.r = canvas.width / 2 / 12 / 4;
         this.note.play();
         this.y = rectangle.y + canvas.height / 2;
-        bounceLines.push(new BounceLine(this.x - rectangle.space / 2, this.y, false));
+        bounceLines.push(new BounceLine(this.x - rectangle.space / 2, this.y, false, this.color));
         this.opacity = 1;
         this.lineWidth = 5;
         this.up = true;
@@ -105,13 +108,13 @@ function () {
           particles.push(new Particle(this.x - rectangle.space / 2 + Math.random() * rectangle.space, this.y, {
             x: 0,
             y: Math.random() * 2
-          }, 40));
+          }, 40, this.color, 0.4));
         }
 
         this.r = canvas.width / 2 / 12 / 4;
         this.note.play();
         this.y = rectangle.y;
-        bounceLines.push(new BounceLine(this.x - rectangle.space / 2, this.y, true));
+        bounceLines.push(new BounceLine(this.x - rectangle.space / 2, this.y, true, this.color));
         this.opacity = 1;
         this.lineWidth = 5;
         this.up = false;

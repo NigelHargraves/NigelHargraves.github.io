@@ -1,17 +1,20 @@
 class Note {
-    constructor(x, y, velocity, note, acceleration) {
+    constructor(x, y, velocity, note, acceleration, color) {
         this.x = x;
         this.y = y;
         this.velocity = velocity;
         this.setVelocity = this.velocity;
         this.note = note;
         this.acceleration = acceleration;
+        this.color = color;
         this.r = ((canvas.width / 2) / 12) / 4;
         this.up = false;
         this.opacity = 1;
         this.lineWidth = 5;
     }
     draw() {
+        ctx.strokeStyle = this.color;
+        ctx.fillStyle = this.color;
         ctx.beginPath();
         ctx.arc(this.x, this.y, 2, 0, Math.PI * 2);
         ctx.fill();
@@ -60,12 +63,12 @@ class Note {
         if (this.y >= rectangle.y + canvas.height / 2) {
             this.velocity = this.setVelocity;
             for (let i = 0; i < 20; i++) {
-                particles.push(new Particle((this.x - rectangle.space / 2) + Math.random() * rectangle.space, this.y, { x: 0, y: Math.random() * -2 }, 40));
+                particles.push(new Particle((this.x - rectangle.space / 2) + Math.random() * rectangle.space, this.y, { x: 0, y: Math.random() * -2 }, 40, this.color, 0.4));
             }
             this.r = ((canvas.width / 2) / 12) / 4;
             this.note.play();
             this.y = rectangle.y + canvas.height / 2;
-            bounceLines.push(new BounceLine(this.x - rectangle.space / 2, this.y, false));
+            bounceLines.push(new BounceLine(this.x - rectangle.space / 2, this.y, false, this.color));
             this.opacity = 1;
             this.lineWidth = 5;
             this.up = true;
@@ -73,12 +76,12 @@ class Note {
         if (this.y <= rectangle.y) {
             this.velocity = this.setVelocity;
             for (let i = 0; i < 20; i++) {
-                particles.push(new Particle((this.x - rectangle.space / 2) + Math.random() * rectangle.space, this.y, { x: 0, y: Math.random() * 2 }, 40));
+                particles.push(new Particle((this.x - rectangle.space / 2) + Math.random() * rectangle.space, this.y, { x: 0, y: Math.random() * 2 }, 40, this.color, 0.4));
             }
             this.r = ((canvas.width / 2) / 12) / 4;
             this.note.play();
             this.y = rectangle.y;
-            bounceLines.push(new BounceLine(this.x - rectangle.space / 2, this.y, true));
+            bounceLines.push(new BounceLine(this.x - rectangle.space / 2, this.y, true, this.color));
             this.opacity = 1;
             this.lineWidth = 5;
             this.up = false;

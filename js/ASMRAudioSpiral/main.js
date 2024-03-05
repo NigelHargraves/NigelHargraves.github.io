@@ -31,7 +31,8 @@ let radius = 400,
 let strokeStyle = 'white';
 
 let start = false,
-    playSoundOnce = true;
+    playSoundOnce = true,
+    showChords = false;
 
 createChords();
 
@@ -78,7 +79,7 @@ function animate() {
 
     if (!start) {
         delay += 1;
-        if (delay >= 500) {
+        if (delay >= 100) {
             start = true;
         }
     }
@@ -125,6 +126,18 @@ function animate() {
 
         chord.update();
 
+        if (showChords) {
+            ctx.font = "bold 20px Arial";
+            ctx.fillStyle = "white";
+            let thisChord
+            if (chord.chord == 'E7' || chord.chord == 'Dm7' || chord.chord == 'Gsus4' || chord.chord == 'Caug') {
+                thisChord = chord.chord;
+            } else {
+                thisChord = chord.chord.substring(0, chord.chord.length - 1);
+            }
+            ctx.fillText(thisChord, 0, canvas.height * 0.02);
+        }
+
     }
 
 
@@ -134,3 +147,13 @@ function animate() {
 }
 
 animate();
+
+window.addEventListener("keydown", (e) => {
+    if (e.keyCode == 32) {
+        if (showChords) {
+            showChords = false;
+        } else {
+            showChords = true;
+        }
+    }
+});

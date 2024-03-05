@@ -22,7 +22,8 @@ var cross;
 var changeChordNotes = false,
     changeChordUpperNotes = false,
     start = false,
-    playSoundOnce = true;
+    playSoundOnce = true,
+    showChords = false;
 
 function animate() {
   //CLS.
@@ -56,6 +57,12 @@ function animate() {
     forBubble();
     forWhiteStars();
     cross.update();
+
+    if (showChords) {
+      ctx.font = "bold 20px Arial";
+      ctx.fillStyle = "white";
+      ctx.fillText(chordChange, 0, canvas.height * 0.02);
+    }
   } //call next frame.
 
 
@@ -64,3 +71,12 @@ function animate() {
 
 init();
 animate();
+window.addEventListener("keydown", function (e) {
+  if (e.keyCode == 32) {
+    if (showChords) {
+      showChords = false;
+    } else {
+      showChords = true;
+    }
+  }
+});

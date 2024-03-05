@@ -20,11 +20,14 @@ function () {
     this.opacity = 1;
     this.lineWidth = 5;
     this.particleTime = 100;
+    this.color = colors[13];
   }
 
   _createClass(Chord, [{
     key: "draw",
     value: function draw() {
+      ctx.strokeStyle = this.color;
+      ctx.fillStyle = this.color;
       ctx.beginPath();
       ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
       ctx.globalAlpha = this.opacity;
@@ -52,7 +55,7 @@ function () {
         particles.push(new Particle(this.x, this.y, {
           x: -this.velocity / 2,
           y: (Math.random() - 0.5) / 2
-        }, this.particleTime));
+        }, this.particleTime, this.color, 0.2));
 
         if (this.x < x) {
           this.r += 0.03;
@@ -66,7 +69,7 @@ function () {
         particles.push(new Particle(this.x, this.y, {
           x: this.velocity / 2,
           y: (Math.random() - 0.5) / 2
-        }, this.particleTime));
+        }, this.particleTime, this.color, 0.2));
 
         if (this.x < x) {
           this.r += 0.01;
@@ -78,11 +81,11 @@ function () {
       }
 
       if (this.x == rectangle.x) {
-        for (var i = 0; i < 20; i++) {
+        for (var i = 0; i < 40; i++) {
           particles.push(new Particle(this.x, this.y, {
-            x: (Math.random() - 0.5) * 2,
-            y: (Math.random() - 0.5) * 2
-          }, 50));
+            x: (Math.random() - 0.5) / Math.random(),
+            y: (Math.random() - 0.5) / Math.random()
+          }, 50, this.color, 0.2));
         }
 
         this.particleTime = 100;
@@ -94,11 +97,11 @@ function () {
       }
 
       if (this.x == rectangle.x + canvas.width / 2) {
-        for (var _i = 0; _i < 20; _i++) {
+        for (var _i = 0; _i < 40; _i++) {
           particles.push(new Particle(this.x, this.y, {
-            x: (Math.random() - 0.5) * 2,
-            y: (Math.random() - 0.5) * 2
-          }, 50));
+            x: (Math.random() - 0.5) / Math.random(),
+            y: (Math.random() - 0.5) / Math.random()
+          }, 50, this.color, 0.2));
         }
 
         this.particleTime = 100;
