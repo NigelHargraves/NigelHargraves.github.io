@@ -74,7 +74,6 @@ function animate() {
 
     if (jokeText[selectText] == 'Goodbye') {
       applause.play();
-      chatter.pause();
     }
 
     sayIt = false;

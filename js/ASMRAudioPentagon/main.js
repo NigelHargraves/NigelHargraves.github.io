@@ -9,7 +9,7 @@ let center = { x: canvas.width / 2, y: canvas.height / 2 };
 
 let start = false,
     playNow = true,
-    showChords = true;
+    showChords = false;
 
 let delay = 0,
     speed = 1,
@@ -36,8 +36,6 @@ let color = [],
 
 
 
-
-
 createChords();
 
 
@@ -48,7 +46,7 @@ for (let i = 0; i < 36; i++) {
     let hue3 = (Math.random() * 260) + 100;
     color.push('rgb(' + hue1 + ',' + hue2 + ',' + hue3 + ')')
     notes.push(new Notes(startPoint.x, startPoint.y, speed, i, chordE[i], color[i]));
-    speed -= (speed / 200);
+    speed += 0.01;
 }
 
 
@@ -84,7 +82,13 @@ function animate() {
         if (showChords) {
             ctx.font = "bold 20px Arial";
             ctx.fillStyle = "white";
-            ctx.fillText(chordToPlay, 0, canvas.height * 0.02);
+            let thisChord
+            if (chordToPlay == 'B' || chordToPlay == 'Gsus4' || chordToPlay == 'F#m7' || chordToPlay == 'Bsus4' || chordToPlay == 'G') {
+                thisChord = chordToPlay;
+            } else {
+                thisChord = chordToPlay.substring(0, chordToPlay.length - 1);
+            }
+            ctx.fillText(thisChord, 0, canvas.height * 0.02);
         }
 
 
@@ -115,3 +119,13 @@ function animate() {
 
 
 animate();
+
+window.addEventListener("keydown", (e) => {
+    if (e.keyCode == 32) {
+        if (showChords) {
+            showChords = false;
+        } else {
+            showChords = true;
+        }
+    }
+});

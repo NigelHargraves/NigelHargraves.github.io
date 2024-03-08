@@ -112,7 +112,7 @@ function () {
           this.timer = 100;
         }
 
-        for (var i = 0; i < 8; i++) {
+        for (var i = 0; i < 10; i++) {
           particles.push(new Particle(this.particle.x, this.particle.y, 0.6, this.color, {
             x: this.x,
             y: this.y
@@ -172,9 +172,9 @@ function changeChord() {
     chordToPlay = 'G';
     GBass.play();
   } else if (chordToPlay == 'G') {
-    chordToPlay = 'FSm7';
+    chordToPlay = 'F#m7';
     FSBass.play();
-  } else if (chordToPlay == 'FSm7') {
+  } else if (chordToPlay == 'F#m7') {
     chordToPlay = 'Bsus4';
     BBass.play();
   } else if (chordToPlay == 'Bsus4') {
@@ -212,7 +212,7 @@ function changeChord() {
     }
   }
 
-  if (chordToPlay == 'FSm7') {
+  if (chordToPlay == 'F#m7') {
     for (var _i5 = 0; _i5 < 36; _i5++) {
       notes[_i5].note = chordFSm7[_i5];
     }

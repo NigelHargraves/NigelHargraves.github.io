@@ -9,6 +9,6 @@ let chatter = document.getElementById("audio7");
 let applause = document.getElementById("audio8");
 
 function setVolume() {
-    let chatterVolume = 0.5;
+    let chatterVolume = 0.4;
     chatter.volume = chatterVolume;
 }

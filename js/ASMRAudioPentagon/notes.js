@@ -6,6 +6,8 @@ class Notes {
         this.number = number;
         this.note = note
         this.color = color;
+
+
         this.opacity = 1;
         this.lineWidth = 5;
         this.r = 400;
@@ -40,8 +42,6 @@ class Notes {
         ctx.restore();
     }
     update() {
-
-
         if (this.lineWidth > 1) {
             this.lineWidth -= 0.1;
         }
@@ -50,9 +50,7 @@ class Notes {
             this.opacity -= 0.01;
         }
 
-
-
-
+        this.timer = 0;
         this.x += this.velocity.x;
         this.y += this.velocity.y;
         this.angle = Math.atan2(this.aim.y - this.y, this.aim.x - this.x);
@@ -67,20 +65,14 @@ class Notes {
 
         this.radiusDistance = Math.floor(Math.sqrt(this.opp + this.adj));
 
-
-
-
-
-
         if (this.radiusDistance >= 400) {
-
             this.particle.x = this.r * Math.cos(pentagon.rotateAngle + this.addAngle);
             this.particle.y = this.r * Math.sin(pentagon.rotateAngle + this.addAngle);
             this.addAngle += ((Math.PI * 2) / 5) * 2;
             if (this.addAngle >= ((Math.PI * 2) / 5) * 10) {
                 this.addAngle = 0;
             }
-            for (let i = 0; i < 10; i++) {
+            for (let i = 0; i < 8; i++) {
                 particles.push(new Particle(this.particle.x, this.particle.y, 0.2, this.color, { x: center.x, y: center.y }, { x: (Math.random() - 0.5) / (Math.random() / 0.1), y: (Math.random() - 0.5) / (Math.random() / 0.1) }))
             }
             this.note.play();
@@ -93,6 +85,8 @@ class Notes {
                 this.corner = 2;
             }
         }
+
+
         this.draw();
     }
 }
@@ -101,4 +95,5 @@ function forNotes() {
     notes.forEach((note, index) => {
         note.update();
     });
+
 }

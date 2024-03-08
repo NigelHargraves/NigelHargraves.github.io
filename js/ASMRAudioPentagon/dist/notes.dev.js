@@ -74,6 +74,7 @@ function () {
         this.opacity -= 0.01;
       }
 
+      this.timer = 0;
       this.x += this.velocity.x;
       this.y += this.velocity.y;
       this.angle = Math.atan2(this.aim.y - this.y, this.aim.x - this.x);
@@ -94,7 +95,7 @@ function () {
           this.addAngle = 0;
         }
 
-        for (var i = 0; i < 10; i++) {
+        for (var i = 0; i < 8; i++) {
           particles.push(new Particle(this.particle.x, this.particle.y, 0.2, this.color, {
             x: center.x,
             y: center.y
