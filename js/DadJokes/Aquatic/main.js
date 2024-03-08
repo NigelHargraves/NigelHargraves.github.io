@@ -1,19 +1,18 @@
 // Set the canvas element to  variable.
-const ctx1 = canvas1.getContext("2d");
-const ctx2 = canvas2.getContext("2d");
+let ctx1 = canvas1.getContext("2d");
+let ctx2 = canvas2.getContext("2d");
 canvas1.width = window.innerWidth;
 canvas1.height = window.innerHeight;
 canvas2.width = window.innerWidth;
 canvas2.height = window.innerHeight;
 
-let laughs = [];
 
-laughs.push(laugh1, laugh2, laugh3, laugh4, laugh5, laugh6);
 
 let timer = 200,
     selectText = 0;
 
-let sayIt = false;
+let sayIt = false,
+    volumeDown = false;
 
 let jokeText = ['', 'How do you make an Octopus laugh?', 'Ten Tickles!', 'What is the most musical fish in the sea?', 'The Tuna Fish!',
     'How do oysters call their friends?', 'On shell phones!', 'What is the strongest creature in the sea?', 'The mussel!',
@@ -24,21 +23,30 @@ let jokeText = ['', 'How do you make an Octopus laugh?', 'Ten Tickles!', 'What i
     'A nervous wreck!', 'Why did the dolphin feel sick?', 'Because the sea weed!', 'What is the most famous fish?', 'The STAR fish!',
     'I have not seen my pet lobster in months...', 'I think it is a lost claws!', 'What should dolphins always take, to stay healthy?',
     'Vitamin sea!', 'How do dolphins make decisions?', 'They FLIPPER coin!', 'I saw a sailor putting helium balloons in his ship...',
-    'Well, whatever floats your boat!', 'Thank you for laughing', ' I am in stitches', 'Goodbye'
+    'Well, whatever floats your boat!', 'Thank you for laughing', ' I am in stitches', 'Please like and subscribe, Take Care, and Goodbye'
 ];
+
+let laughs = [];
+
+laughs.push(laugh1, laugh2, laugh3, laugh4, laugh5, laugh6);
 
 setVolume();
 
 chatter.play();
 
 
+
 function animate() {
+
+    if (volumeDown && chatter.volume > 0) {
+        chatter.volume -= 0.001;
+    }
 
     if (timer > -1) {
         timer -= 1;
     }
 
-    if (timer == 0) {
+    if (timer <= 0) {
         sayIt = true;
     }
 
@@ -86,13 +94,17 @@ function animate() {
         ctx2.font = "bold 60px Arial";
         ctx2.fillStyle = "white";
         ctx2.fillText(jokeText[selectText], (canvas2.width / 2) - (jokeText[selectText].length / 2) * 30, canvas2.height / 2);
+
+
         speak();
         if (selectText % 2 == 0 && selectText >= 1) {
-            let pickLaugh = Math.floor(Math.random() * 6);
+            let pickLaugh = Math.floor(Math.random() * 4);
             laughs[pickLaugh].play();
+            laughs[5].play();
         }
-        if (jokeText[selectText] == 'Goodbye') {
+        if (jokeText[selectText] == 'Please like and subscribe, Take Care, and Goodbye') {
             applause.play();
+            volumeDown = true;
         }
         sayIt = false;
         selectText++;
@@ -103,11 +115,3 @@ function animate() {
 }
 
 animate();
-
-window.addEventListener("mousedown", (e) => {
-    info = e.which;
-    if (e.which == 1) {
-
-    }
-
-});

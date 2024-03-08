@@ -7,21 +7,26 @@ canvas1.width = window.innerWidth;
 canvas1.height = window.innerHeight;
 canvas2.width = window.innerWidth;
 canvas2.height = window.innerHeight;
-var laughs = [];
-laughs.push(laugh1, laugh2, laugh3, laugh4, laugh5, laugh6);
 var timer = 200,
     selectText = 0;
-var sayIt = false;
-var jokeText = ['', 'How do you make an Octopus laugh?', 'Ten Tickles!', 'What is the most musical fish in the sea?', 'The Tuna Fish!', 'How do oysters call their friends?', 'On shell phones!', 'What is the strongest creature in the sea?', 'The mussel!', 'Where do fish keep their money?', 'In a river-bank!', 'Why dont oysters share their pearls?', 'Because they are shellfish!', 'Where do fish sleep?', 'On the seabed!', 'Why was the orca so happy?', 'Because He was having a whale of a time!', 'What did the ocean say to the shore?', 'Nothing, it just waved!', 'Why did the whale blush?', 'It saw the oceans bottom!', 'A red ship crashed into a blue ship...', 'The sailors were marooned!', 'What sits at the bottom of the sea, and twitches?', 'A nervous wreck!', 'Why did the dolphin feel sick?', 'Because the sea weed!', 'What is the most famous fish?', 'The STAR fish!', 'I have not seen my pet lobster in months...', 'I think it is a lost claws!', 'What should dolphins always take, to stay healthy?', 'Vitamin sea!', 'How do dolphins make decisions?', 'They FLIPPER coin!', 'I saw a sailor putting helium balloons in his ship...', 'Well, whatever floats your boat!', 'Thank you for laughing', ' I am in stitches', 'Goodbye'];
+var sayIt = false,
+    volumeDown = false;
+var jokeText = ['', 'How do you make an Octopus laugh?', 'Ten Tickles!', 'What is the most musical fish in the sea?', 'The Tuna Fish!', 'How do oysters call their friends?', 'On shell phones!', 'What is the strongest creature in the sea?', 'The mussel!', 'Where do fish keep their money?', 'In a river-bank!', 'Why dont oysters share their pearls?', 'Because they are shellfish!', 'Where do fish sleep?', 'On the seabed!', 'Why was the orca so happy?', 'Because He was having a whale of a time!', 'What did the ocean say to the shore?', 'Nothing, it just waved!', 'Why did the whale blush?', 'It saw the oceans bottom!', 'A red ship crashed into a blue ship...', 'The sailors were marooned!', 'What sits at the bottom of the sea, and twitches?', 'A nervous wreck!', 'Why did the dolphin feel sick?', 'Because the sea weed!', 'What is the most famous fish?', 'The STAR fish!', 'I have not seen my pet lobster in months...', 'I think it is a lost claws!', 'What should dolphins always take, to stay healthy?', 'Vitamin sea!', 'How do dolphins make decisions?', 'They FLIPPER coin!', 'I saw a sailor putting helium balloons in his ship...', 'Well, whatever floats your boat!', 'Thank you for laughing', ' I am in stitches', 'Please like and subscribe, Take Care, and Goodbye'];
+var laughs = [];
+laughs.push(laugh1, laugh2, laugh3, laugh4, laugh5, laugh6);
 setVolume();
 chatter.play();
 
 function animate() {
+  if (volumeDown && chatter.volume > 0) {
+    chatter.volume -= 0.001;
+  }
+
   if (timer > -1) {
     timer -= 1;
   }
 
-  if (timer == 0) {
+  if (timer <= 0) {
     sayIt = true;
   }
 
@@ -68,12 +73,14 @@ function animate() {
     speak();
 
     if (selectText % 2 == 0 && selectText >= 1) {
-      var pickLaugh = Math.floor(Math.random() * 6);
+      var pickLaugh = Math.floor(Math.random() * 4);
       laughs[pickLaugh].play();
+      laughs[5].play();
     }
 
-    if (jokeText[selectText] == 'Goodbye') {
+    if (jokeText[selectText] == 'Please like and subscribe, Take Care, and Goodbye') {
       applause.play();
+      volumeDown = true;
     }
 
     sayIt = false;
@@ -86,8 +93,3 @@ function animate() {
 }
 
 animate();
-window.addEventListener("mousedown", function (e) {
-  info = e.which;
-
-  if (e.which == 1) {}
-});
