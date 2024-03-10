@@ -20,16 +20,16 @@ let sayIt = false,
     volumeDown = false,
     delayLaugh = false;
 
-let jokeText = ['', 'Where does a mountain climber keep his plane?', 'In a cliff-hangar!', 'Will invisible airplanes ever be a thing?', "I just can't see it getting off the ground!",
-    'Why did the airplane get sent to his room?', 'He had a Bad altitude!', "A plane lands and shortly after the           flight attendant announces over the speaker...", 'Sorry about that rough landing it was     not the pilots fault, It was the asphalt!',
-    'I asked a flight attendant to change my seat because of a crying baby next to me.', 'It turns out you can not do that if the baby is yours!', 'A giraffe swallowed a toy jet...', 'It now has a plane in the neck!',
-    'I threw my phone from the roof, and it broke...', 'Silly me!, I forgot to turn on airplane mode!', 'How often do airplanes crash?', 'Just once!',
-    'What do you call an airplane that flies backwards?', 'A receding airline!', 'Why do Stormtroopers make the best pilots?', 'They never hit anything!',
-    'Have you heard of the TV show about the airplane?', 'It crashed and burned, because of the bad pilot!', 'A plane crashed, and every         single person died, except two. Why?',
-    'Because they were a couple!', 'Why did the librarian get kicked off the plane?', 'Because it was overbooked!', 'What do you get if you cross a snake and a plane?', 'A Boeing Constrictor!',
-    'What kind of chocolate do they sell at the airport? ', 'Plane chocolate!', 'Where can you find the Great Plains? ',
-    'At the great airports!', 'Never fly with a homeless pilot...', 'They are always looking for a place to crash!', 'If you never laughed at these jokes...',
-    'They probably went straight over your head!', 'Thank you for laughing', ' I am in stitches', 'Please like and subscribe, Take Care, and Goodbye'
+let jokeText = ['', 'How do you make an Octopus laugh?', 'Ten Tickles!', 'What is the most musical fish in the sea?', 'The Tuna Fish!',
+    'How do oysters call their friends?', 'On shell phones!', 'What is the strongest creature in the sea?', 'The mussel!',
+    'Where do fish keep their money?', 'In a river-bank!', 'Why dont oysters share their pearls?', 'Because they are shellfish!',
+    'Where do fish sleep?', 'On the seabed!', 'Why was the orca so happy?', 'Because He was having a whale of a time!',
+    'What did the ocean say to the shore?', 'Nothing, it just waved!', 'Why did the whale blush?', 'It saw the oceans bottom!',
+    'A red ship crashed into a blue ship...', 'The sailors were marooned!', 'What sits at the bottom of the sea, and twitches?',
+    'A nervous wreck!', 'Why did the dolphin feel sick?', 'Because the sea weed!', 'What is the most famous fish?', 'The STAR fish!',
+    'I have not seen my pet lobster in months...', 'I think it is a lost claws!', 'What should dolphins always take, to stay healthy?',
+    'Vitamin sea!', 'How do dolphins make decisions?', 'They FLIPPER coin!', 'I saw a sailor putting       helium balloons in his ship...',
+    'Well, whatever floats your boat!', 'Thank you for laughing', ' I am in stitches', 'Please like and subscribe, Take Care, and Goodbye'
 ];
 
 let laughs = [];
