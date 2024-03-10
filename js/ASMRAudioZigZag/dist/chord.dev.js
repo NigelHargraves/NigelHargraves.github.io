@@ -17,7 +17,6 @@ function () {
     this.opacity = 1;
     this.lineWidth = 5;
     this.speed = 1;
-    this.down = true;
     this.velocity = {
       x: 0,
       y: 0
@@ -26,7 +25,7 @@ function () {
     this.angle = 0;
     this.aim = {
       x: cRight,
-      y: canvas.height - canvas.height / 10
+      y: cbottom
     };
   }
 
@@ -67,48 +66,54 @@ function () {
         this.detectionTimer -= 1;
       }
 
-      if (this.x >= cLeft - 1 && this.x <= cLeft + 1 && this.detectionTimer == 0) {
+      if (this.x >= cLeft - 1 && this.x <= cLeft + 1 && this.y >= cTop - 1 && this.y <= cTop + 1 && this.detectionTimer == 0) {
         changeChord();
         this.lineWidth = 5;
         this.opacity = 1;
-
-        if (this.down) {
-          this.aim = {
-            x: cRight,
-            y: canvas.height - canvas.height / 10
-          };
-          this.y = canvas.height / 10;
-        } else {
-          this.aim = {
-            x: cRight,
-            y: canvas.height / 10
-          };
-          this.y = canvas.height - canvas.height / 10;
-        }
-
+        this.aim = {
+          x: cRight,
+          y: cbottom
+        };
+        this.y = cTop;
         this.detectionTimer = 100;
         this.x = cLeft;
-      } else if (this.x >= cRight - 1 && this.x <= cRight + 1 && this.detectionTimer == 0) {
+      }
+
+      if (this.x >= cLeft - 1 && this.x <= cLeft + 1 && this.y >= cbottom - 1 && this.y <= cbottom + 1 && this.detectionTimer == 0) {
         changeChord();
         this.lineWidth = 5;
         this.opacity = 1;
+        this.aim = {
+          x: cLeft,
+          y: cTop
+        };
+        this.y = cbottom;
+        this.detectionTimer = 100;
+        this.x = cLeft;
+      }
 
-        if (this.down) {
-          this.aim = {
-            x: cLeft,
-            y: canvas.height - canvas.height / 10
-          };
-          this.y = canvas.height - canvas.height / 10;
-          this.down = false;
-        } else {
-          this.aim = {
-            x: cLeft,
-            y: canvas.height / 10
-          };
-          this.y = canvas.height / 10;
-          this.down = true;
-        }
+      if (this.x >= cRight - 1 && this.x <= cRight + 1 && this.y >= cbottom - 1 && this.y <= cbottom + 1 && this.detectionTimer == 0) {
+        changeChord();
+        this.lineWidth = 5;
+        this.opacity = 1;
+        this.aim = {
+          x: cRight,
+          y: cTop
+        };
+        this.y = cbottom;
+        this.detectionTimer = 100;
+        this.x = cRight;
+      }
 
+      if (this.x >= cRight - 1 && this.x <= cRight + 1 && this.y >= cTop - 1 && this.y <= cTop + 1 && this.detectionTimer == 0) {
+        changeChord();
+        this.lineWidth = 5;
+        this.opacity = 1;
+        this.aim = {
+          x: cLeft,
+          y: cbottom
+        };
+        this.y = cTop;
         this.detectionTimer = 100;
         this.x = cRight;
       }

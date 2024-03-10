@@ -6,12 +6,17 @@ class Note {
         this.note = note;
         this.down = direction;
         this.yAim = yAim;
+        if (this.down) {
+            this.aim = { x: right, y: cTop * this.yAim };
+        } else {
+            this.aim = { x: left, y: cTop * this.yAim };
+        }
         this.opacity = 1;
         this.lineWidth = 5;
         this.velocity = { x: 0, y: 0 };
         this.detectionTimer = 100;
         this.angle = 0;
-        this.aim = { x: right, y: (canvas.height / 10) * this.yAim };
+
     }
     draw() {
         ctx.save();
@@ -48,7 +53,7 @@ class Note {
         }
 
 
-        if (this.x >= left - 1 && this.x <= left + 1 && this.detectionTimer == 0) {
+        if (this.x >= left - 1 && this.x <= left + 1 && this.detectionTimer <= 0) {
             zz.leftLineWidth = 5;
             this.note.play();
             this.lineWidth = 5;
@@ -62,10 +67,12 @@ class Note {
                 this.yAim = 9;
                 this.down = false;
             }
-            this.aim = { x: right, y: (canvas.height / 10) * this.yAim };
+            this.aim = { x: right, y: cTop * this.yAim };
             this.detectionTimer = 100;
             this.x = left;
-        } else if (this.x >= right - 1 && this.x <= right + 1 && this.detectionTimer == 0) {
+        }
+
+        if (this.x >= right - 1 && this.x <= right + 1 && this.detectionTimer <= 0) {
             zz.rightLineWidth = 5;
             this.note.play();
             this.lineWidth = 5;
@@ -82,7 +89,7 @@ class Note {
                 this.down = true;
             }
 
-            this.aim = { x: left, y: (canvas.height / 10) * this.yAim };
+            this.aim = { x: left, y: cTop * this.yAim };
             this.detectionTimer = 100;
             this.x = right;
         }

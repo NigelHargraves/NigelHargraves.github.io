@@ -9,7 +9,9 @@ let left = center.x / 2,
     right = center.x + center.x / 2;
 
 let cLeft = left / 4,
-    cRight = left - (left / 4);
+    cRight = left - (left / 4),
+    cTop = canvas.height / 10,
+    cbottom = canvas.height - (canvas.height / 10);
 
 
 let start = false,
@@ -45,14 +47,11 @@ createChords();
 
 for (let i = 0; i < 36; i++) {
     if (i < 18) {
-        notes.push(new Note(left, canvas.height / 10, speed, chordE[i], true, 2));
+        notes.push(new Note(left, cTop, speed, chordE[i], true, 2));
     } else {
-        notes.push(new Note(right, canvas.height - (canvas.height / 10), speed, chordE[i], false, 9));
+        notes.push(new Note(right, cbottom, speed, chordE[i], false, 8));
     }
-
-
-
-    speed += 0.01;
+    speed += speed * 0.02;
 }
 
 
