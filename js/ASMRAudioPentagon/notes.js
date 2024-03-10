@@ -6,8 +6,6 @@ class Notes {
         this.number = number;
         this.note = note
         this.color = color;
-
-
         this.opacity = 1;
         this.lineWidth = 5;
         this.r = 400;
@@ -95,5 +93,4 @@ function forNotes() {
     notes.forEach((note, index) => {
         note.update();
     });
-
 }

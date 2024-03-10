@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zig Zag</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/ASMRAudio.css">
+</head>
+
+<body>
+    <canvas id="canvas"></canvas>
+    <audio id="audio1" src="sounds/ASMRAudio/Pentagon/Notes/CO1.mp3" type="audio/mp3"></audio>
+    <audio id="audio2" src="sounds/ASMRAudio/Pentagon/Notes/DO1.mp3" type="audio/mp3"></audio>
+    <audio id="audio3" src="sounds/ASMRAudio/Pentagon/Notes/EO1.mp3" type="audio/mp3"></audio>
+    <audio id="audio4" src="sounds/ASMRAudio/Pentagon/Notes/FO1.mp3" type="audio/mp3"></audio>
+    <audio id="audio5" src="sounds/ASMRAudio/Pentagon/Notes/GO1.mp3" type="audio/mp3"></audio>
+    <audio id="audio6" src="sounds/ASMRAudio/Pentagon/Notes/AO1.mp3" type="audio/mp3"></audio>
+    <audio id="audio7" src="sounds/ASMRAudio/Pentagon/Notes/BO1.mp3" type="audio/mp3"></audio>
+    <audio id="audio8" src="sounds/ASMRAudio/Pentagon/Notes/CO2.mp3" type="audio/mp3"></audio>
+    <audio id="audio9" src="sounds/ASMRAudio/Pentagon/Notes/DO2.mp3" type="audio/mp3"></audio>
+    <audio id="audio10" src="sounds/ASMRAudio/Pentagon/Notes/EO2.mp3" type="audio/mp3"></audio>
+    <audio id="audio11" src="sounds/ASMRAudio/Pentagon/Notes/FO2.mp3" type="audio/mp3"></audio>
+    <audio id="audio12" src="sounds/ASMRAudio/Pentagon/Notes/GO2.mp3" type="audio/mp3"></audio>
+    <audio id="audio13" src="sounds/ASMRAudio/Pentagon/Notes/AO2.mp3" type="audio/mp3"></audio>
+    <audio id="audio14" src="sounds/ASMRAudio/Pentagon/Notes/BO2.mp3" type="audio/mp3"></audio>
+    <audio id="audio15" src="sounds/ASMRAudio/Pentagon/Notes/CO3.mp3" type="audio/mp3"></audio>
+    <audio id="audio16" src="sounds/ASMRAudio/Pentagon/Notes/DO3.mp3" type="audio/mp3"></audio>
+    <audio id="audio17" src="sounds/ASMRAudio/Pentagon/Notes/EO3.mp3" type="audio/mp3"></audio>
+    <audio id="audio18" src="sounds/ASMRAudio/Pentagon/Notes/FO3.mp3" type="audio/mp3"></audio>
+    <audio id="audio19" src="sounds/ASMRAudio/Pentagon/Notes/GO3.mp3" type="audio/mp3"></audio>
+    <audio id="audio20" src="sounds/ASMRAudio/Pentagon/Notes/AO3.mp3" type="audio/mp3"></audio>
+    <audio id="audio21" src="sounds/ASMRAudio/Pentagon/Notes/BO3.mp3" type="audio/mp3"></audio>
+    <audio id="audio22" src="sounds/ASMRAudio/Pentagon/Notes/CO4.mp3" type="audio/mp3"></audio>
+    <audio id="audio23" src="sounds/ASMRAudio/Pentagon/Notes/DO4.mp3" type="audio/mp3"></audio>
+    <audio id="audio24" src="sounds/ASMRAudio/Pentagon/Notes/EO4.mp3" type="audio/mp3"></audio>
+    <audio id="audio25" src="sounds/ASMRAudio/Pentagon/Notes/FO4.mp3" type="audio/mp3"></audio>
+    <audio id="audio26" src="sounds/ASMRAudio/Pentagon/Notes/GO4.mp3" type="audio/mp3"></audio>
+    <audio id="audio27" src="sounds/ASMRAudio/Pentagon/Notes/AO4.mp3" type="audio/mp3"></audio>
+    <audio id="audio28" src="sounds/ASMRAudio/Pentagon/Notes/BO4.mp3" type="audio/mp3"></audio>
+
+    <audio id="audio29" src="sounds/ASMRAudio/Pentagon/Notes/CO1.mp3" type="audio/mp3"></audio>
+    <audio id="audio30" src="sounds/ASMRAudio/Pentagon/Notes/DO1.mp3" type="audio/mp3"></audio>
+    <audio id="audio31" src="sounds/ASMRAudio/Pentagon/Notes/EO1.mp3" type="audio/mp3"></audio>
+    <audio id="audio32" src="sounds/ASMRAudio/Pentagon/Notes/FO1.mp3" type="audio/mp3"></audio>
+    <audio id="audio33" src="sounds/ASMRAudio/Pentagon/Notes/GO1.mp3" type="audio/mp3"></audio>
+    <audio id="audio34" src="sounds/ASMRAudio/Pentagon/Notes/AO1.mp3" type="audio/mp3"></audio>
+    <audio id="audio35" src="sounds/ASMRAudio/Pentagon/Notes/BO1.mp3" type="audio/mp3"></audio>
+    <audio id="audio36" src="sounds/ASMRAudio/Pentagon/Notes/CO2.mp3" type="audio/mp3"></audio>
+    <audio id="audio37" src="sounds/ASMRAudio/Pentagon/Notes/DO2.mp3" type="audio/mp3"></audio>
+    <audio id="audio38" src="sounds/ASMRAudio/Pentagon/Notes/EO2.mp3" type="audio/mp3"></audio>
+    <audio id="audio39" src="sounds/ASMRAudio/Pentagon/Notes/FO2.mp3" type="audio/mp3"></audio>
+    <audio id="audio40" src="sounds/ASMRAudio/Pentagon/Notes/GO2.mp3" type="audio/mp3"></audio>
+    <audio id="audio41" src="sounds/ASMRAudio/Pentagon/Notes/AO2.mp3" type="audio/mp3"></audio>
+    <audio id="audio42" src="sounds/ASMRAudio/Pentagon/Notes/BO2.mp3" type="audio/mp3"></audio>
+    <audio id="audio43" src="sounds/ASMRAudio/Pentagon/Notes/CO3.mp3" type="audio/mp3"></audio>
+    <audio id="audio44" src="sounds/ASMRAudio/Pentagon/Notes/DO3.mp3" type="audio/mp3"></audio>
+    <audio id="audio45" src="sounds/ASMRAudio/Pentagon/Notes/EO3.mp3" type="audio/mp3"></audio>
+    <audio id="audio46" src="sounds/ASMRAudio/Pentagon/Notes/FO3.mp3" type="audio/mp3"></audio>
+    <audio id="audio47" src="sounds/ASMRAudio/Pentagon/Notes/GO3.mp3" type="audio/mp3"></audio>
+    <audio id="audio48" src="sounds/ASMRAudio/Pentagon/Notes/AO3.mp3" type="audio/mp3"></audio>
+    <audio id="audio49" src="sounds/ASMRAudio/Pentagon/Notes/BO3.mp3" type="audio/mp3"></audio>
+    <audio id="audio50" src="sounds/ASMRAudio/Pentagon/Notes/CO4.mp3" type="audio/mp3"></audio>
+    <audio id="audio51" src="sounds/ASMRAudio/Pentagon/Notes/DO4.mp3" type="audio/mp3"></audio>
+    <audio id="audio52" src="sounds/ASMRAudio/Pentagon/Notes/EO4.mp3" type="audio/mp3"></audio>
+    <audio id="audio53" src="sounds/ASMRAudio/Pentagon/Notes/FO4.mp3" type="audio/mp3"></audio>
+    <audio id="audio54" src="sounds/ASMRAudio/Pentagon/Notes/GO4.mp3" type="audio/mp3"></audio>
+    <audio id="audio55" src="sounds/ASMRAudio/Pentagon/Notes/AO4.mp3" type="audio/mp3"></audio>
+    <audio id="audio56" src="sounds/ASMRAudio/Pentagon/Notes/BO4.mp3" type="audio/mp3"></audio>
+
+    <audio id="audio57" src="sounds/ASMRAudio/Pentagon/Notes/CO1.mp3" type="audio/mp3"></audio>
+    <audio id="audio58" src="sounds/ASMRAudio/Pentagon/Notes/DO1.mp3" type="audio/mp3"></audio>
+    <audio id="audio59" src="sounds/ASMRAudio/Pentagon/Notes/EO1.mp3" type="audio/mp3"></audio>
+    <audio id="audio60" src="sounds/ASMRAudio/Pentagon/Notes/FO1.mp3" type="audio/mp3"></audio>
+    <audio id="audio61" src="sounds/ASMRAudio/Pentagon/Notes/GO1.mp3" type="audio/mp3"></audio>
+    <audio id="audio62" src="sounds/ASMRAudio/Pentagon/Notes/AO1.mp3" type="audio/mp3"></audio>
+    <audio id="audio63" src="sounds/ASMRAudio/Pentagon/Notes/BO1.mp3" type="audio/mp3"></audio>
+    <audio id="audio64" src="sounds/ASMRAudio/Pentagon/Notes/CO2.mp3" type="audio/mp3"></audio>
+    <audio id="audio65" src="sounds/ASMRAudio/Pentagon/Notes/DO2.mp3" type="audio/mp3"></audio>
+    <audio id="audio66" src="sounds/ASMRAudio/Pentagon/Notes/EO2.mp3" type="audio/mp3"></audio>
+    <audio id="audio67" src="sounds/ASMRAudio/Pentagon/Notes/FO2.mp3" type="audio/mp3"></audio>
+    <audio id="audio68" src="sounds/ASMRAudio/Pentagon/Notes/GO2.mp3" type="audio/mp3"></audio>
+    <audio id="audio69" src="sounds/ASMRAudio/Pentagon/Notes/AO2.mp3" type="audio/mp3"></audio>
+    <audio id="audio70" src="sounds/ASMRAudio/Pentagon/Notes/BO2.mp3" type="audio/mp3"></audio>
+    <audio id="audio71" src="sounds/ASMRAudio/Pentagon/Notes/CO3.mp3" type="audio/mp3"></audio>
+    <audio id="audio72" src="sounds/ASMRAudio/Pentagon/Notes/DO3.mp3" type="audio/mp3"></audio>
+    <audio id="audio73" src="sounds/ASMRAudio/Pentagon/Notes/EO3.mp3" type="audio/mp3"></audio>
+    <audio id="audio74" src="sounds/ASMRAudio/Pentagon/Notes/FO3.mp3" type="audio/mp3"></audio>
+    <audio id="audio75" src="sounds/ASMRAudio/Pentagon/Notes/GO3.mp3" type="audio/mp3"></audio>
+    <audio id="audio76" src="sounds/ASMRAudio/Pentagon/Notes/AO3.mp3" type="audio/mp3"></audio>
+    <audio id="audio77" src="sounds/ASMRAudio/Pentagon/Notes/BO3.mp3" type="audio/mp3"></audio>
+    <audio id="audio78" src="sounds/ASMRAudio/Pentagon/Notes/CO4.mp3" type="audio/mp3"></audio>
+    <audio id="audio79" src="sounds/ASMRAudio/Pentagon/Notes/DO4.mp3" type="audio/mp3"></audio>
+    <audio id="audio80" src="sounds/ASMRAudio/Pentagon/Notes/EO4.mp3" type="audio/mp3"></audio>
+    <audio id="audio81" src="sounds/ASMRAudio/Pentagon/Notes/FO4.mp3" type="audio/mp3"></audio>
+    <audio id="audio82" src="sounds/ASMRAudio/Pentagon/Notes/GO4.mp3" type="audio/mp3"></audio>
+    <audio id="audio83" src="sounds/ASMRAudio/Pentagon/Notes/AO4.mp3" type="audio/mp3"></audio>
+    <audio id="audio84" src="sounds/ASMRAudio/Pentagon/Notes/BO4.mp3" type="audio/mp3"></audio>
+
+    <audio id="audio85" src="sounds/ASMRAudio/Pentagon/Notes/CSO1.mp3" type="audio/mp3"></audio>
+    <audio id="audio86" src="sounds/ASMRAudio/Pentagon/Notes/EbO1.mp3" type="audio/mp3"></audio>
+    <audio id="audio87" src="sounds/ASMRAudio/Pentagon/Notes/FSO1.mp3" type="audio/mp3"></audio>
+    <audio id="audio88" src="sounds/ASMRAudio/Pentagon/Notes/AbO1.mp3" type="audio/mp3"></audio>
+    <audio id="audio89" src="sounds/ASMRAudio/Pentagon/Notes/BbO1.mp3" type="audio/mp3"></audio>
+    <audio id="audio90" src="sounds/ASMRAudio/Pentagon/Notes/CSO2.mp3" type="audio/mp3"></audio>
+    <audio id="audio91" src="sounds/ASMRAudio/Pentagon/Notes/EbO2.mp3" type="audio/mp3"></audio>
+    <audio id="audio92" src="sounds/ASMRAudio/Pentagon/Notes/FSO2.mp3" type="audio/mp3"></audio>
+    <audio id="audio93" src="sounds/ASMRAudio/Pentagon/Notes/AbO2.mp3" type="audio/mp3"></audio>
+    <audio id="audio94" src="sounds/ASMRAudio/Pentagon/Notes/BbO2.mp3" type="audio/mp3"></audio>
+    <audio id="audio95" src="sounds/ASMRAudio/Pentagon/Notes/CSO3.mp3" type="audio/mp3"></audio>
+    <audio id="audio96" src="sounds/ASMRAudio/Pentagon/Notes/EbO3.mp3" type="audio/mp3"></audio>
+    <audio id="audio97" src="sounds/ASMRAudio/Pentagon/Notes/FSO3.mp3" type="audio/mp3"></audio>
+    <audio id="audio98" src="sounds/ASMRAudio/Pentagon/Notes/AbO3.mp3" type="audio/mp3"></audio>
+    <audio id="audio99" src="sounds/ASMRAudio/Pentagon/Notes/BbO3.mp3" type="audio/mp3"></audio>
+    <audio id="audio100" src="sounds/ASMRAudio/Pentagon/Notes/CSO4.mp3" type="audio/mp3"></audio>
+    <audio id="audio101" src="sounds/ASMRAudio/Pentagon/Notes/EbO4.mp3" type="audio/mp3"></audio>
+    <audio id="audio102" src="sounds/ASMRAudio/Pentagon/Notes/FSO4.mp3" type="audio/mp3"></audio>
+    <audio id="audio103" src="sounds/ASMRAudio/Pentagon/Notes/AbO4.mp3" type="audio/mp3"></audio>
+    <audio id="audio104" src="sounds/ASMRAudio/Pentagon/Notes/BbO4.mp3" type="audio/mp3"></audio>
+
+    <audio id="audio105" src="sounds/ASMRAudio/Pentagon/Notes/CSO1.mp3" type="audio/mp3"></audio>
+    <audio id="audio106" src="sounds/ASMRAudio/Pentagon/Notes/EbO1.mp3" type="audio/mp3"></audio>
+    <audio id="audio107" src="sounds/ASMRAudio/Pentagon/Notes/FSO1.mp3" type="audio/mp3"></audio>
+    <audio id="audio108" src="sounds/ASMRAudio/Pentagon/Notes/AbO1.mp3" type="audio/mp3"></audio>
+    <audio id="audio109" src="sounds/ASMRAudio/Pentagon/Notes/BbO1.mp3" type="audio/mp3"></audio>
+    <audio id="audio110" src="sounds/ASMRAudio/Pentagon/Notes/CSO2.mp3" type="audio/mp3"></audio>
+    <audio id="audio111" src="sounds/ASMRAudio/Pentagon/Notes/EbO2.mp3" type="audio/mp3"></audio>
+    <audio id="audio112" src="sounds/ASMRAudio/Pentagon/Notes/FSO2.mp3" type="audio/mp3"></audio>
+    <audio id="audio113" src="sounds/ASMRAudio/Pentagon/Notes/AbO2.mp3" type="audio/mp3"></audio>
+    <audio id="audio114" src="sounds/ASMRAudio/Pentagon/Notes/BbO2.mp3" type="audio/mp3"></audio>
+    <audio id="audio115" src="sounds/ASMRAudio/Pentagon/Notes/CSO3.mp3" type="audio/mp3"></audio>
+    <audio id="audio116" src="sounds/ASMRAudio/Pentagon/Notes/EbO3.mp3" type="audio/mp3"></audio>
+    <audio id="audio117" src="sounds/ASMRAudio/Pentagon/Notes/FSO3.mp3" type="audio/mp3"></audio>
+    <audio id="audio118" src="sounds/ASMRAudio/Pentagon/Notes/AbO3.mp3" type="audio/mp3"></audio>
+    <audio id="audio119" src="sounds/ASMRAudio/Pentagon/Notes/BbO3.mp3" type="audio/mp3"></audio>
+    <audio id="audio120" src="sounds/ASMRAudio/Pentagon/Notes/CSO4.mp3" type="audio/mp3"></audio>
+    <audio id="audio121" src="sounds/ASMRAudio/Pentagon/Notes/EbO4.mp3" type="audio/mp3"></audio>
+    <audio id="audio122" src="sounds/ASMRAudio/Pentagon/Notes/FSO4.mp3" type="audio/mp3"></audio>
+    <audio id="audio123" src="sounds/ASMRAudio/Pentagon/Notes/AbO4.mp3" type="audio/mp3"></audio>
+    <audio id="audio124" src="sounds/ASMRAudio/Pentagon/Notes/BbO4.mp3" type="audio/mp3"></audio>
+
+    <audio id="audio125" src="sounds/ASMRAudio/Pentagon/Notes/CSO1.mp3" type="audio/mp3"></audio>
+    <audio id="audio126" src="sounds/ASMRAudio/Pentagon/Notes/EbO1.mp3" type="audio/mp3"></audio>
+    <audio id="audio127" src="sounds/ASMRAudio/Pentagon/Notes/FSO1.mp3" type="audio/mp3"></audio>
+    <audio id="audio128" src="sounds/ASMRAudio/Pentagon/Notes/AbO1.mp3" type="audio/mp3"></audio>
+    <audio id="audio129" src="sounds/ASMRAudio/Pentagon/Notes/BbO1.mp3" type="audio/mp3"></audio>
+    <audio id="audio130" src="sounds/ASMRAudio/Pentagon/Notes/CSO2.mp3" type="audio/mp3"></audio>
+    <audio id="audio131" src="sounds/ASMRAudio/Pentagon/Notes/EbO2.mp3" type="audio/mp3"></audio>
+    <audio id="audio132" src="sounds/ASMRAudio/Pentagon/Notes/FSO2.mp3" type="audio/mp3"></audio>
+    <audio id="audio133" src="sounds/ASMRAudio/Pentagon/Notes/AbO2.mp3" type="audio/mp3"></audio>
+    <audio id="audio134" src="sounds/ASMRAudio/Pentagon/Notes/BbO2.mp3" type="audio/mp3"></audio>
+    <audio id="audio135" src="sounds/ASMRAudio/Pentagon/Notes/CSO3.mp3" type="audio/mp3"></audio>
+    <audio id="audio136" src="sounds/ASMRAudio/Pentagon/Notes/EbO3.mp3" type="audio/mp3"></audio>
+    <audio id="audio137" src="sounds/ASMRAudio/Pentagon/Notes/FSO3.mp3" type="audio/mp3"></audio>
+    <audio id="audio138" src="sounds/ASMRAudio/Pentagon/Notes/AbO3.mp3" type="audio/mp3"></audio>
+    <audio id="audio139" src="sounds/ASMRAudio/Pentagon/Notes/BbO3.mp3" type="audio/mp3"></audio>
+    <audio id="audio140" src="sounds/ASMRAudio/Pentagon/Notes/CSO4.mp3" type="audio/mp3"></audio>
+    <audio id="audio141" src="sounds/ASMRAudio/Pentagon/Notes/EbO4.mp3" type="audio/mp3"></audio>
+    <audio id="audio142" src="sounds/ASMRAudio/Pentagon/Notes/FSO4.mp3" type="audio/mp3"></audio>
+    <audio id="audio143" src="sounds/ASMRAudio/Pentagon/Notes/AbO4.mp3" type="audio/mp3"></audio>
+    <audio id="audio144" src="sounds/ASMRAudio/Pentagon/Notes/BbO4.mp3" type="audio/mp3"></audio>
+
+    <audio id="audio145" src="sounds/ASMRAudio/Pentagon/Bass/CBass.mp3" type="audio/mp3"></audio>
+    <audio id="audio146" src="sounds/ASMRAudio/Pentagon/Bass/DBass.mp3" type="audio/mp3"></audio>
+    <audio id="audio147" src="sounds/ASMRAudio/Pentagon/Bass/EBass.mp3" type="audio/mp3"></audio>
+    <audio id="audio148" src="sounds/ASMRAudio/Pentagon/Bass/FBass.mp3" type="audio/mp3"></audio>
+    <audio id="audio149" src="sounds/ASMRAudio/Pentagon/Bass/GBass.mp3" type="audio/mp3"></audio>
+    <audio id="audio150" src="sounds/ASMRAudio/Pentagon/Bass/ABass.mp3" type="audio/mp3"></audio>
+    <audio id="audio151" src="sounds/ASMRAudio/Pentagon/Bass/BBass.mp3" type="audio/mp3"></audio>
+    <audio id="audio152" src="sounds/ASMRAudio/Pentagon/Bass/FSBass.mp3" type="audio/mp3"></audio>
+
+    <script src="js/ASMRAudioZigZag/zigZag.js"></script>
+    <script src="js/ASMRAudioZigZag/notes.js"></script>
+    <script src="js/ASMRAudioZigZag/audio.js"></script>
+    <script src="js/ASMRAudioZigZag/chords.js"></script>
+    <script src="js/ASMRAudioZigZag/chord.js"></script>
+    <script src="js/ASMRAudioZigZag/main.js"></script>
+</body>
+
+</html>
