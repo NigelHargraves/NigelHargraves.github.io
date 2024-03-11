@@ -13,6 +13,12 @@ let cLeft = left / 4,
     cTop = canvas.height / 10,
     cbottom = canvas.height - (canvas.height / 10);
 
+let bass1 = cTop + cTop * 2,
+    bass2 = cTop + cTop * 4,
+    bass3 = cTop + cTop * 6;
+
+let hatInterval = (cTop * 2) / 6;
+
 
 let start = false,
     playNow = true,
@@ -36,26 +42,41 @@ let chordE = [],
 
 let color = [],
     notes = [],
-    smallPentagons = [],
+    bassCircles = [],
     particles = [];
 
 let zz = new ZigZag(),
-    chord = new Chord(cLeft, canvas.height / 10);
+    chord = new Chord(cLeft, canvas.height / 10),
+    hat = new Hat(right + (canvas.width - right) / 2, cTop * 2);
 
 
 createChords();
 
 for (let i = 0; i < 36; i++) {
+    let hue1 = (Math.random() * 260) + 100;
+    let hue2 = (Math.random() * 260) + 100;
+    let hue3 = (Math.random() * 260) + 100;
+    color.push('rgb(' + hue1 + ',' + hue2 + ',' + hue3 + ')')
     if (i < 18) {
-        notes.push(new Note(left, cTop, speed, chordE[i], true, 2));
+        notes.push(new Note(left, cTop, speed, chordE[i], true, 2, color[i]));
     } else {
-        notes.push(new Note(right, cbottom, speed, chordE[i], false, 8));
+        notes.push(new Note(right, cbottom, speed, chordE[i], false, 8, color[i]));
     }
     speed += speed * 0.02;
 }
 
 
 setVolume();
+
+
+
+
+
+
+
+
+
+
 
 
 function animate() {
@@ -79,7 +100,10 @@ function animate() {
 
     if (start) {
         if (playNow) {
-
+            for (let i = 0; i < 36; i++) {
+                chordE[i].play();
+            }
+            EBass.play();
             playNow = false;
         }
 
@@ -102,9 +126,13 @@ function animate() {
 
         chord.update();
 
+        hat.update();
+
         forNotes();
 
+        forBassCircles()
 
+        forParticles()
 
     }
 
@@ -118,6 +146,17 @@ animate();
 
 window.addEventListener("keydown", (e) => {
     if (e.keyCode == 32) {
+        if (showChords) {
+            showChords = false;
+        } else {
+            showChords = true;
+        }
+    }
+});
+
+window.addEventListener("mousedown", (e) => {
+    info = e.which;
+    if (e.which == 1) {
         if (showChords) {
             showChords = false;
         } else {

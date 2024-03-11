@@ -1,5 +1,5 @@
 class Note {
-    constructor(x, y, speed, note, direction, yAim) {
+    constructor(x, y, speed, note, direction, yAim, color) {
         this.x = x;
         this.y = y;
         this.speed = speed;
@@ -11,6 +11,7 @@ class Note {
         } else {
             this.aim = { x: left, y: cTop * this.yAim };
         }
+        this.color = color;
         this.opacity = 1;
         this.lineWidth = 5;
         this.velocity = { x: 0, y: 0 };
@@ -22,13 +23,13 @@ class Note {
         ctx.save();
         ctx.beginPath();
         ctx.arc(this.x, this.y, 10, 0, Math.PI * 2);
-        ctx.strokeStyle = 'white';
+        ctx.strokeStyle = this.color;
         ctx.globalAlpha = this.opacity;
         ctx.lineWidth = this.lineWidth;
         ctx.stroke();
         ctx.beginPath();
         ctx.arc(this.x, this.y, 2, 0, Math.PI * 2);
-        ctx.fillStyle = 'white';
+        ctx.fillStyle = this.color;
         ctx.fill();
         ctx.restore();
     }
@@ -54,7 +55,11 @@ class Note {
 
 
         if (this.x >= left - 1 && this.x <= left + 1 && this.detectionTimer <= 0) {
+            for (let i = 0; i < 4; i++) {
+                particles.push(new Particle(this.x, this.y, this.color));
+            }
             zz.leftLineWidth = 5;
+            zz.leftColor = this.color;
             this.note.play();
             this.lineWidth = 5;
             this.opacity = 1;
@@ -73,7 +78,11 @@ class Note {
         }
 
         if (this.x >= right - 1 && this.x <= right + 1 && this.detectionTimer <= 0) {
+            for (let i = 0; i < 4; i++) {
+                particles.push(new Particle(this.x, this.y, this.color));
+            }
             zz.rightLineWidth = 5;
+            zz.rightColor = this.color;
             this.note.play();
             this.lineWidth = 5;
             this.opacity = 1;
@@ -95,7 +104,11 @@ class Note {
         }
 
         if (this.x >= center.x - 1 && this.x <= center.x + 1 && this.detectionTimer == 0) {
+            for (let i = 0; i < 4; i++) {
+                particles.push(new Particle(this.x, this.y, this.color));
+            }
             zz.middleLineWidth = 5;
+            zz.middleColor = this.color;
             this.note.play();
             this.lineWidth = 5;
             this.opacity = 1;

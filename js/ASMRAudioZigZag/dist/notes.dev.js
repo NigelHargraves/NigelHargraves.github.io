@@ -9,7 +9,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 var Note =
 /*#__PURE__*/
 function () {
-  function Note(x, y, speed, note, direction, yAim) {
+  function Note(x, y, speed, note, direction, yAim, color) {
     _classCallCheck(this, Note);
 
     this.x = x;
@@ -31,6 +31,7 @@ function () {
       };
     }
 
+    this.color = color;
     this.opacity = 1;
     this.lineWidth = 5;
     this.velocity = {
@@ -47,13 +48,13 @@ function () {
       ctx.save();
       ctx.beginPath();
       ctx.arc(this.x, this.y, 10, 0, Math.PI * 2);
-      ctx.strokeStyle = 'white';
+      ctx.strokeStyle = this.color;
       ctx.globalAlpha = this.opacity;
       ctx.lineWidth = this.lineWidth;
       ctx.stroke();
       ctx.beginPath();
       ctx.arc(this.x, this.y, 2, 0, Math.PI * 2);
-      ctx.fillStyle = 'white';
+      ctx.fillStyle = this.color;
       ctx.fill();
       ctx.restore();
     }
@@ -79,7 +80,12 @@ function () {
       }
 
       if (this.x >= left - 1 && this.x <= left + 1 && this.detectionTimer <= 0) {
+        for (var i = 0; i < 4; i++) {
+          particles.push(new Particle(this.x, this.y, this.color));
+        }
+
         zz.leftLineWidth = 5;
+        zz.leftColor = this.color;
         this.note.play();
         this.lineWidth = 5;
         this.opacity = 1;
@@ -104,7 +110,12 @@ function () {
       }
 
       if (this.x >= right - 1 && this.x <= right + 1 && this.detectionTimer <= 0) {
+        for (var _i = 0; _i < 4; _i++) {
+          particles.push(new Particle(this.x, this.y, this.color));
+        }
+
         zz.rightLineWidth = 5;
+        zz.rightColor = this.color;
         this.note.play();
         this.lineWidth = 5;
         this.opacity = 1;
@@ -129,7 +140,12 @@ function () {
       }
 
       if (this.x >= center.x - 1 && this.x <= center.x + 1 && this.detectionTimer == 0) {
+        for (var _i2 = 0; _i2 < 4; _i2++) {
+          particles.push(new Particle(this.x, this.y, this.color));
+        }
+
         zz.middleLineWidth = 5;
+        zz.middleColor = this.color;
         this.note.play();
         this.lineWidth = 5;
         this.opacity = 1;

@@ -14,6 +14,10 @@ var cLeft = left / 4,
     cRight = left - left / 4,
     cTop = canvas.height / 10,
     cbottom = canvas.height - canvas.height / 10;
+var bass1 = cTop + cTop * 2,
+    bass2 = cTop + cTop * 4,
+    bass3 = cTop + cTop * 6;
+var hatInterval = cTop * 2 / 6;
 var start = false,
     playNow = true,
     showChords = false;
@@ -31,17 +35,23 @@ var chordE = [],
     chordFSm7 = [];
 var color = [],
     notes = [],
-    smallPentagons = [],
+    bassCircles = [],
     particles = [];
 var zz = new ZigZag(),
-    chord = new Chord(cLeft, canvas.height / 10);
+    chord = new Chord(cLeft, canvas.height / 10),
+    hat = new Hat(right + (canvas.width - right) / 2, cTop * 2);
 createChords();
 
 for (var i = 0; i < 36; i++) {
+  var hue1 = Math.random() * 260 + 100;
+  var hue2 = Math.random() * 260 + 100;
+  var hue3 = Math.random() * 260 + 100;
+  color.push('rgb(' + hue1 + ',' + hue2 + ',' + hue3 + ')');
+
   if (i < 18) {
-    notes.push(new Note(left, cTop, speed, chordE[i], true, 2));
+    notes.push(new Note(left, cTop, speed, chordE[i], true, 2, color[i]));
   } else {
-    notes.push(new Note(right, cbottom, speed, chordE[i], false, 8));
+    notes.push(new Note(right, cbottom, speed, chordE[i], false, 8, color[i]));
   }
 
   speed += speed * 0.02;
@@ -69,6 +79,11 @@ function animate() {
 
   if (start) {
     if (playNow) {
+      for (var _i = 0; _i < 36; _i++) {
+        chordE[_i].play();
+      }
+
+      EBass.play();
       playNow = false;
     }
 
@@ -88,7 +103,10 @@ function animate() {
 
     zz.update();
     chord.update();
+    hat.update();
     forNotes();
+    forBassCircles();
+    forParticles();
   } //call next frame.
 
 
@@ -98,6 +116,17 @@ function animate() {
 animate();
 window.addEventListener("keydown", function (e) {
   if (e.keyCode == 32) {
+    if (showChords) {
+      showChords = false;
+    } else {
+      showChords = true;
+    }
+  }
+});
+window.addEventListener("mousedown", function (e) {
+  info = e.which;
+
+  if (e.which == 1) {
     if (showChords) {
       showChords = false;
     } else {

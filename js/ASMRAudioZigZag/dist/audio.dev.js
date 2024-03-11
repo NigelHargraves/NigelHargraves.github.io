@@ -153,10 +153,26 @@ var GBass = document.getElementById("audio149");
 var ABass = document.getElementById("audio150");
 var BBass = document.getElementById("audio151");
 var FSBass = document.getElementById("audio152");
+var AbBass = document.getElementById("audio153");
+var CSBass = document.getElementById("audio154");
+var EbBass = document.getElementById("audio155");
+var CSBassTop = document.getElementById("audio156");
+var EBassTop = document.getElementById("audio157");
+var CBassTop = document.getElementById("audio158");
+var DBassTop = document.getElementById("audio159");
+var GBassTop = document.getElementById("audio160");
+var FSBassTop = document.getElementById("audio161");
+var EbBassTop = document.getElementById("audio162");
+var ABassTop = document.getElementById("audio163");
+var highHatClosed = document.getElementById("audio164");
+var highHatOpen = document.getElementById("audio165");
 
 function setVolume() {
   var noteVolume = 0.2,
-      bassVolume = 0.3;
+      bassVolume = 0.3,
+      hatVolume = 0.1;
+  highHatOpen.volume = hatVolume;
+  highHatClosed.volume = hatVolume;
   CO1.volume = noteVolume;
   DO1.volume = noteVolume;
   EO1.volume = noteVolume;
@@ -309,4 +325,15 @@ function setVolume() {
   GBass.volume = bassVolume;
   ABass.volume = bassVolume;
   BBass.volume = bassVolume;
+  AbBass.volume = bassVolume;
+  CSBass.volume = bassVolume;
+  EbBass.volume = bassVolume;
+  CSBassTop.volume = bassVolume;
+  EBassTop.volume = bassVolume;
+  CBassTop.volume = bassVolume;
+  DBassTop.volume = bassVolume;
+  GBassTop.volume = bassVolume;
+  FSBassTop.volume = bassVolume;
+  EbBassTop.volume = bassVolume;
+  ABassTop.volume = bassVolume;
 }
