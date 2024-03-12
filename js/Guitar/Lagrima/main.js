@@ -17,27 +17,41 @@ let bridge = canvas.width / 30;
 
 let guitar = new Guitar();
 
-
+let notePlaying = 0;
 
 let strings = [],
     frets = [],
-    fretNumber = [];
+    fretNumber = [],
+    notes = [];
 //(fretBoard.x / 2) / 20
 let fret = 0;
 let fretSpace = (canvas.width / 2) / 30;
+let noteSpace = (canvas.width / 2) / 60;
 
 for (let i = fretSpace; i < fretSpace * 36; i += fretSpace) {
     frets.push(i);
     fret += (fretBoard.x / 2) / 80;
     i += fret;
 }
+fret = 0;
+let number = 20;
+for (let i = noteSpace; i < noteSpace * 40; i += noteSpace) {
 
-let nut = (fretBoard.x + (canvas.width / 2) + fretBoard.x / 2);
+    if (fret == 0) {
+        noteSpace = (canvas.width / 2) / 30;
+    }
+    fretNumber.push({ pos: i, fn: number });
+    number -= 1;
+    fret += (fretBoard.x / 2) / 86;
+    i += fret;
 
-fretNumber.push(0, nut - (canvas.width / 46), nut - (canvas.width / 15.5), nut - (canvas.width / 9.25))
+}
 
 
 
+notes.push(CO1, DO1, EO1, FO1, GO1, AO1, BO1, CO2, DO2, EO2, FO2, GO2, AO2, BO2, CO3);
+
+let nextNote = 0;
 
 
 
@@ -77,6 +91,7 @@ function animate() {
         delay += 1;
         if (delay >= 50) {
             start = true;
+            delay = 200;
         }
     }
 
@@ -86,8 +101,16 @@ function animate() {
 
         forStrings();
 
+        if (delay <= 0) {
 
+            notePlaying = notes[nextNote];
+            notePlaying.play();
 
+            nextNote += 1
+            if (nextNote == 15) nextNote = 0;
+            delay = 100;
+        }
+        delay -= 1;
 
 
     }
