@@ -43,12 +43,18 @@ let crash = document.getElementById("audio40");
 
 
 function setVolume() {
-    let volume = 0.1,
+    let drumBassvolume = 0.15,
+        hatVolume = 0.1,
         crashVolume = 0.5,
         chordVolume = 0.4,
-        noteVolume = 0.6;
-    drumBass.volume = volume;
-    hat.volume = volume;
+        noteVolume = 0.6,
+        bassVolume = 0.4;
+    drumBass.volume = drumBassvolume;
+    CBass.volume = bassVolume;
+    GBass.volume = bassVolume;
+    ABass.volume = bassVolume;
+    FBass.volume = bassVolume;
+    hat.volume = hatVolume;
     crash.volume = crashVolume;
     CChord.volume = chordVolume;
     GChord.volume = chordVolume;

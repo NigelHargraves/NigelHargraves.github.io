@@ -92,7 +92,7 @@ function () {
       }
 
       if (this.y >= y - 1 && this.y <= y + 1) {
-        for (var i = 0; i < 20; i++) {
+        for (var i = 0; i < 10; i++) {
           particles.push(new Particle(this.x, this.y, {
             x: (Math.random() - 0.5) * 2,
             y: (Math.random() - 0.5) * 2
@@ -108,7 +108,7 @@ function () {
         this.opacity = 1;
         this.lineWidth = 5;
 
-        for (var _i = 0; _i < 20; _i++) {
+        for (var _i = 0; _i < 10; _i++) {
           particles.push(new Particle(this.x, this.y, {
             x: (Math.random() - 0.5) * 2,
             y: (Math.random() - 0.5) * 2

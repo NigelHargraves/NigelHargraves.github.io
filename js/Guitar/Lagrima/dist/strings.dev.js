@@ -43,86 +43,93 @@ function forStrings() {
 }
 
 function noteToDisplay(gap) {
-  if (notePlaying == 0) return;
+  var minusNote = 0;
+
+  if (nextNote == 0) {
+    minusNote = 0;
+  } else {
+    minusNote = 1;
+  }
+
   var num;
   var string;
 
-  if (notePlaying == CO1) {
+  if (noteToPlay[nextNote - minusNote] == CO1) {
     num = 17;
     string = strings[1].y;
   }
 
-  if (notePlaying == DO1) {
+  if (noteToPlay[nextNote - minusNote] == DO1) {
     num = 20;
     string = strings[2].y;
   }
 
-  if (notePlaying == EO1) {
+  if (noteToPlay[nextNote - minusNote] == EO1) {
     num = 18;
     string = strings[2].y;
   }
 
-  if (notePlaying == FO1) {
+  if (noteToPlay[nextNote - minusNote] == FO1) {
     num = 17;
     string = strings[2].y;
   }
 
-  if (notePlaying == GO1) {
+  if (noteToPlay[nextNote - minusNote] == GO1) {
     num = 20;
     string = strings[3].y;
   }
 
-  if (notePlaying == AO1) {
+  if (noteToPlay[nextNote - minusNote] == AO1) {
     num = 18;
     string = strings[3].y;
   }
 
-  if (notePlaying == BO1) {
+  if (noteToPlay[nextNote - minusNote] == BO1) {
     num = 20;
     string = strings[4].y;
   }
 
-  if (notePlaying == CO2) {
+  if (noteToPlay[nextNote - minusNote] == CO2) {
     num = 19;
     string = strings[4].y;
   }
 
-  if (notePlaying == DO2) {
+  if (noteToPlay[nextNote - minusNote] == DO2) {
     num = 17;
     string = strings[4].y;
   }
 
-  if (notePlaying == EO2) {
+  if (noteToPlay[nextNote - minusNote] == EO2) {
     num = 20;
     string = strings[5].y;
   }
 
-  if (notePlaying == FO2) {
+  if (noteToPlay[nextNote - minusNote] == FO2) {
     num = 19;
     string = strings[5].y;
   }
 
-  if (notePlaying == GO2) {
+  if (noteToPlay[nextNote - minusNote] == GO2) {
     num = 17;
     string = strings[5].y;
   }
 
-  if (notePlaying == AO2) {
+  if (noteToPlay[nextNote - minusNote] == AO2) {
     num = 15;
     string = strings[5].y;
   }
 
-  if (notePlaying == BO2) {
+  if (noteToPlay[nextNote - minusNote] == BO2) {
     num = 13;
     string = strings[5].y;
   }
 
-  if (notePlaying == CO3) {
+  if (noteToPlay[nextNote - minusNote] == CO3) {
     num = 12;
     string = strings[5].y;
   }
 
-  if (!notePlaying.ended) {
+  if (!noteToPlay[nextNote].ended) {
     ctx.beginPath();
     ctx.arc(fretBoard.x + fretNumber[num].pos, fretBoard.y + gap + string, 5, 0, Math.PI * 2);
     ctx.fillStyle = 'white';

@@ -60,7 +60,7 @@ class Snare {
         }
 
         if (this.y >= y - 1 && this.y <= y + 1) {
-            for (let i = 0; i < 20; i++) {
+            for (let i = 0; i < 10; i++) {
                 particles.push(new Particle(this.x, this.y, { x: (Math.random() - 0.5) * 2, y: (Math.random() - 0.5) * 2 }, 50, this.color, 0.2));
             }
             snare.play();
@@ -71,7 +71,7 @@ class Snare {
         if (this.extraBeat && this.y <= (y - rectangle.space * 2) + 1 && this.y >= (y - rectangle.space * 2) - 1) {
             this.opacity = 1;
             this.lineWidth = 5;
-            for (let i = 0; i < 20; i++) {
+            for (let i = 0; i < 10; i++) {
                 particles.push(new Particle(this.x, this.y, { x: (Math.random() - 0.5) * 2, y: (Math.random() - 0.5) * 2 }, 50, this.color, 0.2));
             }
             snare.currentTime = 0;

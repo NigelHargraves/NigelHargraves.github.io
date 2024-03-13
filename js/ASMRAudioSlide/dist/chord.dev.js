@@ -81,7 +81,7 @@ function () {
       }
 
       if (this.x == rectangle.x) {
-        for (var i = 0; i < 40; i++) {
+        for (var i = 0; i < 10; i++) {
           particles.push(new Particle(this.x, this.y, {
             x: (Math.random() - 0.5) / Math.random(),
             y: (Math.random() - 0.5) / Math.random()
@@ -97,7 +97,7 @@ function () {
       }
 
       if (this.x == rectangle.x + canvas.width / 2) {
-        for (var _i = 0; _i < 40; _i++) {
+        for (var _i = 0; _i < 10; _i++) {
           particles.push(new Particle(this.x, this.y, {
             x: (Math.random() - 0.5) / Math.random(),
             y: (Math.random() - 0.5) / Math.random()

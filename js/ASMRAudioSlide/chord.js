@@ -52,7 +52,7 @@ class Chord {
             this.x -= this.velocity;
         }
         if (this.x == rectangle.x) {
-            for (let i = 0; i < 40; i++) {
+            for (let i = 0; i < 10; i++) {
                 particles.push(new Particle(this.x, this.y, { x: (Math.random() - 0.5) / Math.random(), y: (Math.random() - 0.5) / Math.random() }, 50, this.color, 0.2));
             }
             this.particleTime = 100;
@@ -63,7 +63,7 @@ class Chord {
             this.left = false;
         }
         if (this.x == rectangle.x + canvas.width / 2) {
-            for (let i = 0; i < 40; i++) {
+            for (let i = 0; i < 10; i++) {
                 particles.push(new Particle(this.x, this.y, { x: (Math.random() - 0.5) / Math.random(), y: (Math.random() - 0.5) / Math.random() }, 50, this.color, 0.2));
             }
             this.particleTime = 100;

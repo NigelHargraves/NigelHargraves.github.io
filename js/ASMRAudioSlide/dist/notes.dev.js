@@ -85,7 +85,7 @@ function () {
       if (this.y >= rectangle.y + canvas.height / 2) {
         this.velocity = this.setVelocity;
 
-        for (var i = 0; i < 20; i++) {
+        for (var i = 0; i < 10; i++) {
           particles.push(new Particle(this.x - rectangle.space / 2 + Math.random() * rectangle.space, this.y, {
             x: 0,
             y: Math.random() * -2
@@ -104,7 +104,7 @@ function () {
       if (this.y <= rectangle.y) {
         this.velocity = this.setVelocity;
 
-        for (var _i = 0; _i < 20; _i++) {
+        for (var _i = 0; _i < 10; _i++) {
           particles.push(new Particle(this.x - rectangle.space / 2 + Math.random() * rectangle.space, this.y, {
             x: 0,
             y: Math.random() * 2

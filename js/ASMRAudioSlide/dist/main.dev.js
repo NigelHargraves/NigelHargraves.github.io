@@ -71,7 +71,8 @@ function animate() {
     if (showChords) {
       ctx.font = "bold 20px Arial";
       ctx.fillStyle = "white";
-      ctx.fillText(chordToPlay, 0, canvas.height * 0.02);
+      var thisChord = chordToPlay.substring(0, chordToPlay.length - 1);
+      ctx.fillText(thisChord, 0, canvas.height * 0.02);
     }
 
     if (playNow) {
@@ -120,6 +121,17 @@ function animate() {
 animate();
 window.addEventListener("keydown", function (e) {
   if (e.keyCode == 32) {
+    if (showChords) {
+      showChords = false;
+    } else {
+      showChords = true;
+    }
+  }
+});
+window.addEventListener("mousedown", function (e) {
+  info = e.which;
+
+  if (e.which == 1) {
     if (showChords) {
       showChords = false;
     } else {

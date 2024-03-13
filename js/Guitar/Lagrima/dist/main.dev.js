@@ -13,11 +13,11 @@ var center = {
   y: canvas.height / 2
 };
 var start = false,
-    Gplay = true;
-var delay = 0;
+    checkNote = false;
+var delay = 200;
 var bridge = canvas.width / 30;
 var guitar = new Guitar();
-var notePlaying = 0;
+var noteToPlay = [DO1, FO1, AO1, CO2];
 var strings = [],
     frets = [],
     fretNumber = [],
@@ -51,7 +51,8 @@ for (var _i = noteSpace; _i < noteSpace * 40; _i += noteSpace) {
 }
 
 notes.push(CO1, DO1, EO1, FO1, GO1, AO1, BO1, CO2, DO2, EO2, FO2, GO2, AO2, BO2, CO3);
-var nextNote = 0;
+var nextNote = 0,
+    addNote = 50;
 var stringGap = (canvas.height / 4 - canvas.height / 40) / 5;
 strings.push(new String(0, 'EBottom'));
 strings.push(new String(stringGap, 'A'));
@@ -66,11 +67,10 @@ function animate() {
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
   if (!start) {
-    delay += 1;
+    delay -= 1;
 
-    if (delay >= 50) {
+    if (delay <= 0) {
       start = true;
-      delay = 200;
     }
   }
 
@@ -79,10 +79,13 @@ function animate() {
     forStrings();
 
     if (delay <= 0) {
-      notePlaying = notes[nextNote];
-      notePlaying.play();
-      nextNote += 1;
-      if (nextNote == 15) nextNote = 0;
+      noteToPlay[nextNote].play();
+      nextNote++;
+
+      if (nextNote == 4) {
+        nextNote = 0;
+      }
+
       delay = 100;
     }
 

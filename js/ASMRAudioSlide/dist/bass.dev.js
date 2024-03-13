@@ -23,6 +23,7 @@ function () {
     this.beatCount = 0;
     this.extraBeat = false;
     this.color = colors[12];
+    this.changeBassTimer = 50;
   }
 
   _createClass(Bass, [{
@@ -98,7 +99,7 @@ function () {
         this.extraBeat = false;
         this.beatCount++;
 
-        for (var i = 0; i < 20; i++) {
+        for (var i = 0; i < 10; i++) {
           particles.push(new Particle(this.x, this.y, {
             x: (Math.random() - 0.5) * 2,
             y: (Math.random() - 0.5) * 2
@@ -109,7 +110,12 @@ function () {
         this.r = canvas.width / 2 / 12 / 4;
         this.opacity = 1;
         this.lineWidth = 5;
-        changeBass();
+
+        if (this.changeBassTimer <= 0) {
+          changeBass();
+          this.changeBassTimer = 50;
+        }
+
         this.left = false;
       }
 
@@ -117,7 +123,7 @@ function () {
         this.opacity = 1;
         this.lineWidth = 5;
 
-        for (var _i = 0; _i < 20; _i++) {
+        for (var _i = 0; _i < 10; _i++) {
           particles.push(new Particle(this.x, this.y, {
             x: (Math.random() - 0.5) * 2,
             y: (Math.random() - 0.5) * 2
@@ -130,7 +136,7 @@ function () {
       if (this.x == rectangle.x + canvas.width / 2) {
         this.beatCount++;
 
-        for (var _i2 = 0; _i2 < 20; _i2++) {
+        for (var _i2 = 0; _i2 < 10; _i2++) {
           particles.push(new Particle(this.x, this.y, {
             x: (Math.random() - 0.5) * 2,
             y: (Math.random() - 0.5) * 2
@@ -141,8 +147,17 @@ function () {
         this.r = canvas.width / 2 / 12 / 4;
         this.opacity = 1;
         this.lineWidth = 5;
-        changeBass();
+
+        if (this.changeBassTimer <= 0) {
+          changeBass();
+          this.changeBassTimer = 50;
+        }
+
         this.left = true;
+      }
+
+      if (this.changeBassTimer > 0) {
+        this.changeBassTimer -= 1;
       }
 
       this.draw();
@@ -157,42 +172,34 @@ function changeBass() {
   drumBass.play();
 
   if (chordToPlay == 'C1') {
-    CBass.currentTime = 0.1;
     CBass.play();
   }
 
   if (chordToPlay == 'G1') {
-    GBass.currentTime = 0.1;
     GBass.play();
   }
 
   if (chordToPlay == 'Am1') {
-    ABass.currentTime = 0.1;
     ABass.play();
   }
 
   if (chordToPlay == 'F1') {
-    FBass.currentTime = 0.1;
     FBass.play();
   }
 
   if (chordToPlay == 'C2') {
-    GBass.currentTime = 0.1;
     GBass.play();
   }
 
   if (chordToPlay == 'Am2') {
-    CBass.currentTime = 0.1;
     CBass.play();
   }
 
   if (chordToPlay == 'F2') {
-    ABass.currentTime = 0.1;
     ABass.play();
   }
 
   if (chordToPlay == 'G2') {
-    GBass.currentTime = 0.1;
     GBass.play();
   }
 }

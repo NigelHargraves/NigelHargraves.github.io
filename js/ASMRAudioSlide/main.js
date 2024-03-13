@@ -87,7 +87,8 @@ function animate() {
         if (showChords) {
             ctx.font = "bold 20px Arial";
             ctx.fillStyle = "white";
-            ctx.fillText(chordToPlay, 0, canvas.height * 0.02);
+            let thisChord = chordToPlay.substring(0, chordToPlay.length - 1);
+            ctx.fillText(thisChord, 0, canvas.height * 0.02);
         }
 
         if (playNow) {
@@ -146,6 +147,17 @@ animate();
 
 window.addEventListener("keydown", (e) => {
     if (e.keyCode == 32) {
+        if (showChords) {
+            showChords = false;
+        } else {
+            showChords = true;
+        }
+    }
+});
+
+window.addEventListener("mousedown", (e) => {
+    info = e.which;
+    if (e.which == 1) {
         if (showChords) {
             showChords = false;
         } else {

@@ -109,3 +109,14 @@ window.addEventListener("keydown", function (e) {
     }
   }
 });
+window.addEventListener("mousedown", function (e) {
+  info = e.which;
+
+  if (e.which == 1) {
+    if (showChords) {
+      showChords = false;
+    } else {
+      showChords = true;
+    }
+  }
+});

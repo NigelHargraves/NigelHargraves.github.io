@@ -36,7 +36,7 @@ function () {
     value: function update() {
       this.x += this.velocity.x;
       this.y += this.velocity.y;
-      this.opacity -= Math.random() / this.endTime;
+      this.opacity -= 0.02;
       this.draw();
     }
   }]);
