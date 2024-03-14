@@ -17,15 +17,14 @@ var start = false,
 var delay = 200;
 var bridge = canvas.width / 30;
 var guitar = new Guitar();
-var noteToPlay = [DO1, FO1, AO1, CO2];
+var noteToPlay = [E2_1, FS2_1, Ab2_1, Eb1_2];
 var strings = [],
     frets = [],
     fretNumber = [],
-    notes = []; //(fretBoard.x / 2) / 20
-
+    notes = [];
 var fret = 0;
 var fretSpace = canvas.width / 2 / 30;
-var noteSpace = canvas.width / 2 / 60;
+var noteSpace = canvas.width / 2 / 60; //Calculate fret space and Note space.
 
 for (var i = fretSpace; i < fretSpace * 36; i += fretSpace) {
   frets.push(i);
@@ -50,9 +49,9 @@ for (var _i = noteSpace; _i < noteSpace * 40; _i += noteSpace) {
   _i += fret;
 }
 
-notes.push(CO1, DO1, EO1, FO1, GO1, AO1, BO1, CO2, DO2, EO2, FO2, GO2, AO2, BO2, CO3);
 var nextNote = 0,
-    addNote = 50;
+    addNote = 50,
+    barSplit = 1;
 var stringGap = (canvas.height / 4 - canvas.height / 40) / 5;
 strings.push(new String(0, 'EBottom'));
 strings.push(new String(stringGap, 'A'));
@@ -79,14 +78,54 @@ function animate() {
     forStrings();
 
     if (delay <= 0) {
-      noteToPlay[nextNote].play();
+      notes = [];
+
+      if (barSplit == 1) {
+        notes.push(E2_1, Ab3_1);
+      }
+
+      if (barSplit == 2) {
+        notes.push(B2_0_5);
+      }
+
+      if (barSplit == 3) {
+        notes.push(FS2_1, A3_1);
+      }
+
+      if (barSplit == 4) {
+        notes.push(B2_0_5);
+      }
+
+      if (barSplit == 5) {
+        notes.push(Ab2_1, B3_1);
+      }
+
+      if (barSplit == 6) {
+        notes.push(B2_0_5);
+      }
+
+      if (barSplit == 7) {
+        notes.push(Eb1_2, FS3_2);
+      }
+
+      for (var _i2 = 0; _i2 < notes.length; _i2++) {
+        notes[_i2].play();
+      }
+
       nextNote++;
 
-      if (nextNote == 4) {
+      if (nextNote == 2) {
         nextNote = 0;
       }
 
-      delay = 100;
+      barSplit++;
+
+      if (barSplit == 8) {
+        barSplit = 1;
+        delay = 100;
+      } else {
+        delay = 25;
+      }
     }
 
     delay -= 1;
