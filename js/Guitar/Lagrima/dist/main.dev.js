@@ -14,14 +14,27 @@ var center = {
 };
 var start = false,
     checkNote = false;
-var delay = 200;
+var B1 = false,
+    Eb1 = false,
+    E2 = false,
+    FS2 = false,
+    Ab2 = false,
+    A2 = false,
+    B2 = false,
+    FS3 = false,
+    Ab3 = false,
+    A3 = false,
+    B3 = false;
+var delay = 100,
+    delayReset = 28;
 var bridge = canvas.width / 30;
 var guitar = new Guitar();
 var noteToPlay = [E2_1, FS2_1, Ab2_1, Eb1_2];
 var strings = [],
     frets = [],
     fretNumber = [],
-    notes = [];
+    notes = [],
+    noteCircles = [];
 var fret = 0;
 var fretSpace = canvas.width / 2 / 30;
 var noteSpace = canvas.width / 2 / 60; //Calculate fret space and Note space.
@@ -76,36 +89,74 @@ function animate() {
   if (start) {
     guitar.update();
     forStrings();
+    forNoteCircles();
 
     if (delay <= 0) {
       notes = [];
 
       if (barSplit == 1) {
         notes.push(E2_1, Ab3_1);
+        E2 = true;
+        Ab3 = true;
       }
 
       if (barSplit == 2) {
-        notes.push(B2_0_5);
+        notes.push(B2_1);
+        B2 = true;
       }
 
       if (barSplit == 3) {
         notes.push(FS2_1, A3_1);
+        FS2 = true;
+        A3 = true;
       }
 
       if (barSplit == 4) {
-        notes.push(B2_0_5);
+        notes.push(B2_1);
+        B2 = true;
       }
 
       if (barSplit == 5) {
         notes.push(Ab2_1, B3_1);
+        Ab2 = true;
+        B3 = true;
       }
 
       if (barSplit == 6) {
-        notes.push(B2_0_5);
+        notes.push(B2_1);
+        B2 = true;
       }
 
       if (barSplit == 7) {
         notes.push(Eb1_2, FS3_2);
+        Eb1 = true;
+        FS3 = true;
+      }
+
+      if (barSplit == 8) {
+        notes.push(B2_0_H);
+        B2 = true;
+      }
+
+      if (barSplit == 9) {
+        notes.push(A2_0_H);
+        A2 = true;
+      }
+
+      if (barSplit == 10) {
+        notes.push(B2_0_H);
+        B2 = true;
+      }
+
+      if (barSplit == 11) {
+        notes.push(B1_1, A2_0_H);
+        B1 = true;
+        A2 = true;
+      }
+
+      if (barSplit == 12) {
+        notes.push(B2_0_H);
+        B2 = true;
       }
 
       for (var _i2 = 0; _i2 < notes.length; _i2++) {
@@ -120,11 +171,11 @@ function animate() {
 
       barSplit++;
 
-      if (barSplit == 8) {
+      if (barSplit == 13) {
         barSplit = 1;
-        delay = 100;
+        delay = delayReset;
       } else {
-        delay = 25;
+        delay = delayReset;
       }
     }
 

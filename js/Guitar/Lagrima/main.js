@@ -11,7 +11,21 @@ let center = { x: canvas.width / 2, y: canvas.height / 2 };
 let start = false,
     checkNote = false;
 
-let delay = 200;
+
+let B1 = false,
+    Eb1 = false,
+    E2 = false,
+    FS2 = false,
+    Ab2 = false,
+    A2 = false,
+    B2 = false,
+    FS3 = false,
+    Ab3 = false,
+    A3 = false,
+    B3 = false;
+
+let delay = 100,
+    delayReset = 28;
 
 let bridge = canvas.width / 30;
 
@@ -24,7 +38,8 @@ let noteToPlay = [E2_1, FS2_1, Ab2_1, Eb1_2];
 let strings = [],
     frets = [],
     fretNumber = [],
-    notes = [];
+    notes = [],
+    noteCircles = [];
 
 let fret = 0;
 let fretSpace = (canvas.width / 2) / 30;
@@ -102,8 +117,9 @@ function animate() {
     if (start) {
 
         guitar.update();
-
         forStrings();
+        forNoteCircles();
+
 
         if (delay <= 0) {
 
@@ -111,25 +127,67 @@ function animate() {
 
             if (barSplit == 1) {
                 notes.push(E2_1, Ab3_1);
+                E2 = true;
+                Ab3 = true;
             }
             if (barSplit == 2) {
-                notes.push(B2_0_5);
+                notes.push(B2_1);
+                B2 = true;
             }
             if (barSplit == 3) {
                 notes.push(FS2_1, A3_1);
+                FS2 = true;
+                A3 = true;
             }
             if (barSplit == 4) {
-                notes.push(B2_0_5);
+                notes.push(B2_1);
+                B2 = true;
             }
             if (barSplit == 5) {
                 notes.push(Ab2_1, B3_1);
+                Ab2 = true;
+                B3 = true;
             }
             if (barSplit == 6) {
-                notes.push(B2_0_5);
+                notes.push(B2_1);
+                B2 = true;
             }
             if (barSplit == 7) {
                 notes.push(Eb1_2, FS3_2);
+                Eb1 = true;
+                FS3 = true;
             }
+
+
+
+            if (barSplit == 8) {
+                notes.push(B2_0_H);
+                B2 = true;
+            }
+            if (barSplit == 9) {
+                notes.push(A2_0_H);
+                A2 = true;
+            }
+            if (barSplit == 10) {
+                notes.push(B2_0_H);
+                B2 = true;
+            }
+            if (barSplit == 11) {
+                notes.push(B1_1, A2_0_H);
+                B1 = true;
+                A2 = true;
+            }
+            if (barSplit == 12) {
+                notes.push(B2_0_H);
+                B2 = true;
+            }
+
+
+
+
+
+
+
 
 
             for (let i = 0; i < notes.length; i++) {
@@ -146,13 +204,17 @@ function animate() {
             }
 
             barSplit++;
-            if (barSplit == 8) {
+            if (barSplit == 13) {
                 barSplit = 1;
-                delay = 100;
+                delay = delayReset;
             } else {
-                delay = 25;
+                delay = delayReset;
             }
+
+
         }
+
+
         delay -= 1;
 
 
