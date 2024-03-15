@@ -43,11 +43,14 @@ let chordE = [],
 let color = [],
     notes = [],
     bassCircles = [],
-    particles = [];
+    particles = [],
+    kicks = [];
 
 let zz = new ZigZag(),
     chord = new Chord(cLeft, canvas.height / 10),
     hat = new Hat(right + (canvas.width - right) / 2, cTop * 2);
+
+
 
 
 createChords();
@@ -128,9 +131,13 @@ function animate() {
 
         hat.update();
 
+        forKicks();
+
         forNotes();
 
         forBassCircles()
+
+
 
         forParticles()
 

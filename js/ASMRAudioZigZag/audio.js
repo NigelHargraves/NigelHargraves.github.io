@@ -172,14 +172,17 @@ let EbBassTop = document.getElementById("audio162");
 let ABassTop = document.getElementById("audio163");
 let highHatClosed = document.getElementById("audio164");
 let highHatOpen = document.getElementById("audio165");
+let kick = document.getElementById("audio166");
 
 function setVolume() {
     let noteVolume = 0.2,
         bassVolume = 0.3,
-        hatVolume = 0.1;
+        hatVolume = 0.1,
+        kickVolume = 0.2;
 
     highHatOpen.volume = hatVolume;
     highHatClosed.volume = hatVolume;
+    kick.volume = kickVolume;
 
 
     CO1.volume = noteVolume;

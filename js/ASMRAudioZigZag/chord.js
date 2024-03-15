@@ -60,7 +60,7 @@ class Chord {
                 this.hatDown = true;
             }
 
-            for (let i = 0; i < 20; i++) {
+            for (let i = 0; i < 10; i++) {
                 particles.push(new Particle(this.x, this.y, 'Turquoise'));
             }
             zz.cBoxLineWidth = 10;
@@ -80,7 +80,7 @@ class Chord {
                 this.hatDown = true;
             }
 
-            for (let i = 0; i < 20; i++) {
+            for (let i = 0; i < 10; i++) {
                 particles.push(new Particle(this.x, this.y, 'Turquoise'));
             }
             zz.cBoxLineWidth = 10;
@@ -99,7 +99,7 @@ class Chord {
             } else {
                 this.hatDown = true;
             }
-            for (let i = 0; i < 20; i++) {
+            for (let i = 0; i < 10; i++) {
                 particles.push(new Particle(this.x, this.y, 'Turquoise'));
             }
             zz.cBoxLineWidth = 10;
@@ -119,7 +119,7 @@ class Chord {
                 this.hatDown = true;
             }
 
-            for (let i = 0; i < 20; i++) {
+            for (let i = 0; i < 10; i++) {
                 particles.push(new Particle(this.x, this.y, 'Turquoise'));
             }
             zz.cBoxLineWidth = 10;
@@ -194,84 +194,79 @@ class Chord {
                 highHatClosed.play();
                 this.hatDetectionTimer = this.hatInterval;
                 hat.lineWidth = 4;
-                for (let i = 0; i < 4; i++) {
-                    particles.push(new Particle(hat.x, hat.y, 'skyblue'));
-                }
+                particles.push(new Particle(hat.x, hat.y, 'skyblue'));
             }
             if (this.y - this.yHat >= (hatInterval * 2) - 1 && this.y - this.yHat <= (hatInterval * 2) + 1 && this.hatDetectionTimer == 0) {
                 highHatClosed.play();
                 this.hatDetectionTimer = this.hatInterval;
                 hat.lineWidth = 4;
-                for (let i = 0; i < 4; i++) {
-                    particles.push(new Particle(hat.x, hat.y, 'skyblue'));
-                }
+                particles.push(new Particle(hat.x, hat.y, 'skyblue'));
             }
             if (this.y - this.yHat >= (hatInterval * 3) - 1 && this.y - this.yHat <= (hatInterval * 3) + 1 && this.hatDetectionTimer == 0) {
                 highHatClosed.play();
+                kick.play();
+                zz.kickLineWidth = 5;
+                kicks.push(new Kick(right + (canvas.width - right) / 2, center.y));
                 this.hatDetectionTimer = this.hatInterval;
                 hat.lineWidth = 4;
-                for (let i = 0; i < 4; i++) {
-                    particles.push(new Particle(hat.x, hat.y, 'skyblue'));
-                }
+                particles.push(new Particle(hat.x, hat.y, 'skyblue'));
             }
             if (this.y - this.yHat >= (hatInterval * 4) - 1 && this.y - this.yHat <= (hatInterval * 4) + 1 && this.hatDetectionTimer == 0) {
                 highHatClosed.play();
+                kick.currentTime = 0;
+                kick.play();
+                kicks.push(new Kick(right + (canvas.width - right) / 2, center.y));
+                zz.kickLineWidth = 5;
                 this.hatDetectionTimer = this.hatInterval;
                 hat.lineWidth = 4;
-                for (let i = 0; i < 4; i++) {
-                    particles.push(new Particle(hat.x, hat.y, 'skyblue'));
-                }
+                particles.push(new Particle(hat.x, hat.y, 'skyblue'));
             }
             if (this.y - this.yHat >= (hatInterval * 5) - 1 && this.y - this.yHat <= (hatInterval * 5) + 1 && this.hatDetectionTimer == 0) {
                 highHatOpen.play();
+
                 hat.pole.y -= cTop / 10;
                 this.hatDetectionTimer = this.hatInterval;
                 hat.lineWidth = 4;
-                for (let i = 0; i < 4; i++) {
-                    particles.push(new Particle(hat.x, hat.y, 'skyblue'));
-                }
+                particles.push(new Particle(hat.x, hat.y, 'skyblue'));
             }
         } else {
             if (this.yHat - this.y >= hatInterval - 1 && this.yHat - this.y <= hatInterval + 1 && this.hatDetectionTimer == 0) {
                 highHatClosed.play();
                 this.hatDetectionTimer = this.hatInterval;
                 hat.lineWidth = 4;
-                for (let i = 0; i < 4; i++) {
-                    particles.push(new Particle(hat.x, hat.y, 'skyblue'));
-                }
+                particles.push(new Particle(hat.x, hat.y, 'skyblue'));
             }
             if (this.yHat - this.y >= (hatInterval * 2) - 1 && this.yHat - this.y <= (hatInterval * 2) + 1 && this.hatDetectionTimer == 0) {
                 highHatClosed.play();
                 this.hatDetectionTimer = this.hatInterval;
                 hat.lineWidth = 4;
-                for (let i = 0; i < 4; i++) {
-                    particles.push(new Particle(hat.x, hat.y, 'skyblue'));
-                }
+                particles.push(new Particle(hat.x, hat.y, 'skyblue'));
             }
             if (this.yHat - this.y >= (hatInterval * 3) - 1 && this.yHat - this.y <= (hatInterval * 3) + 1 && this.hatDetectionTimer == 0) {
                 highHatClosed.play();
+                kick.play();
+                kicks.push(new Kick(right + (canvas.width - right) / 2, center.y));
+                zz.kickLineWidth = 5;
                 this.hatDetectionTimer = this.hatInterval;
                 hat.lineWidth = 4;
-                for (let i = 0; i < 4; i++) {
-                    particles.push(new Particle(hat.x, hat.y, 'skyblue'));
-                }
+                particles.push(new Particle(hat.x, hat.y, 'skyblue'));
             }
             if (this.yHat - this.y >= (hatInterval * 4) - 1 && this.yHat - this.y <= (hatInterval * 4) + 1 && this.hatDetectionTimer == 0) {
                 highHatClosed.play();
+                kick.currentTime = 0;
+                kick.play()
+                kicks.push(new Kick(right + (canvas.width - right) / 2, center.y));
+                zz.kickLineWidth = 5;
                 this.hatDetectionTimer = this.hatInterval;
                 hat.lineWidth = 4;
-                for (let i = 0; i < 4; i++) {
-                    particles.push(new Particle(hat.x, hat.y, 'skyblue'));
-                }
+                particles.push(new Particle(hat.x, hat.y, 'skyblue'));
             }
             if (this.yHat - this.y >= (hatInterval * 5) - 1 && this.yHat - this.y <= (hatInterval * 5) + 1 && this.hatDetectionTimer == 0) {
-                highHatOpen.play();
+                highHatOpen.play();;
                 hat.pole.y -= cTop / 10;
                 this.hatDetectionTimer = this.hatInterval;
                 hat.lineWidth = 4;
-                for (let i = 0; i < 4; i++) {
-                    particles.push(new Particle(hat.x, hat.y, 'skyblue'));
-                }
+                particles.push(new Particle(hat.x, hat.y, 'skyblue'));
             }
         }
 
@@ -295,6 +290,10 @@ class Chord {
 
 
 function bassNoteToPlay(bassToPlay) {
+    //kick.currentTime = 0;
+    kick.play();
+    kicks.push(new Kick(right + (canvas.width - right) / 2, center.y));
+    zz.kickLineWidth = 5;
     if (chordToPlay == 'E1' || chordToPlay == 'E2' || chordToPlay == 'E3') {
         if (bassToPlay == 0) {
             EBass.play();

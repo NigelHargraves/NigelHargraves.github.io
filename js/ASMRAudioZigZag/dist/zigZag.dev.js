@@ -17,6 +17,7 @@ function () {
     this.middleLineWidth = 1;
     this.rightLineWidth = 1;
     this.cBoxLineWidth = 10;
+    this.kickLineWidth = 5;
     this.leftColor = 'white';
     this.rightColor = 'white';
     this.middleColor = 'white';
@@ -132,8 +133,7 @@ function () {
       ctx.moveTo(cRight, cTop);
       ctx.lineTo(cLeft, cbottom);
       ctx.lineWidth = this.cBoxLineWidth;
-      ctx.stroke();
-      ctx.lineWidth = 1; //chord dots.
+      ctx.stroke(); //chord dots.
       //diagonals.
 
       var yCoord = 0;
@@ -167,7 +167,71 @@ function () {
         ctx.arc(cRight, _i6, 4, 0, Math.PI * 2);
         ctx.fill();
         yCoord += (cRight - cLeft) / 4;
-      }
+      } //kick drum skin.
+
+
+      ctx.fillStyle = 'seashell';
+      ctx.beginPath();
+      ctx.arc(right + (canvas.width - right) / 2, center.y, 98, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.font = "bold 45px Arial";
+      ctx.fillStyle = "red";
+      ctx.fillText('𝒵𝒾𝑔𝒵𝒶𝑔', right + (canvas.width - right) / 2 - 85, center.y + 10); //kick drum case.
+
+      ctx.strokeStyle = 'slateblue';
+      ctx.beginPath();
+      ctx.arc(right + (canvas.width - right) / 2, center.y, 100, 0, Math.PI * 2);
+      ctx.lineWidth = this.kickLineWidth;
+      ctx.stroke(); //legs.
+
+      ctx.beginPath();
+      ctx.moveTo(right + (canvas.width - right) / 2 - 100, center.y);
+      ctx.lineTo(right + (canvas.width - right) / 2 - 150, center.y + 100);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(right + (canvas.width - right) / 2 + 100, center.y);
+      ctx.lineTo(right + (canvas.width - right) / 2 + 150, center.y + 100);
+      ctx.stroke(); //leg base.
+
+      ctx.beginPath();
+      ctx.moveTo(right + (canvas.width - right) / 2 - 160, center.y + 100);
+      ctx.lineTo(right + (canvas.width - right) / 2 - 140, center.y + 100);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(right + (canvas.width - right) / 2 + 160, center.y + 100);
+      ctx.lineTo(right + (canvas.width - right) / 2 + 140, center.y + 100);
+      ctx.stroke();
+      ctx.lineWidth = 1; //tensioners.
+
+      ctx.fillStyle = 'slateblue';
+      ctx.beginPath();
+      ctx.arc(right + (canvas.width - right) / 2 - 100, center.y, 4, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.beginPath();
+      ctx.arc(right + (canvas.width - right) / 2 + 100, center.y, 4, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.beginPath();
+      ctx.arc(right + (canvas.width - right) / 2, center.y - 100, 4, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.beginPath();
+      ctx.arc(right + (canvas.width - right) / 2, center.y + 100, 4, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.save();
+      ctx.translate(right + (canvas.width - right) / 2, center.y);
+      ctx.rotate(Math.PI / 4);
+      ctx.beginPath();
+      ctx.arc(0 - 100, 0, 4, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.beginPath();
+      ctx.arc(0 + 100, 0, 4, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.beginPath();
+      ctx.arc(0, 0 - 100, 4, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.beginPath();
+      ctx.arc(0, 0 + 100, 4, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
     }
   }, {
     key: "update",
@@ -186,6 +250,10 @@ function () {
 
       if (this.cBoxLineWidth > 1) {
         this.cBoxLineWidth -= 0.1;
+      }
+
+      if (this.kickLineWidth > 1) {
+        this.kickLineWidth -= 0.1;
       }
 
       this.draw();
