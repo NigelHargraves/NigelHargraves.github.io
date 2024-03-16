@@ -168,16 +168,23 @@ var highHatClosed = document.getElementById("audio164");
 var highHatOpen = document.getElementById("audio165");
 var kick1 = document.getElementById("audio166");
 var kick2 = document.getElementById("audio167");
+var snare1 = document.getElementById("audio168");
+var snare2 = document.getElementById("audio169");
+var snare3 = document.getElementById("audio170");
 
 function setVolume() {
   var noteVolume = 0.2,
       bassVolume = 0.3,
       hatVolume = 0.1,
-      kickVolume = 0.2;
+      kickVolume = 0.2,
+      snareVolume = 0.2;
   highHatOpen.volume = hatVolume;
   highHatClosed.volume = hatVolume;
   kick1.volume = kickVolume;
   kick2.volume = kickVolume;
+  snare1.volume = snareVolume;
+  snare2.volume = snareVolume;
+  snare3.volume = snareVolume;
   CO1.volume = noteVolume;
   DO1.volume = noteVolume;
   EO1.volume = noteVolume;

@@ -9,22 +9,46 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 var Snare =
 /*#__PURE__*/
 function () {
-  function Snare(x, y) {
+  function Snare() {
     _classCallCheck(this, Snare);
 
-    this.x = x;
-    this.y = y;
+    this.expand = 1;
+    this.opacity = 1;
   }
 
   _createClass(Snare, [{
     key: "draw",
-    value: function draw() {}
+    value: function draw() {
+      ctx.beginPath();
+      ctx.rect(pCenter - cTop - this.expand, cBottom - cTop - cTop / 1.5 - this.expand, cTop * 2 + this.expand * 2, cBottom - (cBottom - cTop / 1.5) + this.expand * 2);
+      ctx.globalAlpha = this.opacity;
+      ctx.lineWidth = 1;
+      ctx.strokeStyle = 'plum';
+      ctx.stroke();
+      ctx.globalAlpha = 0.2;
+    }
   }, {
     key: "update",
     value: function update() {
+      this.expand += 1;
+
+      if (this.opacity > 0.02) {
+        this.opacity -= 0.02;
+      }
+
       this.draw();
     }
   }]);
 
   return Snare;
 }();
+
+function forSnareRects() {
+  snareRects.forEach(function (sr, index) {
+    if (sr.opacity <= 0.02) {
+      snareRects.splice(index, 1);
+    }
+
+    sr.update();
+  });
+}

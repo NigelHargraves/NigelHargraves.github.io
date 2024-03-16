@@ -6,6 +6,7 @@ class ZigZag {
         this.rightLineWidth = 1;
         this.cBoxLineWidth = 10;
         this.kickLineWidth = 5;
+        this.snareLineWidth = 5;
         this.leftColor = 'white';
         this.rightColor = 'white';
         this.middleColor = 'white';
@@ -191,7 +192,7 @@ class ZigZag {
         ctx.moveTo((right + (canvas.width - right) / 2) + 160, center.y + 100);
         ctx.lineTo((right + (canvas.width - right) / 2) + 140, center.y + 100);
         ctx.stroke()
-        ctx.lineWidth = 1;
+
 
         //tensioners.
         ctx.fillStyle = 'slateblue';
@@ -225,8 +226,9 @@ class ZigZag {
         ctx.restore();
 
         //snare stand.
-        ctx.strokeStyle = 'white';
-        ctx.fillStyle = 'white';
+        ctx.lineWidth = this.snareLineWidth;
+        ctx.strokeStyle = 'plum';
+        ctx.fillStyle = 'plum';
         ctx.beginPath();
         ctx.moveTo(right + ((canvas.width - right) / 2), cBottom - (cTop / 10));
         ctx.lineTo(right + ((canvas.width - right) / 2), cBottom - cTop);
@@ -237,23 +239,56 @@ class ZigZag {
         ctx.lineTo(right + ((canvas.width - right) / 2) + (cTop / 10), cBottom);
         ctx.stroke();
 
-
+        //snare case.
         ctx.beginPath();
         ctx.rect(pCenter - cTop, (cBottom - cTop) - cTop / 1.5, cTop * 2, cBottom - (cBottom - cTop / 1.5));
         ctx.stroke();
 
+        ctx.beginPath();
+        ctx.moveTo(pCenter - cTop + (cTop * 2) / 5, (cBottom - cTop) - cTop / 1.5);
+        ctx.lineTo(pCenter - cTop + (cTop * 2) / 5, cBottom - cTop);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.arc(pCenter - cTop + (cTop * 2) / 5, (cBottom - cTop) - cTop / 1.5, 2, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.beginPath();
+        ctx.arc(pCenter - cTop + (cTop * 2) / 5, cBottom - cTop, 2, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.beginPath();
+        ctx.moveTo(pCenter - cTop + ((cTop * 2) / 5) * 2, (cBottom - cTop) - cTop / 1.5);
+        ctx.lineTo(pCenter - cTop + ((cTop * 2) / 5) * 2, cBottom - cTop);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.arc(pCenter - cTop + ((cTop * 2) / 5) * 2, (cBottom - cTop) - cTop / 1.5, 2, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.beginPath();
+        ctx.arc(pCenter - cTop + ((cTop * 2) / 5) * 2, cBottom - cTop, 2, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.beginPath();
+        ctx.moveTo(pCenter - cTop + ((cTop * 2) / 5) * 3, (cBottom - cTop) - cTop / 1.5);
+        ctx.lineTo(pCenter - cTop + ((cTop * 2) / 5) * 3, cBottom - cTop);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.arc(pCenter - cTop + ((cTop * 2) / 5) * 3, (cBottom - cTop) - cTop / 1.5, 2, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.beginPath();
+        ctx.arc(pCenter - cTop + ((cTop * 2) / 5) * 3, cBottom - cTop, 2, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.beginPath();
+        ctx.moveTo(pCenter - cTop + ((cTop * 2) / 5) * 4, (cBottom - cTop) - cTop / 1.5);
+        ctx.lineTo(pCenter - cTop + ((cTop * 2) / 5) * 4, cBottom - cTop);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.arc(pCenter - cTop + ((cTop * 2) / 5) * 4, (cBottom - cTop) - cTop / 1.5, 2, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.beginPath();
+        ctx.arc(pCenter - cTop + ((cTop * 2) / 5) * 4, cBottom - cTop, 2, 0, Math.PI * 2);
+        ctx.fill();
 
 
 
 
-
-
-
-
-
-
-
-
+        ctx.lineWidth = 1;
     }
     update() {
         if (this.leftLineWidth > 1) {
@@ -270,6 +305,9 @@ class ZigZag {
         }
         if (this.kickLineWidth > 1) {
             this.kickLineWidth -= 0.1;
+        }
+        if (this.snareLineWidth > 1) {
+            this.snareLineWidth -= 0.1;
         }
         this.draw();
     }

@@ -269,6 +269,9 @@ function () {
 
         if (this.y - this.yHat >= hatInterval * 2 - 1 && this.y - this.yHat <= hatInterval * 2 + 1 && this.hatDetectionTimer == 0) {
           highHatClosed.play();
+          snare1.play();
+          snareRects.push(new Snare());
+          zz.snareLineWidth = 5;
           this.hatDetectionTimer = this.hatInterval;
           hat.lineWidth = 4;
           particles.push(new Particle(hat.x, hat.y, 'skyblue'));
@@ -296,6 +299,18 @@ function () {
 
         if (this.y - this.yHat >= hatInterval * 5 - 1 && this.y - this.yHat <= hatInterval * 5 + 1 && this.hatDetectionTimer == 0) {
           highHatOpen.play();
+
+          if (this.y >= cBottom - hatInterval - 1 && this.y <= cBottom - hatInterval + 1) {
+            snare3.play();
+            setTimeout(function () {
+              snareRects.push(new Snare());
+            }, 200);
+          } else {
+            snare2.play();
+          }
+
+          snareRects.push(new Snare());
+          zz.snareLineWidth = 5;
           hat.pole.y -= cTop / 10;
           this.hatDetectionTimer = this.hatInterval;
           hat.lineWidth = 4;
@@ -311,6 +326,9 @@ function () {
 
         if (this.yHat - this.y >= hatInterval * 2 - 1 && this.yHat - this.y <= hatInterval * 2 + 1 && this.hatDetectionTimer == 0) {
           highHatClosed.play();
+          snare1.play();
+          snareRects.push(new Snare());
+          zz.snareLineWidth = 5;
           this.hatDetectionTimer = this.hatInterval;
           hat.lineWidth = 4;
           particles.push(new Particle(hat.x, hat.y, 'skyblue'));
@@ -338,7 +356,18 @@ function () {
 
         if (this.yHat - this.y >= hatInterval * 5 - 1 && this.yHat - this.y <= hatInterval * 5 + 1 && this.hatDetectionTimer == 0) {
           highHatOpen.play();
-          ;
+
+          if (this.y >= cTop + hatInterval - 1 && this.y <= cTop + hatInterval + 1) {
+            snare3.play();
+            setTimeout(function () {
+              snareRects.push(new Snare());
+            }, 200);
+          } else {
+            snare2.play();
+          }
+
+          snareRects.push(new Snare());
+          zz.snareLineWidth = 5;
           hat.pole.y -= cTop / 10;
           this.hatDetectionTimer = this.hatInterval;
           hat.lineWidth = 4;

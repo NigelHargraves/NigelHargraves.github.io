@@ -46,7 +46,8 @@ let chordE = [],
 let color = [],
     notes = [],
     bassCircles = [],
-    particles = [],
+    snareRects = []
+particles = [],
     kicks = [];
 
 let zz = new ZigZag(),
@@ -140,7 +141,7 @@ function animate() {
 
         forBassCircles()
 
-
+        forSnareRects()
 
         forParticles()
 
