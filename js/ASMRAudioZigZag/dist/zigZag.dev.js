@@ -117,56 +117,64 @@ function () {
       ctx.lineWidth = this.rightLineWidth;
       ctx.strokeStyle = this.rightColor;
       ctx.stroke();
-      ctx.lineWidth = 0.4; //chord box.
+      ctx.lineWidth = 0.4; //outer chord shape.
 
       ctx.strokeStyle = 'Turquoise';
       ctx.fillStyle = 'Turquoise';
       ctx.beginPath();
       ctx.moveTo(cLeft, cTop);
       ctx.lineTo(cRight, cTop);
+      ctx.lineTo(left, center.y);
       ctx.lineTo(cRight, canvas.height - cTop);
       ctx.lineTo(cLeft, canvas.height - cTop);
-      ctx.lineTo(cLeft, cTop); //diagonals.
+      ctx.lineTo(0, center.y);
+      ctx.lineTo(cLeft, cTop); //inner diagonals.
 
       ctx.moveTo(cLeft, cTop);
-      ctx.lineTo(cRight, cbottom);
+      ctx.lineTo(cRight, cBottom);
       ctx.moveTo(cRight, cTop);
-      ctx.lineTo(cLeft, cbottom);
+      ctx.lineTo(cLeft, cBottom);
       ctx.lineWidth = this.cBoxLineWidth;
       ctx.stroke(); //chord dots.
-      //diagonals.
+      //inner diagonals.
 
-      var yCoord = 0;
+      var xCoord = 0;
 
       for (var _i3 = cTop; _i3 < cTop * 10; _i3 += cTop * 2) {
         ctx.beginPath();
-        ctx.arc(cLeft + yCoord, _i3, 4, 0, Math.PI * 2);
+        ctx.arc(cLeft + xCoord, _i3, 4, 0, Math.PI * 2);
         ctx.fill();
-        yCoord += (cRight - cLeft) / 4;
+        xCoord += (cRight - cLeft) / 4;
       }
 
-      yCoord = 0;
+      xCoord = 0;
 
       for (var _i4 = cTop; _i4 < cTop * 10; _i4 += cTop * 2) {
         ctx.beginPath();
-        ctx.arc(cRight - yCoord, _i4, 4, 0, Math.PI * 2);
+        ctx.arc(cRight - xCoord, _i4, 4, 0, Math.PI * 2);
         ctx.fill();
-        yCoord += (cRight - cLeft) / 4;
-      } //verticals.
+        xCoord += (cRight - cLeft) / 4;
+      } //outer shape.
 
 
-      for (var _i5 = cTop; _i5 < cTop * 10; _i5 += cTop * 2) {
+      xCoord = 0;
+
+      for (var _i5 = cTop; _i5 < cTop * 8; _i5 += cTop * 2) {
         ctx.beginPath();
-        ctx.arc(cLeft, _i5, 4, 0, Math.PI * 2);
+        ctx.arc(cLeft - xCoord, _i5, 4, 0, Math.PI * 2);
         ctx.fill();
-        yCoord += (cRight - cLeft) / 4;
+        xCoord += cLeft / 2;
+        if (xCoord == cLeft / 2 * 3) xCoord = cLeft / 2;
       }
 
-      for (var _i6 = cTop; _i6 < cTop * 10; _i6 += cTop * 2) {
+      xCoord = 0;
+
+      for (var _i6 = cTop; _i6 < cTop * 8; _i6 += cTop * 2) {
         ctx.beginPath();
-        ctx.arc(cRight, _i6, 4, 0, Math.PI * 2);
+        ctx.arc(cRight + xCoord, _i6, 4, 0, Math.PI * 2);
         ctx.fill();
-        yCoord += (cRight - cLeft) / 4;
+        xCoord += cLeft / 2;
+        if (xCoord == cLeft / 2 * 3) xCoord = cLeft / 2;
       } //kick drum skin.
 
 
@@ -231,7 +239,22 @@ function () {
       ctx.beginPath();
       ctx.arc(0, 0 + 100, 4, 0, Math.PI * 2);
       ctx.fill();
-      ctx.restore();
+      ctx.restore(); //snare stand.
+
+      ctx.strokeStyle = 'white';
+      ctx.fillStyle = 'white';
+      ctx.beginPath();
+      ctx.moveTo(right + (canvas.width - right) / 2, cBottom - cTop / 10);
+      ctx.lineTo(right + (canvas.width - right) / 2, cBottom - cTop);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(right + (canvas.width - right) / 2 - cTop / 10, cBottom);
+      ctx.lineTo(right + (canvas.width - right) / 2, cBottom - cTop / 10);
+      ctx.lineTo(right + (canvas.width - right) / 2 + cTop / 10, cBottom);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.rect(pCenter - cTop, cBottom - cTop - cTop / 1.5, cTop * 2, cBottom - (cBottom - cTop / 1.5));
+      ctx.stroke();
     }
   }, {
     key: "update",

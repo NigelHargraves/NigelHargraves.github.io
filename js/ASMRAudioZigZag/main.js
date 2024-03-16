@@ -11,7 +11,10 @@ let left = center.x / 2,
 let cLeft = left / 4,
     cRight = left - (left / 4),
     cTop = canvas.height / 10,
-    cbottom = canvas.height - (canvas.height / 10);
+    cBottom = canvas.height - (canvas.height / 10);
+
+
+let pCenter = right + (canvas.width - right) / 2;
 
 let bass1 = cTop + cTop * 2,
     bass2 = cTop + cTop * 4,
@@ -63,7 +66,7 @@ for (let i = 0; i < 36; i++) {
     if (i < 18) {
         notes.push(new Note(left, cTop, speed, chordE[i], true, 2, color[i]));
     } else {
-        notes.push(new Note(right, cbottom, speed, chordE[i], false, 8, color[i]));
+        notes.push(new Note(right, cBottom, speed, chordE[i], false, 8, color[i]));
     }
     speed += speed * 0.02;
 }

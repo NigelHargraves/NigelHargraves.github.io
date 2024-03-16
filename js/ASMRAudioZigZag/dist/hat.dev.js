@@ -24,6 +24,11 @@ function () {
   _createClass(Hat, [{
     key: "draw",
     value: function draw() {
+      ctx.strokeStyle = 'skyblue';
+      ctx.fillStyle = 'skyblue';
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, 4, 0, Math.PI * 2);
+      ctx.fill();
       ctx.beginPath();
       ctx.moveTo(this.x, this.y);
       ctx.lineTo(this.pole.x, this.pole.y);
@@ -34,7 +39,6 @@ function () {
       ctx.moveTo(this.pole.x + cTop, this.pole.y + cTop / 4);
       ctx.lineTo(this.pole.x, this.pole.y);
       ctx.lineWidth = this.lineWidth;
-      ctx.strokeStyle = 'skyblue';
       ctx.stroke();
       ctx.beginPath();
       ctx.moveTo(this.x - cTop, this.y - cTop / 4 * 3 + 1);

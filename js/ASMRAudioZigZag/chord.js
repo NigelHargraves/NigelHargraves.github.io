@@ -5,14 +5,14 @@ class Chord {
         this.dot = 20;
         this.opacity = 1;
         this.lineWidth = 5;
-        this.speed = 1;
+        this.speed = 1.3;
         this.velocity = { x: 0, y: 0 };
         this.detectionTimer = 100;
         this.bassDetectionTimer = 50;
         this.hatDetectionTimer = 10;
         this.bassNoteToPlay = 1;
         this.angle = 0;
-        this.aim = { x: cRight, y: cbottom };
+        this.aim = { x: cRight, y: cBottom };
         this.yHat = 0;
         this.hatDown = true;
         this.hatInterval = 20;
@@ -66,33 +66,32 @@ class Chord {
             zz.cBoxLineWidth = 10;
             this.lineWidth = 5;
             this.opacity = 1;
-            this.aim = { x: cRight, y: cbottom };
+            this.aim = { x: cRight, y: cBottom };
             this.y = cTop;
             this.detectionTimer = 100;
             this.x = cLeft;
         }
 
-        if (this.x >= cLeft - 1 && this.x <= cLeft + 1 && this.y >= cbottom - 1 && this.y <= cbottom + 1 && this.detectionTimer == 0) {
+        if (this.x >= cLeft - 1 && this.x <= cLeft + 1 && this.y >= cBottom - 1 && this.y <= cBottom + 1 && this.detectionTimer == 0) {
             changeChord();
             if (this.hatDown) {
                 this.hatDown = false;
             } else {
                 this.hatDown = true;
             }
-
             for (let i = 0; i < 10; i++) {
                 particles.push(new Particle(this.x, this.y, 'Turquoise'));
             }
             zz.cBoxLineWidth = 10;
             this.lineWidth = 5;
             this.opacity = 1;
-            this.aim = { x: cLeft, y: cTop };
-            this.y = cbottom;
+            this.aim = { x: 0, y: center.y };
+            this.y = cBottom;
             this.detectionTimer = 100;
             this.x = cLeft;
         }
 
-        if (this.x >= cRight - 1 && this.x <= cRight + 1 && this.y >= cbottom - 1 && this.y <= cbottom + 1 && this.detectionTimer == 0) {
+        if (this.x >= cRight - 1 && this.x <= cRight + 1 && this.y >= cBottom - 1 && this.y <= cBottom + 1 && this.detectionTimer == 0) {
             changeChord();
             if (this.hatDown) {
                 this.hatDown = false;
@@ -105,11 +104,35 @@ class Chord {
             zz.cBoxLineWidth = 10;
             this.lineWidth = 5;
             this.opacity = 1;
-            this.aim = { x: cRight, y: cTop };
-            this.y = cbottom;
+            this.aim = { x: left, y: center.y };
+            this.y = cBottom;
             this.detectionTimer = 100;
             this.x = cRight;
         }
+
+
+
+
+
+        //midlle outer diadonal points.
+        if (this.x >= left - 1 && this.x <= left + 1 && this.y >= center.y - 1 && this.y <= center.y + 1 && this.detectionTimer == 0) {
+            this.aim = { x: cRight, y: cTop };
+            this.y = center.y;
+            this.detectionTimer = 100;
+            this.x = left;
+        }
+        if (this.x >= 0 - 1 && this.x <= 0 + 1 && this.y >= center.y - 1 && this.y <= center.y + 1 && this.detectionTimer == 0) {
+            this.aim = { x: cLeft, y: cTop };
+            this.y = center.y;
+            this.detectionTimer = 100;
+            this.x = 0;
+        }
+
+
+
+
+
+
 
         if (this.x >= cRight - 1 && this.x <= cRight + 1 && this.y >= cTop - 1 && this.y <= cTop + 1 && this.detectionTimer == 0) {
             changeChord();
@@ -125,14 +148,14 @@ class Chord {
             zz.cBoxLineWidth = 10;
             this.lineWidth = 5;
             this.opacity = 1;
-            this.aim = { x: cLeft, y: cbottom };
+            this.aim = { x: cLeft, y: cBottom };
             this.y = cTop;
             this.detectionTimer = 100;
             this.x = cRight;
         }
 
         //play bass notes.
-        if ((this.y >= cbottom - 1 && this.y <= cbottom + 1 || this.y >= cTop - 1 && this.y <= cTop + 1) && this.bassDetectionTimer == 0) {
+        if ((this.y >= cBottom - 1 && this.y <= cBottom + 1 || this.y >= cTop - 1 && this.y <= cTop + 1) && this.bassDetectionTimer == 0) {
             bassNoteToPlay(this.bassNoteToPlay);
             this.bassNoteToPlay += 1;
             this.bassDetectionTimer = 50;
@@ -204,7 +227,7 @@ class Chord {
             }
             if (this.y - this.yHat >= (hatInterval * 3) - 1 && this.y - this.yHat <= (hatInterval * 3) + 1 && this.hatDetectionTimer == 0) {
                 highHatClosed.play();
-                kick.play();
+                kick1.play();
                 zz.kickLineWidth = 5;
                 kicks.push(new Kick(right + (canvas.width - right) / 2, center.y));
                 this.hatDetectionTimer = this.hatInterval;
@@ -213,8 +236,7 @@ class Chord {
             }
             if (this.y - this.yHat >= (hatInterval * 4) - 1 && this.y - this.yHat <= (hatInterval * 4) + 1 && this.hatDetectionTimer == 0) {
                 highHatClosed.play();
-                kick.currentTime = 0;
-                kick.play();
+                kick2.play();
                 kicks.push(new Kick(right + (canvas.width - right) / 2, center.y));
                 zz.kickLineWidth = 5;
                 this.hatDetectionTimer = this.hatInterval;
@@ -244,7 +266,7 @@ class Chord {
             }
             if (this.yHat - this.y >= (hatInterval * 3) - 1 && this.yHat - this.y <= (hatInterval * 3) + 1 && this.hatDetectionTimer == 0) {
                 highHatClosed.play();
-                kick.play();
+                kick1.play();
                 kicks.push(new Kick(right + (canvas.width - right) / 2, center.y));
                 zz.kickLineWidth = 5;
                 this.hatDetectionTimer = this.hatInterval;
@@ -253,8 +275,7 @@ class Chord {
             }
             if (this.yHat - this.y >= (hatInterval * 4) - 1 && this.yHat - this.y <= (hatInterval * 4) + 1 && this.hatDetectionTimer == 0) {
                 highHatClosed.play();
-                kick.currentTime = 0;
-                kick.play()
+                kick2.play()
                 kicks.push(new Kick(right + (canvas.width - right) / 2, center.y));
                 zz.kickLineWidth = 5;
                 this.hatDetectionTimer = this.hatInterval;
@@ -291,7 +312,7 @@ class Chord {
 
 function bassNoteToPlay(bassToPlay) {
     //kick.currentTime = 0;
-    kick.play();
+    kick1.play();
     kicks.push(new Kick(right + (canvas.width - right) / 2, center.y));
     zz.kickLineWidth = 5;
     if (chordToPlay == 'E1' || chordToPlay == 'E2' || chordToPlay == 'E3') {

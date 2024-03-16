@@ -106,51 +106,57 @@ class ZigZag {
         ctx.stroke();
         ctx.lineWidth = 0.4;
 
-        //chord box.
+        //outer chord shape.
         ctx.strokeStyle = 'Turquoise';
         ctx.fillStyle = 'Turquoise';
         ctx.beginPath();
         ctx.moveTo(cLeft, cTop);
         ctx.lineTo(cRight, cTop);
+        ctx.lineTo(left, center.y);
         ctx.lineTo(cRight, canvas.height - (cTop));
         ctx.lineTo(cLeft, canvas.height - (cTop));
+        ctx.lineTo(0, center.y);
         ctx.lineTo(cLeft, cTop);
-        //diagonals.
+        //inner diagonals.
         ctx.moveTo(cLeft, cTop);
-        ctx.lineTo(cRight, cbottom);
+        ctx.lineTo(cRight, cBottom);
         ctx.moveTo(cRight, cTop);
-        ctx.lineTo(cLeft, cbottom);
+        ctx.lineTo(cLeft, cBottom);
         ctx.lineWidth = this.cBoxLineWidth;
         ctx.stroke();
 
         //chord dots.
-        //diagonals.
-        let yCoord = 0;
+        //inner diagonals.
+        let xCoord = 0;
         for (let i = cTop; i < (cTop) * 10; i += cTop * 2) {
             ctx.beginPath();
-            ctx.arc(cLeft + yCoord, i, 4, 0, Math.PI * 2);
+            ctx.arc(cLeft + xCoord, i, 4, 0, Math.PI * 2);
             ctx.fill();
-            yCoord += (cRight - cLeft) / 4;
+            xCoord += (cRight - cLeft) / 4;
         }
-        yCoord = 0;
+        xCoord = 0;
         for (let i = cTop; i < (cTop) * 10; i += cTop * 2) {
             ctx.beginPath();
-            ctx.arc(cRight - yCoord, i, 4, 0, Math.PI * 2);
+            ctx.arc(cRight - xCoord, i, 4, 0, Math.PI * 2);
             ctx.fill();
-            yCoord += (cRight - cLeft) / 4;
+            xCoord += (cRight - cLeft) / 4;
         }
-        //verticals.
-        for (let i = cTop; i < (cTop) * 10; i += cTop * 2) {
+        //outer shape.
+        xCoord = 0;
+        for (let i = cTop; i < (cTop) * 8; i += cTop * 2) {
             ctx.beginPath();
-            ctx.arc(cLeft, i, 4, 0, Math.PI * 2);
+            ctx.arc(cLeft - xCoord, i, 4, 0, Math.PI * 2);
             ctx.fill();
-            yCoord += (cRight - cLeft) / 4;
+            xCoord += cLeft / 2;
+            if (xCoord == (cLeft / 2) * 3) xCoord = cLeft / 2;
         }
-        for (let i = cTop; i < (cTop) * 10; i += cTop * 2) {
+        xCoord = 0;
+        for (let i = cTop; i < (cTop) * 8; i += cTop * 2) {
             ctx.beginPath();
-            ctx.arc(cRight, i, 4, 0, Math.PI * 2);
+            ctx.arc(cRight + xCoord, i, 4, 0, Math.PI * 2);
             ctx.fill();
-            yCoord += (cRight - cLeft) / 4;
+            xCoord += cLeft / 2;
+            if (xCoord == (cLeft / 2) * 3) xCoord = cLeft / 2;
         }
 
         //kick drum skin.
@@ -217,6 +223,32 @@ class ZigZag {
         ctx.arc(0, 0 + 100, 4, 0, Math.PI * 2);
         ctx.fill();
         ctx.restore();
+
+        //snare stand.
+        ctx.strokeStyle = 'white';
+        ctx.fillStyle = 'white';
+        ctx.beginPath();
+        ctx.moveTo(right + ((canvas.width - right) / 2), cBottom - (cTop / 10));
+        ctx.lineTo(right + ((canvas.width - right) / 2), cBottom - cTop);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(right + ((canvas.width - right) / 2) - (cTop / 10), cBottom);
+        ctx.lineTo(right + ((canvas.width - right) / 2), cBottom - (cTop / 10));
+        ctx.lineTo(right + ((canvas.width - right) / 2) + (cTop / 10), cBottom);
+        ctx.stroke();
+
+
+        ctx.beginPath();
+        ctx.rect(pCenter - cTop, (cBottom - cTop) - cTop / 1.5, cTop * 2, cBottom - (cBottom - cTop / 1.5));
+        ctx.stroke();
+
+
+
+
+
+
+
+
 
 
 
