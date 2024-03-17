@@ -481,52 +481,52 @@ function bassNoteToPlay(bassToPlay) {
 function changeChord() {
     if (chordToPlay == 'E1') {
         chordToPlay = 'A1';
-
+        AChord.play();
     } else if (chordToPlay == 'A1') {
         chordToPlay = 'E2';
-
+        EChord.play();
     } else if (chordToPlay == 'E2') {
         chordToPlay = 'A2';
-
+        AChord.play();
     } else if (chordToPlay == 'A2') {
         chordToPlay = 'E3';
-
+        EChord.play();
     } else if (chordToPlay == 'E3') {
         chordToPlay = 'B';
-
+        BChord.play();
     } else if (chordToPlay == 'B') {
         chordToPlay = 'A3';
-
+        AChord.play();
     } else if (chordToPlay == 'A3') {
         chordToPlay = 'Gsus4';
-
+        Gsus4Chord.play();
     } else if (chordToPlay == 'Gsus4') {
         chordToPlay = 'C1';
-
+        CChord.play();
     } else if (chordToPlay == 'C1') {
         chordToPlay = 'F1';
-
+        FChord.play();
     } else if (chordToPlay == 'F1') {
         chordToPlay = 'C2';
-
+        CChord.play();
     } else if (chordToPlay == 'C2') {
         chordToPlay = 'F2';
-
+        FChord.play();
     } else if (chordToPlay == 'F2') {
         chordToPlay = 'C3';
-
+        CChord.play();
     } else if (chordToPlay == 'C3') {
         chordToPlay = 'G';
-
+        GChord.play();
     } else if (chordToPlay == 'G') {
         chordToPlay = 'F#m7';
-
+        FSm7Chord.play();
     } else if (chordToPlay == 'F#m7') {
         chordToPlay = 'Bsus4';
-
+        Bsus4Chord.play();
     } else if (chordToPlay == 'Bsus4') {
         chordToPlay = 'E1';
-
+        EChord.play();
     }
 
     if (chordToPlay == 'E1' || chordToPlay == 'E2' || chordToPlay == 'E3') {

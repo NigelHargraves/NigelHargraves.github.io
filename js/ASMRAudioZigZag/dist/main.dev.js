@@ -86,6 +86,7 @@ function animate() {
       }
 
       EBass.play();
+      EChord.play();
       playNow = false;
     }
 

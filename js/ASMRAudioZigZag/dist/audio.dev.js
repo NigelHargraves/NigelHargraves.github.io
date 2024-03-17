@@ -171,6 +171,15 @@ var kick2 = document.getElementById("audio167");
 var snare1 = document.getElementById("audio168");
 var snare2 = document.getElementById("audio169");
 var snare3 = document.getElementById("audio170");
+var AChord = document.getElementById("audio171");
+var BChord = document.getElementById("audio172");
+var Bsus4Chord = document.getElementById("audio173");
+var CChord = document.getElementById("audio174");
+var EChord = document.getElementById("audio175");
+var FChord = document.getElementById("audio176");
+var FSm7Chord = document.getElementById("audio177");
+var GChord = document.getElementById("audio178");
+var Gsus4Chord = document.getElementById("audio179");
 
 function setVolume() {
   var noteVolume = 0.2,

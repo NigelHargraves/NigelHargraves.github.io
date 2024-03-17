@@ -178,6 +178,16 @@ let snare1 = document.getElementById("audio168");
 let snare2 = document.getElementById("audio169");
 let snare3 = document.getElementById("audio170");
 
+let AChord = document.getElementById("audio171");
+let BChord = document.getElementById("audio172");
+let Bsus4Chord = document.getElementById("audio173");
+let CChord = document.getElementById("audio174");
+let EChord = document.getElementById("audio175");
+let FChord = document.getElementById("audio176");
+let FSm7Chord = document.getElementById("audio177");
+let GChord = document.getElementById("audio178");
+let Gsus4Chord = document.getElementById("audio179");
+
 function setVolume() {
     let noteVolume = 0.2,
         bassVolume = 0.3,

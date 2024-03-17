@@ -111,6 +111,7 @@ function animate() {
                 chordE[i].play();
             }
             EBass.play();
+            EChord.play();
             playNow = false;
         }
 
