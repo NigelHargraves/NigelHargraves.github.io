@@ -16,6 +16,7 @@ function () {
     this.lineWidthLeft = 3;
     this.opacityRight = 1;
     this.lineWidthRight = 3;
+    this.baseLineWidth = 5;
     this.colorLeft = 'white';
     this.colorRight = 'white';
   }
@@ -23,20 +24,38 @@ function () {
   _createClass(Line, [{
     key: "draw",
     value: function draw() {
-      ctx.strokeStyle = 'white';
+      //base line.
+      ctx.strokeStyle = 'aquamarine';
+      ctx.fillStyle = 'aquamarine';
       ctx.beginPath();
-      ctx.arc(x, 0, 4, 0, Math.PI * 2);
+      ctx.moveTo(0, baseLine.y);
+      ctx.lineTo(canvas.width, baseLine.y);
+      ctx.lineWidth = this.baseLineWidth;
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.arc(baseLine.x, baseLine.y, 4, 0, Math.PI * 2);
       ctx.fill();
       ctx.beginPath();
+      ctx.arc(canvas.width - baseLine.x, baseLine.y, 4, 0, Math.PI * 2);
+      ctx.fill(); //anchor point.
+
+      ctx.strokeStyle = 'white';
+      ctx.fillStyle = 'white';
+      ctx.beginPath();
+      ctx.arc(x, 0, 4, 0, Math.PI * 2);
+      ctx.fill(); //diagonal left.
+
+      ctx.beginPath();
       ctx.moveTo(x, 0);
-      ctx.lineTo(x / 2, y + y / 2);
+      ctx.lineTo(x / 4, y + y / 0.8);
       ctx.globalAlpha = this.opacityLeft;
       ctx.lineWidth = this.lineWidthLeft;
       ctx.strokeStyle = this.colorLeft;
-      ctx.stroke();
+      ctx.stroke(); //diagonal right.
+
       ctx.beginPath();
       ctx.moveTo(x, 0);
-      ctx.lineTo(x + x / 2, y + y / 2);
+      ctx.lineTo(canvas.width - x / 4, y + y / 0.8);
       ctx.globalAlpha = this.opacityRight;
       ctx.lineWidth = this.lineWidthRight;
       ctx.strokeStyle = this.colorRight;
@@ -61,6 +80,10 @@ function () {
 
       if (this.lineWidthRight > 0.4) {
         this.lineWidthRight -= 0.1;
+      }
+
+      if (this.baseLineWidth > 0.4) {
+        this.baseLineWidth -= 0.1;
       }
 
       this.draw();

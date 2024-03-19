@@ -9,17 +9,14 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 var Particle =
 /*#__PURE__*/
 function () {
-  function Particle(x, y) {
+  function Particle(x, y, color, velocity) {
     _classCallCheck(this, Particle);
 
     this.x = x;
     this.y = y;
-    this.velocity = {
-      x: Math.random() - 0.5,
-      y: Math.random() - 0.5
-    };
+    this.color = color;
+    this.velocity = velocity;
     this.opacity = 1;
-    this.color = color[Math.floor(Math.random() * 24)];
   }
 
   _createClass(Particle, [{

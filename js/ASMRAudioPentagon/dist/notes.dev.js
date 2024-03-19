@@ -95,16 +95,13 @@ function () {
           this.addAngle = 0;
         }
 
-        for (var i = 0; i < 8; i++) {
-          particles.push(new Particle(this.particle.x, this.particle.y, 0.2, this.color, {
-            x: center.x,
-            y: center.y
-          }, {
-            x: (Math.random() - 0.5) / (Math.random() / 0.1),
-            y: (Math.random() - 0.5) / (Math.random() / 0.1)
-          }));
-        }
-
+        particles.push(new Particle(this.particle.x, this.particle.y, 0.2, this.color, {
+          x: center.x,
+          y: center.y
+        }, {
+          x: (Math.random() - 0.5) / (Math.random() / 0.1),
+          y: (Math.random() - 0.5) / (Math.random() / 0.1)
+        }));
         this.note.play();
         this.lineWidth = 5;
         this.opacity = 1;

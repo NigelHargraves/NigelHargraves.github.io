@@ -1,10 +1,10 @@
 class Particle {
-    constructor(x, y) {
+    constructor(x, y, color, velocity) {
         this.x = x;
         this.y = y;
-        this.velocity = { x: Math.random() - 0.5, y: Math.random() - 0.5 };
+        this.color = color;
+        this.velocity = velocity;
         this.opacity = 1;
-        this.color = color[Math.floor(Math.random() * 24)];
     }
     draw() {
         ctx.strokeStyle = this.color;

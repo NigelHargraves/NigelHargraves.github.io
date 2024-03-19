@@ -102,7 +102,11 @@ function forBubbles() {
 
     if (bubble.r <= 2 && bubble.pop) {
       for (var i = 0; i < 10; i++) {
-        particles.push(new Particle(bubble.x, bubble.y));
+        velocity = {
+          x: Math.random() - 0.5,
+          y: Math.random() - 0.5
+        };
+        particles.push(new Particle(bubble.x, bubble.y, bubble.color, velocity));
       }
 
       bubbles.splice(index, 1);

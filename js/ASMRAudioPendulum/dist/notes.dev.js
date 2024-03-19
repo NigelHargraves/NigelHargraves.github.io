@@ -68,6 +68,11 @@ function () {
       this.y = this.r * Math.cos(this.angle);
 
       if (this.x <= this.swing + 0.1 && this.x >= this.swing - 0.1) {
+        velocity = {
+          x: Math.random() - 0.5,
+          y: Math.random() - 0.5
+        };
+        particles.push(new Particle(this.x, this.y, color[this.number], velocity));
         this.note.play();
         this.lineWidth = 3;
         this.opacity = 1;
@@ -77,6 +82,11 @@ function () {
       }
 
       if (this.x <= x + (x - this.swing) + 0.1 && this.x >= x + (x - this.swing) - 0.1) {
+        velocity = {
+          x: Math.random() - 0.5,
+          y: Math.random() - 0.5
+        };
+        particles.push(new Particle(this.x, this.y, color[this.number], velocity));
         this.note.play();
         this.lineWidth = 3;
         this.opacity = 1;

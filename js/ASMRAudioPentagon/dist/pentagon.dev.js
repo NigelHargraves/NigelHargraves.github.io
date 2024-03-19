@@ -112,7 +112,7 @@ function () {
           this.timer = 100;
         }
 
-        for (var i = 0; i < 10; i++) {
+        for (var i = 0; i < 4; i++) {
           particles.push(new Particle(this.particle.x, this.particle.y, 0.6, this.color, {
             x: this.x,
             y: this.y

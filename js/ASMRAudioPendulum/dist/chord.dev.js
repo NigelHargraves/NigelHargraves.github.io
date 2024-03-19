@@ -76,6 +76,16 @@ function () {
       }
 
       if (this.x <= this.swing + 0.1 && this.x >= this.swing - 0.1) {
+        lines.baseLineWidth = 5;
+
+        for (var i = 0; i < 20; i++) {
+          velocity = {
+            x: (Math.random() - 0.5) / Math.random(),
+            y: (Math.random() - 0.5) / Math.random()
+          };
+          particles.push(new Particle(this.x, this.y, 'aquamarine', velocity));
+        }
+
         if (!this.first) {
           if (this.changeOnce) {
             chordChange();
@@ -83,7 +93,7 @@ function () {
           }
         } else {
           ABass.play();
-          CLongNote.play();
+          CLongNote1.play();
         }
 
         bubbles.push(new Bubble(this.x, this.y, -0.1));
@@ -92,6 +102,16 @@ function () {
       }
 
       if (this.x <= x + (x - this.swing) + 0.1 && this.x >= x + (x - this.swing) - 0.1) {
+        lines.baseLineWidth = 5;
+
+        for (var _i = 0; _i < 20; _i++) {
+          velocity = {
+            x: (Math.random() - 0.5) / Math.random(),
+            y: (Math.random() - 0.5) / Math.random()
+          };
+          particles.push(new Particle(this.x, this.y, 'aquamarine', velocity));
+        }
+
         if (this.changeOnce) {
           chordChange();
           this.changeOnce = false;
@@ -117,13 +137,11 @@ function chordChange() {
   if (chordToPlay == 'Am1') {
     chordToPlay = 'F1';
     FBass.play();
-    CLongNote.currentTime = 0;
-    CLongNote.play();
+    CLongNote2.play();
   } else if (chordToPlay == 'F1') {
     chordToPlay = 'C1';
     CBass.play();
-    CLongNote.currentTime = 0;
-    CLongNote.play();
+    CLongNote1.play();
   } else if (chordToPlay == 'C1') {
     chordToPlay = 'G1';
     GBass.play();
@@ -131,18 +149,15 @@ function chordChange() {
   } else if (chordToPlay == 'G1') {
     chordToPlay = 'Am2';
     ABass.play();
-    CLongNote.currentTime = 0;
-    CLongNote.play();
+    CLongNote1.play();
   } else if (chordToPlay == 'Am2') {
     chordToPlay = 'F2';
     FBass.play();
-    CLongNote.currentTime = 0;
-    CLongNote.play();
+    CLongNote2.play();
   } else if (chordToPlay == 'F2') {
     chordToPlay = 'C2';
     CBass.play();
-    CLongNote.currentTime = 0;
-    CLongNote.play();
+    CLongNote1.play();
   } else if (chordToPlay == 'C2') {
     chordToPlay = 'G2';
     GBass.play();
@@ -150,12 +165,11 @@ function chordChange() {
   } else if (chordToPlay == 'G2') {
     chordToPlay = 'Am3';
     ABass.play();
-    ALongNote.play();
+    ALongNote1.play();
   } else if (chordToPlay == 'Am3') {
     chordToPlay = 'F3';
     FBass.play();
-    ALongNote.currentTime = 0;
-    ALongNote.play();
+    ALongNote2.play();
   } else if (chordToPlay == 'F3') {
     chordToPlay = 'E71';
     EBass.play();
@@ -163,20 +177,19 @@ function chordChange() {
   } else if (chordToPlay == 'E71') {
     chordToPlay = 'Am4';
     ABass.play();
-    CLongNote.play();
+    CLongNote1.play();
   } else if (chordToPlay == 'Am4') {
     chordToPlay = 'Dm7';
     DBass.play();
-    ALongNote.play();
+    ALongNote1.play();
   } else if (chordToPlay == 'Dm7') {
     chordToPlay = 'Gsus4';
     GBass.play();
-    GLongNote.play();
+    GLongNote1.play();
   } else if (chordToPlay == 'Gsus4') {
     chordToPlay = 'C3';
     CBass.play();
-    GLongNote.currentTime = 0;
-    GLongNote.play();
+    GLongNote2.play();
   } else if (chordToPlay == 'C3') {
     chordToPlay = 'E72';
     EBass.play();
@@ -184,6 +197,6 @@ function chordChange() {
   } else if (chordToPlay == 'E72') {
     chordToPlay = 'Am1';
     ABass.play();
-    CLongNote.play();
+    CLongNote1.play();
   }
 }

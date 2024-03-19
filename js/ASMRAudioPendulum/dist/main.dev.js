@@ -24,7 +24,8 @@ var start = false,
     playNow = true,
     showChords = false;
 var lines = new Line(),
-    chord;
+    chord,
+    velocity;
 var point = {
   x: 0,
   y: 0
@@ -59,6 +60,10 @@ for (var i = 0; i < 25; i++) {
   distance -= 0.1;
 }
 
+var baseLine = {
+  x: point.x,
+  y: point.y
+};
 var delay = 0;
 setVolume();
 
@@ -76,7 +81,15 @@ function animate() {
   if (showChords) {
     ctx.font = "bold 20px Arial";
     ctx.fillStyle = "white";
-    ctx.fillText(chordToPlay, 0, canvas.height * 0.02);
+    var thisChord;
+
+    if (chordToPlay == 'Dm7' || chordToPlay == 'Gsus4') {
+      thisChord = chordToPlay;
+    } else {
+      thisChord = chordToPlay.substring(0, chordToPlay.length - 1);
+    }
+
+    ctx.fillText(thisChord, 0, canvas.height * 0.02);
   }
 
   if (!start) {
@@ -100,3 +113,23 @@ function animate() {
 }
 
 animate();
+window.addEventListener("keydown", function (e) {
+  if (e.keyCode == 32) {
+    if (showChords) {
+      showChords = false;
+    } else {
+      showChords = true;
+    }
+  }
+});
+window.addEventListener("mousedown", function (e) {
+  info = e.which;
+
+  if (e.which == 1) {
+    if (showChords) {
+      showChords = false;
+    } else {
+      showChords = true;
+    }
+  }
+});
