@@ -80,7 +80,7 @@ class Chord {
         }
         if (this.x <= x + (x - this.swing) + 0.1 && this.x >= x + (x - this.swing) - 0.1) {
             lines.baseLineWidth = 5;
-            for (let i = 0; i < 20; i++) {
+            for (let i = 0; i < 10; i++) {
                 velocity = { x: (Math.random() - 0.5) / Math.random(), y: (Math.random() - 0.5) / Math.random() };
                 particles.push(new Particle(this.x, this.y, 'aquamarine', velocity));
             }

@@ -104,7 +104,7 @@ function () {
       if (this.x <= x + (x - this.swing) + 0.1 && this.x >= x + (x - this.swing) - 0.1) {
         lines.baseLineWidth = 5;
 
-        for (var _i = 0; _i < 20; _i++) {
+        for (var _i = 0; _i < 10; _i++) {
           velocity = {
             x: (Math.random() - 0.5) / Math.random(),
             y: (Math.random() - 0.5) / Math.random()
