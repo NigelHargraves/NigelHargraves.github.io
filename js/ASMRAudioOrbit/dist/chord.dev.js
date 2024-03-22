@@ -206,12 +206,11 @@ function chordChange() {
   } else if (chordToPlay == 'G1') {
     chordToPlay = 'C2';
     CBass.play();
-    CVox.play();
+    CVox1.play();
   } else if (chordToPlay == 'C2') {
     chordToPlay = 'C3';
     CBass.play();
-    CVox.currentTime = 0;
-    CVox.play();
+    CVox2.play();
   } else if (chordToPlay == 'C3') {
     chordToPlay = 'F2';
     FBass.play();
@@ -239,11 +238,10 @@ function chordChange() {
   } else if (chordToPlay == 'G2') {
     chordToPlay = 'C5';
     CBass.play();
-    CVox.play();
+    CVox1.play();
   } else if (chordToPlay == 'C5') {
     chordToPlay = 'C1';
     CBass.play();
-    CVox.currentTime = 0;
-    CVox.play();
+    CVox2.play();
   }
 }

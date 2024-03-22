@@ -6,10 +6,7 @@ canvas.height = window.innerHeight;
 let center = { x: canvas.width / 2, y: canvas.height / 2 };
 
 
-let circle1 = { x: center.x / 3, y: center.y / 2 };
-let circle2 = { x: (center.x / 3) * 2, y: canvas.height - center.y / 2 };
-let circle3 = { x: center.x + center.x / 3, y: center.y / 2 };
-let circle4 = { x: center.x + (center.x / 3) * 2, y: canvas.height - center.y / 2 };
+
 
 let start = false,
     playNow = true,
@@ -30,20 +27,13 @@ let chordDm = [],
 
 let color = [],
     notes = [],
-    circles = [],
-    particles = [],
-    zigzags = [],
-    drops = [];
+    orbitPaths = [],
+    cubes = [];
+
+orbitPaths.push(new OrbitPath(center.x, center.y, 800, 100));
 
 
-createChords();
-
-
-
-circles.push(new Circle(circle1.x, circle1.y));
-circles.push(new Circle(circle2.x, circle2.y));
-circles.push(new Circle(circle3.x, circle3.y));
-circles.push(new Circle(circle4.x, circle4.y));
+cubes.push(new Cube(center.x, center.y, 0));
 
 
 
@@ -53,38 +43,6 @@ for (let i = 0; i < 36; i++) {
     let hue3 = (Math.random() * 260) + 100;
     color.push('rgb(' + hue1 + ',' + hue2 + ',' + hue3 + ')');
 }
-
-let chord = new Chord(center.x, canvas.height * 3);
-
-let noteNumber = 0;
-
-for (let i = 0; i < 9; i++) {
-    let circleNumber = 1;
-    notes.push(new Note(circle1.x, circle1.y, speed, circleNumber, chordAm[noteNumber], color[noteNumber]));
-    circleNumber++;
-    speed += 0.02;
-    noteNumber++;
-    notes.push(new Note(circle2.x, circle2.y, speed, circleNumber, chordAm[noteNumber], color[noteNumber]));
-    circleNumber++;
-    speed += 0.02;
-    noteNumber++;
-    notes.push(new Note(circle3.x, circle3.y, speed, circleNumber, chordAm[noteNumber], color[noteNumber]));
-    circleNumber++;
-    speed += 0.02;
-    noteNumber++;
-    notes.push(new Note(circle4.x, circle4.y, speed, circleNumber, chordAm[noteNumber], color[noteNumber]));
-    speed += 0.02;
-    noteNumber++;
-}
-
-
-
-
-
-
-setVolume()
-
-
 
 
 
@@ -109,38 +67,19 @@ function animate() {
 
     if (start) {
         if (playNow) {
-            ABass.play();
+
             playNow = false;
         }
 
         if (showChords) {
             ctx.font = "bold 20px Arial";
             ctx.fillStyle = "white";
-
             ctx.fillText(chordToPlay, 0, canvas.height * 0.02);
         }
 
+        forOrbitPaths()
 
-        let createZigzags = Math.random();
-        if (createZigzags > 0.9) {
-            let direction = Math.random();
-            if (direction > 0.5) {
-                zigzags.push(new Zigzag(Math.random() * canvas.width, Math.random() * canvas.height, 'x'))
-            } else {
-                zigzags.push(new Zigzag(Math.random() * canvas.width, Math.random() * canvas.height, 'y'))
-            }
-
-        }
-
-        chord.update();
-
-        forCircles()
-
-        forNotes()
-
-        forZigzags()
-
-        forDrops()
+        forCubes()
 
     }
 

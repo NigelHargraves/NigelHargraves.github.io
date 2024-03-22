@@ -59,12 +59,16 @@ function () {
       ctx.stroke();
       ctx.lineWidth = 1; //chord line.
 
+      ctx.lineWidth = chord.lineWidth;
+      ctx.globalAlpha = chord.opacity;
       ctx.beginPath();
       ctx.arc(center.x, canvas.height * 3, center.y * 5, -Math.PI / 2, -Math.PI / 1.65, true);
       ctx.stroke();
       ctx.beginPath();
       ctx.arc(center.x, -(canvas.height * 2), center.y * 5, Math.PI / 2, Math.PI / 2.5, true);
       ctx.stroke();
+      ctx.lineWidth = 1;
+      ctx.globalAlpha = 0.2;
     }
   }, {
     key: "update",

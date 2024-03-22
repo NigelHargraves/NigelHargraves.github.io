@@ -41,7 +41,7 @@ class BlueCell {
         this.cellLife -= 1;
         if (this.cellLife < 0) {
             let mutate = Math.random();
-            if (mutate > 0.999) {
+            if (mutate > 0.999999) {
                 let changePerameter = Math.random();
                 let changeUp = Math.random();
                 if (changePerameter > 0.5) {

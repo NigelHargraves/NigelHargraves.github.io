@@ -132,6 +132,21 @@ let GN4 = document.getElementById("audio128");
 let AN4 = document.getElementById("audio129");
 let BN4 = document.getElementById("audio130");
 
+let CBell = document.getElementById("audio131");
+let DBell = document.getElementById("audio132");
+let EBell = document.getElementById("audio133");
+let FBell = document.getElementById("audio134");
+let GBell = document.getElementById("audio135");
+let ABell = document.getElementById("audio136");
+let BBell = document.getElementById("audio137");
+let CUBell = document.getElementById("audio138");
+let DUBell = document.getElementById("audio139");
+let EUBell = document.getElementById("audio140");
+let FUBell = document.getElementById("audio141");
+let GUBell = document.getElementById("audio142");
+let AUBell = document.getElementById("audio143");
+let BUBell = document.getElementById("audio144");
+
 
 function setVolume() {
     let noteVolume = 0.2;

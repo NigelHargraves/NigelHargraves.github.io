@@ -61,7 +61,7 @@ var CBass = document.getElementById("audio57");
 var GBass = document.getElementById("audio58");
 var FBass = document.getElementById("audio59");
 var BBass = document.getElementById("audio60");
-var CVox = document.getElementById("audio61");
+var CVox1 = document.getElementById("audio61");
 var GVox = document.getElementById("audio62");
 var FVox = document.getElementById("audio63");
 var Gsus4Vox = document.getElementById("audio64");
@@ -70,6 +70,7 @@ var EmVox = document.getElementById("audio66");
 var DmVox = document.getElementById("audio67");
 var EBass = document.getElementById("audio68");
 var DBass = document.getElementById("audio69");
+var CVox2 = document.getElementById("audio70");
 
 function setVolume() {
   var noteVolume = 0.3;
@@ -137,7 +138,8 @@ function setVolume() {
   BBass.volume = bassVolume;
   EBass.volume = bassVolume;
   DBass.volume = bassVolume;
-  CVox.volume = voiceVolume;
+  CVox1.volume = voiceVolume;
+  CVox2.volume = voiceVolume;
   GVox.volume = voiceVolume;
   FVox.volume = voiceVolume;
   Gsus4Vox.volume = voiceVolume;

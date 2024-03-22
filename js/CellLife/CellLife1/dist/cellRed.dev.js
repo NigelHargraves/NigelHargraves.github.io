@@ -66,7 +66,7 @@ function () {
       if (this.cellLife < 0) {
         var mutate = Math.random();
 
-        if (mutate > 0.999) {
+        if (mutate > 0.999999) {
           var changePerameter = Math.random();
           var changeUp = Math.random();
 

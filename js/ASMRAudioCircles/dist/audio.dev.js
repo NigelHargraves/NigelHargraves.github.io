@@ -131,6 +131,20 @@ var FN4 = document.getElementById("audio127");
 var GN4 = document.getElementById("audio128");
 var AN4 = document.getElementById("audio129");
 var BN4 = document.getElementById("audio130");
+var CBell = document.getElementById("audio131");
+var DBell = document.getElementById("audio132");
+var EBell = document.getElementById("audio133");
+var FBell = document.getElementById("audio134");
+var GBell = document.getElementById("audio135");
+var ABell = document.getElementById("audio136");
+var BBell = document.getElementById("audio137");
+var CUBell = document.getElementById("audio138");
+var DUBell = document.getElementById("audio139");
+var EUBell = document.getElementById("audio140");
+var FUBell = document.getElementById("audio141");
+var GUBell = document.getElementById("audio142");
+var AUBell = document.getElementById("audio143");
+var BUBell = document.getElementById("audio144");
 
 function setVolume() {
   var noteVolume = 0.2;

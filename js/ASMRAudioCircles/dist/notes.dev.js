@@ -18,7 +18,8 @@ function () {
     this.circle = circle;
     this.note = note;
     this.color = color;
-    this.lineWidth = 3;
+    this.lineWidth = 5;
+    this.opacity = 1;
     this.r = 200;
     this.angle = Math.PI + Math.PI / 2;
     this.point = {
@@ -33,6 +34,7 @@ function () {
       ctx.strokeStyle = this.color;
       ctx.fillStyle = this.color;
       ctx.lineWidth = this.lineWidth;
+      ctx.globalAlpha = this.opacity;
       ctx.beginPath();
       ctx.arc(this.x + this.point.x, this.y + this.point.y, 2, 0, Math.PI * 2);
       ctx.fill();
@@ -44,12 +46,17 @@ function () {
       ctx.lineTo(this.x, this.y);
       ctx.stroke();
       ctx.lineWidth = 1;
+      ctx.globalAlpha = 0.2;
     }
   }, {
     key: "update",
     value: function update() {
       if (this.lineWidth > 1) {
         this.lineWidth -= 0.1;
+      }
+
+      if (this.opacity > 0.2) {
+        this.opacity -= 0.01;
       }
 
       this.point.x = this.r * Math.cos(this.angle);
@@ -66,28 +73,32 @@ function () {
             circles[i - 1].verticalTopLineWidth = 5;
             circles[i - 1].colorTop = this.color;
             this.note.play();
-            this.lineWidth = 3;
+            this.lineWidth = 5;
+            this.opacity = 1;
           }
 
           if (this.angle <= Math.PI / 2 + 0.01 && this.angle >= Math.PI / 2 - 0.01) {
             circles[i - 1].verticalBottomLineWidth = 5;
             circles[i - 1].colorBottom = this.color;
             this.note.play();
-            this.lineWidth = 3;
+            this.lineWidth = 5;
+            this.opacity = 1;
           }
 
           if (this.angle == 0) {
             circles[i - 1].horizontalRightLineWidth = 5;
             circles[i - 1].colorRight = this.color;
             this.note.play();
-            this.lineWidth = 3;
+            this.lineWidth = 5;
+            this.opacity = 1;
           }
 
           if (this.angle <= Math.PI + 0.01 && this.angle >= Math.PI - 0.01) {
             circles[i - 1].horizontalLeftLineWidth = 5;
             circles[i - 1].colorLeft = this.color;
             this.note.play();
-            this.lineWidth = 3;
+            this.lineWidth = 5;
+            this.opacity = 1;
           }
         }
       }

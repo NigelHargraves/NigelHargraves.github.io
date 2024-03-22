@@ -85,7 +85,7 @@ function animate() {
     if (start) {
         if (playNow) {
             CBass.play();
-            CVox.play();
+            CVox1.play();
             playNow = false;
         }
 

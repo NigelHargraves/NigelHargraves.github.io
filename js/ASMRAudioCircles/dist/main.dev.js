@@ -30,7 +30,7 @@ var start = false,
 var delay = 0,
     speed = 6,
     chordToPlay = 'Am';
-var chordDm7 = [],
+var chordDm = [],
     chordF = [],
     chordAm = [],
     chordC = [],
@@ -39,7 +39,9 @@ var chordDm7 = [],
 var color = [],
     notes = [],
     circles = [],
-    particles = [];
+    particles = [],
+    zigzags = [],
+    drops = [];
 createChords();
 circles.push(new Circle(circle1.x, circle1.y));
 circles.push(new Circle(circle2.x, circle2.y));
@@ -107,9 +109,23 @@ function animate() {
       ctx.fillText(chordToPlay, 0, canvas.height * 0.02);
     }
 
+    var createZigzags = Math.random();
+
+    if (createZigzags > 0.9) {
+      var direction = Math.random();
+
+      if (direction > 0.5) {
+        zigzags.push(new Zigzag(Math.random() * canvas.width, Math.random() * canvas.height, 'x'));
+      } else {
+        zigzags.push(new Zigzag(Math.random() * canvas.width, Math.random() * canvas.height, 'y'));
+      }
+    }
+
     chord.update();
     forCircles();
     forNotes();
+    forZigzags();
+    forDrops();
   } //call next frame.
 
 

@@ -26,14 +26,18 @@ function createChords() {
     chordC.push(CN3, EN3, GN3);
     chordC.push(CN4, EN4, GN4);
 
-    chordDm7.push(A1, C1, F1);
-    chordDm7.push(A2, C2, F2);
-    chordDm7.push(A3, C3, F3);
-    chordDm7.push(A4, C4, F4);
-    chordDm7.push(A5, C5, F5);
-    chordDm7.push(A6, C6, F6);
-    chordDm7.push(A7, C7, F7);
-    chordDm7.push(A8, C8, F8);
+    chordDm.push(A1, D1, F1);
+    chordDm.push(A2, D2, F2);
+    chordDm.push(A3, D3, F3);
+    chordDm.push(A4, D4, F4);
+    chordDm.push(A5, D5, F5);
+    chordDm.push(A6, D6, F6);
+    chordDm.push(A7, D7, F7);
+    chordDm.push(A8, D8, F8);
+    chordDm.push(AN1, DN1, FN1);
+    chordDm.push(AN2, DN2, FN2);
+    chordDm.push(AN3, DN3, FN3);
+    chordDm.push(AN4, DN4, FN4);
 
     chordEm.push(E1, G1, B1);
     chordEm.push(E2, G2, B2);
