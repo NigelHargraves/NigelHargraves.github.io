@@ -21,56 +21,72 @@ function () {
     this.directY = 0;
     this.objectDistance = 400;
     this.objectSize = 300;
-
-    this.Point2D = function (x, y) {
-      this.x = x;
-      this.y = y;
-    };
-
-    this.Point3D = function (x, y, z) {
-      this.x = x;
-      this.y = y;
-      this.z = z;
-    };
-
-    this.edges = function (x, y, z, size) {
-      this.Point3D.call(this, x, y, z);
-      size *= 0.5;
-      this.vertices = [new this.Point3D(x - size, y - size, z - size), new this.Point3D(x + size, y - size, z - size), new this.Point3D(x + size, y + size, z - size), new this.Point3D(x - size, y + size, z - size), new this.Point3D(x - size, y - size, z + size), new this.Point3D(x + size, y - size, z + size), new this.Point3D(x + size, y + size, z + size), new this.Point3D(x - size, y + size, z + size)];
-      this.faces = [[0, 1, 2, 3], [0, 4, 5, 1], [1, 5, 6, 2], [3, 2, 6, 7], [0, 3, 7, 4], [4, 7, 6, 5]];
-    };
-
-    this.rotateX = function (radian) {
-      var cosine = Math.cos(radian);
-      var sine = Math.sin(radian);
-
-      for (var i = this.vertices.length - 1; i > -1; --i) {
-        var p = this.vertices[i];
-        var y = (p.y - this.y) * cosine - (p.z - this.z) * sine;
-        var z = (p.y - this.y) * sine + (p.z - this.z) * cosine;
-        p.y = y + this.y;
-        p.z = z + this.z;
-      }
-    };
-
-    this.rotateY = function (radian) {
-      var cosine = Math.cos(radian);
-      var sine = Math.sin(radian);
-
-      for (var i = this.vertices.length - 1; i > -1; --i) {
-        var p = this.vertices[i];
-        var x = (p.x - this.x) * cosine - (p.z - this.z) * sine;
-        var z = (p.x - this.x) * sine + (p.z - this.z) * cosine;
-        p.x = x + this.x;
-        p.z = z + this.z;
-      }
-    };
   }
 
   _createClass(Cube, [{
     key: "draw",
     value: function draw() {
-      var vertices = project(this.cube.vertices, canvas.width, canvas.height, this.cubeNo);
+      function project(points3d, w, h, number) {
+        var points2d = new Array(points3d.length);
+        var focal_length = zoom;
+
+        for (var i = points3d.length - 1; i > -1; --i) {
+          var p = points3d[i];
+          var x = p.x * (focal_length / p.z) + w * 0.5;
+          var y = p.y * (focal_length / p.z) + h * 0.5;
+          points2d[i] = cubes[number].Point2D(x, y);
+        }
+
+        return points2d;
+      }
+
+      this.Point2D = function (x, y) {
+        this.x = x;
+        this.y = y;
+      };
+
+      this.Point3D = function (x, y, z) {
+        this.x = x;
+        this.y = y;
+        this.z = z;
+      };
+
+      this.edges = function (x, y, z, size) {
+        this.Point3D.call(this, x, y, z);
+        size *= 0.5;
+        this.vertices = [new this.Point3D(x - size, y - size, z - size), new this.Point3D(x + size, y - size, z - size), new this.Point3D(x + size, y + size, z - size), new this.Point3D(x - size, y + size, z - size), new this.Point3D(x - size, y - size, z + size), new this.Point3D(x + size, y - size, z + size), new this.Point3D(x + size, y + size, z + size), new this.Point3D(x - size, y + size, z + size)];
+        this.faces = [[0, 1, 2, 3], [0, 4, 5, 1], [1, 5, 6, 2], [3, 2, 6, 7], [0, 3, 7, 4], [4, 7, 6, 5]];
+      };
+
+      this.prototype = {
+        rotateX: function rotateX(radian) {
+          var cosine = Math.cos(radian);
+          var sine = Math.sin(radian);
+
+          for (var i = this.vertices.length - 1; i > -1; --i) {
+            var p = this.vertices[i];
+            var y = (p.y - y) * cosine - (p.z - z) * sine;
+            var z = (p.y - y) * sine + (p.z - z) * cosine;
+            p.y = y + y;
+            p.z = z + z;
+          }
+        },
+        rotateY: function rotateY(radian) {
+          var cosine = Math.cos(radian);
+          var sine = Math.sin(radian);
+
+          for (var i = this.vertices.length - 1; i > -1; --i) {
+            var p = this.vertices[i];
+            var x = (p.x - x) * cosine - (p.z - z) * sine;
+            var z = (p.x - x) * sine + (p.z - z) * cosine;
+            p.x = x + x;
+            p.z = z + z;
+          }
+        }
+      };
+      this.prototype.rotateX(this.directX);
+      this.prototype.rotateY(this.directY);
+      var vertices = project(this.edges.vertices, canvas.width, canvas.height, this.cubeNo);
 
       for (var i = this.edges.faces.length - 1; i > -1; --i) {
         var face = this.edges.faces[i];
@@ -80,34 +96,19 @@ function () {
         ctx.lineTo(vertices[face[2]].x, vertices[face[2]].y);
         ctx.lineTo(vertices[face[3]].x, vertices[face[3]].y);
         ctx.strokeStyle = "white";
-        ctx.stroke(); //ctx.closePath();
+        ctx.stroke();
+        ctx.closePath();
       }
     }
   }, {
     key: "update",
     value: function update() {
-      this.cube.rotateX(this.directX);
-      this.cube.rotateY(this.directY);
       this.draw();
     }
   }]);
 
   return Cube;
 }();
-
-function project(points3d, w, h, number) {
-  var points2d = new Array(points3d.length);
-  var focal_length = zoom;
-
-  for (var i = points3d.length - 1; i > -1; --i) {
-    var p = points3d[i];
-    var x = p.x * (focal_length / p.z) + w * 0.5;
-    var y = p.y * (focal_length / p.z) + h * 0.5;
-    points2d[i] = cubes[number].Point2D(x, y);
-  }
-
-  return points2d;
-}
 
 function forCubes() {
   cubes.forEach(function (cube, index) {

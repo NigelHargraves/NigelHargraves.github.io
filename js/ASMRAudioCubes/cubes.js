@@ -8,6 +8,24 @@ class Cube {
         this.objectSize = 300;
 
 
+
+    }
+    draw() {
+
+
+        function project(points3d, w, h, number) {
+            let points2d = new Array(points3d.length);
+            let focal_length = zoom;
+            for (let i = points3d.length - 1; i > -1; --i) {
+                let p = points3d[i];
+                let x = p.x * (focal_length / p.z) + w * 0.5;
+                let y = p.y * (focal_length / p.z) + h * 0.5;
+                points2d[i] = cubes[number].Point2D(x, y);
+            }
+            return points2d;
+        }
+
+
         this.Point2D = function(x, y) {
             this.x = x;
             this.y = y;
@@ -41,39 +59,45 @@ class Cube {
                 [0, 3, 7, 4],
                 [4, 7, 6, 5]
             ];
-
         };
 
-
-        this.rotateX = function(radian) {
-            let cosine = Math.cos(radian);
-            let sine = Math.sin(radian);
-            for (let i = this.vertices.length - 1; i > -1; --i) {
-                let p = this.vertices[i];
-                let y = (p.y - this.y) * cosine - (p.z - this.z) * sine;
-                let z = (p.y - this.y) * sine + (p.z - this.z) * cosine;
-                p.y = y + this.y;
-                p.z = z + this.z;
+        this.prototype = {
+            rotateX: function(radian) {
+                let cosine = Math.cos(radian);
+                let sine = Math.sin(radian);
+                for (let i = this.vertices.length - 1; i > -1; --i) {
+                    let p = this.vertices[i];
+                    let y = (p.y - y) * cosine - (p.z - z) * sine;
+                    let z = (p.y - y) * sine + (p.z - z) * cosine;
+                    p.y = y + y;
+                    p.z = z + z;
+                }
+            },
+            rotateY: function(radian) {
+                let cosine = Math.cos(radian);
+                let sine = Math.sin(radian);
+                for (let i = this.vertices.length - 1; i > -1; --i) {
+                    let p = this.vertices[i];
+                    let x = (p.x - x) * cosine - (p.z - z) * sine;
+                    let z = (p.x - x) * sine + (p.z - z) * cosine;
+                    p.x = x + x;
+                    p.z = z + z;
+                }
             }
-        };
-
-        this.rotateY = function(radian) {
-            let cosine = Math.cos(radian);
-            let sine = Math.sin(radian);
-            for (let i = this.vertices.length - 1; i > -1; --i) {
-                let p = this.vertices[i];
-                let x = (p.x - this.x) * cosine - (p.z - this.z) * sine;
-                let z = (p.x - this.x) * sine + (p.z - this.z) * cosine;
-                p.x = x + this.x;
-                p.z = z + this.z;
-            }
-        };
+        }
 
 
-    }
-    draw() {
+        this.prototype.rotateX(this.directX);
+        this.prototype.rotateY(this.directY);
 
-        let vertices = project(this.cube.vertices, canvas.width, canvas.height, this.cubeNo);
+
+
+
+
+
+
+        let vertices = project(this.edges.vertices, canvas.width, canvas.height, this.cubeNo);
+
         for (let i = this.edges.faces.length - 1; i > -1; --i) {
             let face = this.edges.faces[i];
             ctx.beginPath();
@@ -83,27 +107,34 @@ class Cube {
             ctx.lineTo(vertices[face[3]].x, vertices[face[3]].y);
             ctx.strokeStyle = "white";
             ctx.stroke();
-            //ctx.closePath();
+            ctx.closePath();
         }
+
+
+
+
+
+
     }
     update() {
-        this.cube.rotateX(this.directX);
-        this.cube.rotateY(this.directY);
+
+
+
         this.draw();
     }
 }
 
-function project(points3d, w, h, number) {
-    let points2d = new Array(points3d.length);
-    let focal_length = zoom;
-    for (let i = points3d.length - 1; i > -1; --i) {
-        let p = points3d[i];
-        let x = p.x * (focal_length / p.z) + w * 0.5;
-        let y = p.y * (focal_length / p.z) + h * 0.5;
-        points2d[i] = cubes[number].Point2D(x, y);
-    }
-    return points2d;
-}
+
+
+
+
+
+
+
+
+
+
+
 
 function forCubes() {
     cubes.forEach((cube, index) => {
