@@ -30,11 +30,72 @@ let color = [],
     orbitPaths = [],
     cubes = [];
 
+let zoom = 100;
+
+let Point2D = function(x, y) {
+    this.x = x;
+    this.y = y;
+};
 
 
 
 
+let Point3D = function(x, y, z) {
+    this.x = x;
+    this.y = y;
+    this.z = z;
+};
 
+
+function rotateX(radian) {
+    let cosine = Math.cos(radian);
+    let sine = Math.sin(radian);
+    for (let i = edges.vertices.length - 1; i > -1; --i) {
+        let p = edges.vertices[i];
+        let y = (p.y - y) * cosine - (p.z - z) * sine;
+        let z = (p.y - y) * sine + (p.z - z) * cosine;
+        p.y = y + y;
+        p.z = z + z;
+    }
+};
+
+function rotateY(radian) {
+    let cosine = Math.cos(radian);
+    let sine = Math.sin(radian);
+    for (let i = edges.vertices.length - 1; i > -1; --i) {
+        let p = edges.vertices[i];
+        let x = (p.x - x) * cosine - (p.z - z) * sine;
+        let z = (p.x - x) * sine + (p.z - z) * cosine;
+        p.x = x + x;
+        p.z = z + z;
+    }
+};
+
+class edges {
+    constructor(x, y, z, size) {
+        Point3D.call(this, x, y, z);
+        size *= 0.5;
+        this.vertices = [
+            new Point3D(x - size, y - size, z - size),
+            new Point3D(x + size, y - size, z - size),
+            new Point3D(x + size, y + size, z - size),
+            new Point3D(x - size, y + size, z - size),
+            new Point3D(x - size, y - size, z + size),
+            new Point3D(x + size, y - size, z + size),
+            new Point3D(x + size, y + size, z + size),
+            new Point3D(x - size, y + size, z + size)
+        ];
+
+        this.faces = [
+            [0, 1, 2, 3],
+            [0, 4, 5, 1],
+            [1, 5, 6, 2],
+            [3, 2, 6, 7],
+            [0, 3, 7, 4],
+            [4, 7, 6, 5]
+        ];
+    }
+};
 
 
 
@@ -51,7 +112,7 @@ let color = [],
 orbitPaths.push(new OrbitPath(center.x, center.y, 800, 100));
 
 
-cubes.push(new Cube(center.x, center.y, 0));
+cubes.push(new Cube(center.x, center.y, 400, 300, 0));
 
 
 
