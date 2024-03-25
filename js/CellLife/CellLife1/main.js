@@ -5,13 +5,13 @@ canvas.height = window.innerHeight;
 
 let delay = 0,
     rangeRed = 30,
-    rangeYellow = 20,
-    rangeBlue = 10,
-    rangeFuchsia = 10,
+    rangeYellow = 30,
+    rangeBlue = 30,
+    rangeFuchsia = 30,
     repelRedRange = 10,
-    repelYellowRange = 8,
-    repelBlueRange = 7,
-    repelFuchsiaRange = 6,
+    repelYellowRange = 10,
+    repelBlueRange = 10,
+    repelFuchsiaRange = 10,
     cellImpactSize = 3,
     simulationSpeed = 1,
     celSize = 2,
@@ -82,7 +82,7 @@ function animate() {
             fuchsiaCells.push(new FuchsiaCell(Math.random() * canvas.width, Math.random() * canvas.height, cellNumber));
         }
 
-        if (redCells.length + blueCells.length + yellowCells.length + fuchsiaCells.length <= 4000) {
+        if (redCells.length + blueCells.length + yellowCells.length + fuchsiaCells.length <= 2000) {
             if (cellBirth < 400) {
                 cellBirth++;
             } else {

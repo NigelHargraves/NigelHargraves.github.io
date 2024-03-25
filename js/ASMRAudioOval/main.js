@@ -134,5 +134,25 @@ function animate() {
 
 }
 
-
 animate();
+
+window.addEventListener("keydown", (e) => {
+    if (e.keyCode == 32) {
+        if (showChords) {
+            showChords = false;
+        } else {
+            showChords = true;
+        }
+    }
+});
+
+window.addEventListener("mousedown", (e) => {
+    info = e.which;
+    if (e.which == 1) {
+        if (showChords) {
+            showChords = false;
+        } else {
+            showChords = true;
+        }
+    }
+});

@@ -104,3 +104,23 @@ function animate() {
 }
 
 animate();
+window.addEventListener("keydown", function (e) {
+  if (e.keyCode == 32) {
+    if (showChords) {
+      showChords = false;
+    } else {
+      showChords = true;
+    }
+  }
+});
+window.addEventListener("mousedown", function (e) {
+  info = e.which;
+
+  if (e.which == 1) {
+    if (showChords) {
+      showChords = false;
+    } else {
+      showChords = true;
+    }
+  }
+});
