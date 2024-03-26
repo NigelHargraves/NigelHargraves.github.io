@@ -1,30 +1,29 @@
-class Cube {
-    constructor(x, y, z, size, speed, number, note, color) {
+class Chord {
+    constructor(x, y, z, size, speed, number) {
         this.x = x;
         this.y = y;
         this.z = z;
         this.size = size;
         this.speed = speed;
-        this.cubeNo = number;
-        this.note = note;
-        this.color = color;
+        this.chordNo = number;
         this.lineWidth = 5;
-        this.zoom = 80;
-        this.extraZoom = 20;
+        this.zoom = 120;
+        this.extraZoom = 40;
         this.directX = 0;
         this.directY = (Math.random() * -0.01) + -0.01;
         this.point = { x: 0, y: 0 };
         this.angle = 0;
-        this.edges = new Edge(this.x, this.y, this.z, this.size);
+        this.edges = new ChordEdge(this.x, this.y, this.z, this.size);
     }
     draw() {
+        ctx.strokeStyle = 'aquamarine';
+        ctx.fillStyle = 'aquamarine';
 
-        let vertices = project(this.edges.vertices, canvas.width, canvas.height, this.cubeNo);
+        let vertices = chordProject(this.edges.vertices, canvas.width, canvas.height);
 
         ctx.save();
         ctx.translate(0 + this.point.x, (0 + this.point.y) - this.zoom * 0.5);
         ctx.lineWidth = this.lineWidth;
-        ctx.strokeStyle = this.color;
         for (let i = this.edges.faces.length - 1; i > -1; --i) {
             let face = this.edges.faces[i];
             ctx.beginPath();
@@ -42,28 +41,25 @@ class Cube {
         }
 
         for (let i = 0; i <= 7; i++) {
-            ctx.fillStyle = this.color;
             ctx.beginPath();
             ctx.arc(vertices[i].x, vertices[i].y, 2, 0, Math.PI * 2);
             ctx.fill();
         }
         ctx.restore();
+
     }
     update() {
+
         if (this.lineWidth > 1) {
-            this.lineWidth -= 0.05;
-        }
-        if (this.extraZoom > 0) {
-            this.extraZoom -= 1;
-        }
-        if (this.cubeNo > 11) {
-            this.point.x = orbitPaths[1].radius.x * Math.cos(this.angle);
-            this.point.y = orbitPaths[1].radius.y * Math.sin(this.angle);
-        } else {
-            this.point.x = orbitPaths[2].radius.x * Math.cos(this.angle);
-            this.point.y = orbitPaths[2].radius.y * Math.sin(this.angle);
+            this.lineWidth -= 0.01;
         }
 
+        if (this.extraZoom > 0) {
+            this.extraZoom -= 0.1;
+        }
+
+        this.point.x = orbitPaths[0].radius.x * Math.cos(this.angle);
+        this.point.y = orbitPaths[0].radius.y * Math.sin(this.angle);
 
         this.angle += (Math.PI / 180) / this.speed;
         if (this.angle >= Math.PI * 2) {
@@ -80,89 +76,73 @@ class Cube {
 
         if (this.angle == 0) {
             this.lineWidth = 5;
-            this.note.play();
-            if (this.cubeNo > 11) {
-                orbitPaths[1].lineWidthR = 5;
-                orbitPaths[1].colorR = this.color;
-            } else {
-                orbitPaths[2].lineWidthR = 5;
-                orbitPaths[2].colorR = this.color;
-            }
+            chordChange()
+            orbitPaths[0].lineWidthR = 5;
             this.extraZoom = 20;
-            this.zoom = 80;
-
+            this.zoom = 120;
+            orbitPaths[0].colorR = 'aquamarine';
         }
 
         if (this.angle >= (Math.PI / 2) - 0.001 && this.angle <= (Math.PI / 2) + 0.001) {
             this.lineWidth = 5;
-            this.note.play();
-            if (this.cubeNo > 11) {
-                orbitPaths[1].lineWidthB = 5;
-                orbitPaths[1].colorB = this.color;
-            } else {
-                orbitPaths[2].lineWidthB = 5;
-                orbitPaths[2].colorB = this.color;
-            }
+            chordChange()
+            orbitPaths[0].lineWidthB = 5;
             this.extraZoom = 20;
+            orbitPaths[0].colorB = 'aquamarine';
         }
 
         if (this.angle >= Math.PI - 0.001 && this.angle <= Math.PI + 0.001) {
             this.lineWidth = 5;
-            this.note.play();
-            if (this.cubeNo > 11) {
-                orbitPaths[1].lineWidthL = 5;
-                orbitPaths[1].colorL = this.color;
-            } else {
-                orbitPaths[2].lineWidthL = 5;
-                orbitPaths[2].colorL = this.color;
-            }
+            chordChange()
+            orbitPaths[0].lineWidthL = 5;
             this.extraZoom = 20;
+            orbitPaths[0].colorL = 'aquamarine';
         }
 
         if (this.angle >= Math.PI + (Math.PI / 2) - 0.001 && this.angle <= Math.PI + (Math.PI / 2) + 0.001) {
             this.lineWidth = 5;
-            this.note.play();
-            if (this.cubeNo > 11) {
-                orbitPaths[1].lineWidthT = 5;
-                orbitPaths[1].colorT = this.color;
-            } else {
-                orbitPaths[2].lineWidthT = 5;
-                orbitPaths[2].colorT = this.color;
-            }
+            chordChange()
+            orbitPaths[0].lineWidthT = 5;
             this.extraZoom = 20;
+            orbitPaths[0].colorT = 'aquamarine';
         }
 
         this.edges.rotateX(this.directX);
         this.edges.rotateY(this.directY);
+
 
         this.draw();
     }
 }
 
 
-let Point2D = function(x, y) {
+
+
+
+
+let ChordPoint2D = function(x, y) {
     this.x = x;
     this.y = y;
 };
 
-let Point3D = function(x, y, z) {
+let ChordPoint3D = function(x, y, z) {
     this.x = x;
     this.y = y;
     this.z = z;
 };
 
-let Edge = function(x, y, z, size) {
-    Point3D.call(this, x, y, z);
+let ChordEdge = function(x, y, z, size) {
+    ChordPoint3D.call(this, x, y, z);
     size *= 0.3;
     this.vertices = [
-        new Point3D(x - size, y - size, z - size),
-        new Point3D(x + size, y - size, z - size),
-        new Point3D(x + size, y + size, z - size),
-        new Point3D(x - size, y + size, z - size),
-        new Point3D(x - size, y - size, z + size),
-        new Point3D(x + size, y - size, z + size),
-        new Point3D(x + size, y + size, z + size),
-        new Point3D(x - size, y + size, z + size)
+        new ChordPoint3D(x - size, y - size, z - size),
+        new ChordPoint3D(x + size, y - size, z - size),
+        new ChordPoint3D(x + size, y + size, z - size),
+        new ChordPoint3D(x - size, y + size, z - size),
+        new ChordPoint3D(x - size, y - size, z + size),
+        new ChordPoint3D(x + size, y - size, z + size),
+        new ChordPoint3D(x + size, y + size, z + size),
+        new ChordPoint3D(x - size, y + size, z + size)
     ];
 
     this.faces = [
@@ -175,7 +155,7 @@ let Edge = function(x, y, z, size) {
     ];
 };
 
-Edge.prototype = {
+ChordEdge.prototype = {
     rotateX: function(radian) {
         let cosine = Math.cos(radian);
         let sine = Math.sin(radian);
@@ -200,21 +180,61 @@ Edge.prototype = {
     }
 };
 
-
-function project(points3d, w, h, number) {
+function chordProject(points3d, w, h) {
     let points2d = new Array(points3d.length);
-    let focal_length = cubes[number].zoom + cubes[number].extraZoom;
+    let focal_length = chord.zoom + chord.extraZoom;
     for (let i = points3d.length - 1; i > -1; --i) {
         let p = points3d[i];
         let x = p.x * (focal_length / p.z) + w * 0.5;
         let y = p.y * (focal_length / p.z) + h * 0.5;
-        points2d[i] = new Point2D(x, y);
+        points2d[i] = new ChordPoint2D(x, y);
     }
     return points2d;
 }
 
-function forCubes() {
-    cubes.forEach((cube, index) => {
-        cube.update();
-    });
+
+
+
+
+
+function chordChange() {
+    if (chordToPlay == 'Am') {
+        chordToPlay = 'C';
+        CBass.play();
+    } else if (chordToPlay == 'C') {
+        chordToPlay = 'D';
+        DBass.play();
+    } else if (chordToPlay == 'D') {
+        chordToPlay = 'F';
+        FBass.play();
+    } else if (chordToPlay == 'F') {
+        chordToPlay = 'Am';
+        ABass.play();
+    }
+
+    if (chordToPlay == 'Am') {
+        for (let i = 0; i < 24; i++) {
+            cubes[i].note = chordAm[i];
+        }
+    }
+
+    if (chordToPlay == 'C') {
+        for (let i = 0; i < 24; i++) {
+            cubes[i].note = chordC[i];
+        }
+    }
+
+    if (chordToPlay == 'D') {
+        for (let i = 0; i < 24; i++) {
+            cubes[i].note = chordD[i];
+        }
+    }
+
+    if (chordToPlay == 'F') {
+        for (let i = 0; i < 24; i++) {
+            cubes[i].note = chordF[i];
+        }
+    }
+
+
 }

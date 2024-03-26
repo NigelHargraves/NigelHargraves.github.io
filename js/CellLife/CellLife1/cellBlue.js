@@ -92,29 +92,22 @@ function forBlueCells() {
         if (BC.y > canvas.height) {
             BC.y = 0;
         }
-        redCells.forEach((RC, index) => {
-            let attract = collisionDetection(BC.x, BC.y, BC.r, RC.x, RC.y, RC.r);
+        yellowCells.forEach((YC, index) => {
+            let attract = collisionDetection(BC.x, BC.y, BC.r, YC.x, YC.y, YC.r);
             if (attract) {
-                let repel = collisionDetection(BC.x, BC.y, repelBlueRange, RC.x, RC.y, repelRedRange);
+                let repel = collisionDetection(BC.x, BC.y, repelBlueRange, YC.x, YC.y, repelYellowRange);
                 if (!repel) {
-                    BC.angle = Math.atan2(RC.y - BC.y, RC.x - BC.x);
+                    BC.angle = Math.atan2(YC.y - BC.y, YC.x - BC.x);
                     BC.velocity.x = Math.cos(BC.angle) * simulationSpeed;
                     BC.velocity.y = Math.sin(BC.angle) * simulationSpeed;
                 } else {
-                    BC.angle = Math.atan2(RC.y - BC.y, RC.x - BC.x);
+                    BC.angle = Math.atan2(YC.y - BC.y, YC.x - BC.x);
                     BC.velocity.x = -Math.cos(BC.angle) * simulationSpeed;
                     BC.velocity.y = -Math.sin(BC.angle) * simulationSpeed;
                 }
             }
         });
-        yellowCells.forEach((YC, index) => {
-            let repel = collisionDetection(BC.x, BC.y, repelBlueRange, YC.x, YC.y, repelYellowRange);
-            if (repel) {
-                BC.angle = Math.atan2(YC.y - BC.y, YC.x - BC.x);
-                BC.velocity.x = -Math.cos(BC.angle) * simulationSpeed;
-                BC.velocity.y = -Math.sin(BC.angle) * simulationSpeed;
-            }
-        });
+
         BC.update();
     });
 }

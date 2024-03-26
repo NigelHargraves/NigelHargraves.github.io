@@ -13,12 +13,12 @@ let start = false,
     showChords = false;
 
 let delay = 0,
-    speed = 6,
+    speed = 10,
     chordToPlay = 'Am';
 
 
 
-let chordDm = [],
+let chordD = [],
     chordF = [],
     chordAm = [],
     chordC = [],
@@ -30,72 +30,9 @@ let color = [],
     orbitPaths = [],
     cubes = [];
 
-let zoom = 100;
-
-let Point2D = function(x, y) {
-    this.x = x;
-    this.y = y;
-};
 
 
-
-
-let Point3D = function(x, y, z) {
-    this.x = x;
-    this.y = y;
-    this.z = z;
-};
-
-
-function rotateX(radian) {
-    let cosine = Math.cos(radian);
-    let sine = Math.sin(radian);
-    for (let i = edges.vertices.length - 1; i > -1; --i) {
-        let p = edges.vertices[i];
-        let y = (p.y - y) * cosine - (p.z - z) * sine;
-        let z = (p.y - y) * sine + (p.z - z) * cosine;
-        p.y = y + y;
-        p.z = z + z;
-    }
-};
-
-function rotateY(radian) {
-    let cosine = Math.cos(radian);
-    let sine = Math.sin(radian);
-    for (let i = edges.vertices.length - 1; i > -1; --i) {
-        let p = edges.vertices[i];
-        let x = (p.x - x) * cosine - (p.z - z) * sine;
-        let z = (p.x - x) * sine + (p.z - z) * cosine;
-        p.x = x + x;
-        p.z = z + z;
-    }
-};
-
-class edges {
-    constructor(x, y, z, size) {
-        Point3D.call(this, x, y, z);
-        size *= 0.5;
-        this.vertices = [
-            new Point3D(x - size, y - size, z - size),
-            new Point3D(x + size, y - size, z - size),
-            new Point3D(x + size, y + size, z - size),
-            new Point3D(x - size, y + size, z - size),
-            new Point3D(x - size, y - size, z + size),
-            new Point3D(x + size, y - size, z + size),
-            new Point3D(x + size, y + size, z + size),
-            new Point3D(x - size, y + size, z + size)
-        ];
-
-        this.faces = [
-            [0, 1, 2, 3],
-            [0, 4, 5, 1],
-            [1, 5, 6, 2],
-            [3, 2, 6, 7],
-            [0, 3, 7, 4],
-            [4, 7, 6, 5]
-        ];
-    }
-};
+createChords();
 
 
 
@@ -105,18 +42,11 @@ class edges {
 
 
 
+orbitPaths.push(new OrbitPath(center.x, center.y, 900, 300));
+orbitPaths.push(new OrbitPath(center.x, center.y, 800, 250));
+orbitPaths.push(new OrbitPath(center.x, center.y, 700, 200));
 
-
-
-
-orbitPaths.push(new OrbitPath(center.x, center.y, 800, 100));
-
-
-cubes.push(new Cube(center.x, center.y, 400, 300, 0));
-
-
-
-for (let i = 0; i < 36; i++) {
+for (let i = 0; i < 24; i++) {
     let hue1 = (Math.random() * 260) + 100;
     let hue2 = (Math.random() * 260) + 100;
     let hue3 = (Math.random() * 260) + 100;
@@ -124,6 +54,19 @@ for (let i = 0; i < 36; i++) {
 }
 
 
+
+
+for (let i = 0; i < 24; i++) {
+    cubes.push(new Cube(0, 200, 400, 300, speed, i, chordAm[i], color[i]));
+    speed += 0.05;
+    if (i == 11) {
+        speed += 1;
+    }
+}
+
+let chord = new Chord(0, 170, 400, 300, speed + 1, 25);
+
+setVolume();
 
 function animate() {
     //CLS.
@@ -146,7 +89,10 @@ function animate() {
 
     if (start) {
         if (playNow) {
-
+            for (let i = 0; i < 24; i++) {
+                ABass.play();
+                chordAm[i].play();
+            }
             playNow = false;
         }
 
@@ -156,10 +102,13 @@ function animate() {
             ctx.fillText(chordToPlay, 0, canvas.height * 0.02);
         }
 
+
+
         forOrbitPaths()
 
         forCubes()
 
+        chord.update();
     }
 
     //call next frame.
