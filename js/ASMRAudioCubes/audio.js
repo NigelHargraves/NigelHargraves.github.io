@@ -102,11 +102,27 @@ let FBass = document.getElementById("audio100");
 let ABass = document.getElementById("audio101");
 let GBass = document.getElementById("audio102");
 
-
+let AmChord = document.getElementById("audio103");
+let CChord = document.getElementById("audio104");
+let DChord = document.getElementById("audio105");
+let DmChord = document.getElementById("audio106");
+let EChord = document.getElementById("audio107");
+let FChord = document.getElementById("audio108");
+let GChord = document.getElementById("audio109");
 
 function setVolume() {
     let noteVolume = 0.2;
-    let bassVolume = 0.4;
+    let bassVolume = 1;
+    let chordVolume = 0.3;
+
+    AmChord.volume = chordVolume;
+    CChord.volume = chordVolume;
+    DChord.volume = chordVolume;
+    DmChord.volume = chordVolume;
+    EChord.volume = chordVolume;
+    FChord.volume = chordVolume;
+    GChord.volume = chordVolume;
+
     A1.volume = noteVolume;
     Bb1.volume = noteVolume;
     B1.volume = noteVolume;

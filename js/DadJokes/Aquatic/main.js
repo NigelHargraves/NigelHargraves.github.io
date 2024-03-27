@@ -20,16 +20,16 @@ let sayIt = false,
     volumeDown = false,
     delayLaugh = false;
 
-let jokeText = ['', 'How do you make an Octopus laugh?', 'Ten Tickles!', 'What is the most musical fish in the sea?', 'The Tuna Fish!',
-    'How do oysters call their friends?', 'On shell phones!', 'What is the strongest creature in the sea?', 'The mussel!',
-    'Where do fish keep their money?', 'In a river-bank!', 'Why dont oysters share their pearls?', 'Because they are shellfish!',
-    'Where do fish sleep?', 'On the seabed!', 'Why was the orca so happy?', 'Because He was having a whale of a time!',
-    'What did the ocean say to the shore?', 'Nothing, it just waved!', 'Why did the whale blush?', 'It saw the oceans bottom!',
-    'A red ship crashed into a blue ship...', 'The sailors were marooned!', 'What sits at the bottom of the sea, and twitches?',
-    'A nervous wreck!', 'Why did the dolphin feel sick?', 'Because the sea weed!', 'What is the most famous fish?', 'The STAR fish!',
-    'I have not seen my pet lobster in months...', 'I think it is a lost claws!', 'What should dolphins always take, to stay healthy?',
-    'Vitamin sea!', 'How do dolphins make decisions?', 'They FLIPPER coin!', 'I saw a sailor putting       helium balloons in his ship...',
-    'Well, whatever floats your boat!', 'Thank you for laughing', ' I am in stitches', 'Please like and subscribe, Take Care, and Goodbye'
+let jokeText = ['', 'How does a train hear another train coming?', 'With its engine ears!', 'What do you get if you cross a train with a dog?', "A choo-chiwawa!",
+    'What kind of train eats too much?', 'A chew chew train!', "Boss. You’re the worst train driver       ever, How many have you derailed this year?", 'Driver. I’m not sure, it’s hard to keep track!',
+    'Why did the train go to the sauna?', 'To blow off some steam!', 'Why was the train going backwards?', 'Just doing a little reverse engineering!',
+    'What does a train have to do before it goes into service?', 'The training!', 'What do you call a grateful train?', 'Thomas the Thank Engine!',
+    'What do you call a winter train, full of teeth?', 'The Molar Express!', 'What did one ancient Egyptian train say to the other     when they realized they had the same train whistle sound?', 'Hey, we have a toot-in-common!',
+    'What kind of locomotive do ghosts use?', 'A fright train!', 'What did the depressed train driver do ?',
+    'He went off the rails!', 'What did one train car say to the other train car?', 'Do you want to hook up later?', 'Why do you have to wait so   long for a train on Halloween?', 'They only run a skeleton service!',
+    'What do you give a train driver for Christmas?', 'Platform shoes!', "Why can’t the engineer be electrocuted?",
+    "Because he’s not a conductor!", "What happened to the man that took the 5 o’clock train home?", 'He had to give it back!', 'What do you call a pretend railway?',
+    'A play station!', 'Thank you for laughing', ' I am in stitches', 'Please like and subscribe, Take Care, and Goodbye'
 ];
 
 let laughs = [];
@@ -70,7 +70,7 @@ function animate() {
         var voices = () => {
             speechSynthesis.getVoices().forEach((v, i) => {
                 let opt = document.createElement("option");
-                opt.value = 111;
+                opt.value = 105;
                 opt.innerHTML = v.name;
                 hvoice.appendChild(opt);
             });

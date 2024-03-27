@@ -6,7 +6,7 @@ canvas.height = window.innerHeight;
 let center = { x: canvas.width / 2, y: canvas.height / 2 };
 
 
-
+let velocity = { x: 0, y: 0 };
 
 let start = false,
     playNow = true,
@@ -14,21 +14,25 @@ let start = false,
 
 let delay = 0,
     speed = 10,
+    verse = 1,
     chordToPlay = 'Am';
 
 
 
 let chordD = [],
+    chordDm = [],
     chordF = [],
     chordAm = [],
     chordC = [],
     chordG = [],
-    chordEm = [];
+    chordE = [];
 
 let color = [],
     notes = [],
     orbitPaths = [],
-    cubes = [];
+    cubes = [],
+    stars = [],
+    particles = [];
 
 
 
@@ -92,6 +96,7 @@ function animate() {
             for (let i = 0; i < 24; i++) {
                 ABass.play();
                 chordAm[i].play();
+                AmChord.play();
             }
             playNow = false;
         }
@@ -102,11 +107,21 @@ function animate() {
             ctx.fillText(chordToPlay, 0, canvas.height * 0.02);
         }
 
-
+        let createStar = Math.random();
+        if (createStar > 0.99) {
+            ctx.save();
+            ctx.translate(center.x, center.y);
+            stars.push(new Star(Math.random() * canvas.width - canvas.width / 2, Math.random() * canvas.height - canvas.height / 2));
+            ctx.restore();
+        }
 
         forOrbitPaths()
 
         forCubes()
+
+        forStars()
+
+        forParticles()
 
         chord.update();
     }
