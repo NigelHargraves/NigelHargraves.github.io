@@ -6,7 +6,6 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-//create Star class.
 var Star =
 /*#__PURE__*/
 function () {
@@ -24,7 +23,7 @@ function () {
       ctx.save();
       ctx.translate(center.x, center.y);
       ctx.beginPath();
-      ctx.arc(this.x, this.y, 1, 0, Math.PI * 2);
+      ctx.arc(this.x, this.y, 2, 0, Math.PI * 2);
       ctx.fillStyle = "white";
       ctx.fill();
       ctx.restore();

@@ -108,7 +108,7 @@ function animate() {
         }
 
         let createStar = Math.random();
-        if (createStar > 0.99) {
+        if (createStar > 0.98) {
             ctx.save();
             ctx.translate(center.x, center.y);
             stars.push(new Star(Math.random() * canvas.width - canvas.width / 2, Math.random() * canvas.height - canvas.height / 2));

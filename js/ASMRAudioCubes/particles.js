@@ -9,7 +9,7 @@ class Particle {
     draw() {
         ctx.strokeStyle = this.color;
         ctx.beginPath();
-        ctx.arc(this.x, this.y, 0.2, 0, Math.PI * 2);
+        ctx.arc(this.x, this.y, 0.5, 0, Math.PI * 2);
         ctx.globalAlpha = this.opacity;
         ctx.stroke();
         ctx.globalAlpha = 0.2;

@@ -1,4 +1,3 @@
-//create Star class.
 class Star {
     //construct Star data.
     constructor(x, y) {
@@ -10,7 +9,7 @@ class Star {
         ctx.save();
         ctx.translate(center.x, center.y);
         ctx.beginPath();
-        ctx.arc(this.x, this.y, 1, 0, Math.PI * 2);
+        ctx.arc(this.x, this.y, 2, 0, Math.PI * 2);
         ctx.fillStyle = "white";
         ctx.fill();
         ctx.restore();

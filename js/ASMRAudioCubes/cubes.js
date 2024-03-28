@@ -90,7 +90,14 @@ class Cube {
             }
             this.extraZoom = 20;
             this.zoom = 80;
-
+            for (let i = 0; i < 10; i++) {
+                velocity = { x: Math.random() - 0.5, y: Math.random() - 0.5 };
+                if (this.cubeNo < 11) {
+                    particles.push(new Particle(center.x + orbitPaths[2].radius.x, center.y, this.color, velocity));
+                } else {
+                    particles.push(new Particle(center.x + orbitPaths[1].radius.x, center.y, this.color, velocity));
+                }
+            }
         }
 
         if (this.angle >= (Math.PI / 2) - 0.001 && this.angle <= (Math.PI / 2) + 0.001) {
@@ -104,6 +111,14 @@ class Cube {
                 orbitPaths[2].colorB = this.color;
             }
             this.extraZoom = 20;
+            for (let i = 0; i < 10; i++) {
+                velocity = { x: Math.random() - 0.5, y: Math.random() - 0.5 };
+                if (this.cubeNo < 11) {
+                    particles.push(new Particle(center.x, center.y + orbitPaths[2].radius.y, this.color, velocity));
+                } else {
+                    particles.push(new Particle(center.x, center.y + orbitPaths[1].radius.y, this.color, velocity));
+                }
+            }
         }
 
         if (this.angle >= Math.PI - 0.001 && this.angle <= Math.PI + 0.001) {
@@ -117,6 +132,14 @@ class Cube {
                 orbitPaths[2].colorL = this.color;
             }
             this.extraZoom = 20;
+            for (let i = 0; i < 10; i++) {
+                velocity = { x: Math.random() - 0.5, y: Math.random() - 0.5 };
+                if (this.cubeNo < 11) {
+                    particles.push(new Particle(center.x - orbitPaths[2].radius.x, center.y, this.color, velocity));
+                } else {
+                    particles.push(new Particle(center.x - orbitPaths[1].radius.x, center.y, this.color, velocity));
+                }
+            }
         }
 
         if (this.angle >= Math.PI + (Math.PI / 2) - 0.001 && this.angle <= Math.PI + (Math.PI / 2) + 0.001) {
@@ -130,6 +153,14 @@ class Cube {
                 orbitPaths[2].colorT = this.color;
             }
             this.extraZoom = 20;
+            for (let i = 0; i < 10; i++) {
+                velocity = { x: Math.random() - 0.5, y: Math.random() - 0.5 };
+                if (this.cubeNo < 11) {
+                    particles.push(new Particle(center.x, center.y - orbitPaths[2].radius.y, this.color, velocity));
+                } else {
+                    particles.push(new Particle(center.x, center.y - orbitPaths[1].radius.y, this.color, velocity));
+                }
+            }
         }
 
         this.edges.rotateX(this.directX);
