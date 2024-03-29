@@ -17,7 +17,8 @@ let notes = [],
     color = [];
 
 let start = false,
-    playNow = true;
+    playNow = true,
+    showChords = false;
 
 let delay = 0,
     speed = 5,
@@ -89,6 +90,18 @@ function animate() {
             playNow = false;
         }
 
+        if (showChords) {
+            ctx.font = "bold 20px Arial";
+            ctx.fillStyle = "white";
+            let thisChord
+            if (chordToPlay == 'Dm' || chordToPlay == 'Em' || chordToPlay == 'Gsus4') {
+                thisChord = chordToPlay;
+            } else {
+                thisChord = chordToPlay.substring(0, chordToPlay.length - 1);
+            }
+            ctx.fillText(thisChord, 0, canvas.height * 0.02);
+        }
+
         let createZigzags = Math.random();
         if (createZigzags > 0.9) {
             let direction = Math.random();
@@ -121,3 +134,24 @@ function animate() {
 
 
 animate();
+
+window.addEventListener("keydown", (e) => {
+    if (e.keyCode == 32) {
+        if (showChords) {
+            showChords = false;
+        } else {
+            showChords = true;
+        }
+    }
+});
+
+window.addEventListener("mousedown", (e) => {
+    info = e.which;
+    if (e.which == 1) {
+        if (showChords) {
+            showChords = false;
+        } else {
+            showChords = true;
+        }
+    }
+});

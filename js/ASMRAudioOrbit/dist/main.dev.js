@@ -19,7 +19,8 @@ var notes = [],
     chordEm = [],
     color = [];
 var start = false,
-    playNow = true;
+    playNow = true,
+    showChords = false;
 var delay = 0,
     speed = 5,
     innerSpeed = 1,
@@ -89,6 +90,20 @@ function animate() {
       playNow = false;
     }
 
+    if (showChords) {
+      ctx.font = "bold 20px Arial";
+      ctx.fillStyle = "white";
+      var thisChord;
+
+      if (chordToPlay == 'Dm' || chordToPlay == 'Em' || chordToPlay == 'Gsus4') {
+        thisChord = chordToPlay;
+      } else {
+        thisChord = chordToPlay.substring(0, chordToPlay.length - 1);
+      }
+
+      ctx.fillText(thisChord, 0, canvas.height * 0.02);
+    }
+
     var createZigzags = Math.random();
 
     if (createZigzags > 0.9) {
@@ -113,3 +128,23 @@ function animate() {
 }
 
 animate();
+window.addEventListener("keydown", function (e) {
+  if (e.keyCode == 32) {
+    if (showChords) {
+      showChords = false;
+    } else {
+      showChords = true;
+    }
+  }
+});
+window.addEventListener("mousedown", function (e) {
+  info = e.which;
+
+  if (e.which == 1) {
+    if (showChords) {
+      showChords = false;
+    } else {
+      showChords = true;
+    }
+  }
+});
