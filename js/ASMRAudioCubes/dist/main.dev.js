@@ -16,7 +16,7 @@ var start = false,
     playNow = true,
     showChords = false;
 var delay = 0,
-    speed = 10,
+    speed = 8,
     verse = 1,
     chordToPlay = 'Am';
 var chordD = [],
@@ -47,13 +47,9 @@ for (var i = 0; i < 24; i++) {
 for (var _i = 0; _i < 24; _i++) {
   cubes.push(new Cube(0, 200, 400, 300, speed, _i, chordAm[_i], color[_i]));
   speed += 0.05;
-
-  if (_i == 11) {
-    speed += 1;
-  }
 }
 
-var chord = new Chord(0, 170, 400, 300, speed + 1, 25);
+var chord = new Chord(0, 170, 400, 300, speed, 25);
 setVolume();
 
 function animate() {

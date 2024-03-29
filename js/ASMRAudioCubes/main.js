@@ -13,7 +13,7 @@ let start = false,
     showChords = false;
 
 let delay = 0,
-    speed = 10,
+    speed = 8,
     verse = 1,
     chordToPlay = 'Am';
 
@@ -63,12 +63,10 @@ for (let i = 0; i < 24; i++) {
 for (let i = 0; i < 24; i++) {
     cubes.push(new Cube(0, 200, 400, 300, speed, i, chordAm[i], color[i]));
     speed += 0.05;
-    if (i == 11) {
-        speed += 1;
-    }
+
 }
 
-let chord = new Chord(0, 170, 400, 300, speed + 1, 25);
+let chord = new Chord(0, 170, 400, 300, speed, 25);
 
 setVolume();
 

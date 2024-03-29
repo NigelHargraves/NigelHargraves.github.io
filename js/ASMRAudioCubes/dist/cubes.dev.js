@@ -115,13 +115,13 @@ function () {
         this.extraZoom = 20;
         this.zoom = 80;
 
-        for (var i = 0; i < 10; i++) {
+        for (var i = 0; i < Math.random() * 6; i++) {
           velocity = {
             x: Math.random() - 0.5,
             y: Math.random() - 0.5
           };
 
-          if (this.cubeNo < 11) {
+          if (this.cubeNo < 12) {
             particles.push(new Particle(center.x + orbitPaths[2].radius.x, center.y, this.color, velocity));
           } else {
             particles.push(new Particle(center.x + orbitPaths[1].radius.x, center.y, this.color, velocity));
@@ -129,7 +129,7 @@ function () {
         }
       }
 
-      if (this.angle >= Math.PI / 2 - 0.001 && this.angle <= Math.PI / 2 + 0.001) {
+      if (this.angle >= Math.PI / 2 - 0.002 && this.angle <= Math.PI / 2 + 0.002) {
         this.lineWidth = 5;
         this.note.play();
 
@@ -143,13 +143,13 @@ function () {
 
         this.extraZoom = 20;
 
-        for (var _i2 = 0; _i2 < 10; _i2++) {
+        for (var _i2 = 0; _i2 < Math.random() * 6; _i2++) {
           velocity = {
             x: Math.random() - 0.5,
             y: Math.random() - 0.5
           };
 
-          if (this.cubeNo < 11) {
+          if (this.cubeNo < 12) {
             particles.push(new Particle(center.x, center.y + orbitPaths[2].radius.y, this.color, velocity));
           } else {
             particles.push(new Particle(center.x, center.y + orbitPaths[1].radius.y, this.color, velocity));
@@ -157,7 +157,7 @@ function () {
         }
       }
 
-      if (this.angle >= Math.PI - 0.001 && this.angle <= Math.PI + 0.001) {
+      if (this.angle >= Math.PI - 0.002 && this.angle <= Math.PI + 0.002) {
         this.lineWidth = 5;
         this.note.play();
 
@@ -171,13 +171,13 @@ function () {
 
         this.extraZoom = 20;
 
-        for (var _i3 = 0; _i3 < 10; _i3++) {
+        for (var _i3 = 0; _i3 < Math.random() * 6; _i3++) {
           velocity = {
             x: Math.random() - 0.5,
             y: Math.random() - 0.5
           };
 
-          if (this.cubeNo < 11) {
+          if (this.cubeNo < 12) {
             particles.push(new Particle(center.x - orbitPaths[2].radius.x, center.y, this.color, velocity));
           } else {
             particles.push(new Particle(center.x - orbitPaths[1].radius.x, center.y, this.color, velocity));
@@ -185,7 +185,7 @@ function () {
         }
       }
 
-      if (this.angle >= Math.PI + Math.PI / 2 - 0.001 && this.angle <= Math.PI + Math.PI / 2 + 0.001) {
+      if (this.angle >= Math.PI + Math.PI / 2 - 0.002 && this.angle <= Math.PI + Math.PI / 2 + 0.002) {
         this.lineWidth = 5;
         this.note.play();
 
@@ -199,13 +199,13 @@ function () {
 
         this.extraZoom = 20;
 
-        for (var _i4 = 0; _i4 < 10; _i4++) {
+        for (var _i4 = 0; _i4 < Math.random() * 6; _i4++) {
           velocity = {
             x: Math.random() - 0.5,
             y: Math.random() - 0.5
           };
 
-          if (this.cubeNo < 11) {
+          if (this.cubeNo < 12) {
             particles.push(new Particle(center.x, center.y - orbitPaths[2].radius.y, this.color, velocity));
           } else {
             particles.push(new Particle(center.x, center.y - orbitPaths[1].radius.y, this.color, velocity));
