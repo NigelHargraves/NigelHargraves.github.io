@@ -129,27 +129,27 @@ function forFuchsiaCells() {
       FC.y = 0;
     }
 
-    redCells.forEach(function (RC, index) {
-      var repel = collisionDetection(FC.x, FC.y, repelFuchsiaRange, RC.x, RC.y, repelRedRange);
+    yellowCells.forEach(function (YC, index) {
+      var repel = collisionDetection(FC.x, FC.y, repelFuchsiaRange, YC.x, YC.y, repelYellowRange);
 
       if (repel) {
-        FC.angle = Math.atan2(RC.y - FC.y, RC.x - FC.x);
+        FC.angle = Math.atan2(YC.y - FC.y, YC.x - FC.x);
         FC.velocity.x = -Math.cos(FC.angle) * simulationSpeed;
         FC.velocity.y = -Math.sin(FC.angle) * simulationSpeed;
       }
     });
-    blueCells.forEach(function (BC, index) {
-      var attract = collisionDetection(FC.x, FC.y, FC.r, BC.x, BC.y, BC.r);
+    redCells.forEach(function (RC, index) {
+      var attract = collisionDetection(FC.x, FC.y, FC.r, RC.x, RC.y, RC.r);
 
       if (attract) {
-        var repel = collisionDetection(FC.x, FC.y, repelFuchsiaRange, BC.x, BC.y, repelBlueRange);
+        var repel = collisionDetection(FC.x, FC.y, repelFuchsiaRange, RC.x, RC.y, repelBlueRange);
 
         if (!repel) {
-          FC.angle = Math.atan2(BC.y - FC.y, BC.x - FC.x);
+          FC.angle = Math.atan2(RC.y - FC.y, RC.x - FC.x);
           FC.velocity.x = Math.cos(FC.angle) * simulationSpeed;
           FC.velocity.y = Math.sin(FC.angle) * simulationSpeed;
         } else {
-          FC.angle = Math.atan2(BC.y - FC.y, BC.x - FC.x);
+          FC.angle = Math.atan2(RC.y - FC.y, RC.x - FC.x);
           FC.velocity.x = -Math.cos(FC.angle) * simulationSpeed;
           FC.velocity.y = -Math.sin(FC.angle) * simulationSpeed;
         }

@@ -9,10 +9,10 @@ var delay = 0,
     rangeYellow = 30,
     rangeBlue = 30,
     rangeFuchsia = 30,
-    repelRedRange = 15,
-    repelYellowRange = 15,
-    repelBlueRange = 15,
-    repelFuchsiaRange = 15,
+    repelRedRange = 10,
+    repelYellowRange = 10,
+    repelBlueRange = 10,
+    repelFuchsiaRange = 10,
     cellImpactSize = 3,
     simulationSpeed = 0.01,
     celSize = 2,
@@ -66,13 +66,15 @@ function animate() {
       simulationSpeed += 0.01;
     }
 
-    if (redCells.length + blueCells.length + yellowCells.length + fuchsiaCells.length <= 1000) {
+    if (redCells.length + blueCells.length + yellowCells.length + fuchsiaCells.length < 1200) {
       if (cellBirth < 400) {
         cellBirth++;
       } else {
         cellBirth = 0;
         cellNumber++;
       }
+    } else {
+      cellBirth = 0;
     }
 
     forRedCells();

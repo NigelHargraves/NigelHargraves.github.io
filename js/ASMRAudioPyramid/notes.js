@@ -1,0 +1,149 @@
+class Note {
+    constructor(x, y, speed, number) {
+        this.x = x;
+        this.y = y;
+        this.speed = speed;
+        this.noteNo = number;
+        this.velocity = { x: 0, y: 0 };
+        this.angle = 0;
+        this.aim = { x: 0, y: 0 };
+        this.aimPoint = [true, false, false];
+        this.dist = 0;
+
+    }
+    draw() {
+
+
+        ctx.strokeStyle = 'white';
+        ctx.fillStyle = 'white';
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, 2, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, 10, 0, Math.PI * 2);
+        ctx.stroke();
+
+
+
+
+
+    }
+    update() {
+
+
+
+        this.x += this.velocity.x;
+        this.y += this.velocity.y;
+
+        this.angle = Math.atan2(this.aim.y - this.y, this.aim.x - this.x);
+        this.velocity.x = Math.cos(this.angle) * this.speed;
+        this.velocity.y = Math.sin(this.angle) * this.speed;
+
+        let adj = Math.pow(this.x - this.aim.x, 2);
+        if (adj < 0) { adj * -1 };
+        let opp = Math.pow(this.y - this.aim.y, 2);
+        if (opp < 0) { opp * -1 };
+
+        this.dist = Math.sqrt(adj + opp);
+
+
+
+        if (this.noteNo < 6) {
+            if (this.dist <= 1 && this.aimPoint[0]) {
+                this.aimPoint[0] = false;
+                this.aimPoint[1] = true;
+            } else if (this.dist <= 1 && this.aimPoint[1]) {
+                this.aimPoint[1] = false;
+                this.aimPoint[2] = true;
+            } else if (this.dist <= 1 && this.aimPoint[2]) {
+                this.aimPoint[2] = false;
+                this.aimPoint[0] = true;
+            }
+
+            if (this.aimPoint[0]) {
+                let vertices = project(pyramid.edges.vertices, canvas.width, canvas.height, pyramid.zoom);
+                let face = pyramid.edges.faces[0];
+                this.aim.x = vertices[face[2]].x;
+                this.aim.y = vertices[face[2]].y;
+            }
+            if (this.aimPoint[1]) {
+                let vertices = project(pyramid.edges.vertices, canvas.width, canvas.height, pyramid.zoom);
+                let face = pyramid.edges.faces[2];
+                this.aim.x = vertices[face[2]].x;
+                this.aim.y = vertices[face[2]].y;
+            }
+            if (this.aimPoint[2]) {
+                let vertices = project(pyramid.edges.vertices, canvas.width, canvas.height, pyramid.zoom);
+                let face = pyramid.edges.faces[0];
+                this.aim.x = vertices[face[0]].x;
+                this.aim.y = vertices[face[0]].y;
+            }
+
+
+        } else {
+            if (this.dist <= 1 && this.aimPoint[0]) {
+                this.aimPoint[0] = false;
+                this.aimPoint[1] = true;
+            } else if (this.dist <= 1 && this.aimPoint[1]) {
+                this.aimPoint[1] = false;
+                this.aimPoint[2] = true;
+            } else if (this.dist <= 1 && this.aimPoint[2]) {
+                this.aimPoint[2] = false;
+                this.aimPoint[0] = true;
+            }
+
+            if (this.aimPoint[0]) {
+                let vertices = project(pyramid.edges.vertices, canvas.width, canvas.height, pyramid.zoom);
+                let face = pyramid.edges.faces[0];
+                this.aim.x = vertices[face[3]].x;
+                this.aim.y = vertices[face[3]].y;
+            }
+            if (this.aimPoint[1]) {
+                let vertices = project(pyramid.edges.vertices, canvas.width, canvas.height, pyramid.zoom);
+                let face = pyramid.edges.faces[2];
+                this.aim.x = vertices[face[3]].x;
+                this.aim.y = vertices[face[3]].y;
+            }
+            if (this.aimPoint[2]) {
+                let vertices = project(pyramid.edges.vertices, canvas.width, canvas.height, pyramid.zoom);
+                let face = pyramid.edges.faces[0];
+                this.aim.x = vertices[face[0]].x;
+                this.aim.y = vertices[face[0]].y;
+            }
+
+
+
+
+
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        this.draw();
+    }
+}
+
+function forNotes() {
+    notes.forEach((note, index) => {
+        note.update();
+    });
+}
