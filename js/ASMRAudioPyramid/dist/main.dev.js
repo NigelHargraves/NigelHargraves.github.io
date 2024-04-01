@@ -29,7 +29,10 @@ var color = [],
     notes = [],
     orbitPaths = [],
     stars = [],
-    particles = [];
+    particles = [],
+    shoots = [],
+    floatNotes = [],
+    edgeSplats = [];
 
 for (var i = 0; i < 24; i++) {
   var hue1 = Math.random() * 260 + 100;
@@ -40,9 +43,9 @@ for (var i = 0; i < 24; i++) {
 
 var pyramid = new Pyramid(0, 0, 10, 10);
 
-for (var _i = 0; _i < 12; _i++) {
+for (var _i = 0; _i < 24; _i++) {
   notes.push(new Note(center.x, center.y + pyramid.edges.vertices[0].y - 800 * 0.2, speed, _i));
-  speed += 0.01;
+  speed -= 0.01;
 }
 
 function animate() {
@@ -51,7 +54,7 @@ function animate() {
   ctx.fillRect(0, 0, canvas.width, canvas.height);
   ctx.font = "bold 50px Arial";
   ctx.fillStyle = 'white';
-  ctx.globalAlpha = 0.04;
+  ctx.globalAlpha = 0.02;
   ctx.fillText("𝔸𝕊𝕄ℝ 𝔸𝕌𝔻𝕀𝕆", center.x - center.x / 6, center.y);
   ctx.globalAlpha = 0.2;
 
@@ -76,6 +79,9 @@ function animate() {
 
     pyramid.update();
     forNotes();
+    forShoots();
+    forFloatNotes();
+    forEdgeSplats();
   } //call next frame.
 
 

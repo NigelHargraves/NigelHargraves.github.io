@@ -30,7 +30,10 @@ let color = [],
     notes = [],
     orbitPaths = [],
     stars = [],
-    particles = [];
+    particles = [],
+    shoots = [],
+    floatNotes = [],
+    edgeSplats = [];
 
 
 
@@ -56,9 +59,9 @@ for (let i = 0; i < 24; i++) {
 
 
 let pyramid = new Pyramid(0, 0, 10, 10)
-for (let i = 0; i < 12; i++) {
+for (let i = 0; i < 24; i++) {
     notes.push(new Note(center.x, center.y + pyramid.edges.vertices[(0)].y - (800 * 0.2), speed, i));
-    speed += 0.01;
+    speed -= 0.01;
 }
 
 function animate() {
@@ -67,7 +70,7 @@ function animate() {
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     ctx.font = "bold 50px Arial";
     ctx.fillStyle = 'white';
-    ctx.globalAlpha = 0.04;
+    ctx.globalAlpha = 0.02;
     ctx.fillText("𝔸𝕊𝕄ℝ 𝔸𝕌𝔻𝕀𝕆", center.x - (center.x / 6), center.y);
     ctx.globalAlpha = 0.2;
 
@@ -95,6 +98,11 @@ function animate() {
 
         forNotes()
 
+        forShoots()
+
+        forFloatNotes()
+
+        forEdgeSplats()
     }
 
     //call next frame.

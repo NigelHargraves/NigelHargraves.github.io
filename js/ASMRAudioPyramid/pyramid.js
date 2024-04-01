@@ -42,7 +42,9 @@ class Pyramid {
             ctx.arc(vertices[i].x, vertices[i].y, 2, 0, Math.PI * 2);
             ctx.fill();
         }
-
+        ctx.beginPath();
+        ctx.arc(center.x, center.y, 4, 0, Math.PI * 2);
+        ctx.fill();
     }
     update() {
         if (this.lineWidth > 1) {

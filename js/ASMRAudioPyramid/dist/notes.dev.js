@@ -27,6 +27,7 @@ function () {
     };
     this.aimPoint = [true, false, false];
     this.dist = 0;
+    this.lineWidth = 5;
   }
 
   _createClass(Note, [{
@@ -39,11 +40,17 @@ function () {
       ctx.fill();
       ctx.beginPath();
       ctx.arc(this.x, this.y, 10, 0, Math.PI * 2);
+      ctx.lineWidth = this.lineWidth;
       ctx.stroke();
+      ctx.lineWidth = 1;
     }
   }, {
     key: "update",
     value: function update() {
+      if (this.lineWidth > 1) {
+        this.lineWidth -= 0.1;
+      }
+
       this.x += this.velocity.x;
       this.y += this.velocity.y;
       this.angle = Math.atan2(this.aim.y - this.y, this.aim.x - this.x);
@@ -65,16 +72,22 @@ function () {
       ;
       this.dist = Math.sqrt(adj + opp);
 
-      if (this.noteNo < 6) {
+      if (this.noteNo < 12) {
         if (this.dist <= 1 && this.aimPoint[0]) {
           this.aimPoint[0] = false;
           this.aimPoint[1] = true;
+          this.lineWidth = 5;
+          shoots.push(new Shoot(this.x, this.y));
         } else if (this.dist <= 1 && this.aimPoint[1]) {
           this.aimPoint[1] = false;
           this.aimPoint[2] = true;
+          this.lineWidth = 5;
+          shoots.push(new Shoot(this.x, this.y));
         } else if (this.dist <= 1 && this.aimPoint[2]) {
           this.aimPoint[2] = false;
           this.aimPoint[0] = true;
+          this.lineWidth = 5;
+          shoots.push(new Shoot(this.x, this.y));
         }
 
         if (this.aimPoint[0]) {
@@ -103,12 +116,18 @@ function () {
         if (this.dist <= 1 && this.aimPoint[0]) {
           this.aimPoint[0] = false;
           this.aimPoint[1] = true;
+          this.lineWidth = 5;
+          shoots.push(new Shoot(this.x, this.y));
         } else if (this.dist <= 1 && this.aimPoint[1]) {
           this.aimPoint[1] = false;
           this.aimPoint[2] = true;
+          this.lineWidth = 5;
+          shoots.push(new Shoot(this.x, this.y));
         } else if (this.dist <= 1 && this.aimPoint[2]) {
           this.aimPoint[2] = false;
           this.aimPoint[0] = true;
+          this.lineWidth = 5;
+          shoots.push(new Shoot(this.x, this.y));
         }
 
         if (this.aimPoint[0]) {
