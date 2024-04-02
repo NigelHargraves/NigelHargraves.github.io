@@ -16,9 +16,9 @@ function () {
     this.y = y;
     this.Key = key;
     this.opacity = 1;
+    this.lineWidth = 5;
     this.smallRadius = 20;
     this.bigRadius = canvas.height / 4;
-    this.lineWidth = 5;
     this.angle = 0 - Math.PI / 2;
     this.point = {
       x: 0,

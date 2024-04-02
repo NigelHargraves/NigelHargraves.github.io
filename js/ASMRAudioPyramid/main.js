@@ -14,6 +14,7 @@ let start = false,
 
 let delay = 0,
     speed = 1,
+    floatNoteNote = 0,
     chordToPlay = 'Am';
 
 
@@ -21,10 +22,15 @@ let delay = 0,
 let chordD = [],
     chordDm = [],
     chordF = [],
+    chordFS = [],
     chordAm = [],
+    chordAmS = [],
     chordC = [],
+    chordCS = [],
     chordG = [],
-    chordE = [];
+    chordGS = []
+''
+chordE = [];
 
 let color = [],
     notes = [],
@@ -38,10 +44,10 @@ let color = [],
 
 
 
+createChords();
 
 
-
-
+setVolume();
 
 
 
@@ -60,9 +66,16 @@ for (let i = 0; i < 24; i++) {
 
 let pyramid = new Pyramid(0, 0, 10, 10)
 for (let i = 0; i < 24; i++) {
-    notes.push(new Note(center.x, center.y + pyramid.edges.vertices[(0)].y - (800 * 0.2), speed, i));
+    notes.push(new Note(center.x, center.y + pyramid.edges.vertices[(0)].y - (800 * 0.2), speed, chordAm[i], color[i], i));
     speed -= 0.01;
 }
+
+
+let chord = new Chord();
+
+
+
+
 
 function animate() {
     //CLS.
@@ -85,6 +98,9 @@ function animate() {
 
     if (start) {
         if (playNow) {
+            for (let i = 0; i < 24; i++) {
+                chordAm[i].play();
+            }
             playNow = false;
         }
 
@@ -96,6 +112,8 @@ function animate() {
 
         pyramid.update();
 
+        chord.update();
+
         forNotes()
 
         forShoots()
@@ -103,6 +121,8 @@ function animate() {
         forFloatNotes()
 
         forEdgeSplats()
+
+
     }
 
     //call next frame.

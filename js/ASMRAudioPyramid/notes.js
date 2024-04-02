@@ -1,8 +1,10 @@
 class Note {
-    constructor(x, y, speed, number) {
+    constructor(x, y, speed, note, color, number) {
         this.x = x;
         this.y = y;
         this.speed = speed;
+        this.note = note;
+        this.color = color;
         this.noteNo = number;
         this.velocity = { x: 0, y: 0 };
         this.angle = 0;
@@ -14,8 +16,8 @@ class Note {
     }
     draw() {
 
-        ctx.strokeStyle = 'white';
-        ctx.fillStyle = 'white';
+        ctx.strokeStyle = this.color;
+        ctx.fillStyle = this.color;
         ctx.beginPath();
         ctx.arc(this.x, this.y, 2, 0, Math.PI * 2);
         ctx.fill();
@@ -54,20 +56,29 @@ class Note {
 
         if (this.noteNo < 12) {
             if (this.dist <= 1 && this.aimPoint[0]) {
+                if (this.note.currentTime != 0) this.note.currentTime = 0;
+                this.note.play();
                 this.aimPoint[0] = false;
                 this.aimPoint[1] = true;
                 this.lineWidth = 5;
                 shoots.push(new Shoot(this.x, this.y));
+                pyramid.color = this.color;
             } else if (this.dist <= 1 && this.aimPoint[1]) {
+                if (this.note.currentTime != 0) this.note.currentTime = 0;
+                this.note.play();
                 this.aimPoint[1] = false;
                 this.aimPoint[2] = true;
                 this.lineWidth = 5;
                 shoots.push(new Shoot(this.x, this.y));
+                pyramid.color = this.color;
             } else if (this.dist <= 1 && this.aimPoint[2]) {
+                if (this.note.currentTime != 0) this.note.currentTime = 0;
+                this.note.play();
                 this.aimPoint[2] = false;
                 this.aimPoint[0] = true;
                 this.lineWidth = 5;
                 shoots.push(new Shoot(this.x, this.y));
+                pyramid.color = this.color;
             }
 
             if (this.aimPoint[0]) {
@@ -92,20 +103,29 @@ class Note {
 
         } else {
             if (this.dist <= 1 && this.aimPoint[0]) {
+                if (this.note.currentTime != 0) this.note.currentTime = 0;
+                this.note.play();
                 this.aimPoint[0] = false;
                 this.aimPoint[1] = true;
                 this.lineWidth = 5;
                 shoots.push(new Shoot(this.x, this.y));
+                pyramid.color = this.color;
             } else if (this.dist <= 1 && this.aimPoint[1]) {
+                if (this.note.currentTime != 0) this.note.currentTime = 0;
+                this.note.play();
                 this.aimPoint[1] = false;
                 this.aimPoint[2] = true;
                 this.lineWidth = 5;
                 shoots.push(new Shoot(this.x, this.y));
+                pyramid.color = this.color;
             } else if (this.dist <= 1 && this.aimPoint[2]) {
+                if (this.note.currentTime != 0) this.note.currentTime = 0;
+                this.note.play();
                 this.aimPoint[2] = false;
                 this.aimPoint[0] = true;
                 this.lineWidth = 5;
                 shoots.push(new Shoot(this.x, this.y));
+                pyramid.color = this.color;
             }
 
             if (this.aimPoint[0]) {

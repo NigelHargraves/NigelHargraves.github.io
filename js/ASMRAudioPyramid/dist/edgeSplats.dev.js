@@ -9,11 +9,12 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 var EdgeSplat =
 /*#__PURE__*/
 function () {
-  function EdgeSplat(x, y) {
+  function EdgeSplat(x, y, note) {
     _classCallCheck(this, EdgeSplat);
 
     this.x = x;
     this.y = y;
+    this.note = note;
     this.velocity = {
       x: Math.random() - 0.5,
       y: Math.random() - 0.5

@@ -6,9 +6,9 @@ class Pyramid {
         this.size = size;
         this.lineWidth = 5;
         this.zoom = 800;
-
-        this.directX = 0.001;
-        this.directY = 0.001;
+        this.color = 'white';
+        this.directX = 0.0002;
+        this.directY = 0.0005;
         this.point = { x: 0, y: 0 };
         this.angle = 0;
         this.edges = new Edge(this.x, this.y, this.z, this.size);
@@ -19,7 +19,7 @@ class Pyramid {
 
 
         ctx.lineWidth = this.lineWidth;
-        ctx.strokeStyle = 'white';
+        ctx.strokeStyle = this.color;
         for (let i = this.edges.faces.length - 1; i > -1; --i) {
             let face = this.edges.faces[i];
             ctx.beginPath();
@@ -37,7 +37,7 @@ class Pyramid {
         }
 
         for (let i = 0; i <= 7; i++) {
-            ctx.fillStyle = 'white';
+            ctx.fillStyle = this.color;
             ctx.beginPath();
             ctx.arc(vertices[i].x, vertices[i].y, 2, 0, Math.PI * 2);
             ctx.fill();

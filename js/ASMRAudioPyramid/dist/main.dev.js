@@ -17,14 +17,20 @@ var start = false,
     showChords = false;
 var delay = 0,
     speed = 1,
+    floatNoteNote = 0,
     chordToPlay = 'Am';
 var chordD = [],
     chordDm = [],
     chordF = [],
+    chordFS = [],
     chordAm = [],
+    chordAmS = [],
     chordC = [],
+    chordCS = [],
     chordG = [],
-    chordE = [];
+    chordGS = [];
+'';
+chordE = [];
 var color = [],
     notes = [],
     orbitPaths = [],
@@ -33,6 +39,8 @@ var color = [],
     shoots = [],
     floatNotes = [],
     edgeSplats = [];
+createChords();
+setVolume();
 
 for (var i = 0; i < 24; i++) {
   var hue1 = Math.random() * 260 + 100;
@@ -44,9 +52,11 @@ for (var i = 0; i < 24; i++) {
 var pyramid = new Pyramid(0, 0, 10, 10);
 
 for (var _i = 0; _i < 24; _i++) {
-  notes.push(new Note(center.x, center.y + pyramid.edges.vertices[0].y - 800 * 0.2, speed, _i));
+  notes.push(new Note(center.x, center.y + pyramid.edges.vertices[0].y - 800 * 0.2, speed, chordAm[_i], color[_i], _i));
   speed -= 0.01;
 }
+
+var chord = new Chord();
 
 function animate() {
   //CLS.
@@ -68,6 +78,10 @@ function animate() {
 
   if (start) {
     if (playNow) {
+      for (var _i2 = 0; _i2 < 24; _i2++) {
+        chordAm[_i2].play();
+      }
+
       playNow = false;
     }
 
@@ -78,6 +92,7 @@ function animate() {
     }
 
     pyramid.update();
+    chord.update();
     forNotes();
     forShoots();
     forFloatNotes();

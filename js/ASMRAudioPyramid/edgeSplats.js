@@ -1,7 +1,8 @@
 class EdgeSplat {
-    constructor(x, y) {
+    constructor(x, y, note) {
         this.x = x;
         this.y = y;
+        this.note = note;
         this.velocity = { x: Math.random() - 0.5, y: Math.random() - 0.5 };
         this.opacity = 1;
     }

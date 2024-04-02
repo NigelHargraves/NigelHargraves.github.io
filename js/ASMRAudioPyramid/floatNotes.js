@@ -46,6 +46,20 @@ function forFloatNotes() {
             for (let i = 0; i < 10; i++) {
                 edgeSplats.push(new EdgeSplat(fn.x, fn.y));
             }
+            if (chordToPlay == 'Am') {
+                chordAmS[floatNoteNote].play();
+            }
+            if (chordToPlay == 'F') {
+                chordFS[floatNoteNote].play();
+            }
+            if (chordToPlay == 'C') {
+                chordCS[floatNoteNote].play();
+            }
+            if (chordToPlay == 'G') {
+                chordGS[floatNoteNote].play();
+            }
+            floatNoteNote++;
+            if (floatNoteNote == 18) floatNoteNote = 0;
             floatNotes.splice(index, 1);
         }
 

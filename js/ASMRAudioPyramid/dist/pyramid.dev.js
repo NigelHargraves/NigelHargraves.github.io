@@ -18,8 +18,9 @@ function () {
     this.size = size;
     this.lineWidth = 5;
     this.zoom = 800;
-    this.directX = 0.001;
-    this.directY = 0.001;
+    this.color = 'white';
+    this.directX = 0.0002;
+    this.directY = 0.0005;
     this.point = {
       x: 0,
       y: 0
@@ -33,7 +34,7 @@ function () {
     value: function draw() {
       var vertices = project(this.edges.vertices, canvas.width, canvas.height, this.zoom);
       ctx.lineWidth = this.lineWidth;
-      ctx.strokeStyle = 'white';
+      ctx.strokeStyle = this.color;
 
       for (var i = this.edges.faces.length - 1; i > -1; --i) {
         var face = this.edges.faces[i];
@@ -52,7 +53,7 @@ function () {
       }
 
       for (var _i = 0; _i <= 7; _i++) {
-        ctx.fillStyle = 'white';
+        ctx.fillStyle = this.color;
         ctx.beginPath();
         ctx.arc(vertices[_i].x, vertices[_i].y, 2, 0, Math.PI * 2);
         ctx.fill();
