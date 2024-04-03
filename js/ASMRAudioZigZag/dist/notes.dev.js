@@ -80,7 +80,7 @@ function () {
       }
 
       if (this.x >= left - 1 && this.x <= left + 1 && this.detectionTimer <= 0) {
-        for (var i = 0; i < 4; i++) {
+        for (var i = 0; i < 2; i++) {
           particles.push(new Particle(this.x, this.y, this.color));
         }
 
@@ -110,7 +110,7 @@ function () {
       }
 
       if (this.x >= right - 1 && this.x <= right + 1 && this.detectionTimer <= 0) {
-        for (var _i = 0; _i < 4; _i++) {
+        for (var _i = 0; _i < 2; _i++) {
           particles.push(new Particle(this.x, this.y, this.color));
         }
 
@@ -140,7 +140,7 @@ function () {
       }
 
       if (this.x >= center.x - 1 && this.x <= center.x + 1 && this.detectionTimer == 0) {
-        for (var _i2 = 0; _i2 < 4; _i2++) {
+        for (var _i2 = 0; _i2 < 2; _i2++) {
           particles.push(new Particle(this.x, this.y, this.color));
         }
 

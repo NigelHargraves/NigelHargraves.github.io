@@ -86,10 +86,6 @@ function () {
           this.hatDown = true;
         }
 
-        for (var i = 0; i < 10; i++) {
-          particles.push(new Particle(this.x, this.y, 'Turquoise'));
-        }
-
         zz.cBoxLineWidth = 10;
         this.lineWidth = 5;
         this.opacity = 1;
@@ -111,10 +107,6 @@ function () {
           this.hatDown = true;
         }
 
-        for (var _i = 0; _i < 10; _i++) {
-          particles.push(new Particle(this.x, this.y, 'Turquoise'));
-        }
-
         zz.cBoxLineWidth = 10;
         this.lineWidth = 5;
         this.opacity = 1;
@@ -134,10 +126,6 @@ function () {
           this.hatDown = false;
         } else {
           this.hatDown = true;
-        }
-
-        for (var _i2 = 0; _i2 < 10; _i2++) {
-          particles.push(new Particle(this.x, this.y, 'Turquoise'));
         }
 
         zz.cBoxLineWidth = 10;
@@ -182,10 +170,6 @@ function () {
           this.hatDown = true;
         }
 
-        for (var _i3 = 0; _i3 < 10; _i3++) {
-          particles.push(new Particle(this.x, this.y, 'Turquoise'));
-        }
-
         zz.cBoxLineWidth = 10;
         this.lineWidth = 5;
         this.opacity = 1;
@@ -208,10 +192,6 @@ function () {
         this.yHat = this.y;
         highHatClosed.play();
         hat.lineWidth = 4;
-
-        for (var _i4 = 0; _i4 < 4; _i4++) {
-          particles.push(new Particle(hat.x, hat.y, 'skyblue'));
-        }
       }
 
       if (this.y >= bass1 - 1 && this.y <= bass1 + 1 && this.bassDetectionTimer == 0) {
@@ -223,10 +203,6 @@ function () {
         this.yHat = this.y;
         highHatClosed.play();
         hat.lineWidth = 4;
-
-        for (var _i5 = 0; _i5 < 4; _i5++) {
-          particles.push(new Particle(hat.x, hat.y, 'skyblue'));
-        }
       }
 
       if (this.y >= bass2 - 1 && this.y <= bass2 + 1 && this.bassDetectionTimer == 0) {
@@ -238,10 +214,6 @@ function () {
         this.yHat = this.y;
         highHatClosed.play();
         hat.lineWidth = 4;
-
-        for (var _i6 = 0; _i6 < 4; _i6++) {
-          particles.push(new Particle(hat.x, hat.y, 'skyblue'));
-        }
       }
 
       if (this.y >= bass3 - 1 && this.y <= bass3 + 1 && this.bassDetectionTimer == 0) {
@@ -253,10 +225,6 @@ function () {
         this.yHat = this.y;
         highHatClosed.play();
         hat.lineWidth = 4;
-
-        for (var _i7 = 0; _i7 < 4; _i7++) {
-          particles.push(new Particle(hat.x, hat.y, 'skyblue'));
-        }
       }
 
       if (this.hatDown) {
@@ -264,7 +232,6 @@ function () {
           highHatClosed.play();
           this.hatDetectionTimer = this.hatInterval;
           hat.lineWidth = 4;
-          particles.push(new Particle(hat.x, hat.y, 'skyblue'));
         }
 
         if (this.y - this.yHat >= hatInterval * 2 - 1 && this.y - this.yHat <= hatInterval * 2 + 1 && this.hatDetectionTimer == 0) {
@@ -274,7 +241,6 @@ function () {
           zz.snareLineWidth = 5;
           this.hatDetectionTimer = this.hatInterval;
           hat.lineWidth = 4;
-          particles.push(new Particle(hat.x, hat.y, 'skyblue'));
         }
 
         if (this.y - this.yHat >= hatInterval * 3 - 1 && this.y - this.yHat <= hatInterval * 3 + 1 && this.hatDetectionTimer == 0) {
@@ -284,7 +250,6 @@ function () {
           kicks.push(new Kick(right + (canvas.width - right) / 2, center.y));
           this.hatDetectionTimer = this.hatInterval;
           hat.lineWidth = 4;
-          particles.push(new Particle(hat.x, hat.y, 'skyblue'));
         }
 
         if (this.y - this.yHat >= hatInterval * 4 - 1 && this.y - this.yHat <= hatInterval * 4 + 1 && this.hatDetectionTimer == 0) {
@@ -294,7 +259,6 @@ function () {
           zz.kickLineWidth = 5;
           this.hatDetectionTimer = this.hatInterval;
           hat.lineWidth = 4;
-          particles.push(new Particle(hat.x, hat.y, 'skyblue'));
         }
 
         if (this.y - this.yHat >= hatInterval * 5 - 1 && this.y - this.yHat <= hatInterval * 5 + 1 && this.hatDetectionTimer == 0) {
@@ -314,14 +278,12 @@ function () {
           hat.pole.y -= cTop / 10;
           this.hatDetectionTimer = this.hatInterval;
           hat.lineWidth = 4;
-          particles.push(new Particle(hat.x, hat.y, 'skyblue'));
         }
       } else {
         if (this.yHat - this.y >= hatInterval - 1 && this.yHat - this.y <= hatInterval + 1 && this.hatDetectionTimer == 0) {
           highHatClosed.play();
           this.hatDetectionTimer = this.hatInterval;
           hat.lineWidth = 4;
-          particles.push(new Particle(hat.x, hat.y, 'skyblue'));
         }
 
         if (this.yHat - this.y >= hatInterval * 2 - 1 && this.yHat - this.y <= hatInterval * 2 + 1 && this.hatDetectionTimer == 0) {
@@ -331,7 +293,6 @@ function () {
           zz.snareLineWidth = 5;
           this.hatDetectionTimer = this.hatInterval;
           hat.lineWidth = 4;
-          particles.push(new Particle(hat.x, hat.y, 'skyblue'));
         }
 
         if (this.yHat - this.y >= hatInterval * 3 - 1 && this.yHat - this.y <= hatInterval * 3 + 1 && this.hatDetectionTimer == 0) {
@@ -341,7 +302,6 @@ function () {
           zz.kickLineWidth = 5;
           this.hatDetectionTimer = this.hatInterval;
           hat.lineWidth = 4;
-          particles.push(new Particle(hat.x, hat.y, 'skyblue'));
         }
 
         if (this.yHat - this.y >= hatInterval * 4 - 1 && this.yHat - this.y <= hatInterval * 4 + 1 && this.hatDetectionTimer == 0) {
@@ -351,7 +311,6 @@ function () {
           zz.kickLineWidth = 5;
           this.hatDetectionTimer = this.hatInterval;
           hat.lineWidth = 4;
-          particles.push(new Particle(hat.x, hat.y, 'skyblue'));
         }
 
         if (this.yHat - this.y >= hatInterval * 5 - 1 && this.yHat - this.y <= hatInterval * 5 + 1 && this.hatDetectionTimer == 0) {
@@ -371,7 +330,6 @@ function () {
           hat.pole.y -= cTop / 10;
           this.hatDetectionTimer = this.hatInterval;
           hat.lineWidth = 4;
-          particles.push(new Particle(hat.x, hat.y, 'skyblue'));
         }
       }
 
@@ -623,50 +581,50 @@ function changeChord() {
   }
 
   if (chordToPlay == 'A1' || chordToPlay == 'A2' || chordToPlay == 'A3') {
-    for (var _i8 = 0; _i8 < 36; _i8++) {
-      notes[_i8].note = chordA[_i8];
+    for (var _i = 0; _i < 36; _i++) {
+      notes[_i].note = chordA[_i];
     }
   }
 
   if (chordToPlay == 'B') {
-    for (var _i9 = 0; _i9 < 36; _i9++) {
-      notes[_i9].note = chordB[_i9];
+    for (var _i2 = 0; _i2 < 36; _i2++) {
+      notes[_i2].note = chordB[_i2];
     }
   }
 
   if (chordToPlay == 'Gsus4') {
-    for (var _i10 = 0; _i10 < 36; _i10++) {
-      notes[_i10].note = chordGsus4[_i10];
+    for (var _i3 = 0; _i3 < 36; _i3++) {
+      notes[_i3].note = chordGsus4[_i3];
     }
   }
 
   if (chordToPlay == 'G') {
-    for (var _i11 = 0; _i11 < 36; _i11++) {
-      notes[_i11].note = chordG[_i11];
+    for (var _i4 = 0; _i4 < 36; _i4++) {
+      notes[_i4].note = chordG[_i4];
     }
   }
 
   if (chordToPlay == 'F#m7') {
-    for (var _i12 = 0; _i12 < 36; _i12++) {
-      notes[_i12].note = chordFSm7[_i12];
+    for (var _i5 = 0; _i5 < 36; _i5++) {
+      notes[_i5].note = chordFSm7[_i5];
     }
   }
 
   if (chordToPlay == 'C1' || chordToPlay == 'C2' || chordToPlay == 'C3') {
-    for (var _i13 = 0; _i13 < 36; _i13++) {
-      notes[_i13].note = chordC[_i13];
+    for (var _i6 = 0; _i6 < 36; _i6++) {
+      notes[_i6].note = chordC[_i6];
     }
   }
 
   if (chordToPlay == 'F1' || chordToPlay == 'F2') {
-    for (var _i14 = 0; _i14 < 36; _i14++) {
-      notes[_i14].note = chordF[_i14];
+    for (var _i7 = 0; _i7 < 36; _i7++) {
+      notes[_i7].note = chordF[_i7];
     }
   }
 
   if (chordToPlay == 'Bsus4') {
-    for (var _i15 = 0; _i15 < 36; _i15++) {
-      notes[_i15].note = chordBsus4[_i15];
+    for (var _i8 = 0; _i8 < 36; _i8++) {
+      notes[_i8].note = chordBsus4[_i8];
     }
   }
 }

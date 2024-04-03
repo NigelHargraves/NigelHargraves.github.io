@@ -55,7 +55,7 @@ class Note {
 
 
         if (this.x >= left - 1 && this.x <= left + 1 && this.detectionTimer <= 0) {
-            for (let i = 0; i < 4; i++) {
+            for (let i = 0; i < 2; i++) {
                 particles.push(new Particle(this.x, this.y, this.color));
             }
             zz.leftLineWidth = 5;
@@ -78,7 +78,7 @@ class Note {
         }
 
         if (this.x >= right - 1 && this.x <= right + 1 && this.detectionTimer <= 0) {
-            for (let i = 0; i < 4; i++) {
+            for (let i = 0; i < 2; i++) {
                 particles.push(new Particle(this.x, this.y, this.color));
             }
             zz.rightLineWidth = 5;
@@ -104,7 +104,7 @@ class Note {
         }
 
         if (this.x >= center.x - 1 && this.x <= center.x + 1 && this.detectionTimer == 0) {
-            for (let i = 0; i < 4; i++) {
+            for (let i = 0; i < 2; i++) {
                 particles.push(new Particle(this.x, this.y, this.color));
             }
             zz.middleLineWidth = 5;
