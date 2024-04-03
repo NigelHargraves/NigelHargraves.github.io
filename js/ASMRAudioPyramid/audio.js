@@ -101,11 +101,24 @@ let G6S = document.getElementById("audio96");
 let A6S = document.getElementById("audio97");
 let B6S = document.getElementById("audio98");
 
+let CBass = document.getElementById("audio99");
+let DBass = document.getElementById("audio100");
+let EBass = document.getElementById("audio101");
+let FBass = document.getElementById("audio102");
+let GBass = document.getElementById("audio103");
+let ABass = document.getElementById("audio104");
+
 function setVolume() {
     let noteVolume = 0.3;
-    let bassVolume = 1;
-    let stringVolume = 0.2;
+    let bassVolume = 0.5;
+    let stringVolume = 0.05;
 
+    CBass.volume = bassVolume;
+    DBass.volume = bassVolume;
+    EBass.volume = bassVolume;
+    FBass.volume = bassVolume;
+    GBass.volume = bassVolume;
+    ABass.volume = bassVolume;
 
     C1S.volume = stringVolume;
     D1S.volume = stringVolume;

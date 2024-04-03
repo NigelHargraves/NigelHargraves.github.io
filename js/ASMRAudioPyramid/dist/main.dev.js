@@ -8,10 +8,9 @@ var center = {
   x: canvas.width / 2,
   y: canvas.height / 2
 };
-var velocity = {
-  x: 0,
-  y: 0
-};
+var gradient = ctx.createRadialGradient(center.x, center.y, canvas.width / 8, center.x, center.y, canvas.height);
+gradient.addColorStop(0, "rgba(0, 0, 0,0.4)");
+gradient.addColorStop(1, 'rgba(0, 100, 0,0.2)');
 var start = false,
     playNow = true,
     showChords = false;
@@ -19,8 +18,8 @@ var delay = 0,
     speed = 1,
     floatNoteNote = 0,
     chordToPlay = 'Am';
-var chordD = [],
-    chordDm = [],
+var chordDm = [],
+    chordDmS = [],
     chordF = [],
     chordFS = [],
     chordAm = [],
@@ -28,9 +27,11 @@ var chordD = [],
     chordC = [],
     chordCS = [],
     chordG = [],
-    chordGS = [];
-'';
-chordE = [];
+    chordGS = [],
+    chordGsus4 = [],
+    chordGsus4S = [],
+    chordEm = [],
+    chordEmS = [];
 var color = [],
     notes = [],
     orbitPaths = [],
@@ -38,7 +39,8 @@ var color = [],
     particles = [],
     shoots = [],
     floatNotes = [],
-    edgeSplats = [];
+    edgeSplats = [],
+    noteCircles = [];
 createChords();
 setVolume();
 
@@ -60,7 +62,10 @@ var chord = new Chord();
 
 function animate() {
   //CLS.
-  ctx.fillStyle = "rgb(0, 0, 0, 0.6)";
+  ctx.fillStyle = "rgb(0, 0, 0, 0.4)";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = gradient;
+  ctx.globalAlpha = 0.2;
   ctx.fillRect(0, 0, canvas.width, canvas.height);
   ctx.font = "bold 50px Arial";
   ctx.fillStyle = 'white';
@@ -82,13 +87,22 @@ function animate() {
         chordAm[_i2].play();
       }
 
+      ABass.play();
       playNow = false;
     }
 
     if (showChords) {
       ctx.font = "bold 20px Arial";
       ctx.fillStyle = "white";
-      ctx.fillText(chordToPlay, 0, canvas.height * 0.02);
+      var thisChord;
+
+      if (chordToPlay == 'C1' || chordToPlay == 'C2') {
+        thisChord = chordToPlay.substring(0, chordToPlay.length - 1);
+      } else {
+        thisChord = chordToPlay;
+      }
+
+      ctx.fillText(thisChord, 0, canvas.height * 0.02);
     }
 
     pyramid.update();
@@ -97,6 +111,8 @@ function animate() {
     forShoots();
     forFloatNotes();
     forEdgeSplats();
+    forParticles();
+    forNoteCircles();
   } //call next frame.
 
 

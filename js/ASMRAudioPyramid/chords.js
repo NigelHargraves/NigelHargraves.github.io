@@ -35,6 +35,30 @@ function createChords() {
     chordCS.push(C5S, E5S, G5S);
     chordCS.push(C6S, E6S, G6S);
 
+    chordDm.push(D1, D5, F1, F5, A1, A5);
+    chordDm.push(D2, D6, F2, F6, A2, A6);
+    chordDm.push(D3, D7, F3, F7, A3, A7);
+    chordDm.push(D4, D8, F4, F8, A4, A8);
+
+    chordDmS.push(D1S, F1S, A1S);
+    chordDmS.push(D2S, F2S, A2S);
+    chordDmS.push(D3S, F3S, A3S);
+    chordDmS.push(D4S, F4S, A4S);
+    chordDmS.push(D5S, F5S, A5S);
+    chordDmS.push(D6S, F6S, A6S);
+
+    chordEm.push(E1, E5, G1, G5, B1, B5);
+    chordEm.push(E2, E6, G2, G6, B2, B6);
+    chordEm.push(E3, E7, G3, G7, B3, B7);
+    chordEm.push(E4, E8, G4, G8, B4, B8);
+
+    chordEmS.push(E1S, G1S, B1S);
+    chordEmS.push(E2S, G2S, B2S);
+    chordEmS.push(E3S, G3S, B3S);
+    chordEmS.push(E4S, G4S, B4S);
+    chordEmS.push(E5S, G5S, B5S);
+    chordEmS.push(E6S, G6S, B6S);
+
     chordG.push(G1, G5, B1, B5, D1, D5);
     chordG.push(G2, G6, B2, B6, D2, D6);
     chordG.push(G3, G7, B3, B7, D3, D7);
@@ -46,4 +70,16 @@ function createChords() {
     chordGS.push(G4S, B4S, D4S);
     chordGS.push(G5S, B5S, D5S);
     chordGS.push(G6S, B6S, D6S);
+
+    chordGsus4.push(G1, G5, C1, C5, D1, D5);
+    chordGsus4.push(G2, G6, C2, C6, D2, D6);
+    chordGsus4.push(G3, G7, C3, C7, D3, D7);
+    chordGsus4.push(G4, G8, C4, C8, D4, D8);
+
+    chordGsus4S.push(G1S, C1S, D1S);
+    chordGsus4S.push(G2S, C2S, D2S);
+    chordGsus4S.push(G3S, C3S, D3S);
+    chordGsus4S.push(G4S, C4S, D4S);
+    chordGsus4S.push(G5S, C5S, D5S);
+    chordGsus4S.push(G6S, C6S, D6S);
 }

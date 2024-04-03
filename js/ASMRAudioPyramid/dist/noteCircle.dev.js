@@ -6,53 +6,52 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-var Shoot =
+var NoteCircle =
 /*#__PURE__*/
 function () {
-  function Shoot(x, y) {
-    _classCallCheck(this, Shoot);
+  function NoteCircle(x, y, color) {
+    _classCallCheck(this, NoteCircle);
 
     this.x = x;
     this.y = y;
-    this.velocity = {
-      x: 0,
-      y: 0
-    };
-    this.angle = 0;
+    this.color = color;
+    this.r = 1;
+    this.opacity = 1;
   }
 
-  _createClass(Shoot, [{
+  _createClass(NoteCircle, [{
     key: "draw",
     value: function draw() {
+      ctx.strokeStyle = this.color;
       ctx.beginPath();
-      ctx.arc(this.x, this.y, 3, 0, Math.PI * 2);
-      ctx.fillStyle = "aqua";
-      ctx.fill();
+      ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+      ctx.globalAlpha = this.opacity;
+      ctx.lineWidth = 1;
+      ctx.stroke();
+      ctx.globalAlpha = 0.2;
     }
   }, {
     key: "update",
     value: function update() {
-      this.x += this.velocity.x;
-      this.y += this.velocity.y;
-      this.angle = Math.atan2(center.y - this.y, center.x - this.x);
-      this.velocity.x = Math.cos(this.angle) * 3;
-      this.velocity.y = Math.sin(this.angle) * 3;
+      this.r += 1;
+
+      if (this.opacity > 0.02) {
+        this.opacity -= 0.01;
+      }
+
       this.draw();
     }
   }]);
 
-  return Shoot;
+  return NoteCircle;
 }();
 
-function forShoots() {
-  shoots.forEach(function (shoot, index) {
-    var collide = collisionDetection(shoot.x, shoot.y, 1, 1, center.x, center.y, 2, 2);
-
-    if (collide) {
-      floatNotes.push(new FloatNote());
-      shoots.splice(index, 1);
+function forNoteCircles() {
+  noteCircles.forEach(function (nc, index) {
+    if (nc.opacity <= 0.02) {
+      noteCircles.splice(index, 1);
     }
 
-    shoot.update();
+    nc.update();
   });
 }

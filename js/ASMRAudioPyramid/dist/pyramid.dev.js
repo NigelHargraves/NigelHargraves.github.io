@@ -19,8 +19,8 @@ function () {
     this.lineWidth = 5;
     this.zoom = 800;
     this.color = 'white';
-    this.directX = 0.0002;
-    this.directY = 0.0005;
+    this.directX = 0.0001;
+    this.directY = 0.0002;
     this.point = {
       x: 0,
       y: 0

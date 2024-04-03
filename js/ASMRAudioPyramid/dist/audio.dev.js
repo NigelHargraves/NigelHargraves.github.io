@@ -99,11 +99,23 @@ var F6S = document.getElementById("audio95");
 var G6S = document.getElementById("audio96");
 var A6S = document.getElementById("audio97");
 var B6S = document.getElementById("audio98");
+var CBass = document.getElementById("audio99");
+var DBass = document.getElementById("audio100");
+var EBass = document.getElementById("audio101");
+var FBass = document.getElementById("audio102");
+var GBass = document.getElementById("audio103");
+var ABass = document.getElementById("audio104");
 
 function setVolume() {
   var noteVolume = 0.3;
-  var bassVolume = 1;
-  var stringVolume = 0.2;
+  var bassVolume = 0.5;
+  var stringVolume = 0.05;
+  CBass.volume = bassVolume;
+  DBass.volume = bassVolume;
+  EBass.volume = bassVolume;
+  FBass.volume = bassVolume;
+  GBass.volume = bassVolume;
+  ABass.volume = bassVolume;
   C1S.volume = stringVolume;
   D1S.volume = stringVolume;
   E1S.volume = stringVolume;

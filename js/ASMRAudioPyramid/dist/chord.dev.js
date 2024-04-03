@@ -30,13 +30,17 @@ function () {
     key: "draw",
     value: function draw() {
       ctx.strokeStyle = 'aquamarine';
-      ctx.fillStyle = 'aquamarine'; //draw large circle.
+      ctx.fillStyle = 'aquamarine';
+      ctx.globalAlpha = this.opacity;
+      ctx.lineWidth = this.lineWidth; //draw line.
+
+      ctx.beginPath();
+      ctx.moveTo(center.x, 0);
+      ctx.lineTo(center.x, canvas.height);
+      ctx.stroke(); //draw large circle.
 
       ctx.beginPath();
       ctx.arc(this.x, this.y, this.bigRadius, 0, Math.PI * 2);
-      ctx.stroke();
-      ctx.globalAlpha = this.opacity;
-      ctx.lineWidth = this.lineWidth;
       ctx.stroke(); //draw chord.
 
       ctx.beginPath();
@@ -61,13 +65,20 @@ function () {
 
       this.point.x = this.bigRadius * Math.cos(this.angle);
       this.point.y = this.bigRadius * Math.sin(this.angle);
-      this.angle += Math.PI / 180 / 4;
+      this.angle += Math.PI / 180 / 9;
 
       if (this.angle >= Math.PI * 2) {
         this.angle = 0;
       }
 
       if (this.angle <= Math.PI / 2 * 3 + 0.001 && this.angle >= Math.PI / 2 * 3 - 0.001 && this.delay == 0) {
+        for (var i = 0; i < 100; i++) {
+          particles.push(new Particle(this.x + this.point.x, this.y + this.point.y, {
+            x: (Math.random() - 0.5) / Math.random(),
+            y: (Math.random() - Math.random() - 1) / Math.random()
+          }, 'aquamarine'));
+        }
+
         chordChange();
         this.opacity = 1;
         this.lineWidth = 5;
@@ -88,12 +99,40 @@ function () {
 function chordChange() {
   if (chordToPlay == 'Am') {
     chordToPlay = 'F';
+    FBass.play();
   } else if (chordToPlay == 'F') {
-    chordToPlay = 'C';
-  } else if (chordToPlay == 'C') {
+    chordToPlay = 'C1';
+    CBass.play();
+  } else if (chordToPlay == 'C1') {
     chordToPlay = 'G';
+    GBass.play();
   } else if (chordToPlay == 'G') {
+    chordToPlay = 'Em';
+    EBass.play();
+
+    if (pyramid.directY > 0) {
+      pyramid.directY = -0.0002;
+    } else {
+      pyramid.directY = 0.0002;
+    }
+  } else if (chordToPlay == 'Em') {
+    chordToPlay = 'Dm';
+    DBass.play();
+  } else if (chordToPlay == 'Dm') {
+    chordToPlay = 'Gsus4';
+    GBass.play();
+  } else if (chordToPlay == 'Gsus4') {
+    chordToPlay = 'C2';
+    CBass.play();
+  } else if (chordToPlay == 'C2') {
     chordToPlay = 'Am';
+    ABass.play();
+
+    if (pyramid.directY > 0) {
+      pyramid.directY = -0.0002;
+    } else {
+      pyramid.directY = 0.0002;
+    }
   }
 
   if (chordToPlay == 'Am') {
@@ -108,7 +147,7 @@ function chordChange() {
     }
   }
 
-  if (chordToPlay == 'C') {
+  if (chordToPlay == 'C1' || chordToPlay == 'C2') {
     for (var _i2 = 0; _i2 < 24; _i2++) {
       notes[_i2].note = chordC[_i2];
     }
@@ -117,6 +156,24 @@ function chordChange() {
   if (chordToPlay == 'G') {
     for (var _i3 = 0; _i3 < 24; _i3++) {
       notes[_i3].note = chordG[_i3];
+    }
+  }
+
+  if (chordToPlay == 'Em') {
+    for (var _i4 = 0; _i4 < 24; _i4++) {
+      notes[_i4].note = chordEm[_i4];
+    }
+  }
+
+  if (chordToPlay == 'Dm') {
+    for (var _i5 = 0; _i5 < 24; _i5++) {
+      notes[_i5].note = chordDm[_i5];
+    }
+  }
+
+  if (chordToPlay == 'Gsus4') {
+    for (var _i6 = 0; _i6 < 24; _i6++) {
+      notes[_i6].note = chordGsus4[_i6];
     }
   }
 }

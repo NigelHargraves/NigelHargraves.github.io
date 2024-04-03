@@ -6,53 +6,57 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-var Shoot =
+var Particle =
 /*#__PURE__*/
 function () {
-  function Shoot(x, y) {
-    _classCallCheck(this, Shoot);
+  function Particle(x, y, velocity, color) {
+    _classCallCheck(this, Particle);
 
     this.x = x;
     this.y = y;
-    this.velocity = {
-      x: 0,
-      y: 0
-    };
-    this.angle = 0;
+    this.velocity = velocity;
+    this.color = color;
+    this.opacity = 1;
+    this.gravity = 0.0001;
+    this.acceleration = 0;
   }
 
-  _createClass(Shoot, [{
+  _createClass(Particle, [{
     key: "draw",
     value: function draw() {
       ctx.beginPath();
-      ctx.arc(this.x, this.y, 3, 0, Math.PI * 2);
-      ctx.fillStyle = "aqua";
-      ctx.fill();
+      ctx.arc(this.x, this.y, 0.4, 0, Math.PI * 2);
+      ctx.strokeStyle = this.color;
+      ctx.globalAlpha = this.opacity;
+      ctx.stroke();
+      ctx.globalAlpha = 0.4;
     }
   }, {
     key: "update",
     value: function update() {
       this.x += this.velocity.x;
       this.y += this.velocity.y;
-      this.angle = Math.atan2(center.y - this.y, center.x - this.x);
-      this.velocity.x = Math.cos(this.angle) * 3;
-      this.velocity.y = Math.sin(this.angle) * 3;
+      this.velocity.y += this.acceleration;
+      this.acceleration += this.gravity;
+
+      if (this.y >= canvas.height) {
+        this.velocity.y = -this.velocity.y;
+      }
+
+      this.opacity -= 0.002;
       this.draw();
     }
   }]);
 
-  return Shoot;
+  return Particle;
 }();
 
-function forShoots() {
-  shoots.forEach(function (shoot, index) {
-    var collide = collisionDetection(shoot.x, shoot.y, 1, 1, center.x, center.y, 2, 2);
-
-    if (collide) {
-      floatNotes.push(new FloatNote());
-      shoots.splice(index, 1);
+function forParticles() {
+  particles.forEach(function (particle, index) {
+    if (particle.opacity <= 0.01) {
+      particles.splice(index, 1);
     }
 
-    shoot.update();
+    particle.update();
   });
 }

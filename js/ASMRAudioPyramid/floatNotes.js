@@ -47,16 +47,32 @@ function forFloatNotes() {
                 edgeSplats.push(new EdgeSplat(fn.x, fn.y));
             }
             if (chordToPlay == 'Am') {
+                if (chordAmS[floatNoteNote].currentTime != 0) chordAmS[floatNoteNote].currentTime = 0;
                 chordAmS[floatNoteNote].play();
             }
             if (chordToPlay == 'F') {
+                if (chordFS[floatNoteNote].currentTime != 0) chordFS[floatNoteNote].currentTime = 0;
                 chordFS[floatNoteNote].play();
             }
-            if (chordToPlay == 'C') {
+            if (chordToPlay == 'C1' || chordToPlay == 'C2') {
+                if (chordCS[floatNoteNote].currentTime != 0) chordCS[floatNoteNote].currentTime = 0;
                 chordCS[floatNoteNote].play();
             }
             if (chordToPlay == 'G') {
+                if (chordGS[floatNoteNote].currentTime != 0) chordGS[floatNoteNote].currentTime = 0;
                 chordGS[floatNoteNote].play();
+            }
+            if (chordToPlay == 'Em') {
+                if (chordEmS[floatNoteNote].currentTime != 0) chordEmS[floatNoteNote].currentTime = 0;
+                chordEmS[floatNoteNote].play();
+            }
+            if (chordToPlay == 'Dm') {
+                if (chordDmS[floatNoteNote].currentTime != 0) chordDmS[floatNoteNote].currentTime = 0;
+                chordDmS[floatNoteNote].play();
+            }
+            if (chordToPlay == 'Gsus4') {
+                if (chordGsus4S[floatNoteNote].currentTime != 0) chordGsus4S[floatNoteNote].currentTime = 0;
+                chordGsus4S[floatNoteNote].play();
             }
             floatNoteNote++;
             if (floatNoteNote == 18) floatNoteNote = 0;

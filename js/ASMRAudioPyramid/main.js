@@ -6,7 +6,13 @@ canvas.height = window.innerHeight;
 let center = { x: canvas.width / 2, y: canvas.height / 2 };
 
 
-let velocity = { x: 0, y: 0 };
+
+const gradient = ctx.createRadialGradient(center.x, center.y, canvas.width / 8, center.x, center.y, canvas.height);
+gradient.addColorStop(0, "rgba(0, 0, 0,0.4)");
+gradient.addColorStop(1, 'rgba(0, 100, 0,0.2)');
+
+
+
 
 let start = false,
     playNow = true,
@@ -19,8 +25,8 @@ let delay = 0,
 
 
 
-let chordD = [],
-    chordDm = [],
+let chordDm = [],
+    chordDmS = [],
     chordF = [],
     chordFS = [],
     chordAm = [],
@@ -28,9 +34,11 @@ let chordD = [],
     chordC = [],
     chordCS = [],
     chordG = [],
-    chordGS = []
-''
-chordE = [];
+    chordGS = [],
+    chordGsus4 = [],
+    chordGsus4S = [],
+    chordEm = [],
+    chordEmS = [];
 
 let color = [],
     notes = [],
@@ -39,7 +47,8 @@ let color = [],
     particles = [],
     shoots = [],
     floatNotes = [],
-    edgeSplats = [];
+    edgeSplats = [],
+    noteCircles = [];
 
 
 
@@ -79,7 +88,10 @@ let chord = new Chord();
 
 function animate() {
     //CLS.
-    ctx.fillStyle = "rgb(0, 0, 0, 0.6)";
+    ctx.fillStyle = "rgb(0, 0, 0, 0.4)";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = gradient;
+    ctx.globalAlpha = 0.2;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     ctx.font = "bold 50px Arial";
     ctx.fillStyle = 'white';
@@ -101,13 +113,20 @@ function animate() {
             for (let i = 0; i < 24; i++) {
                 chordAm[i].play();
             }
+            ABass.play();
             playNow = false;
         }
 
         if (showChords) {
             ctx.font = "bold 20px Arial";
             ctx.fillStyle = "white";
-            ctx.fillText(chordToPlay, 0, canvas.height * 0.02);
+            let thisChord
+            if (chordToPlay == 'C1' || chordToPlay == 'C2') {
+                thisChord = chordToPlay.substring(0, chordToPlay.length - 1);
+            } else {
+                thisChord = chordToPlay;
+            }
+            ctx.fillText(thisChord, 0, canvas.height * 0.02);
         }
 
         pyramid.update();
@@ -122,6 +141,9 @@ function animate() {
 
         forEdgeSplats()
 
+        forParticles()
+
+        forNoteCircles()
 
     }
 

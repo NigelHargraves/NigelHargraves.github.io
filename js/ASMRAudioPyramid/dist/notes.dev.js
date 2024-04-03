@@ -76,6 +76,7 @@ function () {
 
       if (this.noteNo < 12) {
         if (this.dist <= 1 && this.aimPoint[0]) {
+          noteCircles.push(new NoteCircle(this.x, this.y, this.color));
           if (this.note.currentTime != 0) this.note.currentTime = 0;
           this.note.play();
           this.aimPoint[0] = false;
@@ -84,6 +85,7 @@ function () {
           shoots.push(new Shoot(this.x, this.y));
           pyramid.color = this.color;
         } else if (this.dist <= 1 && this.aimPoint[1]) {
+          noteCircles.push(new NoteCircle(this.x, this.y, this.color));
           if (this.note.currentTime != 0) this.note.currentTime = 0;
           this.note.play();
           this.aimPoint[1] = false;
@@ -92,6 +94,7 @@ function () {
           shoots.push(new Shoot(this.x, this.y));
           pyramid.color = this.color;
         } else if (this.dist <= 1 && this.aimPoint[2]) {
+          noteCircles.push(new NoteCircle(this.x, this.y, this.color));
           if (this.note.currentTime != 0) this.note.currentTime = 0;
           this.note.play();
           this.aimPoint[2] = false;
@@ -125,6 +128,7 @@ function () {
         }
       } else {
         if (this.dist <= 1 && this.aimPoint[0]) {
+          noteCircles.push(new NoteCircle(this.x, this.y, this.color));
           if (this.note.currentTime != 0) this.note.currentTime = 0;
           this.note.play();
           this.aimPoint[0] = false;
@@ -133,6 +137,7 @@ function () {
           shoots.push(new Shoot(this.x, this.y));
           pyramid.color = this.color;
         } else if (this.dist <= 1 && this.aimPoint[1]) {
+          noteCircles.push(new NoteCircle(this.x, this.y, this.color));
           if (this.note.currentTime != 0) this.note.currentTime = 0;
           this.note.play();
           this.aimPoint[1] = false;
@@ -141,6 +146,7 @@ function () {
           shoots.push(new Shoot(this.x, this.y));
           pyramid.color = this.color;
         } else if (this.dist <= 1 && this.aimPoint[2]) {
+          noteCircles.push(new NoteCircle(this.x, this.y, this.color));
           if (this.note.currentTime != 0) this.note.currentTime = 0;
           this.note.play();
           this.aimPoint[2] = false;
