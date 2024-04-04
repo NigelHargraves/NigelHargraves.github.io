@@ -7,8 +7,8 @@ class Cube {
         this.lineWidth = 0.2;
         this.delay = 0;
         this.zoom = 2000;
-        this.directX = 0;
-        this.directY = 0.001;
+        this.directX = 0.001;
+        this.directY = 0.002;
         this.edges = new CubeEdge(this.x, this.y, this.z, this.size);
     }
     draw() {

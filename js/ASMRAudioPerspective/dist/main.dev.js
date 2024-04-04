@@ -42,10 +42,10 @@ setVolume();
 var cube = new Cube(0, 0, 800, 400);
 
 for (var i = 0; i < 21; i++) {
-  var hue1 = Math.random() * 260 + 100;
-  var hue2 = Math.random() * 260 + 100;
-  var hue3 = Math.random() * 260 + 100;
-  color.push('rgb(' + hue1 + ',' + hue2 + ',' + hue3 + ')');
+  var red = Math.floor(Math.random() * 155 + 100);
+  var green = Math.floor(Math.random() * 155 + 100);
+  var blue = Math.floor(Math.random() * 155 + 100);
+  color.push('rgb(' + red + ',' + green + ',' + blue + ')');
 }
 
 var xpos = -690,
@@ -53,7 +53,7 @@ var xpos = -690,
 
 for (var _i = 0; _i < 21; _i++) {
   notes.push(new Note(xpos, ypos, 500, 300, _i, speed, chordC[_i], color[_i]));
-  speed += 0.001;
+  speed += 0.01;
   xpos += 230;
 
   if (_i == 6) {

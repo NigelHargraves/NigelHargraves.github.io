@@ -63,10 +63,10 @@ let cube = new Cube(0, 0, 800, 400);
 
 
 for (let i = 0; i < 21; i++) {
-    let hue1 = (Math.random() * 260) + 100;
-    let hue2 = (Math.random() * 260) + 100;
-    let hue3 = (Math.random() * 260) + 100;
-    color.push('rgb(' + hue1 + ',' + hue2 + ',' + hue3 + ')');
+    let red = Math.floor((Math.random() * 155) + 100);
+    let green = Math.floor((Math.random() * 155) + 100);
+    let blue = Math.floor((Math.random() * 155) + 100);
+    color.push('rgb(' + red + ',' + green + ',' + blue + ')');
 }
 
 let xpos = -690,
@@ -74,7 +74,7 @@ let xpos = -690,
 
 for (let i = 0; i < 21; i++) {
     notes.push(new Note(xpos, ypos, 500, 300, i, speed, chordC[i], color[i]));
-    speed += 0.001;
+    speed += 0.01;
     xpos += 230;
     if (i == 6) {
         ypos += 400;

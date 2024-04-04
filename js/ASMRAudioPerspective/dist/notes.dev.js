@@ -20,6 +20,8 @@ function () {
     this.speed = speed;
     this.extraSpeed = 0.001;
     this.zoomIn = true;
+    this.fillFace = true;
+    this.faceOpacity = 1;
     this.note = note;
     this.color = color;
     this.lineWidth = 5;
@@ -33,8 +35,59 @@ function () {
     key: "draw",
     value: function draw() {
       var vertices = project(this.edges.vertices, canvas.width, canvas.height, this.noteNo);
-      ctx.lineWidth = this.lineWidth;
       ctx.strokeStyle = this.color;
+      ctx.fillStyle = this.color;
+      ctx.lineWidth = this.lineWidth;
+
+      if (this.fillFace) {
+        ctx.globalAlpha = this.faceOpacity; //front face.
+
+        var region = new Path2D();
+        region.moveTo(vertices[0].x, vertices[0].y);
+        region.lineTo(vertices[1].x, vertices[1].y);
+        region.lineTo(vertices[2].x, vertices[2].y);
+        region.lineTo(vertices[3].x, vertices[3].y);
+        region.closePath();
+        ctx.fill(region); //right face.
+
+        region = new Path2D();
+        region.moveTo(vertices[1].x, vertices[1].y);
+        region.lineTo(vertices[5].x, vertices[5].y);
+        region.lineTo(vertices[6].x, vertices[6].y);
+        region.lineTo(vertices[2].x, vertices[2].y);
+        region.closePath();
+        ctx.fillStyle = shadeFace(this.color, 'right');
+        ctx.fill(region); //left face.
+
+        region = new Path2D();
+        region.moveTo(vertices[0].x, vertices[0].y);
+        region.lineTo(vertices[4].x, vertices[4].y);
+        region.lineTo(vertices[7].x, vertices[7].y);
+        region.lineTo(vertices[3].x, vertices[3].y);
+        region.closePath();
+        ctx.fillStyle = shadeFace(this.color, 'left');
+        ctx.fill(region); //bottom face.
+
+        region = new Path2D();
+        region.moveTo(vertices[3].x, vertices[3].y);
+        region.lineTo(vertices[7].x, vertices[7].y);
+        region.lineTo(vertices[6].x, vertices[6].y);
+        region.lineTo(vertices[2].x, vertices[2].y);
+        region.closePath();
+        ctx.fillStyle = shadeFace(this.color, 'bottom');
+        ctx.fill(region); //top face.
+
+        region = new Path2D();
+        region.moveTo(vertices[0].x, vertices[0].y);
+        region.lineTo(vertices[4].x, vertices[4].y);
+        region.lineTo(vertices[5].x, vertices[5].y);
+        region.lineTo(vertices[1].x, vertices[1].y);
+        region.closePath();
+        ctx.fillStyle = shadeFace(this.color, 'top');
+        ctx.fill(region);
+      }
+
+      ctx.globalAlpha = 0.4;
 
       for (var i = this.edges.faces.length - 1; i > -1; --i) {
         var face = this.edges.faces[i];
@@ -53,7 +106,6 @@ function () {
       }
 
       for (var _i = 0; _i <= 7; _i++) {
-        ctx.fillStyle = this.color;
         ctx.beginPath();
         ctx.arc(vertices[_i].x, vertices[_i].y, 2, 0, Math.PI * 2);
         ctx.fill();
@@ -64,6 +116,12 @@ function () {
   }, {
     key: "update",
     value: function update() {
+      if (this.faceOpacity > 0.02) {
+        this.faceOpacity -= 0.02;
+      } else {
+        this.fillFace = false;
+      }
+
       if (this.lineWidth > 1) {
         this.lineWidth -= 0.05;
       }
@@ -77,12 +135,16 @@ function () {
       }
 
       if (this.zoom >= 400) {
+        this.faceOpacity = 1;
+        this.fillFace = true;
         this.zoomIn = false;
         this.lineWidth = 5;
         this.note.play();
       }
 
       if (this.zoom <= 80) {
+        this.faceOpacity = 1;
+        this.fillFace = true;
         this.zoomIn = true;
         this.lineWidth = 5;
         this.note.play();
@@ -160,4 +222,82 @@ function forNotes() {
   notes.forEach(function (note, index) {
     note.update();
   });
+}
+
+function shadeFace(color, type) {
+  var value = '';
+  var redValue = 0;
+  var greenValue = 0;
+  var blueValue = 0;
+  var colorArray;
+  var v1 = 10;
+  var v2 = 20;
+
+  for (var i = 4; i <= 6; i++) {
+    value += color[i];
+    redValue = Number(value);
+  }
+
+  value = '';
+
+  for (var _i2 = 8; _i2 <= 10; _i2++) {
+    value += color[_i2];
+    greenValue = Number(value);
+  }
+
+  value = '';
+
+  for (var _i3 = 12; _i3 <= 14; _i3++) {
+    value += color[_i3];
+    blueValue = Number(value);
+  }
+
+  if (redValue > greenValue && redValue > blueValue) {
+    if (type == 'right') redValue += v1;
+    if (type == 'bottom') redValue += v2;
+    if (type == 'left') redValue -= v1;
+    if (type == 'top') redValue -= v2;
+  }
+
+  if (greenValue > redValue && greenValue > blueValue) {
+    if (type == 'right') greenValue += v1;
+    if (type == 'bottom') greenValue += v2;
+    if (type == 'left') greenValue -= v1;
+    if (type == 'top') greenValue -= v2;
+  }
+
+  if (blueValue > redValue && blueValue > greenValue) {
+    if (type == 'right') blueValue += v1;
+    if (type == 'bottom') blueValue += v2;
+    if (type == 'left') blueValue -= v1;
+    if (type == 'top') blueValue -= v2;
+  }
+
+  if (redValue < greenValue && redValue < blueValue) {
+    if (type == 'right') redValue -= v1;
+    if (type == 'bottom') redValue -= v2;
+    if (type == 'left') redValue += v1;
+    if (type == 'top') redValue += v2;
+  }
+
+  if (greenValue < redValue && greenValue < blueValue) {
+    if (type == 'right') greenValue -= v1;
+    if (type == 'bottom') greenValue -= v2;
+    if (type == 'left') greenValue += v1;
+    if (type == 'top') greenValue += v2;
+  }
+
+  if (blueValue < redValue && blueValue < greenValue) {
+    if (type == 'right') blueValue -= v1;
+    if (type == 'bottom') blueValue -= v2;
+    if (type == 'left') blueValue += v1;
+    if (type == 'top') blueValue += v2;
+  }
+
+  colorArray = {
+    r: redValue,
+    g: greenValue,
+    b: blueValue
+  };
+  return 'rgb(' + colorArray.r + ',' + colorArray.g + ',' + colorArray.b + ')';
 }
