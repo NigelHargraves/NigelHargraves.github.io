@@ -134,7 +134,7 @@ function animate() {
 
         forParticles();
 
-        forBackgroundCubes()
+        forBackgroundCubes();
 
     }
 

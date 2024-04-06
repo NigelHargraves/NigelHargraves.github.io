@@ -40,7 +40,8 @@ var color = [],
     shoots = [],
     floatNotes = [],
     edgeSplats = [],
-    noteCircles = [];
+    noteCircles = [],
+    backgroundPyramids = [];
 createChords();
 setVolume();
 
@@ -105,6 +106,12 @@ function animate() {
       ctx.fillText(thisChord, 0, canvas.height * 0.02);
     }
 
+    var createbgpyramid = Math.random();
+
+    if (createbgpyramid > 0.995) {
+      backgroundPyramids.push(new BackgroundPyramid(Math.random() * canvas.width - center.x, Math.random() * canvas.height - center.y));
+    }
+
     pyramid.update();
     chord.update();
     forNotes();
@@ -113,6 +120,7 @@ function animate() {
     forEdgeSplats();
     forParticles();
     forNoteCircles();
+    forBackgroundPyramids();
   } //call next frame.
 
 

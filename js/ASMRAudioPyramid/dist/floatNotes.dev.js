@@ -38,7 +38,7 @@ function () {
     key: "draw",
     value: function draw() {
       var vertices = fnProject(this.edges.vertices, canvas.width, canvas.height, this.zoom);
-      ctx.lineWidth = 1;
+      ctx.lineWidth = 0.4;
       ctx.strokeStyle = 'aqua';
       ctx.save();
       ctx.translate(this.x - center.x, this.y - center.y);

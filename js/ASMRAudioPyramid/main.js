@@ -48,7 +48,8 @@ let color = [],
     shoots = [],
     floatNotes = [],
     edgeSplats = [],
-    noteCircles = [];
+    noteCircles = [],
+    backgroundPyramids = [];
 
 
 
@@ -129,6 +130,13 @@ function animate() {
             ctx.fillText(thisChord, 0, canvas.height * 0.02);
         }
 
+
+        let createbgpyramid = Math.random();
+        if (createbgpyramid > 0.995) {
+            backgroundPyramids.push(new BackgroundPyramid((Math.random() * canvas.width) - center.x, (Math.random() * canvas.height) - center.y));
+        }
+
+
         pyramid.update();
 
         chord.update();
@@ -144,6 +152,8 @@ function animate() {
         forParticles()
 
         forNoteCircles()
+
+        forBackgroundPyramids();
 
     }
 
