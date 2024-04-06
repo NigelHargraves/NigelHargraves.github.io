@@ -20,6 +20,8 @@ let F3 = document.getElementById("audio18");
 let G3 = document.getElementById("audio19");
 let A3 = document.getElementById("audio20");
 let B3 = document.getElementById("audio21");
+
+
 let C4 = document.getElementById("audio22");
 let D4 = document.getElementById("audio23");
 let E4 = document.getElementById("audio24");
@@ -27,7 +29,6 @@ let F4 = document.getElementById("audio25");
 let G4 = document.getElementById("audio26");
 let A4 = document.getElementById("audio27");
 let B4 = document.getElementById("audio28");
-
 let C5 = document.getElementById("audio29");
 let D5 = document.getElementById("audio30");
 let E5 = document.getElementById("audio31");
@@ -42,6 +43,7 @@ let F6 = document.getElementById("audio39");
 let G6 = document.getElementById("audio40");
 let A6 = document.getElementById("audio41");
 let B6 = document.getElementById("audio42");
+
 let C7 = document.getElementById("audio43");
 let D7 = document.getElementById("audio44");
 let E7 = document.getElementById("audio45");
@@ -49,119 +51,25 @@ let F7 = document.getElementById("audio46");
 let G7 = document.getElementById("audio47");
 let A7 = document.getElementById("audio48");
 let B7 = document.getElementById("audio49");
-let C8 = document.getElementById("audio50");
-let D8 = document.getElementById("audio51");
-let E8 = document.getElementById("audio52");
-let F8 = document.getElementById("audio53");
-let G8 = document.getElementById("audio54");
-let A8 = document.getElementById("audio55");
-let B8 = document.getElementById("audio56");
 
-let C1S = document.getElementById("audio57");
-let D1S = document.getElementById("audio58");
-let E1S = document.getElementById("audio59");
-let F1S = document.getElementById("audio60");
-let G1S = document.getElementById("audio61");
-let A1S = document.getElementById("audio62");
-let B1S = document.getElementById("audio63");
-let C2S = document.getElementById("audio64");
-let D2S = document.getElementById("audio65");
-let E2S = document.getElementById("audio66");
-let F2S = document.getElementById("audio67");
-let G2S = document.getElementById("audio68");
-let A2S = document.getElementById("audio69");
-let B2S = document.getElementById("audio70");
-let C3S = document.getElementById("audio71");
-let D3S = document.getElementById("audio72");
-let E3S = document.getElementById("audio73");
-let F3S = document.getElementById("audio74");
-let G3S = document.getElementById("audio75");
-let A3S = document.getElementById("audio76");
-let B3S = document.getElementById("audio77");
+let CBass = document.getElementById("audio50");
+let DBass = document.getElementById("audio51");
+let EBass = document.getElementById("audio52");
+let FBass = document.getElementById("audio53");
+let GBass = document.getElementById("audio54");
+let ABass = document.getElementById("audio55");
+let BBass = document.getElementById("audio56");
 
-let C4S = document.getElementById("audio78");
-let D4S = document.getElementById("audio79");
-let E4S = document.getElementById("audio80");
-let F4S = document.getElementById("audio81");
-let G4S = document.getElementById("audio82");
-let A4S = document.getElementById("audio83");
-let B4S = document.getElementById("audio84");
-let C5S = document.getElementById("audio85");
-let D5S = document.getElementById("audio86");
-let E5S = document.getElementById("audio87");
-let F5S = document.getElementById("audio88");
-let G5S = document.getElementById("audio89");
-let A5S = document.getElementById("audio90");
-let B5S = document.getElementById("audio91");
-let C6S = document.getElementById("audio92");
-let D6S = document.getElementById("audio93");
-let E6S = document.getElementById("audio94");
-let F6S = document.getElementById("audio95");
-let G6S = document.getElementById("audio96");
-let A6S = document.getElementById("audio97");
-let B6S = document.getElementById("audio98");
 
-let CBass = document.getElementById("audio99");
-let DBass = document.getElementById("audio100");
-let EBass = document.getElementById("audio101");
-let FBass = document.getElementById("audio102");
-let GBass = document.getElementById("audio103");
-let ABass = document.getElementById("audio104");
+
+
+
+
 
 function setVolume() {
-    let noteVolume = 0.3;
+    let noteVolume = 0.2;
     let bassVolume = 0.5;
     let stringVolume = 0.05;
-
-    CBass.volume = bassVolume;
-    DBass.volume = bassVolume;
-    EBass.volume = bassVolume;
-    FBass.volume = bassVolume;
-    GBass.volume = bassVolume;
-    ABass.volume = bassVolume;
-
-    C1S.volume = stringVolume;
-    D1S.volume = stringVolume;
-    E1S.volume = stringVolume;
-    F1S.volume = stringVolume;
-    G1S.volume = stringVolume;
-    A1S.volume = stringVolume;
-    B1S.volume = stringVolume;
-    C2S.volume = stringVolume;
-    D2S.volume = stringVolume;
-    E2S.volume = stringVolume;
-    F2S.volume = stringVolume;
-    G2S.volume = stringVolume;
-    A2S.volume = stringVolume;
-    B2S.volume = stringVolume;
-    C3S.volume = stringVolume;
-    D3S.volume = stringVolume;
-    E3S.volume = stringVolume;
-    F3S.volume = stringVolume;
-    G3S.volume = stringVolume;
-    A3S.volume = stringVolume;
-    B3S.volume = stringVolume;
-    C4S.volume = stringVolume;
-    D4S.volume = stringVolume;
-    E4S.volume = stringVolume;
-    F4S.volume = stringVolume;
-    G4S.volume = stringVolume;
-    A4S.volume = stringVolume;
-    B4S.volume = stringVolume;
-    C5S.volume = stringVolume;
-    D5S.volume = stringVolume;
-    E5S.volume = stringVolume;
-    F5S.volume = stringVolume;
-    G5S.volume = stringVolume;
-    A5S.volume = stringVolume;
-    B5S.volume = stringVolume;
-    C6S.volume = stringVolume;
-    D6S.volume = stringVolume;
-    E6S.volume = stringVolume;
-    F6S.volume = stringVolume;
-    G6S.volume = stringVolume;
-    A6S.volume = stringVolume;
-    B6S.volume = stringVolume;
 
 
     C1.volume = noteVolume;
@@ -213,11 +121,5 @@ function setVolume() {
     G7.volume = noteVolume;
     A7.volume = noteVolume;
     B7.volume = noteVolume;
-    C8.volume = noteVolume;
-    D8.volume = noteVolume;
-    E8.volume = noteVolume;
-    F8.volume = noteVolume;
-    G8.volume = noteVolume;
-    A8.volume = noteVolume;
-    B8.volume = noteVolume;
+
 }

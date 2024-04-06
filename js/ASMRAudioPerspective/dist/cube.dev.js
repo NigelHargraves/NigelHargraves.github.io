@@ -22,6 +22,7 @@ function () {
     this.directX = 0.001;
     this.directY = 0.002;
     this.edges = new CubeEdge(this.x, this.y, this.z, this.size);
+    this.firstTime = true;
   }
 
   _createClass(Cube, [{
@@ -37,12 +38,27 @@ function () {
       ctx.stroke();
 
       if (vertices[0].x <= center.x + 1 && vertices[0].x >= center.x - 1 && this.delay == 0) {
+        if (this.firstTime) {
+          this.firstTime = false;
+        } else {
+          chordChange();
+        }
+
         this.lineWidth = 5;
         this.delay = 100;
+        var velocity;
+
+        for (var i = 0; i < 100; i++) {
+          velocity = {
+            x: (Math.random() - 0.5) / Math.random(),
+            y: (Math.random() - 0.5) / Math.random()
+          };
+          particles.push(new Particle(vertices[0].x, vertices[0].y, 'plum', velocity));
+        }
       }
 
-      for (var i = this.edges.faces.length - 1; i > -1; --i) {
-        var face = this.edges.faces[i];
+      for (var _i = this.edges.faces.length - 1; _i > -1; --_i) {
+        var face = this.edges.faces[_i];
         ctx.beginPath();
         ctx.moveTo(vertices[face[0]].x, vertices[face[0]].y);
         ctx.lineTo(vertices[face[1]].x, vertices[face[1]].y);
@@ -63,9 +79,9 @@ function () {
         ctx.stroke();
       }
 
-      for (var _i = 0; _i <= 7; _i++) {
+      for (var _i2 = 0; _i2 <= 7; _i2++) {
         ctx.beginPath();
-        ctx.arc(vertices[_i].x, vertices[_i].y, 2, 0, Math.PI * 2);
+        ctx.arc(vertices[_i2].x, vertices[_i2].y, 2, 0, Math.PI * 2);
         ctx.fill();
       }
     }
@@ -142,8 +158,75 @@ function cubeProject(points3d, w, h, zoom) {
     var p = points3d[i];
     var x = p.x * (focal_length / p.z) + w * 0.5;
     var y = p.y * (focal_length / p.z) + h * 0.5;
-    points2d[i] = new Point2D(x, y);
+    points2d[i] = new CubePoint2D(x, y);
   }
 
   return points2d;
+}
+
+function chordChange() {
+  if (chordToPlay == 'C1') {
+    chordToPlay = 'G1';
+    GBass.play();
+  } else if (chordToPlay == 'G1') {
+    chordToPlay = 'Em1';
+    EBass.play();
+  } else if (chordToPlay == 'Em1') {
+    chordToPlay = 'C2';
+    CBass.play();
+  } else if (chordToPlay == 'C2') {
+    chordToPlay = 'G2';
+    GBass.play();
+  } else if (chordToPlay == 'G2') {
+    chordToPlay = 'Em2';
+    BBass.play();
+  } else if (chordToPlay == 'Em2') {
+    chordToPlay = 'Am';
+    ABass.play();
+  } else if (chordToPlay == 'Am') {
+    chordToPlay = 'F';
+    FBass.play();
+  } else if (chordToPlay == 'F') {
+    chordToPlay = 'Gsus4';
+    DBass.play();
+  } else if (chordToPlay == 'Gsus4') {
+    chordToPlay = 'C1';
+    CBass.play();
+  }
+
+  if (chordToPlay == 'C1' || chordToPlay == 'C2') {
+    for (var i = 0; i < 21; i++) {
+      notes[i].note = chordC[i];
+    }
+  }
+
+  if (chordToPlay == 'G1' || chordToPlay == 'G2') {
+    for (var _i3 = 0; _i3 < 21; _i3++) {
+      notes[_i3].note = chordG[_i3];
+    }
+  }
+
+  if (chordToPlay == 'Em1' || chordToPlay == 'Em2') {
+    for (var _i4 = 0; _i4 < 21; _i4++) {
+      notes[_i4].note = chordEm[_i4];
+    }
+  }
+
+  if (chordToPlay == 'Am') {
+    for (var _i5 = 0; _i5 < 21; _i5++) {
+      notes[_i5].note = chordAm[_i5];
+    }
+  }
+
+  if (chordToPlay == 'F') {
+    for (var _i6 = 0; _i6 < 21; _i6++) {
+      notes[_i6].note = chordF[_i6];
+    }
+  }
+
+  if (chordToPlay == 'Gsus4') {
+    for (var _i7 = 0; _i7 < 21; _i7++) {
+      notes[_i7].note = chordGsus4[_i7];
+    }
+  }
 }

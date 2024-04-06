@@ -20,16 +20,17 @@ let sayIt = false,
     volumeDown = false,
     delayLaugh = false;
 
-let jokeText = ['', 'How does a train hear another train coming?', 'With its engine ears!', 'What do you get if you cross a train with a dog?', "A choo-chiwawa!",
-    'What kind of train eats too much?', 'A chew chew train!', "Boss. You’re the worst train driver       ever, How many have you derailed this year?", 'Driver. I’m not sure, it’s hard to keep track!',
-    'Why did the train go to the sauna?', 'To blow off some steam!', 'Why was the train going backwards?', 'Just doing a little reverse engineering!',
-    'What does a train have to do before it goes into service?', 'The training!', 'What do you call a grateful train?', 'Thomas the Thank Engine!',
-    'What do you call a winter train, full of teeth?', 'The Molar Express!', 'What did one ancient Egyptian train say to the other     when they realized they had the same train whistle sound?', 'Hey, we have a toot-in-common!',
-    'What kind of locomotive do ghosts use?', 'A fright train!', 'What did the depressed train driver do ?',
-    'He went off the rails!', 'What did one train car say to the other train car?', 'Do you want to hook up later?', 'Why do you have to wait so   long for a train on Halloween?', 'They only run a skeleton service!',
-    'What do you give a train driver for Christmas?', 'Platform shoes!', "Why can’t the engineer be electrocuted?",
-    "Because he’s not a conductor!", "What happened to the man that took the 5 o’clock train home?", 'He had to give it back!', 'What do you call a pretend railway?',
-    'A play station!', 'Thank you for laughing', ' I am in stitches', 'Please like and subscribe, Take Care, and Goodbye'
+let jokeText = ['', 'What do you call a Bear in the rain?', ' A drizzly bear!', 'Why is wind power more popular than rain?',
+    "Because it has a lot of fans!", 'What’s the difference between rain and climate? ', "You can’t rain a tree, but you can climb it!",
+    "What do books wear on a wet and rainy day?", 'Rain quotes!', 'What do you call dangerous precipitation?', 'A rain of terror!',
+    'What does a raincloud wear under its raincoat?', 'Thunder pants!', 'What do you call it when it rains ducks and geese?',
+    'Fowl weather!', 'What animal loves being out in the rain?', 'A rain deer!', "What does a cloud use to fire it's thunder bolts?",
+    'A rain bow!', 'What do you call a pile of coins in the rain?', ' Climate change!', 'What do you call a dinosaur in the rain?',
+    'A driplodocus!', "Why didn’t the fog hit the target? ", "Because it's just mist!", "Why can't you argue with a rain cloud?",
+    'Because it always storms out!', "Why doesn’t rain fall?", 'Because rain drops!', 'How can you tell if you get hit by freezing rain?',
+    "It'll hurt like hail!", "When do clouds have the best ideas?", "During a brain storm!", "Did you hear the cheesy weather forecast?",
+    'Rain with light Bries!', 'Why do you see cows lying down in the rain?', 'To keep each udder dry!', 'Thank you for laughing',
+    ' I am in stitches', 'Please like and subscribe, Take Care, and Goodbye'
 ];
 
 let laughs = [];
@@ -70,7 +71,7 @@ function animate() {
         var voices = () => {
             speechSynthesis.getVoices().forEach((v, i) => {
                 let opt = document.createElement("option");
-                opt.value = 105;
+                opt.value = 107;
                 opt.innerHTML = v.name;
                 hvoice.appendChild(opt);
             });

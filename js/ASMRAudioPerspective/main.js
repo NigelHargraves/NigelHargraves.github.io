@@ -18,34 +18,21 @@ let start = false,
 
 let delay = 0,
     speed = 0.1,
-    chordToPlay = 'C';
+    chordToPlay = 'C1';
 
 
 
-let chordDm = [],
-    chordDmS = [],
-    chordF = [],
-    chordFS = [],
-    chordAm = [],
-    chordAmS = [],
-    chordC = [],
-    chordCS = [],
+let chordC = [],
     chordG = [],
-    chordGS = [],
-    chordGsus4 = [],
-    chordGsus4S = [],
     chordEm = [],
-    chordEmS = [];
+    chordAm = [],
+    chordF = [],
+    chordGsus4 = [];
 
 let color = [],
     notes = [],
-    orbitPaths = [],
-    stars = [],
     particles = [],
-    shoots = [],
-    floatNotes = [],
-    edgeSplats = [],
-    noteCircles = [];
+    backgroundCubes = [];
 
 
 
@@ -60,6 +47,8 @@ setVolume();
 
 
 let cube = new Cube(0, 0, 800, 400);
+
+
 
 
 for (let i = 0; i < 21; i++) {
@@ -116,6 +105,7 @@ function animate() {
             for (let i = 0; i < 21; i++) {
                 chordC[i].play();
             }
+            CBass.play();
             playNow = false;
         }
 
@@ -123,17 +113,28 @@ function animate() {
             ctx.font = "bold 20px Arial";
             ctx.fillStyle = "white";
             let thisChord
-            if (chordToPlay == 'C1' || chordToPlay == 'C2') {
-                thisChord = chordToPlay.substring(0, chordToPlay.length - 1);
-            } else {
+            if (chordToPlay == 'Am' || chordToPlay == 'F' || chordToPlay == 'Gsus4') {
                 thisChord = chordToPlay;
+            } else {
+                thisChord = chordToPlay.substring(0, chordToPlay.length - 1);
             }
             ctx.fillText(thisChord, 0, canvas.height * 0.02);
         }
 
+        let createbgcube = Math.random();
+        if (createbgcube > 0.995) {
+            backgroundCubes.push(new BackgroundCube((Math.random() * canvas.width) - center.x, (Math.random() * canvas.height) - center.y));
+        }
+
+
+
         cube.update();
 
-        forNotes()
+        forNotes();
+
+        forParticles();
+
+        forBackgroundCubes()
 
     }
 

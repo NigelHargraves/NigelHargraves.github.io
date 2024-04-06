@@ -20,7 +20,7 @@ class Note {
     }
     draw() {
 
-        let vertices = project(this.edges.vertices, canvas.width, canvas.height, this.noteNo);
+        let vertices = notesProject(this.edges.vertices, canvas.width, canvas.height, this.noteNo);
 
 
 
@@ -212,7 +212,7 @@ Edge.prototype = {
 };
 
 
-function project(points3d, w, h, number) {
+function notesProject(points3d, w, h, number) {
     let points2d = new Array(points3d.length);
     let focal_length = notes[number].zoom;
     for (let i = points3d.length - 1; i > -1; --i) {

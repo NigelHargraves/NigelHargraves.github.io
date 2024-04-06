@@ -10,6 +10,7 @@ class Cube {
         this.directX = 0.001;
         this.directY = 0.002;
         this.edges = new CubeEdge(this.x, this.y, this.z, this.size);
+        this.firstTime = true;
     }
     draw() {
 
@@ -26,8 +27,18 @@ class Cube {
         ctx.stroke();
 
         if (vertices[0].x <= center.x + 1 && vertices[0].x >= center.x - 1 && this.delay == 0) {
+            if (this.firstTime) {
+                this.firstTime = false;
+            } else {
+                chordChange();
+            }
             this.lineWidth = 5;
             this.delay = 100;
+            let velocity;
+            for (let i = 0; i < 100; i++) {
+                velocity = { x: (Math.random() - 0.5) / Math.random(), y: (Math.random() - 0.5) / Math.random() };
+                particles.push(new Particle(vertices[0].x, vertices[0].y, 'plum', velocity));
+            }
         }
 
         for (let i = this.edges.faces.length - 1; i > -1; --i) {
@@ -148,7 +159,74 @@ function cubeProject(points3d, w, h, zoom) {
         let p = points3d[i];
         let x = p.x * (focal_length / p.z) + w * 0.5;
         let y = p.y * (focal_length / p.z) + h * 0.5;
-        points2d[i] = new Point2D(x, y);
+        points2d[i] = new CubePoint2D(x, y);
     }
     return points2d;
+}
+
+function chordChange() {
+    if (chordToPlay == 'C1') {
+        chordToPlay = 'G1';
+        GBass.play();
+    } else if (chordToPlay == 'G1') {
+        chordToPlay = 'Em1';
+        EBass.play();
+    } else if (chordToPlay == 'Em1') {
+        chordToPlay = 'C2';
+        CBass.play();
+    } else if (chordToPlay == 'C2') {
+        chordToPlay = 'G2';
+        GBass.play();
+    } else if (chordToPlay == 'G2') {
+        chordToPlay = 'Em2';
+        BBass.play();
+    } else if (chordToPlay == 'Em2') {
+        chordToPlay = 'Am';
+        ABass.play();
+    } else if (chordToPlay == 'Am') {
+        chordToPlay = 'F';
+        FBass.play();
+    } else if (chordToPlay == 'F') {
+        chordToPlay = 'Gsus4';
+        DBass.play();
+    } else if (chordToPlay == 'Gsus4') {
+        chordToPlay = 'C1';
+        CBass.play();
+    }
+
+
+
+
+
+
+    if (chordToPlay == 'C1' || chordToPlay == 'C2') {
+        for (let i = 0; i < 21; i++) {
+            notes[i].note = chordC[i];
+        }
+    }
+    if (chordToPlay == 'G1' || chordToPlay == 'G2') {
+        for (let i = 0; i < 21; i++) {
+            notes[i].note = chordG[i];
+        }
+    }
+    if (chordToPlay == 'Em1' || chordToPlay == 'Em2') {
+        for (let i = 0; i < 21; i++) {
+            notes[i].note = chordEm[i];
+        }
+    }
+    if (chordToPlay == 'Am') {
+        for (let i = 0; i < 21; i++) {
+            notes[i].note = chordAm[i];
+        }
+    }
+    if (chordToPlay == 'F') {
+        for (let i = 0; i < 21; i++) {
+            notes[i].note = chordF[i];
+        }
+    }
+    if (chordToPlay == 'Gsus4') {
+        for (let i = 0; i < 21; i++) {
+            notes[i].note = chordGsus4[i];
+        }
+    }
 }

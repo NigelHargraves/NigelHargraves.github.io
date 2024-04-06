@@ -34,7 +34,7 @@ function () {
   _createClass(Note, [{
     key: "draw",
     value: function draw() {
-      var vertices = project(this.edges.vertices, canvas.width, canvas.height, this.noteNo);
+      var vertices = notesProject(this.edges.vertices, canvas.width, canvas.height, this.noteNo);
       ctx.strokeStyle = this.color;
       ctx.fillStyle = this.color;
       ctx.lineWidth = this.lineWidth;
@@ -204,7 +204,7 @@ Edge.prototype = {
   }
 };
 
-function project(points3d, w, h, number) {
+function notesProject(points3d, w, h, number) {
   var points2d = new Array(points3d.length);
   var focal_length = notes[number].zoom;
 

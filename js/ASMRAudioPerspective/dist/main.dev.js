@@ -13,30 +13,17 @@ var start = false,
     showChords = false;
 var delay = 0,
     speed = 0.1,
-    chordToPlay = 'C';
-var chordDm = [],
-    chordDmS = [],
-    chordF = [],
-    chordFS = [],
-    chordAm = [],
-    chordAmS = [],
-    chordC = [],
-    chordCS = [],
+    chordToPlay = 'C1';
+var chordC = [],
     chordG = [],
-    chordGS = [],
-    chordGsus4 = [],
-    chordGsus4S = [],
     chordEm = [],
-    chordEmS = [];
+    chordAm = [],
+    chordF = [],
+    chordGsus4 = [];
 var color = [],
     notes = [],
-    orbitPaths = [],
-    stars = [],
     particles = [],
-    shoots = [],
-    floatNotes = [],
-    edgeSplats = [],
-    noteCircles = [];
+    backgroundCubes = [];
 createChords();
 setVolume();
 var cube = new Cube(0, 0, 800, 400);
@@ -91,6 +78,7 @@ function animate() {
         chordC[_i2].play();
       }
 
+      CBass.play();
       playNow = false;
     }
 
@@ -99,17 +87,25 @@ function animate() {
       ctx.fillStyle = "white";
       var thisChord;
 
-      if (chordToPlay == 'C1' || chordToPlay == 'C2') {
-        thisChord = chordToPlay.substring(0, chordToPlay.length - 1);
-      } else {
+      if (chordToPlay == 'Am' || chordToPlay == 'F' || chordToPlay == 'Gsus4') {
         thisChord = chordToPlay;
+      } else {
+        thisChord = chordToPlay.substring(0, chordToPlay.length - 1);
       }
 
       ctx.fillText(thisChord, 0, canvas.height * 0.02);
     }
 
+    var createbgcube = Math.random();
+
+    if (createbgcube > 0.995) {
+      backgroundCubes.push(new BackgroundCube(Math.random() * canvas.width - center.x, Math.random() * canvas.height - center.y));
+    }
+
     cube.update();
     forNotes();
+    forParticles();
+    forBackgroundCubes();
   } //call next frame.
 
 
