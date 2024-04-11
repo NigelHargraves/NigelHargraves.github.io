@@ -21,6 +21,8 @@ let chordC = [],
     chordG = [],
     chordEm = [],
     chordAm = [],
+    chordAsus2 = [],
+    chordDsus4 = [],
     chordF = [],
     chordGsus4 = [];
 
@@ -78,7 +80,9 @@ function animate() {
 
     if (start) {
         if (playNow) {
-
+            CBass.play();
+            CChord.play();
+            drumBass.play();
             playNow = false;
         }
 
@@ -96,6 +100,8 @@ function animate() {
         forNotes();
 
         forAntiNotes();
+
+        forParticles();
 
     }
 

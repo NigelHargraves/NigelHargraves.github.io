@@ -102,6 +102,8 @@ class Note {
                     this.zoom = 50;
                 } else {
                     this.yPoint += (canvas.height / 8) * 2;
+                    this.directX = (Math.random() - 0.5) * 0.02;
+                    this.directY = (Math.random() - 0.5) * 0.02;
                 }
 
                 this.delay = 100;
@@ -115,6 +117,8 @@ class Note {
                     this.zoom = 50;
                 } else {
                     this.yPoint -= (canvas.height / 8) * 2;
+                    this.directX = (Math.random() - 0.5) * 0.02;
+                    this.directY = (Math.random() - 0.5) * 0.02;
                 }
                 this.delay = 100;
             }
@@ -128,20 +132,24 @@ class Note {
                 this.point.x = this.r * Math.cos(this.angle);
                 this.point.y = this.r * Math.sin(this.angle);
                 this.zoom -= this.zoomAmount;
+
             } else {
                 this.point.x = this.r * Math.cos(this.angle);
                 this.point.y = this.r * -Math.sin(this.angle);
                 this.zoom += this.zoomAmount;
+
             }
         } else {
             if (this.angle >= Math.PI + (Math.PI / 2) || this.angle <= Math.PI / 2) {
                 this.point.x = this.r * Math.cos(this.angle);
                 this.point.y = this.r * -Math.sin(this.angle);
                 this.zoom -= this.zoomAmount;
+
             } else {
                 this.point.x = this.r * Math.cos(this.angle);
                 this.point.y = this.r * Math.sin(this.angle);
                 this.zoom += this.zoomAmount;
+
             }
         }
 

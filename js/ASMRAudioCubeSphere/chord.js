@@ -80,7 +80,7 @@ class Chord {
         this.point.x = this.radius.x * Math.cos(this.angle);
         this.point.y = this.radius.y * Math.sin(this.angle);
 
-        this.angle += (Math.PI / 180) / 10;
+        this.angle += (Math.PI / 180) / 9;
 
         if (this.angle >= Math.PI * 2) {
             this.angle = 0;
@@ -91,6 +91,15 @@ class Chord {
             this.directY = (Math.random() - 0.5) * 0.01;
             sphube.directX = (Math.random() - 0.5) * 0.002;
             sphube.directY = (Math.random() - 0.5) * 0.002;
+            let direction;
+            for (let i = 0; i < 100; i++) {
+                direction = Math.random();
+                if (direction > 0.5) {
+                    particles.push(new Particle(center.x + this.point.x, center.y + this.point.y, 'x'))
+                } else {
+                    particles.push(new Particle(center.x + this.point.x, center.y + this.point.y, 'y'))
+                }
+            }
         }
 
         if (this.angle <= Math.PI + 0.001 && this.angle >= Math.PI - 0.001 && this.delay == 0) {
@@ -102,6 +111,15 @@ class Chord {
             this.directY = (Math.random() - 0.5) * 0.01;
             sphube.directX = (Math.random() - 0.5) * 0.002;
             sphube.directY = (Math.random() - 0.5) * 0.002;
+            let direction;
+            for (let i = 0; i < 100; i++) {
+                direction = Math.random();
+                if (direction > 0.5) {
+                    particles.push(new Particle(center.x + this.point.x, center.y + this.point.y, 'x'))
+                } else {
+                    particles.push(new Particle(center.x + this.point.x, center.y + this.point.y, 'y'))
+                }
+            }
         }
 
         if (this.delay > 0) {
@@ -116,18 +134,39 @@ class Chord {
 }
 
 function chordChange() {
+    drumBass.play();
     if (chordToPlay == 'C') {
         chordToPlay = 'F';
-
+        FBass.play();
+        FChord.play();
     } else if (chordToPlay == 'F') {
         chordToPlay = 'G';
-
+        GBass.play();
+        GChord.play();
     } else if (chordToPlay == 'G') {
         chordToPlay = 'Em';
-
+        EBass.play();
+        EmChord.play();
     } else if (chordToPlay == 'Em') {
+        chordToPlay = 'Am';
+        ABass.play();
+        AmChord.play();
+    } else if (chordToPlay == 'Am') {
+        chordToPlay = 'Asus2';
+        BBass.play();
+        Asus2Chord.play();
+    } else if (chordToPlay == 'Asus2') {
+        chordToPlay = 'Dsus4';
+        DBass.play();
+        Dsus4Chord.play();
+    } else if (chordToPlay == 'Dsus4') {
+        chordToPlay = 'Gsus4';
+        GBass.play();
+        Gsus4Chord.play();
+    } else if (chordToPlay == 'Gsus4') {
         chordToPlay = 'C';
-
+        CBass.play();
+        CChord.play();
     }
 
 
@@ -167,5 +206,38 @@ function chordChange() {
             antiNotes[i].note = chordEm[i];
         }
     }
+    if (chordToPlay == 'Am') {
+        for (let i = 0; i < 18; i++) {
+            notes[i].note = chordAm[i];
+        }
+        for (let i = 0; i < 18; i++) {
+            antiNotes[i].note = chordAm[i];
+        }
+    }
+    if (chordToPlay == 'Asus2') {
+        for (let i = 0; i < 18; i++) {
+            notes[i].note = chordAsus2[i];
+        }
+        for (let i = 0; i < 18; i++) {
+            antiNotes[i].note = chordAsus2[i];
+        }
+    }
+    if (chordToPlay == 'Dsus4') {
+        for (let i = 0; i < 18; i++) {
+            notes[i].note = chordDsus4[i];
+        }
+        for (let i = 0; i < 18; i++) {
+            antiNotes[i].note = chordDsus4[i];
+        }
+    }
+    if (chordToPlay == 'Gsus4') {
+        for (let i = 0; i < 18; i++) {
+            notes[i].note = chordGsus4[i];
+        }
+        for (let i = 0; i < 18; i++) {
+            antiNotes[i].note = chordGsus4[i];
+        }
+    }
+
 
 }

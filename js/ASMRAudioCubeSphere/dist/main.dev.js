@@ -19,6 +19,8 @@ var chordC = [],
     chordG = [],
     chordEm = [],
     chordAm = [],
+    chordAsus2 = [],
+    chordDsus4 = [],
     chordF = [],
     chordGsus4 = [];
 var colors = [],
@@ -69,6 +71,9 @@ function animate() {
 
   if (start) {
     if (playNow) {
+      CBass.play();
+      CChord.play();
+      drumBass.play();
       playNow = false;
     }
 
@@ -82,6 +87,7 @@ function animate() {
     chord.update();
     forNotes();
     forAntiNotes();
+    forParticles();
   } //call next frame.
 
 

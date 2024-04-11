@@ -86,13 +86,54 @@ let G12 = document.getElementById("audio82");
 let A12 = document.getElementById("audio83");
 let B12 = document.getElementById("audio84");
 
+let CBass = document.getElementById("audio85");
+let DBass = document.getElementById("audio86");
+let EBass = document.getElementById("audio87");
+let FBass = document.getElementById("audio88");
+let GBass = document.getElementById("audio89");
+let ABass = document.getElementById("audio90");
+let BBass = document.getElementById("audio91");
 
 
+let CChord = document.getElementById("audio92");
+let Dsus4Chord = document.getElementById("audio93");
+let EmChord = document.getElementById("audio94");
+let FChord = document.getElementById("audio95");
+let GChord = document.getElementById("audio96");
+let Gsus4Chord = document.getElementById("audio97");
+let AmChord = document.getElementById("audio98");
+let Asus2Chord = document.getElementById("audio99");
+
+let drumBass = document.getElementById("audio100");
 
 function setVolume() {
-    let noteVolume = 0.1;
-    let bassVolume = 0.5;
+    let noteVolume = 0.25;
+    let bassVolume = 0.4;
     let noteVolume2 = 0.1;
+    let chordVolume = 0.5;
+
+    drumBass.volume = 0.1;
+
+    CChord.volume = chordVolume;
+    Dsus4Chord.volume = chordVolume;
+    EmChord.volume = chordVolume;
+    FChord.volume = chordVolume;
+    GChord.volume = chordVolume;
+    Gsus4Chord.volume = chordVolume;
+    AmChord.volume = chordVolume;
+    Asus2Chord.volume = chordVolume;
+
+
+
+
+    CBass.volume = bassVolume;
+    DBass.volume = bassVolume;
+    EBass.volume = bassVolume;
+    FBass.volume = bassVolume;
+    GBass.volume = bassVolume;
+    ABass.volume = bassVolume;
+    BBass.volume = bassVolume;
+
 
 
     C1.volume = noteVolume;

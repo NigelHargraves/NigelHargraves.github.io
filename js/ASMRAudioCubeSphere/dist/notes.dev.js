@@ -106,6 +106,8 @@ function () {
             this.zoom = 50;
           } else {
             this.yPoint += canvas.height / 8 * 2;
+            this.directX = (Math.random() - 0.5) * 0.02;
+            this.directY = (Math.random() - 0.5) * 0.02;
           }
 
           this.delay = 100;
@@ -117,6 +119,8 @@ function () {
             this.zoom = 50;
           } else {
             this.yPoint -= canvas.height / 8 * 2;
+            this.directX = (Math.random() - 0.5) * 0.02;
+            this.directY = (Math.random() - 0.5) * 0.02;
           }
 
           this.delay = 100;
