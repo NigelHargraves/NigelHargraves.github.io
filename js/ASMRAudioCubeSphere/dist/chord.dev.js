@@ -108,9 +108,9 @@ function () {
           direction = Math.random();
 
           if (direction > 0.5) {
-            particles.push(new Particle(center.x + this.point.x, center.y + this.point.y, 'x'));
+            particles.push(new Particle(center.x + this.point.x, center.y + this.point.y));
           } else {
-            particles.push(new Particle(center.x + this.point.x, center.y + this.point.y, 'y'));
+            particles.push(new Particle(center.x + this.point.x, center.y + this.point.y));
           }
         }
       }
@@ -131,9 +131,9 @@ function () {
           _direction = Math.random();
 
           if (_direction > 0.5) {
-            particles.push(new Particle(center.x + this.point.x, center.y + this.point.y, 'x'));
+            particles.push(new Particle(center.x + this.point.x, center.y + this.point.y));
           } else {
-            particles.push(new Particle(center.x + this.point.x, center.y + this.point.y, 'y'));
+            particles.push(new Particle(center.x + this.point.x, center.y + this.point.y));
           }
         }
       }

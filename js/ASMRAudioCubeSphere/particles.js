@@ -1,15 +1,12 @@
 class Particle {
-    constructor(x, y, coordinate) {
+    constructor(x, y) {
         this.x = x;
         this.y = y;
-        this.coordiate = coordinate;
         this.velocity = { x: 0, y: 0 };
         this.aim = { x: Math.random() * canvas.width, y: Math.random() * canvas.height };
         this.angles = 0;
-        this.opacity = 0.1;
-        this.brighten = true;
-        this.time = 40;
-        this.zigzagTimer = this.time;
+        this.opacity = 1;
+
     }
     draw() {
         ctx.strokeStyle = 'coral';
@@ -25,39 +22,11 @@ class Particle {
         this.y += this.velocity.y;
 
         this.angles = Math.atan2(this.aim.y - this.y, this.aim.x - this.x);
-        this.velocity.x = Math.cos(this.angles) * 0.5;
-        this.velocity.y = Math.sin(this.angles) * 0.5;
 
-        if (this.opacity < 1 && this.brighten) {
-            this.opacity += 0.008;
-        } else {
-            this.opacity -= 0.001;
-            this.brighten = false;
-        }
+        this.velocity.x = Math.cos(this.angles) * 2;
+        this.velocity.y = Math.sin(this.angles) * 2;
 
-        if (this.zigzagTimer <= 0) {
-            if (this.coordiate == 'x') {
-                this.velocity.x = -this.velocity.x;
-                if (this.velocity.y < 0) {
-                    this.velocity.y -= 0.01;
-                } else {
-                    this.velocity.y += 0.01;
-                }
-            } else {
-                this.velocity.y = -this.velocity.y;
-                if (this.velocity.x < 0) {
-                    this.velocity.x -= 0.01;
-                } else {
-                    this.velocity.x += 0.01;
-                }
-            }
-            this.time -= 5;
-            this.zigzagTimer = this.time;
-        }
-
-        this.zigzagTimer -= 1;
-
-
+        this.opacity -= 0.01;
 
         this.draw();
     }

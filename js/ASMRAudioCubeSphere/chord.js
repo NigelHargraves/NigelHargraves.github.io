@@ -95,9 +95,9 @@ class Chord {
             for (let i = 0; i < 100; i++) {
                 direction = Math.random();
                 if (direction > 0.5) {
-                    particles.push(new Particle(center.x + this.point.x, center.y + this.point.y, 'x'))
+                    particles.push(new Particle(center.x + this.point.x, center.y + this.point.y))
                 } else {
-                    particles.push(new Particle(center.x + this.point.x, center.y + this.point.y, 'y'))
+                    particles.push(new Particle(center.x + this.point.x, center.y + this.point.y))
                 }
             }
         }
@@ -115,9 +115,9 @@ class Chord {
             for (let i = 0; i < 100; i++) {
                 direction = Math.random();
                 if (direction > 0.5) {
-                    particles.push(new Particle(center.x + this.point.x, center.y + this.point.y, 'x'))
+                    particles.push(new Particle(center.x + this.point.x, center.y + this.point.y))
                 } else {
-                    particles.push(new Particle(center.x + this.point.x, center.y + this.point.y, 'y'))
+                    particles.push(new Particle(center.x + this.point.x, center.y + this.point.y))
                 }
             }
         }
