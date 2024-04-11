@@ -5,19 +5,21 @@ class Chord {
         this.z = 400;
         this.size = 300;
         this.zoom = 100;
-        this.directX = (Math.random() - 0.5) * 0.005;
-        this.directY = (Math.random() - 0.5) * 0.005;
+        this.directX = (Math.random() - 0.5) * 0.01;
+        this.directY = (Math.random() - 0.5) * 0.01;
         this.edges = new SphubeEdge(this.x, this.y, this.z, this.size);
         this.radius = { x: 600, y: 150 };
         this.point = { x: 0, y: 0 };
         this.angle = 0;
         this.lineWidth = 5;
+        this.delay = 100;
     }
     draw() {
 
 
         ctx.lineWidth = this.lineWidth;
-
+        ctx.strokeStyle = 'coral';
+        ctx.fillStyle = 'coral';
         //horizontal line.
         ctx.beginPath();
         ctx.moveTo(0, center.y);
@@ -27,7 +29,7 @@ class Chord {
         //ellipse
         ctx.beginPath();
         ctx.ellipse(center.x, center.y, this.radius.x, this.radius.y, 0, 0, Math.PI * 2);
-        ctx.strokeStyle = 'white';
+
         ctx.stroke();
 
 
@@ -57,7 +59,7 @@ class Chord {
         }
         ctx.beginPath();
         ctx.arc(center.x, center.y, 4, 0, Math.PI * 2);
-        ctx.fillStyle = 'White';
+
         ctx.fill();
         ctx.restore();
 
@@ -66,8 +68,12 @@ class Chord {
     }
     update() {
 
-        if (this.lineWidth > 0.2) {
+        if (this.lineWidth > 1) {
             this.lineWidth -= 0.01;
+        } else {
+            if (this.lineWidth > 0.2) {
+                this.lineWidth -= 0.001;
+            }
         }
 
 
@@ -79,17 +85,87 @@ class Chord {
         if (this.angle >= Math.PI * 2) {
             this.angle = 0;
             this.lineWidth = 5;
+            chordChange();
+            sphube.lineWidth = 5;
+            this.directX = (Math.random() - 0.5) * 0.01;
+            this.directY = (Math.random() - 0.5) * 0.01;
+            sphube.directX = (Math.random() - 0.5) * 0.002;
+            sphube.directY = (Math.random() - 0.5) * 0.002;
         }
 
-        if (this.angle <= Math.PI + 0.001 && this.angle >= Math.PI - 0.001) {
+        if (this.angle <= Math.PI + 0.001 && this.angle >= Math.PI - 0.001 && this.delay == 0) {
             this.lineWidth = 5;
+            chordChange();
+            this.delay = 100;
+            sphube.lineWidth = 5;
+            this.directX = (Math.random() - 0.5) * 0.01;
+            this.directY = (Math.random() - 0.5) * 0.01;
+            sphube.directX = (Math.random() - 0.5) * 0.002;
+            sphube.directY = (Math.random() - 0.5) * 0.002;
         }
 
-
+        if (this.delay > 0) {
+            this.delay -= 1;
+        }
 
         this.edges.rotateX(this.directX);
         this.edges.rotateY(this.directY);
 
         this.draw();
     }
+}
+
+function chordChange() {
+    if (chordToPlay == 'C') {
+        chordToPlay = 'F';
+
+    } else if (chordToPlay == 'F') {
+        chordToPlay = 'G';
+
+    } else if (chordToPlay == 'G') {
+        chordToPlay = 'Em';
+
+    } else if (chordToPlay == 'Em') {
+        chordToPlay = 'C';
+
+    }
+
+
+
+
+
+
+    if (chordToPlay == 'C') {
+        for (let i = 0; i < 18; i++) {
+            notes[i].note = chordC[i];
+        }
+        for (let i = 0; i < 18; i++) {
+            antiNotes[i].note = chordC[i];
+        }
+    }
+    if (chordToPlay == 'F') {
+        for (let i = 0; i < 18; i++) {
+            notes[i].note = chordF[i];
+        }
+        for (let i = 0; i < 18; i++) {
+            antiNotes[i].note = chordF[i];
+        }
+    }
+    if (chordToPlay == 'G') {
+        for (let i = 0; i < 18; i++) {
+            notes[i].note = chordG[i];
+        }
+        for (let i = 0; i < 18; i++) {
+            antiNotes[i].note = chordG[i];
+        }
+    }
+    if (chordToPlay == 'Em') {
+        for (let i = 0; i < 18; i++) {
+            notes[i].note = chordEm[i];
+        }
+        for (let i = 0; i < 18; i++) {
+            antiNotes[i].note = chordEm[i];
+        }
+    }
+
 }

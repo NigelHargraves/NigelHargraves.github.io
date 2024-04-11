@@ -26,6 +26,7 @@ let chordC = [],
 
 let colors = [],
     notes = [],
+    antiNotes = [],
     particles = [],
     backgroundCubes = [];
 
@@ -47,7 +48,11 @@ let sphube = new Sphube(0, 0, 400, 300);
 let chord = new Chord(0, 0);
 
 for (let i = 0; i < 36; i++) {
-    notes.push(new Note(0, 0, 400, 300, speed, chordC[i], colors[i]));
+    if (i < 18) {
+        notes.push(new Note(0, 0, 400, 300, speed, chordC[i], colors[i]));
+    } else {
+        antiNotes.push(new AntiNote(0, 0, 400, 300, speed, chordC[i], colors[i]));
+    }
     speed += 0.1;
 }
 
@@ -80,12 +85,6 @@ function animate() {
         if (showChords) {
             ctx.font = "bold 20px Arial";
             ctx.fillStyle = "white";
-            let thisChord
-            if (chordToPlay == 'Am' || chordToPlay == 'F' || chordToPlay == 'Gsus4') {
-                thisChord = chordToPlay;
-            } else {
-                thisChord = chordToPlay.substring(0, chordToPlay.length - 1);
-            }
             ctx.fillText(chordToPlay, 0, canvas.height * 0.02);
         }
 
@@ -94,7 +93,9 @@ function animate() {
 
         chord.update();
 
-        forNotes()
+        forNotes();
+
+        forAntiNotes();
 
     }
 

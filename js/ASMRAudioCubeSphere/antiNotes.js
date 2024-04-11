@@ -1,4 +1,4 @@
-class Note {
+class AntiNote {
     constructor(x, y, z, size, speed, note, color) {
         this.x = x;
         this.y = y;
@@ -9,7 +9,7 @@ class Note {
         this.color = color;
         this.zoomAmount = 0.2 / this.speed;
         this.lineWidth = 3;
-        this.zoom = 50;
+        this.zoom = 10;
         this.directX = (Math.random() - 0.5) * 0.02;
         this.directY = (Math.random() - 0.5) * 0.02;
         this.edges = new SphubeEdge(this.x, this.y, this.z, this.size);
@@ -29,7 +29,6 @@ class Note {
         if (this.delay == 100) {} else {
             ctx.lineWidth = this.lineWidth;
             ctx.strokeStyle = this.color;
-
             ctx.save();
             ctx.translate(this.point.x, 0 - center.y + this.yPoint + this.point.y);
             //draw small sphube.
@@ -52,7 +51,6 @@ class Note {
                 ctx.lineTo(vertices[face[0]].x, vertices[face[0]].y);
                 ctx.stroke();
             }
-
         }
         ctx.restore();
         //draw center point.
@@ -68,8 +66,6 @@ class Note {
         ctx.moveTo(center.x + this.point.x, this.yPoint + this.point.y);
         ctx.lineTo(center.x, center.y);
         ctx.stroke();
-
-
     }
     update() {
 
@@ -99,7 +95,7 @@ class Note {
 
                 if (this.yPoint >= canvas.height - (canvas.height / 8) * 2) {
                     this.down = false;
-                    this.zoom = 50;
+                    this.zoom = 10;
                 } else {
                     this.yPoint += (canvas.height / 8) * 2;
                 }
@@ -112,7 +108,7 @@ class Note {
 
                 if (this.yPoint <= (canvas.height / 8) * 2) {
                     this.down = true;
-                    this.zoom = 50;
+                    this.zoom = 10;
                 } else {
                     this.yPoint -= (canvas.height / 8) * 2;
                 }
@@ -127,21 +123,21 @@ class Note {
             if (this.angle >= Math.PI + (Math.PI / 2) || this.angle <= Math.PI / 2) {
                 this.point.x = this.r * Math.cos(this.angle);
                 this.point.y = this.r * Math.sin(this.angle);
-                this.zoom -= this.zoomAmount;
+                this.zoom += this.zoomAmount;
             } else {
                 this.point.x = this.r * Math.cos(this.angle);
                 this.point.y = this.r * -Math.sin(this.angle);
-                this.zoom += this.zoomAmount;
+                this.zoom -= this.zoomAmount;
             }
         } else {
             if (this.angle >= Math.PI + (Math.PI / 2) || this.angle <= Math.PI / 2) {
                 this.point.x = this.r * Math.cos(this.angle);
                 this.point.y = this.r * -Math.sin(this.angle);
-                this.zoom -= this.zoomAmount;
+                this.zoom += this.zoomAmount;
             } else {
                 this.point.x = this.r * Math.cos(this.angle);
                 this.point.y = this.r * Math.sin(this.angle);
-                this.zoom += this.zoomAmount;
+                this.zoom -= this.zoomAmount;
             }
         }
 
@@ -168,8 +164,8 @@ class Note {
     }
 }
 
-function forNotes() {
-    notes.forEach((note, index) => {
-        note.update();
+function forAntiNotes() {
+    antiNotes.forEach((anote, index) => {
+        anote.update();
     });
 }

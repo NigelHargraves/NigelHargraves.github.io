@@ -23,6 +23,7 @@ var chordC = [],
     chordGsus4 = [];
 var colors = [],
     notes = [],
+    antiNotes = [],
     particles = [],
     backgroundCubes = [];
 createChords();
@@ -39,7 +40,12 @@ var sphube = new Sphube(0, 0, 400, 300);
 var chord = new Chord(0, 0);
 
 for (var _i = 0; _i < 36; _i++) {
-  notes.push(new Note(0, 0, 400, 300, speed, chordC[_i], colors[_i]));
+  if (_i < 18) {
+    notes.push(new Note(0, 0, 400, 300, speed, chordC[_i], colors[_i]));
+  } else {
+    antiNotes.push(new AntiNote(0, 0, 400, 300, speed, chordC[_i], colors[_i]));
+  }
+
   speed += 0.1;
 }
 
@@ -69,20 +75,13 @@ function animate() {
     if (showChords) {
       ctx.font = "bold 20px Arial";
       ctx.fillStyle = "white";
-      var thisChord;
-
-      if (chordToPlay == 'Am' || chordToPlay == 'F' || chordToPlay == 'Gsus4') {
-        thisChord = chordToPlay;
-      } else {
-        thisChord = chordToPlay.substring(0, chordToPlay.length - 1);
-      }
-
       ctx.fillText(chordToPlay, 0, canvas.height * 0.02);
     }
 
     sphube.update();
     chord.update();
     forNotes();
+    forAntiNotes();
   } //call next frame.
 
 

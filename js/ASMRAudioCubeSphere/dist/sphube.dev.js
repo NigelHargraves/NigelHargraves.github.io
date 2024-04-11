@@ -16,6 +16,7 @@ function () {
     this.y = y;
     this.z = z;
     this.size = size;
+    this.lineWidth = 5;
     this.zoom = 1000;
     this.directX = (Math.random() - 0.5) * 0.002;
     this.directY = (Math.random() - 0.5) * 0.002;
@@ -26,14 +27,16 @@ function () {
     key: "draw",
     value: function draw() {
       var vertices = sphubeProject(this.edges.vertices, canvas.width, canvas.height, this.zoom);
-      ctx.lineWidth = 0.2;
       ctx.strokeStyle = 'white';
-      ctx.fillStyle = 'white'; //vertical line.
+      ctx.lineWidth = 0.2; //vertical line.
 
       ctx.beginPath();
       ctx.moveTo(center.x, 0);
       ctx.lineTo(center.x, canvas.height);
-      ctx.stroke(); //draw sphube.
+      ctx.stroke();
+      ctx.strokeStyle = 'coral';
+      ctx.fillStyle = 'coral';
+      ctx.lineWidth = this.lineWidth; //draw sphube.
 
       for (var i = this.edges.faces.length - 1; i > -1; --i) {
         var face = this.edges.faces[i];
@@ -60,6 +63,14 @@ function () {
   }, {
     key: "update",
     value: function update() {
+      if (this.lineWidth > 1) {
+        this.lineWidth -= 0.01;
+      } else {
+        if (this.lineWidth > 0.2) {
+          this.lineWidth -= 0.001;
+        }
+      }
+
       this.edges.rotateX(this.directX);
       this.edges.rotateY(this.directY);
       this.draw();
@@ -150,71 +161,4 @@ function sphubeProject(points3d, w, h, zoom) {
   }
 
   return points2d;
-}
-
-function chordChange() {
-  if (chordToPlay == 'C1') {
-    chordToPlay = 'G1';
-    GBass.play();
-  } else if (chordToPlay == 'G1') {
-    chordToPlay = 'Em1';
-    EBass.play();
-  } else if (chordToPlay == 'Em1') {
-    chordToPlay = 'C2';
-    CBass.play();
-  } else if (chordToPlay == 'C2') {
-    chordToPlay = 'G2';
-    GBass.play();
-  } else if (chordToPlay == 'G2') {
-    chordToPlay = 'Em2';
-    BBass.play();
-  } else if (chordToPlay == 'Em2') {
-    chordToPlay = 'Am';
-    ABass.play();
-  } else if (chordToPlay == 'Am') {
-    chordToPlay = 'F';
-    FBass.play();
-  } else if (chordToPlay == 'F') {
-    chordToPlay = 'Gsus4';
-    DBass.play();
-  } else if (chordToPlay == 'Gsus4') {
-    chordToPlay = 'C1';
-    CBass.play();
-  }
-
-  if (chordToPlay == 'C1' || chordToPlay == 'C2') {
-    for (var i = 0; i < 21; i++) {
-      notes[i].note = chordC[i];
-    }
-  }
-
-  if (chordToPlay == 'G1' || chordToPlay == 'G2') {
-    for (var _i = 0; _i < 21; _i++) {
-      notes[_i].note = chordG[_i];
-    }
-  }
-
-  if (chordToPlay == 'Em1' || chordToPlay == 'Em2') {
-    for (var _i2 = 0; _i2 < 21; _i2++) {
-      notes[_i2].note = chordEm[_i2];
-    }
-  }
-
-  if (chordToPlay == 'Am') {
-    for (var _i3 = 0; _i3 < 21; _i3++) {
-      notes[_i3].note = chordAm[_i3];
-    }
-  }
-
-  if (chordToPlay == 'F') {
-    for (var _i4 = 0; _i4 < 21; _i4++) {
-      notes[_i4].note = chordF[_i4];
-    }
-  }
-
-  if (chordToPlay == 'Gsus4') {
-    for (var _i5 = 0; _i5 < 21; _i5++) {
-      notes[_i5].note = chordGsus4[_i5];
-    }
-  }
 }

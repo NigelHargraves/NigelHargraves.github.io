@@ -6,11 +6,11 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-var Note =
+var AntiNote =
 /*#__PURE__*/
 function () {
-  function Note(x, y, z, size, speed, note, color) {
-    _classCallCheck(this, Note);
+  function AntiNote(x, y, z, size, speed, note, color) {
+    _classCallCheck(this, AntiNote);
 
     this.x = x;
     this.y = y;
@@ -21,7 +21,7 @@ function () {
     this.color = color;
     this.zoomAmount = 0.2 / this.speed;
     this.lineWidth = 3;
-    this.zoom = 50;
+    this.zoom = 10;
     this.directX = (Math.random() - 0.5) * 0.02;
     this.directY = (Math.random() - 0.5) * 0.02;
     this.edges = new SphubeEdge(this.x, this.y, this.z, this.size);
@@ -36,7 +36,7 @@ function () {
     this.down = true;
   }
 
-  _createClass(Note, [{
+  _createClass(AntiNote, [{
     key: "draw",
     value: function draw() {
       var vertices = sphubeProject(this.edges.vertices, canvas.width, canvas.height, this.zoom);
@@ -103,7 +103,7 @@ function () {
         if ((this.angle >= Math.PI + Math.PI / 2 - 0.001 && this.angle <= Math.PI + Math.PI / 2 + 0.001 || this.angle >= Math.PI / 2 - 0.001 && this.angle <= Math.PI / 2 + 0.001) && this.delay == 0) {
           if (this.yPoint >= canvas.height - canvas.height / 8 * 2) {
             this.down = false;
-            this.zoom = 50;
+            this.zoom = 10;
           } else {
             this.yPoint += canvas.height / 8 * 2;
           }
@@ -114,7 +114,7 @@ function () {
         if ((this.angle >= Math.PI + Math.PI / 2 - 0.001 && this.angle <= Math.PI + Math.PI / 2 + 0.001 || this.angle >= Math.PI / 2 - 0.001 && this.angle <= Math.PI / 2 + 0.001) && this.delay == 0) {
           if (this.yPoint <= canvas.height / 8 * 2) {
             this.down = true;
-            this.zoom = 50;
+            this.zoom = 10;
           } else {
             this.yPoint -= canvas.height / 8 * 2;
           }
@@ -127,21 +127,21 @@ function () {
         if (this.angle >= Math.PI + Math.PI / 2 || this.angle <= Math.PI / 2) {
           this.point.x = this.r * Math.cos(this.angle);
           this.point.y = this.r * Math.sin(this.angle);
-          this.zoom -= this.zoomAmount;
+          this.zoom += this.zoomAmount;
         } else {
           this.point.x = this.r * Math.cos(this.angle);
           this.point.y = this.r * -Math.sin(this.angle);
-          this.zoom += this.zoomAmount;
+          this.zoom -= this.zoomAmount;
         }
       } else {
         if (this.angle >= Math.PI + Math.PI / 2 || this.angle <= Math.PI / 2) {
           this.point.x = this.r * Math.cos(this.angle);
           this.point.y = this.r * -Math.sin(this.angle);
-          this.zoom -= this.zoomAmount;
+          this.zoom += this.zoomAmount;
         } else {
           this.point.x = this.r * Math.cos(this.angle);
           this.point.y = this.r * Math.sin(this.angle);
-          this.zoom += this.zoomAmount;
+          this.zoom -= this.zoomAmount;
         }
       }
 
@@ -161,11 +161,11 @@ function () {
     }
   }]);
 
-  return Note;
+  return AntiNote;
 }();
 
-function forNotes() {
-  notes.forEach(function (note, index) {
-    note.update();
+function forAntiNotes() {
+  antiNotes.forEach(function (anote, index) {
+    anote.update();
   });
 }
