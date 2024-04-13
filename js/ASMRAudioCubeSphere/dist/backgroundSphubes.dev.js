@@ -6,37 +6,44 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-var Sphube =
+var BackgroundSphube =
 /*#__PURE__*/
 function () {
-  function Sphube(x, y, z, size) {
-    _classCallCheck(this, Sphube);
+  function BackgroundSphube(x, y, z, size) {
+    _classCallCheck(this, BackgroundSphube);
 
     this.x = x;
     this.y = y;
     this.z = z;
     this.size = size;
-    this.lineWidth = 5;
-    this.zoom = 1000;
-    this.directX = (Math.random() - 0.5) * 0.002;
-    this.directY = (Math.random() - 0.5) * 0.002;
-    this.edges = new SphubeEdge(this.x, this.y, this.z, this.size);
+    this.opacity = 0.001;
+    this.fadeIn = true;
+    this.life = 2000;
+    this.velocity = {
+      x: Math.random() - 0.5,
+      y: Math.random() - 0.5
+    };
+    this.zoom = Math.floor(Math.random() * 100);
+    this.directX = (Math.random() - 0.5) * 0.02;
+    this.directY = (Math.random() - 0.5) * 0.02;
+    this.edges = new SphubeEdge(0, 0, this.z, this.size);
   }
 
-  _createClass(Sphube, [{
+  _createClass(BackgroundSphube, [{
     key: "draw",
     value: function draw() {
       var vertices = sphubeProject(this.edges.vertices, canvas.width, canvas.height, this.zoom);
-      ctx.strokeStyle = 'white';
-      ctx.lineWidth = 0.2; //vertical line.
+      ctx.strokeStyle = 'beige';
 
-      ctx.beginPath();
-      ctx.moveTo(center.x, 0);
-      ctx.lineTo(center.x, canvas.height);
-      ctx.stroke();
-      ctx.strokeStyle = 'coral';
-      ctx.fillStyle = 'coral';
-      ctx.lineWidth = this.lineWidth; //draw sphube.
+      if (this.zoom < 20) {
+        ctx.lineWidth = 0.05;
+      } else {
+        ctx.lineWidth = 0.1;
+      }
+
+      ctx.save();
+      ctx.translate(this.x, this.y);
+      ctx.globalAlpha = this.opacity; //draw sphube.
 
       for (var i = this.edges.faces.length - 1; i > -1; --i) {
         var face = this.edges.faces[i];
@@ -58,17 +65,44 @@ function () {
         ctx.stroke();
       }
 
+      ctx.restore();
       ctx.lineWidth = 1;
     }
   }, {
     key: "update",
     value: function update() {
-      if (this.lineWidth > 1) {
-        this.lineWidth -= 0.01;
-      } else {
-        if (this.lineWidth > 0.2) {
-          this.lineWidth -= 0.001;
-        }
+      this.x += this.velocity.x;
+      this.y += this.velocity.y;
+
+      if (this.fadeIn) {
+        this.opacity += 0.001;
+      } else if (this.life > 0) {
+        this.life -= 1;
+      }
+
+      if (this.life <= 0) {
+        this.opacity -= 0.001;
+      } //rap around.
+
+
+      var x = center.x - canvas.width;
+
+      if (this.x < x - this.zoom / 2) {
+        this.x = x + canvas.width + this.zoom / 2;
+      } else if (this.x > x + canvas.width + this.zoom / 2) {
+        this.x = x - this.zoom / 2;
+      }
+
+      var y = center.y - canvas.height;
+
+      if (this.y < y - this.zoom / 2) {
+        this.y = y + canvas.height + this.zoom / 2;
+      } else if (this.y > y + canvas.height + this.zoom / 2) {
+        this.y = y - this.zoom / 2;
+      }
+
+      if (this.opacity >= 0.8) {
+        this.fadeIn = false;
       }
 
       this.edges.rotateX(this.directX);
@@ -77,5 +111,15 @@ function () {
     }
   }]);
 
-  return Sphube;
+  return BackgroundSphube;
 }();
+
+function forBGSphubes() {
+  backgroundSphubes.forEach(function (bgs, index) {
+    if (bgs.opacity < 0.002 && !bgs.fadeIn) {
+      backgroundSphubes.splice(index, 1);
+    }
+
+    bgs.update();
+  });
+}

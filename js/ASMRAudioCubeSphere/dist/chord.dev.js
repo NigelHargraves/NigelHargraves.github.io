@@ -102,16 +102,10 @@ function () {
         this.directY = (Math.random() - 0.5) * 0.01;
         sphube.directX = (Math.random() - 0.5) * 0.002;
         sphube.directY = (Math.random() - 0.5) * 0.002;
-        var direction;
 
-        for (var i = 0; i < 100; i++) {
-          direction = Math.random();
-
-          if (direction > 0.5) {
-            particles.push(new Particle(center.x + this.point.x, center.y + this.point.y));
-          } else {
-            particles.push(new Particle(center.x + this.point.x, center.y + this.point.y));
-          }
+        for (var i = 0; i < 20; i++) {
+          particles.push(new Particle(center.x + this.point.x, center.y + this.point.y, 'R', 'coral'));
+          particles.push(new Particle(center.x + this.point.x, center.y + this.point.y, 'L', 'coral'));
         }
       }
 
@@ -125,16 +119,9 @@ function () {
         sphube.directX = (Math.random() - 0.5) * 0.002;
         sphube.directY = (Math.random() - 0.5) * 0.002;
 
-        var _direction;
-
-        for (var _i = 0; _i < 100; _i++) {
-          _direction = Math.random();
-
-          if (_direction > 0.5) {
-            particles.push(new Particle(center.x + this.point.x, center.y + this.point.y));
-          } else {
-            particles.push(new Particle(center.x + this.point.x, center.y + this.point.y));
-          }
+        for (var _i = 0; _i < 20; _i++) {
+          particles.push(new Particle(center.x + this.point.x, center.y + this.point.y, 'R', 'coral'));
+          particles.push(new Particle(center.x + this.point.x, center.y + this.point.y, 'L', 'coral'));
         }
       }
 

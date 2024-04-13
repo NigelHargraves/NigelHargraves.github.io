@@ -9,42 +9,57 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 var Particle =
 /*#__PURE__*/
 function () {
-  function Particle(x, y) {
+  function Particle(x, y, direction, color) {
     _classCallCheck(this, Particle);
 
     this.x = x;
     this.y = y;
+    this.direction = direction;
+    this.color = color;
+    this.center = {
+      x: this.x,
+      y: this.y
+    };
     this.velocity = {
-      x: 0,
-      y: 0
+      x: Math.random() - 0.5,
+      y: Math.random() - 0.5
     };
-    this.aim = {
-      x: Math.random() * canvas.width,
-      y: Math.random() * canvas.height
-    };
-    this.angles = 0;
     this.opacity = 1;
+    this.lineWidth = 1;
+    this.rotate = 0;
   }
 
   _createClass(Particle, [{
     key: "draw",
     value: function draw() {
-      ctx.strokeStyle = 'coral';
+      ctx.strokeStyle = this.color;
+      ctx.save();
+      ctx.translate(this.center.x, this.center.y);
+      ctx.rotate(this.rotate);
       ctx.beginPath();
-      ctx.arc(this.x, this.y, 1, 0, Math.PI * 2);
+      ctx.arc(this.center.x - this.x, this.center.y - this.y, 1, 0, Math.PI * 2);
       ctx.globalAlpha = this.opacity;
+      ctx.lineWidth = this.lineWidth;
       ctx.stroke();
+      ctx.restore();
       ctx.globalAlpha = 0.4;
     }
   }, {
     key: "update",
     value: function update() {
+      if (this.lineWidth > 0.2) {
+        this.lineWidth -= 0.01;
+      }
+
+      if (this.direction == 'R') {
+        this.rotate += Math.PI / 180 / 8;
+      } else {
+        this.rotate -= Math.PI / 180 / 8;
+      }
+
       this.x += this.velocity.x;
       this.y += this.velocity.y;
-      this.angles = Math.atan2(this.aim.y - this.y, this.aim.x - this.x);
-      this.velocity.x = Math.cos(this.angles) * 2;
-      this.velocity.y = Math.sin(this.angles) * 2;
-      this.opacity -= 0.01;
+      this.opacity -= 0.001;
       this.draw();
     }
   }]);
@@ -54,7 +69,7 @@ function () {
 
 function forParticles() {
   particles.forEach(function (particle, index) {
-    if (particle.opacity < 0.01) {
+    if (particle.opacity < 0.1) {
       particles.splice(index, 1);
     }
 

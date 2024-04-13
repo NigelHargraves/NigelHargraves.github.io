@@ -105,7 +105,10 @@ class Note {
                     this.directX = (Math.random() - 0.5) * 0.02;
                     this.directY = (Math.random() - 0.5) * 0.02;
                 }
-
+                for (let i = 0; i < 4; i++) {
+                    particles.push(new Particle(center.x, this.yPoint - this.point.y, 'R', this.color))
+                    particles.push(new Particle(center.x, this.yPoint - this.point.y, 'L', this.color))
+                }
                 this.delay = 100;
             }
         } else {
@@ -119,6 +122,10 @@ class Note {
                     this.yPoint -= (canvas.height / 8) * 2;
                     this.directX = (Math.random() - 0.5) * 0.02;
                     this.directY = (Math.random() - 0.5) * 0.02;
+                }
+                for (let i = 0; i < 4; i++) {
+                    particles.push(new Particle(center.x, this.yPoint - this.point.y, 'R', this.color))
+                    particles.push(new Particle(center.x, this.yPoint - this.point.y, 'L', this.color))
                 }
                 this.delay = 100;
             }

@@ -24,6 +24,7 @@ function () {
     this.size = 150;
     this.lineWidth = 5;
     this.zoom = 80;
+    this.life = 2000;
     this.directX = (Math.random() - 0.5) * 0.01;
     this.directY = (Math.random() - 0.5) * 0.01;
     this.point = {
@@ -64,6 +65,8 @@ function () {
   }, {
     key: "update",
     value: function update() {
+      this.life -= 1;
+
       if (!this.expire) {
         this.x += this.velocity.x;
         this.y += this.velocity.y;
@@ -193,6 +196,10 @@ function forFloatNotes() {
       floatNoteNote++;
       if (floatNoteNote == 18) floatNoteNote = 0;
       floatNotes.splice(index, 1);
+    }
+
+    if (fn.life <= 0) {
+      fn.expire = true;
     }
 
     fn.update();

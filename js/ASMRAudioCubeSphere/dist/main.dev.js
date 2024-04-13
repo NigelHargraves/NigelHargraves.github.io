@@ -27,7 +27,7 @@ var colors = [],
     notes = [],
     antiNotes = [],
     particles = [],
-    backgroundCubes = [];
+    backgroundSphubes = [];
 createChords();
 setVolume();
 
@@ -83,11 +83,18 @@ function animate() {
       ctx.fillText(chordToPlay, 0, canvas.height * 0.02);
     }
 
+    var createbgsphube = Math.random();
+
+    if (createbgsphube > 0.997) {
+      backgroundSphubes.push(new BackgroundSphube(Math.random() * canvas.width - center.x, Math.random() * canvas.height - center.y, 400, 300));
+    }
+
     sphube.update();
     chord.update();
     forNotes();
     forAntiNotes();
     forParticles();
+    forBGSphubes();
   } //call next frame.
 
 

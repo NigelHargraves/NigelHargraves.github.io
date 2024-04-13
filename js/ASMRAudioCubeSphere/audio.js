@@ -108,7 +108,7 @@ let drumBass = document.getElementById("audio100");
 
 function setVolume() {
     let noteVolume = 0.25;
-    let bassVolume = 0.4;
+    let bassVolume = 0.8;
     let noteVolume2 = 0.1;
     let chordVolume = 0.5;
 
