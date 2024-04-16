@@ -80,13 +80,6 @@ class Note {
 
 
 
-
-
-
-
-
-
-
         this.draw();
     }
 }

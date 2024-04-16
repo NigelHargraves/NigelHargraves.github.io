@@ -100,58 +100,26 @@ let CBass = document.getElementById("audio97");
 let DBass = document.getElementById("audio98");
 let EBass = document.getElementById("audio99");
 let FBass = document.getElementById("audio100");
-let ABass = document.getElementById("audio101");
-let GBass = document.getElementById("audio102");
-
-let CN1 = document.getElementById("audio103");
-let DN1 = document.getElementById("audio104");
-let EN1 = document.getElementById("audio105");
-let FN1 = document.getElementById("audio106");
-let GN1 = document.getElementById("audio107");
-let AN1 = document.getElementById("audio108");
-let BN1 = document.getElementById("audio109");
-let CN2 = document.getElementById("audio110");
-let DN2 = document.getElementById("audio111");
-let EN2 = document.getElementById("audio112");
-let FN2 = document.getElementById("audio113");
-let GN2 = document.getElementById("audio114");
-let AN2 = document.getElementById("audio115");
-let BN2 = document.getElementById("audio116");
-let CN3 = document.getElementById("audio117");
-let DN3 = document.getElementById("audio118");
-let EN3 = document.getElementById("audio119");
-let FN3 = document.getElementById("audio120");
-let GN3 = document.getElementById("audio121");
-let AN3 = document.getElementById("audio122");
-let BN3 = document.getElementById("audio123");
-let CN4 = document.getElementById("audio124");
-let DN4 = document.getElementById("audio125");
-let EN4 = document.getElementById("audio126");
-let FN4 = document.getElementById("audio127");
-let GN4 = document.getElementById("audio128");
-let AN4 = document.getElementById("audio129");
-let BN4 = document.getElementById("audio130");
-
-let CBell = document.getElementById("audio131");
-let DBell = document.getElementById("audio132");
-let EBell = document.getElementById("audio133");
-let FBell = document.getElementById("audio134");
-let GBell = document.getElementById("audio135");
-let ABell = document.getElementById("audio136");
-let BBell = document.getElementById("audio137");
-let CUBell = document.getElementById("audio138");
-let DUBell = document.getElementById("audio139");
-let EUBell = document.getElementById("audio140");
-let FUBell = document.getElementById("audio141");
-let GUBell = document.getElementById("audio142");
-let AUBell = document.getElementById("audio143");
-let BUBell = document.getElementById("audio144");
+let GBass = document.getElementById("audio101");
+let ABass = document.getElementById("audio102");
+let BBass = document.getElementById("audio103");
 
 
 function setVolume() {
     let noteVolume = 0.2;
     let noteVolume2 = 0.5;
     let bassVolume = 0.4;
+
+    CBass.volume = bassVolume;
+    DBass.volume = bassVolume;
+    EBass.volume = bassVolume;
+    FBass.volume = bassVolume;
+    GBass.volume = bassVolume;
+    ABass.volume = bassVolume;
+    BBass.volume = bassVolume;
+
+
+
     A1.volume = noteVolume;
     Bb1.volume = noteVolume;
     B1.volume = noteVolume;
@@ -249,39 +217,5 @@ function setVolume() {
     G8.volume = noteVolume;
     Ab8.volume = noteVolume;
 
-    CN1.volume = noteVolume2;
-    DN1.volume = noteVolume2;
-    EN1.volume = noteVolume2;
-    FN1.volume = noteVolume2;
-    GN1.volume = noteVolume2;
-    AN1.volume = noteVolume2;
-    BN1.volume = noteVolume2;
-    CN2.volume = noteVolume2;
-    DN2.volume = noteVolume2;
-    EN2.volume = noteVolume2;
-    FN2.volume = noteVolume2;
-    GN2.volume = noteVolume2;
-    AN2.volume = noteVolume2;
-    BN2.volume = noteVolume2;
-    CN3.volume = noteVolume2;
-    DN3.volume = noteVolume2;
-    EN3.volume = noteVolume2;
-    FN3.volume = noteVolume2;
-    GN3.volume = noteVolume2;
-    AN3.volume = noteVolume2;
-    BN3.volume = noteVolume2;
-    CN4.volume = noteVolume2;
-    DN4.volume = noteVolume2;
-    EN4.volume = noteVolume2;
-    FN4.volume = noteVolume2;
-    GN4.volume = noteVolume2;
-    AN4.volume = noteVolume2;
-    BN4.volume = noteVolume2;
 
-    CBass.volume = bassVolume;
-    DBass.volume = bassVolume;
-    EBass.volume = bassVolume;
-    FBass.volume = bassVolume;
-    ABass.volume = bassVolume;
-    GBass.volume = bassVolume;
 }

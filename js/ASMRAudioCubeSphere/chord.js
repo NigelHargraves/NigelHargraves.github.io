@@ -5,6 +5,7 @@ class Chord {
         this.z = 400;
         this.size = 300;
         this.zoom = 100;
+        this.zoomIn = true;
         this.directX = (Math.random() - 0.5) * 0.01;
         this.directY = (Math.random() - 0.5) * 0.01;
         this.edges = new SphubeEdge(this.x, this.y, this.z, this.size);
@@ -29,9 +30,12 @@ class Chord {
         //ellipse
         ctx.beginPath();
         ctx.ellipse(center.x, center.y, this.radius.x, this.radius.y, 0, 0, Math.PI * 2);
-
         ctx.stroke();
 
+        //center point.
+        ctx.beginPath();
+        ctx.arc(center.x, center.y, 4, 0, Math.PI * 2);
+        ctx.fill();
 
         let vertices = sphubeProject(this.edges.vertices, canvas.width, canvas.height, this.zoom);
 
@@ -76,6 +80,11 @@ class Chord {
             }
         }
 
+        if (this.zoomIn) {
+            this.zoom += 0.1;
+        } else {
+            this.zoom -= 0.1;
+        }
 
         this.point.x = this.radius.x * Math.cos(this.angle);
         this.point.y = this.radius.y * Math.sin(this.angle);
@@ -85,6 +94,7 @@ class Chord {
         if (this.angle >= Math.PI * 2) {
             this.angle = 0;
             this.lineWidth = 5;
+            this.zoom = 100;
             chordChange();
             sphube.lineWidth = 5;
             this.directX = (Math.random() - 0.5) * 0.01;
@@ -97,8 +107,17 @@ class Chord {
             }
         }
 
+        if (this.angle <= (Math.PI / 2) + 0.001 && this.angle >= (Math.PI / 2) - 0.001) {
+            this.zoomIn = false;
+        }
+
+        if (this.angle <= Math.PI + (Math.PI / 2) + 0.001 && this.angle >= Math.PI + (Math.PI / 2) - 0.001) {
+            this.zoomIn = true;
+        }
+
         if (this.angle <= Math.PI + 0.001 && this.angle >= Math.PI - 0.001 && this.delay == 0) {
             this.lineWidth = 5;
+            this.zoom = 100;
             chordChange();
             this.delay = 100;
             sphube.lineWidth = 5;

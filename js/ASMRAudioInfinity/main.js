@@ -6,9 +6,7 @@ canvas.height = window.innerHeight;
 let center = { x: canvas.width / 2, y: canvas.height / 2 };
 
 
-const gradient = ctx.createRadialGradient(center.x, center.y, canvas.width / 8, center.x, center.y, canvas.height);
-gradient.addColorStop(0, "rgba(0, 0, 0,0.4)");
-gradient.addColorStop(1, 'rgba(100, 149, 237,0.2)');
+
 
 
 
@@ -17,15 +15,15 @@ let start = false,
     showChords = false;
 
 let delay = 0,
-    speed = 3,
+    speed = 14,
     sphubeSize = 2,
-    chordToPlay = 'C';
+    chordToPlay = 'Am';
 
 
 
 let chordC = [],
     chordG = [],
-    chordEm = [],
+    chordBm = [],
     chordAm = [],
     chordAsus2 = [],
     chordDsus4 = [],
@@ -39,28 +37,25 @@ let colors = [],
     backgroundSphubes = [];
 
 
+
 createChords();
 
 setVolume();
 
-for (let i = 0; i < 36; i++) {
-    let red = Math.floor((Math.random() * 155) + 100);
-    let green = Math.floor((Math.random() * 155) + 100);
-    let blue = Math.floor((Math.random() * 155) + 100);
-    colors.push('rgb(' + red + ',' + green + ',' + blue + ')');
+for (let i = 0; i < 24; i++) {
+    let hue1 = (Math.random() * 260) + 100;
+    let hue2 = (Math.random() * 260) + 100;
+    let hue3 = (Math.random() * 260) + 100;
+    colors.push('rgb(' + hue1 + ',' + hue2 + ',' + hue3 + ')');
 }
 
 
-let sphube = new Sphube(0, 0, 400, 300);
+let infinityLoop = new InfinityLoop();
 
-let chord = new Chord(0, 0);
+let chord = new Chord(center.x, center.y);
 
-for (let i = 0; i < 36; i++) {
-    if (i < 18) {
-        notes.push(new Note(0, 0, 400, 300, speed, chordC[i], colors[i]));
-    } else {
-        antiNotes.push(new AntiNote(0, 0, 400, 300, speed, chordC[i], colors[i]));
-    }
+for (let i = 0; i < 24; i++) {
+    notes.push(new Note(center.x, center.y, speed, chordAm[i], colors[i]));
     speed += 0.1;
 }
 
@@ -68,9 +63,6 @@ for (let i = 0; i < 36; i++) {
 function animate() {
     //CLS.
     ctx.fillStyle = "rgb(0, 0, 0, 0.4)";
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-    ctx.fillStyle = gradient;
-    ctx.globalAlpha = 0.2;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     ctx.font = "bold 50px Arial";
     ctx.fillStyle = 'white';
@@ -89,9 +81,10 @@ function animate() {
 
     if (start) {
         if (playNow) {
-            CBass.play();
-            CChord.play();
-            drumBass.play();
+            for (let i = 0; i < 24; i++) {
+                chordAm[i].play();
+            }
+            ABass.play();
             playNow = false;
         }
 
@@ -101,24 +94,13 @@ function animate() {
             ctx.fillText(chordToPlay, 0, canvas.height * 0.02);
         }
 
-        let createbgsphube = Math.random();
-        if (createbgsphube > 0.997) {
-            backgroundSphubes.push(new BackgroundSphube((Math.random() * canvas.width) - center.x, (Math.random() * canvas.height) - center.y, 400, 300));
-        }
 
-
-
-        sphube.update();
+        infinityLoop.update();
 
         chord.update();
 
         forNotes();
 
-        forAntiNotes();
-
-        forParticles();
-
-        forBGSphubes();
 
     }
 

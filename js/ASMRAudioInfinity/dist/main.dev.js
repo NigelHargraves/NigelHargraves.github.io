@@ -8,19 +8,16 @@ var center = {
   x: canvas.width / 2,
   y: canvas.height / 2
 };
-var gradient = ctx.createRadialGradient(center.x, center.y, canvas.width / 8, center.x, center.y, canvas.height);
-gradient.addColorStop(0, "rgba(0, 0, 0,0.4)");
-gradient.addColorStop(1, 'rgba(100, 149, 237,0.2)');
 var start = false,
     playNow = true,
     showChords = false;
 var delay = 0,
-    speed = 3,
+    speed = 14,
     sphubeSize = 2,
-    chordToPlay = 'C';
+    chordToPlay = 'Am';
 var chordC = [],
     chordG = [],
-    chordEm = [],
+    chordBm = [],
     chordAm = [],
     chordAsus2 = [],
     chordDsus4 = [],
@@ -34,32 +31,24 @@ var colors = [],
 createChords();
 setVolume();
 
-for (var i = 0; i < 36; i++) {
-  var red = Math.floor(Math.random() * 155 + 100);
-  var green = Math.floor(Math.random() * 155 + 100);
-  var blue = Math.floor(Math.random() * 155 + 100);
-  colors.push('rgb(' + red + ',' + green + ',' + blue + ')');
+for (var i = 0; i < 24; i++) {
+  var hue1 = Math.random() * 260 + 100;
+  var hue2 = Math.random() * 260 + 100;
+  var hue3 = Math.random() * 260 + 100;
+  colors.push('rgb(' + hue1 + ',' + hue2 + ',' + hue3 + ')');
 }
 
-var sphube = new Sphube(0, 0, 400, 300);
-var chord = new Chord(0, 0);
+var infinityLoop = new InfinityLoop();
+var chord = new Chord(center.x, center.y);
 
-for (var _i = 0; _i < 36; _i++) {
-  if (_i < 18) {
-    notes.push(new Note(0, 0, 400, 300, speed, chordC[_i], colors[_i]));
-  } else {
-    antiNotes.push(new AntiNote(0, 0, 400, 300, speed, chordC[_i], colors[_i]));
-  }
-
+for (var _i = 0; _i < 24; _i++) {
+  notes.push(new Note(center.x, center.y, speed, chordAm[_i], colors[_i]));
   speed += 0.1;
 }
 
 function animate() {
   //CLS.
   ctx.fillStyle = "rgb(0, 0, 0, 0.4)";
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
-  ctx.fillStyle = gradient;
-  ctx.globalAlpha = 0.2;
   ctx.fillRect(0, 0, canvas.width, canvas.height);
   ctx.font = "bold 50px Arial";
   ctx.fillStyle = 'white';
@@ -77,9 +66,11 @@ function animate() {
 
   if (start) {
     if (playNow) {
-      CBass.play();
-      CChord.play();
-      drumBass.play();
+      for (var _i2 = 0; _i2 < 24; _i2++) {
+        chordAm[_i2].play();
+      }
+
+      ABass.play();
       playNow = false;
     }
 
@@ -89,18 +80,9 @@ function animate() {
       ctx.fillText(chordToPlay, 0, canvas.height * 0.02);
     }
 
-    var createbgsphube = Math.random();
-
-    if (createbgsphube > 0.997) {
-      backgroundSphubes.push(new BackgroundSphube(Math.random() * canvas.width - center.x, Math.random() * canvas.height - center.y, 400, 300));
-    }
-
-    sphube.update();
+    infinityLoop.update();
     chord.update();
     forNotes();
-    forAntiNotes();
-    forParticles();
-    forBGSphubes();
   } //call next frame.
 
 

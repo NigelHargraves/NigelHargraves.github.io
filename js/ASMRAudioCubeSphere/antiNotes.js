@@ -17,7 +17,7 @@ class AntiNote {
         this.point = { x: 0, y: 0 };
         this.yPoint = canvas.height / 8;
         this.delay = 100;
-        this.r = canvas.height / 8;
+        this.radius = { x: 300, y: canvas.height / 8 };
         this.down = true;
     }
     draw() {
@@ -132,22 +132,22 @@ class AntiNote {
 
         if (this.down) {
             if (this.angle >= Math.PI + (Math.PI / 2) || this.angle <= Math.PI / 2) {
-                this.point.x = this.r * Math.cos(this.angle);
-                this.point.y = this.r * Math.sin(this.angle);
+                this.point.x = this.radius.x * Math.cos(this.angle);
+                this.point.y = this.radius.y * Math.sin(this.angle);
                 this.zoom += this.zoomAmount;
             } else {
-                this.point.x = this.r * Math.cos(this.angle);
-                this.point.y = this.r * -Math.sin(this.angle);
+                this.point.x = this.radius.x * Math.cos(this.angle);
+                this.point.y = this.radius.y * -Math.sin(this.angle);
                 this.zoom -= this.zoomAmount;
             }
         } else {
             if (this.angle >= Math.PI + (Math.PI / 2) || this.angle <= Math.PI / 2) {
-                this.point.x = this.r * Math.cos(this.angle);
-                this.point.y = this.r * -Math.sin(this.angle);
+                this.point.x = this.radius.x * Math.cos(this.angle);
+                this.point.y = this.radius.y * -Math.sin(this.angle);
                 this.zoom += this.zoomAmount;
             } else {
-                this.point.x = this.r * Math.cos(this.angle);
-                this.point.y = this.r * Math.sin(this.angle);
+                this.point.x = this.radius.x * Math.cos(this.angle);
+                this.point.y = this.radius.y * Math.sin(this.angle);
                 this.zoom -= this.zoomAmount;
             }
         }
