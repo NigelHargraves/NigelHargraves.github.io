@@ -104,6 +104,14 @@ let GBass = document.getElementById("audio101");
 let ABass = document.getElementById("audio102");
 let BBass = document.getElementById("audio103");
 
+let CChord = document.getElementById("audio104");
+let C7Chord = document.getElementById("audio105");
+let DmChord = document.getElementById("audio106");
+let EmChord = document.getElementById("audio107");
+let FChord = document.getElementById("audio108");
+let GChord = document.getElementById("audio109");
+let AmChord = document.getElementById("audio110");
+let BmChord = document.getElementById("audio111");
 
 function setVolume() {
     let noteVolume = 0.2;

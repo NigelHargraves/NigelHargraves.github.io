@@ -20,16 +20,18 @@ let sayIt = false,
     volumeDown = false,
     delayLaugh = false;
 
-let jokeText = ['', 'What do you call a Bear in the rain?', ' A drizzly bear!', 'Why is wind power more popular than rain?',
-    "Because it has a lot of fans!", 'What’s the difference between rain and climate? ', "You can’t rain a tree, but you can climb it!",
-    "What do books wear on a wet and rainy day?", 'Rain quotes!', 'What do you call dangerous precipitation?', 'A rain of terror!',
-    'What does a raincloud wear under its raincoat?', 'Thunder pants!', 'What do you call it when it rains ducks and geese?',
-    'Fowl weather!', 'What animal loves being out in the rain?', 'A rain deer!', "What does a cloud use to fire it's thunder bolts?",
-    'A rain bow!', 'What do you call a pile of coins in the rain?', ' Climate change!', 'What do you call a dinosaur in the rain?',
-    'A driplodocus!', "Why didn’t the fog hit the target? ", "Because it's just mist!", "Why can't you argue with a rain cloud?",
-    'Because it always storms out!', "Why doesn’t rain fall?", 'Because rain drops!', 'How can you tell if you get hit by freezing rain?',
-    "It'll hurt like hail!", "When do clouds have the best ideas?", "During a brain storm!", "Did you hear the cheesy weather forecast?",
-    'Rain with light Bries!', 'Why do you see cows lying down in the rain?', 'To keep each udder dry!', 'Thank you for laughing',
+let jokeText = ['', 'Why is the moon bald?', "It has no air!", "How does the Moon hold up it’s trousers?", "With an asteroid belt!",
+    "What do you call a crazy moon? ", "A Lunatic!", "What do you call an ocean on the moon? ", "Lunacy!", "What do you call an exam mark on the moon? ",
+    "A lunar tick!", "What did the Moon say to Saturn?", "Give me a ring sometime!", "Why is the moon so conceited at times?",
+    "It becomes full of itself!", "What was the biggest problem   with the restaurant on the moon?", 'It had no atmosphere!',
+    "Why is the moon landing obviously fake?", 'The moon is clearly still up there!',
+    'What happened to the person   who was obsessed with the Moon?', 'They got better it was just a phase!',
+    'What happened to the impatient person that tried to see how long a day is on the moon?', 'They called it a day after 24 hours!',
+    "What would cashews grown on the Moon’s soil be called?", "Astro-nuts!", "What do you call a meal from the moon?",
+    ' A satellite dish!', "How does the man in the moon cut his hair?", 'Eclipse it!', 'How does the sun greet the moon?',
+    "Light waves!", "Why is the moon so hungry?", "Because it’s only full once a month!",
+    "What does Buzz Aldrin say when he meets people?", 'I am the second person to       land on the moon. Neil before me!',
+    'Why do we have more than one moon?', 'Because once a month we have a new moon!', 'Thank you for laughing',
     ' I am in stitches', 'Please like and subscribe, Take Care, and Goodbye'
 ];
 

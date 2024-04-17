@@ -19,10 +19,10 @@ var chordC = [],
     chordG = [],
     chordBm = [],
     chordAm = [],
-    chordAsus2 = [],
-    chordDsus4 = [],
+    chordDm = [],
+    chordEm = [],
     chordF = [],
-    chordGsus4 = [];
+    chordC7 = [];
 var colors = [],
     notes = [],
     antiNotes = [],
@@ -71,6 +71,7 @@ function animate() {
       }
 
       ABass.play();
+      AmChord.play();
       playNow = false;
     }
 

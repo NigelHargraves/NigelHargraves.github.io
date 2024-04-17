@@ -25,10 +25,10 @@ let chordC = [],
     chordG = [],
     chordBm = [],
     chordAm = [],
-    chordAsus2 = [],
-    chordDsus4 = [],
+    chordDm = [],
+    chordEm = [],
     chordF = [],
-    chordGsus4 = [];
+    chordC7 = [];
 
 let colors = [],
     notes = [],
@@ -85,6 +85,7 @@ function animate() {
                 chordAm[i].play();
             }
             ABass.play();
+            AmChord.play();
             playNow = false;
         }
 

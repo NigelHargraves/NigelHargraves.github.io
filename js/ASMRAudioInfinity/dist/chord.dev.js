@@ -77,15 +77,35 @@ function changeChord() {
   if (chordToPlay == 'Am') {
     chordToPlay = 'C';
     CBass.play();
+    CChord.play();
   } else if (chordToPlay == 'C') {
     chordToPlay = 'Bm';
     BBass.play();
+    BmChord.play();
   } else if (chordToPlay == 'Bm') {
     chordToPlay = 'G';
     GBass.play();
+    GChord.play();
   } else if (chordToPlay == 'G') {
+    chordToPlay = 'Dm';
+    DBass.play();
+    DmChord.play();
+  } else if (chordToPlay == 'Dm') {
+    chordToPlay = 'F';
+    FBass.play();
+    FChord.play();
+  } else if (chordToPlay == 'F') {
+    chordToPlay = 'Em';
+    EBass.play();
+    EmChord.play();
+  } else if (chordToPlay == 'Em') {
+    chordToPlay = 'C7';
+    CBass.play();
+    C7Chord.play();
+  } else if (chordToPlay == 'C7') {
     chordToPlay = 'Am';
     ABass.play();
+    AmChord.play();
   }
 
   if (chordToPlay == 'Am') {
@@ -109,6 +129,30 @@ function changeChord() {
   if (chordToPlay == 'G') {
     for (var _i3 = 0; _i3 < 24; _i3++) {
       notes[_i3].note = chordG[_i3];
+    }
+  }
+
+  if (chordToPlay == 'Dm') {
+    for (var _i4 = 0; _i4 < 24; _i4++) {
+      notes[_i4].note = chordDm[_i4];
+    }
+  }
+
+  if (chordToPlay == 'F') {
+    for (var _i5 = 0; _i5 < 24; _i5++) {
+      notes[_i5].note = chordF[_i5];
+    }
+  }
+
+  if (chordToPlay == 'Em') {
+    for (var _i6 = 0; _i6 < 24; _i6++) {
+      notes[_i6].note = chordEm[_i6];
+    }
+  }
+
+  if (chordToPlay == 'C7') {
+    for (var _i7 = 0; _i7 < 24; _i7++) {
+      notes[_i7].note = chordC7[_i7];
     }
   }
 }
