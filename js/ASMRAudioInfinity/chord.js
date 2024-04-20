@@ -6,19 +6,36 @@ class Chord {
         this.radiusShrink = true;
         this.lineWidth = 5;
         this.delay = 100;
-        this.color = 'aqua';
+        this.aqua = 'aqua';
+        this.red = 'red';
+        this.purple = 'purple';
     }
     draw() {
-        ctx.strokeStyle = this.color;
-        ctx.fillStyle = this.color;
+        ctx.strokeStyle = this.aqua;
+        ctx.fillStyle = this.aqua;
         ctx.lineWidth = this.lineWidth;
         //center point.
         ctx.beginPath();
         ctx.arc(center.x, center.y, 4, 0, Math.PI * 2);
         ctx.fill();
+
+        //aqua ellipse.
         ctx.beginPath();
         ctx.ellipse(this.x, this.y, this.radius.x, this.radius.y, 0, 0, Math.PI * 2);
         ctx.stroke();
+
+        //red ellipse.
+        ctx.strokeStyle = this.red;
+        ctx.beginPath();
+        ctx.ellipse(this.x, this.y, this.radius.x - this.lineWidth, this.radius.y - this.lineWidth, 0, 0, Math.PI * 2);
+        ctx.stroke();
+
+        //purple ellipse.
+        ctx.strokeStyle = this.purple;
+        ctx.beginPath();
+        ctx.ellipse(this.x, this.y, this.radius.x + this.lineWidth, this.radius.y + this.lineWidth, 0, 0, Math.PI * 2);
+        ctx.stroke();
+
         ctx.lineWidth = 1;
     }
     update() {
@@ -35,15 +52,42 @@ class Chord {
             this.radius.x += 0.2;
         }
 
-        if (this.radius.x <= 2) {
+        if (this.radius.x <= 14) {
             this.radiusShrink = false;
             this.lineWidth = 5;
             changeChord();
+            for (let i = 0; i < 30; i++) {
+                particles.push(new Particle(center.x, center.y, this.aqua, { x: (Math.random() - 0.5) / Math.random(), y: (Math.random() - 0.5) / Math.random() }));
+            }
+            for (let i = 0; i < 30; i++) {
+                particles.push(new Particle(center.x, center.y, this.red, { x: (Math.random() - 0.5) / Math.random(), y: (Math.random() - 0.5) / Math.random() }));
+            }
+            for (let i = 0; i < 30; i++) {
+                particles.push(new Particle(center.x, center.y, this.purple, { x: (Math.random() - 0.5) / Math.random(), y: (Math.random() - 0.5) / Math.random() }));
+            }
         }
         if (this.radius.x >= (center.x - infinityLoop.point1.x) + 200) {
             this.radiusShrink = true;
             this.lineWidth = 5;
             changeChord();
+            for (let i = 0; i < 30; i++) {
+                particles.push(new Particle(infinityLoop.point1.x - 200, center.y, this.aqua, { x: (Math.random() - 0.5) / Math.random(), y: (Math.random() - 0.5) / Math.random() }));
+            }
+            for (let i = 0; i < 30; i++) {
+                particles.push(new Particle(infinityLoop.point1.x - 200, center.y, this.red, { x: (Math.random() - 0.5) / Math.random(), y: (Math.random() - 0.5) / Math.random() }));
+            }
+            for (let i = 0; i < 30; i++) {
+                particles.push(new Particle(infinityLoop.point1.x - 200, center.y, this.purple, { x: (Math.random() - 0.5) / Math.random(), y: (Math.random() - 0.5) / Math.random() }));
+            }
+            for (let i = 0; i < 30; i++) {
+                particles.push(new Particle(infinityLoop.point2.x + 200, center.y, this.aqua, { x: (Math.random() - 0.5) / Math.random(), y: (Math.random() - 0.5) / Math.random() }));
+            }
+            for (let i = 0; i < 30; i++) {
+                particles.push(new Particle(infinityLoop.point2.x + 200, center.y, this.red, { x: (Math.random() - 0.5) / Math.random(), y: (Math.random() - 0.5) / Math.random() }));
+            }
+            for (let i = 0; i < 30; i++) {
+                particles.push(new Particle(infinityLoop.point2.x + 200, center.y, this.purple, { x: (Math.random() - 0.5) / Math.random(), y: (Math.random() - 0.5) / Math.random() }));
+            }
         }
         this.draw();
     }

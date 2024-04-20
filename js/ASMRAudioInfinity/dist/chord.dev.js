@@ -21,21 +21,34 @@ function () {
     this.radiusShrink = true;
     this.lineWidth = 5;
     this.delay = 100;
-    this.color = 'aqua';
+    this.aqua = 'aqua';
+    this.red = 'red';
+    this.purple = 'purple';
   }
 
   _createClass(Chord, [{
     key: "draw",
     value: function draw() {
-      ctx.strokeStyle = this.color;
-      ctx.fillStyle = this.color;
+      ctx.strokeStyle = this.aqua;
+      ctx.fillStyle = this.aqua;
       ctx.lineWidth = this.lineWidth; //center point.
 
       ctx.beginPath();
       ctx.arc(center.x, center.y, 4, 0, Math.PI * 2);
-      ctx.fill();
+      ctx.fill(); //aqua ellipse.
+
       ctx.beginPath();
       ctx.ellipse(this.x, this.y, this.radius.x, this.radius.y, 0, 0, Math.PI * 2);
+      ctx.stroke(); //red ellipse.
+
+      ctx.strokeStyle = this.red;
+      ctx.beginPath();
+      ctx.ellipse(this.x, this.y, this.radius.x - this.lineWidth, this.radius.y - this.lineWidth, 0, 0, Math.PI * 2);
+      ctx.stroke(); //purple ellipse.
+
+      ctx.strokeStyle = this.purple;
+      ctx.beginPath();
+      ctx.ellipse(this.x, this.y, this.radius.x + this.lineWidth, this.radius.y + this.lineWidth, 0, 0, Math.PI * 2);
       ctx.stroke();
       ctx.lineWidth = 1;
     }
@@ -54,16 +67,79 @@ function () {
         this.radius.x += 0.2;
       }
 
-      if (this.radius.x <= 2) {
+      if (this.radius.x <= 14) {
         this.radiusShrink = false;
         this.lineWidth = 5;
         changeChord();
+
+        for (var i = 0; i < 30; i++) {
+          particles.push(new Particle(center.x, center.y, this.aqua, {
+            x: (Math.random() - 0.5) / Math.random(),
+            y: (Math.random() - 0.5) / Math.random()
+          }));
+        }
+
+        for (var _i = 0; _i < 30; _i++) {
+          particles.push(new Particle(center.x, center.y, this.red, {
+            x: (Math.random() - 0.5) / Math.random(),
+            y: (Math.random() - 0.5) / Math.random()
+          }));
+        }
+
+        for (var _i2 = 0; _i2 < 30; _i2++) {
+          particles.push(new Particle(center.x, center.y, this.purple, {
+            x: (Math.random() - 0.5) / Math.random(),
+            y: (Math.random() - 0.5) / Math.random()
+          }));
+        }
       }
 
       if (this.radius.x >= center.x - infinityLoop.point1.x + 200) {
         this.radiusShrink = true;
         this.lineWidth = 5;
         changeChord();
+
+        for (var _i3 = 0; _i3 < 30; _i3++) {
+          particles.push(new Particle(infinityLoop.point1.x - 200, center.y, this.aqua, {
+            x: (Math.random() - 0.5) / Math.random(),
+            y: (Math.random() - 0.5) / Math.random()
+          }));
+        }
+
+        for (var _i4 = 0; _i4 < 30; _i4++) {
+          particles.push(new Particle(infinityLoop.point1.x - 200, center.y, this.red, {
+            x: (Math.random() - 0.5) / Math.random(),
+            y: (Math.random() - 0.5) / Math.random()
+          }));
+        }
+
+        for (var _i5 = 0; _i5 < 30; _i5++) {
+          particles.push(new Particle(infinityLoop.point1.x - 200, center.y, this.purple, {
+            x: (Math.random() - 0.5) / Math.random(),
+            y: (Math.random() - 0.5) / Math.random()
+          }));
+        }
+
+        for (var _i6 = 0; _i6 < 30; _i6++) {
+          particles.push(new Particle(infinityLoop.point2.x + 200, center.y, this.aqua, {
+            x: (Math.random() - 0.5) / Math.random(),
+            y: (Math.random() - 0.5) / Math.random()
+          }));
+        }
+
+        for (var _i7 = 0; _i7 < 30; _i7++) {
+          particles.push(new Particle(infinityLoop.point2.x + 200, center.y, this.red, {
+            x: (Math.random() - 0.5) / Math.random(),
+            y: (Math.random() - 0.5) / Math.random()
+          }));
+        }
+
+        for (var _i8 = 0; _i8 < 30; _i8++) {
+          particles.push(new Particle(infinityLoop.point2.x + 200, center.y, this.purple, {
+            x: (Math.random() - 0.5) / Math.random(),
+            y: (Math.random() - 0.5) / Math.random()
+          }));
+        }
       }
 
       this.draw();
@@ -115,44 +191,44 @@ function changeChord() {
   }
 
   if (chordToPlay == 'C') {
-    for (var _i = 0; _i < 24; _i++) {
-      notes[_i].note = chordC[_i];
+    for (var _i9 = 0; _i9 < 24; _i9++) {
+      notes[_i9].note = chordC[_i9];
     }
   }
 
   if (chordToPlay == 'Bm') {
-    for (var _i2 = 0; _i2 < 24; _i2++) {
-      notes[_i2].note = chordBm[_i2];
+    for (var _i10 = 0; _i10 < 24; _i10++) {
+      notes[_i10].note = chordBm[_i10];
     }
   }
 
   if (chordToPlay == 'G') {
-    for (var _i3 = 0; _i3 < 24; _i3++) {
-      notes[_i3].note = chordG[_i3];
+    for (var _i11 = 0; _i11 < 24; _i11++) {
+      notes[_i11].note = chordG[_i11];
     }
   }
 
   if (chordToPlay == 'Dm') {
-    for (var _i4 = 0; _i4 < 24; _i4++) {
-      notes[_i4].note = chordDm[_i4];
+    for (var _i12 = 0; _i12 < 24; _i12++) {
+      notes[_i12].note = chordDm[_i12];
     }
   }
 
   if (chordToPlay == 'F') {
-    for (var _i5 = 0; _i5 < 24; _i5++) {
-      notes[_i5].note = chordF[_i5];
+    for (var _i13 = 0; _i13 < 24; _i13++) {
+      notes[_i13].note = chordF[_i13];
     }
   }
 
   if (chordToPlay == 'Em') {
-    for (var _i6 = 0; _i6 < 24; _i6++) {
-      notes[_i6].note = chordEm[_i6];
+    for (var _i14 = 0; _i14 < 24; _i14++) {
+      notes[_i14].note = chordEm[_i14];
     }
   }
 
   if (chordToPlay == 'C7') {
-    for (var _i7 = 0; _i7 < 24; _i7++) {
-      notes[_i7].note = chordC7[_i7];
+    for (var _i15 = 0; _i15 < 24; _i15++) {
+      notes[_i15].note = chordC7[_i15];
     }
   }
 }

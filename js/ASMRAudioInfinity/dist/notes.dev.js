@@ -109,6 +109,13 @@ function () {
 
 
       if (this.angle <= Math.PI / 2 + Math.PI / 4 + 0.001 && this.angle >= Math.PI / 2 + Math.PI / 4 - 0.001 && !this.moveRight && this.delay == 0) {
+        for (var i = 0; i < 10; i++) {
+          particles.push(new Particle(center.x, center.y, this.color, {
+            x: Math.random() - 0.5,
+            y: Math.random() - 0.5
+          }));
+        }
+
         this.centerPoint = {
           x: infinityLoop.point1.x,
           y: canvas.height
@@ -156,6 +163,13 @@ function () {
 
 
       if (this.angle <= Math.PI / 4 + 0.001 && this.angle >= Math.PI / 4 - 0.001 && this.moveRight && this.delay == 0) {
+        for (var _i = 0; _i < 10; _i++) {
+          particles.push(new Particle(center.x, center.y, this.color, {
+            x: Math.random() - 0.5,
+            y: Math.random() - 0.5
+          }));
+        }
+
         this.centerPoint = {
           x: center.x + infinityLoop.point1.x,
           y: canvas.height
@@ -182,6 +196,13 @@ function () {
       }
 
       if (this.angle >= Math.PI * 2) {
+        for (var _i2 = 0; _i2 < 10; _i2++) {
+          particles.push(new Particle(this.centerPoint.x + this.point.x, this.centerPoint.y + this.point.y, this.color, {
+            x: Math.random() - 0.5,
+            y: Math.random() - 0.5
+          }));
+        }
+
         this.angle = 0;
         infinityLoop.lineWidth = 5;
         infinityLoop.color = this.color;
@@ -190,6 +211,13 @@ function () {
       }
 
       if (this.angle <= Math.PI + 0.001 && this.angle >= Math.PI - 0.001 && this.delay == 0) {
+        for (var _i3 = 0; _i3 < 10; _i3++) {
+          particles.push(new Particle(this.centerPoint.x + this.point.x, this.centerPoint.y + this.point.y, this.color, {
+            x: Math.random() - 0.5,
+            y: Math.random() - 0.5
+          }));
+        }
+
         infinityLoop.lineWidth = 5;
         infinityLoop.color = this.color;
         this.lineWidth = 5;

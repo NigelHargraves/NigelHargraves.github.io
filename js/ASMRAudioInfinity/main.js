@@ -32,9 +32,8 @@ let chordC = [],
 
 let colors = [],
     notes = [],
-    antiNotes = [],
-    particles = [],
-    backgroundSphubes = [];
+    figEights = [],
+    particles = [];
 
 
 
@@ -58,6 +57,7 @@ for (let i = 0; i < 24; i++) {
     notes.push(new Note(center.x, center.y, speed, chordAm[i], colors[i]));
     speed += 0.1;
 }
+
 
 
 function animate() {
@@ -95,6 +95,12 @@ function animate() {
             ctx.fillText(chordToPlay, 0, canvas.height * 0.02);
         }
 
+        let createFigEight = Math.random();
+        if (createFigEight > 0.99) {
+            figEights.push(new FigEight(center.x, center.y));
+        }
+
+
 
         infinityLoop.update();
 
@@ -102,6 +108,9 @@ function animate() {
 
         forNotes();
 
+        forFigEights();
+
+        forParticles();
 
     }
 

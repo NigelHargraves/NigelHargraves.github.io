@@ -49,6 +49,9 @@ class Note {
 
         //left large bottom circle
         if (this.angle <= (Math.PI / 2) + (Math.PI / 4) + 0.001 && this.angle >= (Math.PI / 2) + (Math.PI / 4) - 0.001 && !this.moveRight && this.delay == 0) {
+            for (let i = 0; i < 10; i++) {
+                particles.push(new Particle(center.x, center.y, this.color, { x: Math.random() - 0.5, y: Math.random() - 0.5 }));
+            }
             this.centerPoint = { x: infinityLoop.point1.x, y: canvas.height };
             this.radius = { x: this.radii.p5.x, y: this.radii.p5.y };
             this.angle = ((Math.PI / 2) * 3) + (Math.PI / 4);
@@ -78,6 +81,9 @@ class Note {
 
         //right large bottom circle
         if (this.angle <= (Math.PI / 4) + 0.001 && this.angle >= (Math.PI / 4) - 0.001 && this.moveRight && this.delay == 0) {
+            for (let i = 0; i < 10; i++) {
+                particles.push(new Particle(center.x, center.y, this.color, { x: Math.random() - 0.5, y: Math.random() - 0.5 }));
+            }
             this.centerPoint = { x: center.x + infinityLoop.point1.x, y: canvas.height };
             this.radius = { x: this.radii.p4.x, y: this.radii.p4.y };
             this.angle = Math.PI + (Math.PI / 4);
@@ -102,6 +108,9 @@ class Note {
 
 
         if (this.angle >= Math.PI * 2) {
+            for (let i = 0; i < 10; i++) {
+                particles.push(new Particle(this.centerPoint.x + this.point.x, this.centerPoint.y + this.point.y, this.color, { x: Math.random() - 0.5, y: Math.random() - 0.5 }));
+            }
             this.angle = 0;
             infinityLoop.lineWidth = 5;
             infinityLoop.color = this.color;
@@ -110,6 +119,9 @@ class Note {
         }
 
         if (this.angle <= Math.PI + 0.001 && this.angle >= Math.PI - 0.001 && this.delay == 0) {
+            for (let i = 0; i < 10; i++) {
+                particles.push(new Particle(this.centerPoint.x + this.point.x, this.centerPoint.y + this.point.y, this.color, { x: Math.random() - 0.5, y: Math.random() - 0.5 }));
+            }
             infinityLoop.lineWidth = 5;
             infinityLoop.color = this.color;
             this.lineWidth = 5;

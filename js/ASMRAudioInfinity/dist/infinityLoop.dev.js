@@ -63,12 +63,15 @@ function () {
       ctx.stroke();
       ctx.beginPath();
       ctx.ellipse(this.point6.x, this.point6.y, 663, 688, 0, Math.PI / 2, Math.PI / 2 + Math.PI / 4);
-      ctx.stroke(); //center line
+      ctx.stroke(); //left point.
 
       ctx.beginPath();
-      ctx.moveTo(0, center.y);
-      ctx.lineTo(canvas.width, center.y);
-      ctx.stroke();
+      ctx.arc(this.point1.x - 200, this.point1.y, 2, 0, Math.PI * 2);
+      ctx.fill(); //right point.
+
+      ctx.beginPath();
+      ctx.arc(center.x + this.point1.x + 200, this.point1.y, 2, 0, Math.PI * 2);
+      ctx.fill();
       ctx.lineWidth = 1;
     }
   }, {

@@ -25,9 +25,8 @@ var chordC = [],
     chordC7 = [];
 var colors = [],
     notes = [],
-    antiNotes = [],
-    particles = [],
-    backgroundSphubes = [];
+    figEights = [],
+    particles = [];
 createChords();
 setVolume();
 
@@ -81,9 +80,17 @@ function animate() {
       ctx.fillText(chordToPlay, 0, canvas.height * 0.02);
     }
 
+    var createFigEight = Math.random();
+
+    if (createFigEight > 0.99) {
+      figEights.push(new FigEight(center.x, center.y));
+    }
+
     infinityLoop.update();
     chord.update();
     forNotes();
+    forFigEights();
+    forParticles();
   } //call next frame.
 
 
