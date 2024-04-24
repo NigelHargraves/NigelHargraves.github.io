@@ -15,18 +15,24 @@ let start1 = false,
 let delay1 = 0,
     delay2 = 0,
     speed = 2,
-    chordToPlay = 'Am';
+    chordToPlay = 'Cm';
 
 
 
 let chordC = [],
-    chordG = [],
-    chordBm = [],
-    chordAm = [],
+    chordCm = [],
+    chordD = [],
     chordDm = [],
+    chordE = [],
     chordEm = [],
     chordF = [],
-    chordC7 = [];
+    chordFm = [],
+    chordG = [],
+    chordGm = [],
+    chordA = [],
+    chordAm = [],
+    chordB = [],
+    chordBm = [];
 
 let colors = [],
     notesRight = [],
@@ -34,29 +40,47 @@ let colors = [],
     particles = [];
 
 
+let point = { x: 0, y: 0 },
+    adj, opp, hyp;
 
+let distance = 0.95,
+    gravity = 0.001;
+
+point = { x: center.x - ((center.x * 0.9) / distance), y: 0 + ((center.y - (center.y * 0.9)) / distance) };
+adj = Math.pow(center.x - point.x, 2);
+opp = Math.pow(point.y, 2);
+hyp = Math.sqrt(opp + adj);
+
+let chord = new Chord(point.x, point.y, hyp);
+
+
+
+
+
+createChords();
+
+setVolume();
 
 
 for (let i = 0; i < 24; i++) {
-    let hue1 = (Math.random() * 260) + 100;
-    let hue2 = (Math.random() * 260) + 100;
-    let hue3 = (Math.random() * 260) + 100;
-    colors.push('rgb(' + hue1 + ',' + hue2 + ',' + hue3 + ')');
+    let color = Math.random() * 360;
+    colors.push("hsl(" + color + ",100%,50%)");
 }
 
 
 
 let road = new Road();
 
-for (let i = 0; i < 12; i++) {
-    notesRight.push(new NoteRight(center.x, center.y, speed));
+for (let i = 0; i < 24; i++) {
+    if (i < 12) {
+        notesRight.push(new NoteRight(center.x, center.y, speed, chordCm[i], colors[i]));
+    } else {
+        notesLeft.push(new NoteLeft(center.x, center.y, speed, chordCm[i], colors[i]));
+    }
     speed += 0.01;
 }
 
-for (let i = 0; i < 12; i++) {
-    notesLeft.push(new NoteLeft(center.x, center.y, speed));
-    speed += 0.01;
-}
+
 
 
 function animate() {
@@ -97,13 +121,20 @@ function animate() {
         if (!start2) {
             delay2 += 1;
             if (delay2 >= 400) {
+                for (let i = 0; i < 24; i++) {
+                    chordCm[i].play();
+                }
+                CBass.play();
+                road.lineWidth = 3;
                 start2 = true;
             }
         }
 
         if (start2) {
+            chord.update();
             forNotesRight();
             forNotesLeft();
+            forParticles();
         }
     }
 

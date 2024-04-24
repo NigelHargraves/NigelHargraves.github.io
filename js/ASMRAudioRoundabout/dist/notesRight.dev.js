@@ -9,13 +9,14 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 var NoteRight =
 /*#__PURE__*/
 function () {
-  function NoteRight(x, y, speed) {
+  function NoteRight(x, y, speed, note, color) {
     _classCallCheck(this, NoteRight);
 
     this.x = x;
     this.y = y;
     this.speed = speed;
-    this.color = 'white';
+    this.note = note;
+    this.color = color;
     this.lineWidth = 1;
     this.r = center.y / 4;
     this.angle = Math.PI / 2;
@@ -38,6 +39,8 @@ function () {
     this.toRoundabout = false;
     this.headingRight = true;
     this.slice = 0.8;
+    this.delay = 0;
+    this.render = true;
   }
 
   _createClass(NoteRight, [{
@@ -46,22 +49,26 @@ function () {
       ctx.strokeStyle = this.color;
       ctx.fillStyle = this.color;
 
-      if (this.onRoundabout) {
-        ctx.beginPath();
-        ctx.arc(this.x + this.point.x, this.y + this.point.y, 2, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.beginPath();
-        ctx.arc(this.x + this.point.x, this.y + this.point.y, 10, 0, Math.PI * 2);
-        ctx.lineWidth = this.lineWidth;
-        ctx.stroke();
+      if (this.render) {
+        if (this.onRoundabout) {
+          ctx.beginPath();
+          ctx.arc(this.x + this.point.x, this.y + this.point.y, 2, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.beginPath();
+          ctx.arc(this.x + this.point.x, this.y + this.point.y, 10, 0, Math.PI * 2);
+          ctx.lineWidth = this.lineWidth;
+          ctx.stroke();
+        } else {
+          ctx.beginPath();
+          ctx.arc(this.x, this.y, 2, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.beginPath();
+          ctx.arc(this.x, this.y, 10, 0, Math.PI * 2);
+          ctx.lineWidth = this.lineWidth;
+          ctx.stroke();
+        }
       } else {
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, 2, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, 10, 0, Math.PI * 2);
-        ctx.lineWidth = this.lineWidth;
-        ctx.stroke();
+        this.render = true;
       }
 
       ctx.lineWidth = 1;
@@ -69,6 +76,14 @@ function () {
   }, {
     key: "update",
     value: function update() {
+      if (this.delay > 0) {
+        this.delay -= 1;
+      }
+
+      if (this.lineWidth > 1) {
+        this.lineWidth -= 0.01;
+      }
+
       if (this.onRoundabout) {
         this.point.x = this.r * Math.cos(this.angle);
         this.point.y = this.r * Math.sin(this.angle);
@@ -117,6 +132,13 @@ function () {
           } else {
             if (this.y <= this.aim.y + this.slice && this.y >= this.aim.y - this.slice) {
               this.aim.x = center.x;
+
+              if (this.delay == 0) {
+                this.note.play();
+                this.lineWidth = 3;
+                road.bigSquare = this.color;
+                this.delay = 700;
+              }
             }
 
             if (this.x <= center.x + this.slice && this.x >= center.x - this.slice) {
@@ -129,6 +151,12 @@ function () {
               this.y = center.y;
               this.angle = -Math.PI / 2;
               this.onRoundabout = true;
+              this.render = false;
+              this.note.play();
+              road.lineWidth = 3;
+              road.roundaboutColor = this.color;
+              road.topRoad = this.color;
+              this.lineWidth = 3;
               this.speed += 0.75;
               this.headingRight = false;
               this.onRight = false;
@@ -143,6 +171,13 @@ function () {
           } else {
             if (this.y <= this.aim.y + this.slice && this.y >= this.aim.y - this.slice) {
               this.aim.x = center.x;
+
+              if (this.delay == 0) {
+                this.note.play();
+                this.lineWidth = 3;
+                road.bigSquare = this.color;
+                this.delay = 700;
+              }
             }
 
             if (this.x <= center.x + this.slice && this.x >= center.x - this.slice) {
@@ -155,6 +190,12 @@ function () {
               this.y = center.y;
               this.angle = Math.PI / 2;
               this.onRoundabout = true;
+              this.render = false;
+              this.note.play();
+              road.lineWidth = 3;
+              road.roundaboutColor = this.color;
+              road.bottomRoad = this.color;
+              this.lineWidth = 3;
               this.speed += 0.75;
               this.headingRight = true;
               this.onLeft = false;

@@ -9,13 +9,14 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 var NoteLeft =
 /*#__PURE__*/
 function () {
-  function NoteLeft(x, y, speed) {
+  function NoteLeft(x, y, speed, note, color) {
     _classCallCheck(this, NoteLeft);
 
     this.x = x;
     this.y = y;
     this.speed = speed;
-    this.color = 'white';
+    this.note = note;
+    this.color = color;
     this.lineWidth = 1;
     this.r = center.y / 4;
     this.angle = 0;
@@ -32,12 +33,14 @@ function () {
       x: road.topLeft.x,
       y: center.y
     };
-    this.onRight = true;
+    this.onLeft = true;
     this.onRightLoop = false;
     this.onLeftLoop = false;
     this.toRoundabout = false;
-    this.headingRight = true;
+    this.headingLeft = true;
     this.slice = 0.8;
+    this.delay = 0;
+    this.render = true;
   }
 
   _createClass(NoteLeft, [{
@@ -46,22 +49,26 @@ function () {
       ctx.strokeStyle = this.color;
       ctx.fillStyle = this.color;
 
-      if (this.onRoundabout) {
-        ctx.beginPath();
-        ctx.arc(this.x + this.point.x, this.y + this.point.y, 2, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.beginPath();
-        ctx.arc(this.x + this.point.x, this.y + this.point.y, 10, 0, Math.PI * 2);
-        ctx.lineWidth = this.lineWidth;
-        ctx.stroke();
+      if (this.render) {
+        if (this.onRoundabout) {
+          ctx.beginPath();
+          ctx.arc(this.x + this.point.x, this.y + this.point.y, 2, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.beginPath();
+          ctx.arc(this.x + this.point.x, this.y + this.point.y, 10, 0, Math.PI * 2);
+          ctx.lineWidth = this.lineWidth;
+          ctx.stroke();
+        } else {
+          ctx.beginPath();
+          ctx.arc(this.x, this.y, 2, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.beginPath();
+          ctx.arc(this.x, this.y, 10, 0, Math.PI * 2);
+          ctx.lineWidth = this.lineWidth;
+          ctx.stroke();
+        }
       } else {
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, 2, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, 10, 0, Math.PI * 2);
-        ctx.lineWidth = this.lineWidth;
-        ctx.stroke();
+        this.render = true;
       }
 
       ctx.lineWidth = 1;
@@ -69,18 +76,26 @@ function () {
   }, {
     key: "update",
     value: function update() {
+      if (this.delay > 0) {
+        this.delay -= 1;
+      }
+
+      if (this.lineWidth > 1) {
+        this.lineWidth -= 0.01;
+      }
+
       if (this.onRoundabout) {
         this.point.x = this.r * Math.cos(this.angle);
         this.point.y = this.r * Math.sin(this.angle);
         this.angle += Math.PI / 180 / this.speed;
 
-        if (this.headingRight) {
+        if (this.headingLeft) {
           if (this.angle >= Math.PI / 2 * 3) {
             this.speed -= 0.75;
             this.onRoundabout = false;
             this.y -= center.y / 4;
-            this.onRightLoop = false;
-            this.onRight = false;
+            this.onLeftLoop = true;
+            this.onLeft = true;
             this.aim = {
               x: center.x,
               y: road.topLeft.y
@@ -88,15 +103,15 @@ function () {
             this.toRoundabout = false;
           }
         } else {
-          if (this.angle >= Math.PI) {
+          if (this.angle >= Math.PI / 2) {
             this.speed -= 0.75;
             this.onRoundabout = false;
-            this.x -= center.y / 4;
-            this.onLeftLoop = true;
-            this.onLeft = true;
+            this.y += center.y / 4;
+            this.onRightLoop = true;
+            this.onLeft = false;
             this.aim = {
-              x: road.topLeft.x,
-              y: center.y
+              x: center.x,
+              y: road.bottomLeft.y
             };
             this.toRoundabout = false;
           }
@@ -110,54 +125,108 @@ function () {
 
         if (this.onLeft) {
           if (this.onLeftLoop) {
-            if (this.x <= this.aim.x + this.slice && this.x >= this.aim.x - this.slice) {
-              this.aim.y = road.topRight.y;
-              this.onRightLoop = false;
-            }
-          } else {
             if (this.y <= this.aim.y + this.slice && this.y >= this.aim.y - this.slice) {
-              this.aim.x = center.x;
-            }
-
-            if (this.x <= center.x + this.slice && this.x >= center.x - this.slice) {
-              this.aim.y = center.y - center.y / 4;
-              this.toRoundabout = true;
-            }
-
-            if (this.y <= this.aim.y + this.slice && this.y >= this.aim.y - this.slice && this.toRoundabout) {
-              this.x = center.x;
-              this.y = center.y;
-              this.angle = -Math.PI / 2;
-              this.onRoundabout = true;
-              this.speed += 0.75;
-              this.headingRight = false;
-              this.onRight = false;
-            }
-          }
-        } else {
-          if (this.onLeftLoop) {
-            if (this.x <= this.aim.x + this.slice && this.x >= this.aim.x - this.slice) {
-              this.aim.y = road.bottomRight.y;
+              this.aim.x = road.topLeft.x;
               this.onLeftLoop = false;
             }
           } else {
-            if (this.y <= this.aim.y + this.slice && this.y >= this.aim.y - this.slice) {
-              this.aim.x = center.x;
+            if (this.x <= this.aim.x + this.slice && this.x >= this.aim.x - this.slice) {
+              this.aim.y = center.y;
+
+              if (this.delay == 0) {
+                this.note.play();
+                this.lineWidth = 3;
+                road.bigSquare = this.color;
+                this.delay = 700;
+
+                for (var i = 0; i < 10; i++) {
+                  particles.push(new Particle(this.x, this.y, this.color, {
+                    x: (Math.random() - 0.5) / Math.random(),
+                    y: (Math.random() - 0.5) / Math.random()
+                  }));
+                }
+              }
             }
 
-            if (this.x <= center.x + this.slice && this.x >= center.x - this.slice) {
-              this.aim.y = center.y + center.y / 4;
+            if (this.y <= center.y + this.slice && this.y >= center.y - this.slice) {
+              this.aim.x = center.x - center.y / 4;
               this.toRoundabout = true;
             }
 
-            if (this.y <= this.aim.y + this.slice && this.y >= this.aim.y - this.slice && this.toRoundabout) {
+            if (this.x <= this.aim.x + this.slice && this.x >= this.aim.x - this.slice && this.toRoundabout) {
               this.x = center.x;
               this.y = center.y;
-              this.angle = Math.PI / 2;
+              this.angle = -Math.PI;
               this.onRoundabout = true;
+              this.render = false;
+              this.note.play();
+              road.lineWidth = 3;
+              road.roundaboutColor = this.color;
+              road.leftRoad = this.color;
+              this.lineWidth = 3;
               this.speed += 0.75;
-              this.headingRight = true;
+              this.headingLeft = false;
+              this.onRight = false;
+
+              for (var _i = 0; _i < 10; _i++) {
+                particles.push(new Particle(this.point.x, this.point.y, this.color, {
+                  x: (Math.random() - 0.5) / Math.random(),
+                  y: (Math.random() - 0.5) / Math.random()
+                }));
+              }
+            }
+          }
+        } else {
+          if (this.onRightLoop) {
+            if (this.y <= this.aim.y + this.slice && this.y >= this.aim.y - this.slice) {
+              this.aim.x = road.bottomRight.x;
+              this.onRightLoop = false;
+            }
+          } else {
+            if (this.x <= this.aim.x + this.slice && this.x >= this.aim.x - this.slice) {
+              this.aim.y = center.y;
+
+              if (this.delay == 0) {
+                this.note.play();
+                this.lineWidth = 3;
+                road.bigSquare = this.color;
+                this.delay = 700;
+
+                for (var _i2 = 0; _i2 < 10; _i2++) {
+                  particles.push(new Particle(this.x, this.y, this.color, {
+                    x: (Math.random() - 0.5) / Math.random(),
+                    y: (Math.random() - 0.5) / Math.random()
+                  }));
+                }
+              }
+            }
+
+            if (this.y <= center.y + this.slice && this.y >= center.y - this.slice) {
+              this.aim.x = center.x + center.y / 4;
+              this.toRoundabout = true;
+            }
+
+            if (this.x <= this.aim.x + this.slice && this.x >= this.aim.x - this.slice && this.toRoundabout) {
+              this.x = center.x;
+              this.y = center.y;
+              this.angle = 0;
+              this.onRoundabout = true;
+              this.render = false;
+              this.note.play();
+              road.lineWidth = 3;
+              road.roundaboutColor = this.color;
+              road.rightRoad = this.color;
+              this.lineWidth = 3;
+              this.speed += 0.75;
+              this.headingLeft = true;
               this.onLeft = false;
+
+              for (var _i3 = 0; _i3 < 10; _i3++) {
+                particles.push(new Particle(this.point.x, this.point.y, this.color, {
+                  x: (Math.random() - 0.5) / Math.random(),
+                  y: (Math.random() - 0.5) / Math.random()
+                }));
+              }
             }
           }
         }

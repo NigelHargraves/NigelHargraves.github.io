@@ -15,36 +15,59 @@ var start1 = false,
 var delay1 = 0,
     delay2 = 0,
     speed = 2,
-    chordToPlay = 'Am';
+    chordToPlay = 'Cm';
 var chordC = [],
-    chordG = [],
-    chordBm = [],
-    chordAm = [],
+    chordCm = [],
+    chordD = [],
     chordDm = [],
+    chordE = [],
     chordEm = [],
     chordF = [],
-    chordC7 = [];
+    chordFm = [],
+    chordG = [],
+    chordGm = [],
+    chordA = [],
+    chordAm = [],
+    chordB = [],
+    chordBm = [];
 var colors = [],
     notesRight = [],
     notesLeft = [],
     particles = [];
+var point = {
+  x: 0,
+  y: 0
+},
+    adj,
+    opp,
+    hyp;
+var distance = 0.95,
+    gravity = 0.001;
+point = {
+  x: center.x - center.x * 0.9 / distance,
+  y: 0 + (center.y - center.y * 0.9) / distance
+};
+adj = Math.pow(center.x - point.x, 2);
+opp = Math.pow(point.y, 2);
+hyp = Math.sqrt(opp + adj);
+var chord = new Chord(point.x, point.y, hyp);
+createChords();
+setVolume();
 
 for (var i = 0; i < 24; i++) {
-  var hue1 = Math.random() * 260 + 100;
-  var hue2 = Math.random() * 260 + 100;
-  var hue3 = Math.random() * 260 + 100;
-  colors.push('rgb(' + hue1 + ',' + hue2 + ',' + hue3 + ')');
+  var color = Math.random() * 360;
+  colors.push("hsl(" + color + ",100%,50%)");
 }
 
 var road = new Road();
 
-for (var _i = 0; _i < 12; _i++) {
-  notesRight.push(new NoteRight(center.x, center.y, speed));
-  speed += 0.01;
-}
+for (var _i = 0; _i < 24; _i++) {
+  if (_i < 12) {
+    notesRight.push(new NoteRight(center.x, center.y, speed, chordCm[_i], colors[_i]));
+  } else {
+    notesLeft.push(new NoteLeft(center.x, center.y, speed, chordCm[_i], colors[_i]));
+  }
 
-for (var _i2 = 0; _i2 < 12; _i2++) {
-  notesLeft.push(new NoteLeft(center.x, center.y, speed));
   speed += 0.01;
 }
 
@@ -83,13 +106,21 @@ function animate() {
       delay2 += 1;
 
       if (delay2 >= 400) {
+        for (var _i2 = 0; _i2 < 24; _i2++) {
+          chordCm[_i2].play();
+        }
+
+        CBass.play();
+        road.lineWidth = 3;
         start2 = true;
       }
     }
 
     if (start2) {
+      chord.update();
       forNotesRight();
       forNotesLeft();
+      forParticles();
     }
   } //call next frame.
 
