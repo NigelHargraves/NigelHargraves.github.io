@@ -154,6 +154,13 @@ function () {
             }
 
             if (this.x <= this.aim.x + this.slice && this.x >= this.aim.x - this.slice && this.toRoundabout) {
+              for (var _i = 0; _i < 10; _i++) {
+                particles.push(new Particle(this.x, this.y, this.color, {
+                  x: (Math.random() - 0.5) / Math.random(),
+                  y: (Math.random() - 0.5) / Math.random()
+                }));
+              }
+
               this.x = center.x;
               this.y = center.y;
               this.angle = -Math.PI;
@@ -167,13 +174,6 @@ function () {
               this.speed += 0.75;
               this.headingLeft = false;
               this.onRight = false;
-
-              for (var _i = 0; _i < 10; _i++) {
-                particles.push(new Particle(this.point.x, this.point.y, this.color, {
-                  x: (Math.random() - 0.5) / Math.random(),
-                  y: (Math.random() - 0.5) / Math.random()
-                }));
-              }
             }
           }
         } else {
@@ -207,6 +207,13 @@ function () {
             }
 
             if (this.x <= this.aim.x + this.slice && this.x >= this.aim.x - this.slice && this.toRoundabout) {
+              for (var _i3 = 0; _i3 < 10; _i3++) {
+                particles.push(new Particle(this.x, this.y, this.color, {
+                  x: (Math.random() - 0.5) / Math.random(),
+                  y: (Math.random() - 0.5) / Math.random()
+                }));
+              }
+
               this.x = center.x;
               this.y = center.y;
               this.angle = 0;
@@ -220,13 +227,6 @@ function () {
               this.speed += 0.75;
               this.headingLeft = true;
               this.onLeft = false;
-
-              for (var _i3 = 0; _i3 < 10; _i3++) {
-                particles.push(new Particle(this.point.x, this.point.y, this.color, {
-                  x: (Math.random() - 0.5) / Math.random(),
-                  y: (Math.random() - 0.5) / Math.random()
-                }));
-              }
             }
           }
         }

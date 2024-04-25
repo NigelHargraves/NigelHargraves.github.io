@@ -138,6 +138,13 @@ function () {
                 this.lineWidth = 3;
                 road.bigSquare = this.color;
                 this.delay = 700;
+
+                for (var i = 0; i < 10; i++) {
+                  particles.push(new Particle(this.x, this.y, this.color, {
+                    x: (Math.random() - 0.5) / Math.random(),
+                    y: (Math.random() - 0.5) / Math.random()
+                  }));
+                }
               }
             }
 
@@ -147,6 +154,13 @@ function () {
             }
 
             if (this.y <= this.aim.y + this.slice && this.y >= this.aim.y - this.slice && this.toRoundabout) {
+              for (var _i = 0; _i < 10; _i++) {
+                particles.push(new Particle(this.x, this.y, this.color, {
+                  x: (Math.random() - 0.5) / Math.random(),
+                  y: (Math.random() - 0.5) / Math.random()
+                }));
+              }
+
               this.x = center.x;
               this.y = center.y;
               this.angle = -Math.PI / 2;
@@ -177,6 +191,13 @@ function () {
                 this.lineWidth = 3;
                 road.bigSquare = this.color;
                 this.delay = 700;
+
+                for (var _i2 = 0; _i2 < 10; _i2++) {
+                  particles.push(new Particle(this.x, this.y, this.color, {
+                    x: (Math.random() - 0.5) / Math.random(),
+                    y: (Math.random() - 0.5) / Math.random()
+                  }));
+                }
               }
             }
 
@@ -186,6 +207,13 @@ function () {
             }
 
             if (this.y <= this.aim.y + this.slice && this.y >= this.aim.y - this.slice && this.toRoundabout) {
+              for (var _i3 = 0; _i3 < 10; _i3++) {
+                particles.push(new Particle(this.x, this.y, this.color, {
+                  x: (Math.random() - 0.5) / Math.random(),
+                  y: (Math.random() - 0.5) / Math.random()
+                }));
+              }
+
               this.x = center.x;
               this.y = center.y;
               this.angle = Math.PI / 2;

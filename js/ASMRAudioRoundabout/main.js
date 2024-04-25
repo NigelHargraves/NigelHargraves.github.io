@@ -37,7 +37,8 @@ let chordC = [],
 let colors = [],
     notesRight = [],
     notesLeft = [],
-    particles = [];
+    particles = [],
+    stars = [];
 
 
 let point = { x: 0, y: 0 },
@@ -131,10 +132,43 @@ function animate() {
         }
 
         if (start2) {
+
+            let createStar = Math.random();
+
+            if (createStar > 0.98) {
+                let elevation = Math.random();
+                let side = Math.random();
+                let y;
+                let x = Math.random() * canvas.width;
+                let speed = 4;
+                if (elevation > 0.5) {
+                    y = canvas.height + 100;
+                } else {
+                    y = -100;
+                }
+                if (x < center.x / 3 || x > center.x + ((center.x / 3) * 2)) {
+                    speed = 6;
+                }
+                if (x > center.x / 3 && x < (center.x / 3) * 2) {
+                    speed = 5;
+                }
+                if (x > center.x + (center.x / 3) && x < center.x + (center.x / 3) * 2) {
+                    speed = 5;
+                }
+                stars.push(new Star(x, y, speed));
+            }
+
+
+
+
+
+
+
             chord.update();
             forNotesRight();
             forNotesLeft();
             forParticles();
+            forStars();
         }
     }
 

@@ -112,6 +112,9 @@ class NoteLeft {
                         this.toRoundabout = true;
                     }
                     if (this.x <= this.aim.x + this.slice && this.x >= this.aim.x - this.slice && this.toRoundabout) {
+                        for (let i = 0; i < 10; i++) {
+                            particles.push(new Particle(this.x, this.y, this.color, { x: (Math.random() - 0.5) / Math.random(), y: (Math.random() - 0.5) / Math.random() }));
+                        }
                         this.x = center.x;
                         this.y = center.y;
                         this.angle = -Math.PI;
@@ -125,9 +128,6 @@ class NoteLeft {
                         this.speed += 0.75;
                         this.headingLeft = false;
                         this.onRight = false;
-                        for (let i = 0; i < 10; i++) {
-                            particles.push(new Particle(this.point.x, this.point.y, this.color, { x: (Math.random() - 0.5) / Math.random(), y: (Math.random() - 0.5) / Math.random() }));
-                        }
                     }
                 }
             } else {
@@ -154,6 +154,9 @@ class NoteLeft {
                         this.toRoundabout = true;
                     }
                     if (this.x <= this.aim.x + this.slice && this.x >= this.aim.x - this.slice && this.toRoundabout) {
+                        for (let i = 0; i < 10; i++) {
+                            particles.push(new Particle(this.x, this.y, this.color, { x: (Math.random() - 0.5) / Math.random(), y: (Math.random() - 0.5) / Math.random() }));
+                        }
                         this.x = center.x;
                         this.y = center.y;
                         this.angle = 0;
@@ -167,9 +170,7 @@ class NoteLeft {
                         this.speed += 0.75;
                         this.headingLeft = true;
                         this.onLeft = false;
-                        for (let i = 0; i < 10; i++) {
-                            particles.push(new Particle(this.point.x, this.point.y, this.color, { x: (Math.random() - 0.5) / Math.random(), y: (Math.random() - 0.5) / Math.random() }));
-                        }
+
                     }
                 }
             }

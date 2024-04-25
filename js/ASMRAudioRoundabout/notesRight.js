@@ -104,6 +104,9 @@ class NoteRight {
                             this.lineWidth = 3;
                             road.bigSquare = this.color;
                             this.delay = 700;
+                            for (let i = 0; i < 10; i++) {
+                                particles.push(new Particle(this.x, this.y, this.color, { x: (Math.random() - 0.5) / Math.random(), y: (Math.random() - 0.5) / Math.random() }));
+                            }
                         }
                     }
                     if (this.x <= center.x + this.slice && this.x >= center.x - this.slice) {
@@ -111,6 +114,9 @@ class NoteRight {
                         this.toRoundabout = true;
                     }
                     if (this.y <= this.aim.y + this.slice && this.y >= this.aim.y - this.slice && this.toRoundabout) {
+                        for (let i = 0; i < 10; i++) {
+                            particles.push(new Particle(this.x, this.y, this.color, { x: (Math.random() - 0.5) / Math.random(), y: (Math.random() - 0.5) / Math.random() }));
+                        }
                         this.x = center.x;
                         this.y = center.y;
                         this.angle = -Math.PI / 2;
@@ -140,6 +146,9 @@ class NoteRight {
                             this.lineWidth = 3;
                             road.bigSquare = this.color;
                             this.delay = 700;
+                            for (let i = 0; i < 10; i++) {
+                                particles.push(new Particle(this.x, this.y, this.color, { x: (Math.random() - 0.5) / Math.random(), y: (Math.random() - 0.5) / Math.random() }));
+                            }
                         }
                     }
                     if (this.x <= center.x + this.slice && this.x >= center.x - this.slice) {
@@ -147,6 +156,9 @@ class NoteRight {
                         this.toRoundabout = true;
                     }
                     if (this.y <= this.aim.y + this.slice && this.y >= this.aim.y - this.slice && this.toRoundabout) {
+                        for (let i = 0; i < 10; i++) {
+                            particles.push(new Particle(this.x, this.y, this.color, { x: (Math.random() - 0.5) / Math.random(), y: (Math.random() - 0.5) / Math.random() }));
+                        }
                         this.x = center.x;
                         this.y = center.y;
                         this.angle = Math.PI / 2;

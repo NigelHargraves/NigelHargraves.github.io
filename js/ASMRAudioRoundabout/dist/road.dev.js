@@ -15,6 +15,7 @@ function () {
     this.x = center.x;
     this.y = center.y;
     this.lineWidth = 1;
+    this.centerStarRadius = 4;
     this.roundaboutColor = 'white';
     this.bigSquare = 'white';
     this.topRoad = 'white';
@@ -42,6 +43,11 @@ function () {
   _createClass(Road, [{
     key: "draw",
     value: function draw() {
+      //center star.
+      ctx.fillStyle = 'white';
+      ctx.beginPath();
+      ctx.arc(center.x, center.y, this.centerStarRadius, 0, Math.PI * 2);
+      ctx.fill();
       ctx.strokeStyle = this.roundaboutColor; //roundabout.
 
       ctx.beginPath();
@@ -89,6 +95,10 @@ function () {
     value: function update() {
       if (this.lineWidth > 1) {
         this.lineWidth -= 0.01;
+      }
+
+      if (this.centerStarRadius > 4) {
+        this.centerStarRadius -= 0.1;
       }
 
       this.draw();

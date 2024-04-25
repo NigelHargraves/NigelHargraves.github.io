@@ -3,6 +3,7 @@ class Road {
         this.x = center.x;
         this.y = center.y;
         this.lineWidth = 1;
+        this.centerStarRadius = 4;
         this.roundaboutColor = 'white';
         this.bigSquare = 'white';
         this.topRoad = 'white';
@@ -15,6 +16,11 @@ class Road {
         this.bottomRight = { x: canvas.width - (canvas.width * 0.080), y: canvas.height - (canvas.height * 0.080) };
     }
     draw() {
+        //center star.
+        ctx.fillStyle = 'white';
+        ctx.beginPath();
+        ctx.arc(center.x, center.y, this.centerStarRadius, 0, Math.PI * 2);
+        ctx.fill();
         ctx.strokeStyle = this.roundaboutColor;
         //roundabout.
         ctx.beginPath();
@@ -60,6 +66,9 @@ class Road {
     update() {
         if (this.lineWidth > 1) {
             this.lineWidth -= 0.01;
+        }
+        if (this.centerStarRadius > 4) {
+            this.centerStarRadius -= 0.1;
         }
         this.draw();
     }
