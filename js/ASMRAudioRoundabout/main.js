@@ -35,6 +35,7 @@ let chordC = [],
     chordBm = [];
 
 let colors = [],
+    colorNumber = [],
     notesRight = [],
     notesLeft = [],
     particles = [],
@@ -64,11 +65,28 @@ setVolume();
 
 
 for (let i = 0; i < 24; i++) {
-    let color = Math.random() * 360;
-    colors.push("hsl(" + color + ",100%,50%)");
+    let number = Math.floor(Math.random() * 360)
+    let arrayLength = 0;
+    if (colorNumber.length > 0) {
+        colorNumber.forEach((cn, index) => {
+            if (number == cn) {
+                colorNumber.splice(index, 1);
+                i -= 1;
+                arrayLength = 0;
+                return;
+            } else {
+                arrayLength += 1;
+            }
+        });
+    }
+    if (arrayLength == colorNumber.length) {
+        colorNumber.push(number);
+    }
 }
 
-
+for (let i = 0; i < 24; i++) {
+    colors.push("hsl(" + colorNumber[i] + ",100%,50%)");
+}
 
 let road = new Road();
 
@@ -82,7 +100,7 @@ for (let i = 0; i < 24; i++) {
 }
 
 
-
+colorNumber.sort(function(a, b) { return a - b });
 
 function animate() {
     //CLS.

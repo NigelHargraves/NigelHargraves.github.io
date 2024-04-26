@@ -31,6 +31,7 @@ var chordC = [],
     chordB = [],
     chordBm = [];
 var colors = [],
+    colorNumber = [],
     notesRight = [],
     notesLeft = [],
     particles = [],
@@ -55,22 +56,54 @@ var chord = new Chord(point.x, point.y, hyp);
 createChords();
 setVolume();
 
+var _loop = function _loop(_i) {
+  var number = Math.floor(Math.random() * 360);
+  var arrayLength = 0;
+
+  if (colorNumber.length > 0) {
+    colorNumber.forEach(function (cn, index) {
+      if (number == cn) {
+        colorNumber.splice(index, 1);
+        _i -= 1;
+        arrayLength = 0;
+        i = _i;
+        return;
+      } else {
+        arrayLength += 1;
+      }
+    });
+  }
+
+  if (arrayLength == colorNumber.length) {
+    colorNumber.push(number);
+  }
+
+  i = _i;
+};
+
 for (var i = 0; i < 24; i++) {
-  var color = Math.random() * 360;
-  colors.push("hsl(" + color + ",100%,50%)");
+  _loop(i);
+}
+
+for (var _i2 = 0; _i2 < 24; _i2++) {
+  colors.push("hsl(" + colorNumber[_i2] + ",100%,50%)");
 }
 
 var road = new Road();
 
-for (var _i = 0; _i < 24; _i++) {
-  if (_i < 12) {
-    notesRight.push(new NoteRight(center.x, center.y, speed, chordCm[_i], colors[_i]));
+for (var _i3 = 0; _i3 < 24; _i3++) {
+  if (_i3 < 12) {
+    notesRight.push(new NoteRight(center.x, center.y, speed, chordCm[_i3], colors[_i3]));
   } else {
-    notesLeft.push(new NoteLeft(center.x, center.y, speed, chordCm[_i], colors[_i]));
+    notesLeft.push(new NoteLeft(center.x, center.y, speed, chordCm[_i3], colors[_i3]));
   }
 
   speed += 0.01;
 }
+
+colorNumber.sort(function (a, b) {
+  return a - b;
+});
 
 function animate() {
   //CLS.
@@ -107,8 +140,8 @@ function animate() {
       delay2 += 1;
 
       if (delay2 >= 400) {
-        for (var _i2 = 0; _i2 < 24; _i2++) {
-          chordCm[_i2].play();
+        for (var _i4 = 0; _i4 < 24; _i4++) {
+          chordCm[_i4].play();
         }
 
         CBass.play();
