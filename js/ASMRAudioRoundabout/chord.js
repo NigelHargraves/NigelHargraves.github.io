@@ -78,59 +78,59 @@ function chordChange() {
     if (chordToPlay == 'Cm') {
         chordToPlay = 'B';
         BBass.play();
-
+        BChord.play();
     } else if (chordToPlay == 'B') {
         chordToPlay = 'Am';
         ABass.play();
-
+        AmChord.play();
     } else if (chordToPlay == 'Am') {
         chordToPlay = 'G';
         GBass.play();
-
+        GChord.play();
     } else if (chordToPlay == 'G') {
         chordToPlay = 'Fm';
         FBass.play();
-
+        FmChord.play();
     } else if (chordToPlay == 'Fm') {
         chordToPlay = 'E';
         EBass.play();
-
+        EChord.play();
     } else if (chordToPlay == 'E') {
         chordToPlay = 'Dm';
         DBass.play();
-
+        DmChord.play();
     } else if (chordToPlay == 'Dm') {
         chordToPlay = 'C';
         CBass.play();
-
+        CChord.play();
     } else if (chordToPlay == 'C') {
         chordToPlay = 'Bm';
         BBass.play();
-
+        BmChord.play();
     } else if (chordToPlay == 'Bm') {
         chordToPlay = 'A';
         ABass.play();
-
+        AChord.play();
     } else if (chordToPlay == 'A') {
         chordToPlay = 'Gm';
         GBass.play();
-
+        GmChord.play();
     } else if (chordToPlay == 'Gm') {
         chordToPlay = 'F';
         FBass.play();
-
+        FChord.play();
     } else if (chordToPlay == 'F') {
         chordToPlay = 'Em';
         EBass.play();
-
+        EmChord.play();
     } else if (chordToPlay == 'Em') {
         chordToPlay = 'D';
         DBass.play();
-
+        DChord.play();
     } else if (chordToPlay == 'D') {
         chordToPlay = 'Cm';
         CBass.play();
-
+        CmChord.play();
     }
 
 

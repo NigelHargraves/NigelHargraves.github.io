@@ -101,7 +101,7 @@ class NoteLeft {
                             this.note.play();
                             this.lineWidth = 3;
                             road.bigSquare = this.color;
-                            this.delay = 700;
+                            this.delay = 900;
                             for (let i = 0; i < 10; i++) {
                                 particles.push(new Particle(this.x, this.y, this.color, { x: (Math.random() - 0.5) / Math.random(), y: (Math.random() - 0.5) / Math.random() }));
                             }
@@ -143,7 +143,7 @@ class NoteLeft {
                             this.note.play();
                             this.lineWidth = 3;
                             road.bigSquare = this.color;
-                            this.delay = 700;
+                            this.delay = 900;
                             for (let i = 0; i < 10; i++) {
                                 particles.push(new Particle(this.x, this.y, this.color, { x: (Math.random() - 0.5) / Math.random(), y: (Math.random() - 0.5) / Math.random() }));
                             }

@@ -137,7 +137,7 @@ function () {
                 this.note.play();
                 this.lineWidth = 3;
                 road.bigSquare = this.color;
-                this.delay = 700;
+                this.delay = 900;
 
                 for (var i = 0; i < 10; i++) {
                   particles.push(new Particle(this.x, this.y, this.color, {
@@ -190,7 +190,7 @@ function () {
                 this.note.play();
                 this.lineWidth = 3;
                 road.bigSquare = this.color;
-                this.delay = 700;
+                this.delay = 900;
 
                 for (var _i2 = 0; _i2 < 10; _i2++) {
                   particles.push(new Particle(this.x, this.y, this.color, {

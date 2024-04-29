@@ -5,6 +5,9 @@ canvas.height = window.innerHeight;
 
 let center = { x: canvas.width / 2, y: canvas.height / 2 };
 
+let arrows = new Image();
+arrows.src = 'images/ASMRAudio/arrows.png';
+
 
 
 let start1 = false,
@@ -55,10 +58,6 @@ hyp = Math.sqrt(opp + adj);
 
 let chord = new Chord(point.x, point.y, hyp);
 
-
-
-
-
 createChords();
 
 setVolume();
@@ -89,6 +88,8 @@ for (let i = 0; i < 24; i++) {
 }
 
 let road = new Road();
+
+let arrow = new Arrows();
 
 for (let i = 0; i < 24; i++) {
     if (i < 12) {
@@ -122,10 +123,7 @@ function animate() {
     }
 
     if (start1) {
-        if (playNow) {
 
-            playNow = false;
-        }
 
         if (showChords) {
             ctx.font = "bold 20px Arial";
@@ -140,17 +138,20 @@ function animate() {
         if (!start2) {
             delay2 += 1;
             if (delay2 >= 400) {
-                for (let i = 0; i < 24; i++) {
-                    chordCm[i].play();
-                }
-                CBass.play();
-                road.lineWidth = 3;
                 start2 = true;
             }
         }
 
         if (start2) {
-
+            if (playNow) {
+                for (let i = 0; i < 24; i++) {
+                    chordCm[i].play();
+                }
+                CBass.play();
+                CmChord.play();
+                road.lineWidth = 3;
+                playNow = false;
+            }
             let createStar = Math.random();
 
             if (createStar > 0.98) {
@@ -183,6 +184,7 @@ function animate() {
 
 
             chord.update();
+            arrow.update();
             forNotesRight();
             forNotesLeft();
             forParticles();

@@ -8,6 +8,8 @@ var center = {
   x: canvas.width / 2,
   y: canvas.height / 2
 };
+var arrows = new Image();
+arrows.src = 'images/ASMRAudio/arrows.png';
 var start1 = false,
     start2 = false,
     playNow = true,
@@ -90,6 +92,7 @@ for (var _i2 = 0; _i2 < 24; _i2++) {
 }
 
 var road = new Road();
+var arrow = new Arrows();
 
 for (var _i3 = 0; _i3 < 24; _i3++) {
   if (_i3 < 12) {
@@ -124,10 +127,6 @@ function animate() {
   }
 
   if (start1) {
-    if (playNow) {
-      playNow = false;
-    }
-
     if (showChords) {
       ctx.font = "bold 20px Arial";
       ctx.fillStyle = "white";
@@ -140,17 +139,22 @@ function animate() {
       delay2 += 1;
 
       if (delay2 >= 400) {
-        for (var _i4 = 0; _i4 < 24; _i4++) {
-          chordCm[_i4].play();
-        }
-
-        CBass.play();
-        road.lineWidth = 3;
         start2 = true;
       }
     }
 
     if (start2) {
+      if (playNow) {
+        for (var _i4 = 0; _i4 < 24; _i4++) {
+          chordCm[_i4].play();
+        }
+
+        CBass.play();
+        CmChord.play();
+        road.lineWidth = 3;
+        playNow = false;
+      }
+
       var createStar = Math.random();
 
       if (createStar > 0.98) {
@@ -182,6 +186,7 @@ function animate() {
       }
 
       chord.update();
+      arrow.update();
       forNotesRight();
       forNotesLeft();
       forParticles();
