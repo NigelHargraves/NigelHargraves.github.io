@@ -92,16 +92,16 @@ function forYellowCells() {
         if (YC.y > canvas.height) {
             YC.y = 0;
         }
-        blueCells.forEach((BC, index) => {
-            let attract = collisionDetection(YC.x, YC.y, YC.r, BC.x, BC.y, BC.r);
+        redCells.forEach((RC, index) => {
+            let attract = collisionDetection(YC.x, YC.y, YC.r, RC.x, RC.y, RC.r);
             if (attract) {
-                let repel = collisionDetection(YC.x, YC.y, repelYellowRange, BC.x, BC.y, repelRedRange);
+                let repel = collisionDetection(YC.x, YC.y, repelYellowRange, RC.x, RC.y, repelRedRange);
                 if (!repel) {
-                    YC.angle = Math.atan2(BC.y - YC.y, BC.x - YC.x);
+                    YC.angle = Math.atan2(RC.y - YC.y, RC.x - YC.x);
                     YC.velocity.x = Math.cos(YC.angle) * simulationSpeed;
                     YC.velocity.y = Math.sin(YC.angle) * simulationSpeed;
                 } else {
-                    YC.angle = Math.atan2(BC.y - YC.y, BC.x - YC.x);
+                    YC.angle = Math.atan2(RC.y - YC.y, RC.x - YC.x);
                     YC.velocity.x = -Math.cos(YC.angle) * simulationSpeed;
                     YC.velocity.y = -Math.sin(YC.angle) * simulationSpeed;
                 }
