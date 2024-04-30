@@ -130,7 +130,7 @@ function forFuchsiaCells() {
     }
 
     yellowCells.forEach(function (YC, index) {
-      var repel = collisionDetection(FC.x, FC.y, repelFuchsiaRange, YC.x, YC.y, repelYellowRange);
+      var repel = collisionDetection(FC.x, FC.y, repelFuchsiaRange, YC.x, YC.y, rangeYellow);
 
       if (repel) {
         FC.angle = Math.atan2(YC.y - FC.y, YC.x - FC.x);

@@ -20,20 +20,12 @@ let delay = 0,
 
 let start = false,
     playSoundOnce = true,
-    showInfo = true;
+    showInfo = false;
 
 let redCells = [],
     yellowCells = [],
     blueCells = [],
     fuchsiaCells = [];
-
-
-
-
-
-
-
-
 
 
 
@@ -121,3 +113,24 @@ function animate() {
 }
 
 animate();
+
+window.addEventListener("keydown", (e) => {
+    if (e.keyCode == 32) {
+        if (showInfo) {
+            showInfo = false;
+        } else {
+            showInfo = true;
+        }
+    }
+});
+
+window.addEventListener("mousedown", (e) => {
+    info = e.which;
+    if (e.which == 1) {
+        if (showInfo) {
+            showInfo = false;
+        } else {
+            showInfo = true;
+        }
+    }
+});

@@ -20,7 +20,7 @@ var delay = 0,
     cellNumber = 0;
 var start = false,
     playSoundOnce = true,
-    showInfo = true;
+    showInfo = false;
 var redCells = [],
     yellowCells = [],
     blueCells = [],
@@ -97,3 +97,23 @@ function animate() {
 }
 
 animate();
+window.addEventListener("keydown", function (e) {
+  if (e.keyCode == 32) {
+    if (showInfo) {
+      showInfo = false;
+    } else {
+      showInfo = true;
+    }
+  }
+});
+window.addEventListener("mousedown", function (e) {
+  info = e.which;
+
+  if (e.which == 1) {
+    if (showInfo) {
+      showInfo = false;
+    } else {
+      showInfo = true;
+    }
+  }
+});
