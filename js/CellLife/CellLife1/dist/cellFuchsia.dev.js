@@ -17,8 +17,8 @@ function () {
     this.cellNumber = cellNumber;
     this.r = rangeFuchsia;
     this.velocity = {
-      x: 0,
-      y: 0
+      x: (Math.random() - 0.5) * 0.5,
+      y: (Math.random() - 0.5) * 0.5
     };
     this.angle = 0;
     this.cellLife = 1000 + Math.random() * 1000;
@@ -142,7 +142,7 @@ function forFuchsiaCells() {
       var attract = collisionDetection(FC.x, FC.y, FC.r, RC.x, RC.y, RC.r);
 
       if (attract) {
-        var repel = collisionDetection(FC.x, FC.y, repelFuchsiaRange, RC.x, RC.y, repelBlueRange);
+        var repel = collisionDetection(FC.x, FC.y, repelFuchsiaRange, RC.x, RC.y, repelRedRange);
 
         if (!repel) {
           FC.angle = Math.atan2(RC.y - FC.y, RC.x - FC.x);

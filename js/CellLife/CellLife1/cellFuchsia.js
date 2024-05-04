@@ -4,7 +4,7 @@ class FuchsiaCell {
         this.y = y;
         this.cellNumber = cellNumber;
         this.r = rangeFuchsia;
-        this.velocity = { x: 0, y: 0 };
+        this.velocity = { x: (Math.random() - 0.5) * 0.5, y: (Math.random() - 0.5) * 0.5 };
         this.angle = 0;
         this.cellLife = 1000 + Math.random() * 1000;
         this.kill = false;
@@ -107,7 +107,7 @@ function forFuchsiaCells() {
         redCells.forEach((RC, index) => {
             let attract = collisionDetection(FC.x, FC.y, FC.r, RC.x, RC.y, RC.r);
             if (attract) {
-                let repel = collisionDetection(FC.x, FC.y, repelFuchsiaRange, RC.x, RC.y, repelBlueRange);
+                let repel = collisionDetection(FC.x, FC.y, repelFuchsiaRange, RC.x, RC.y, repelRedRange);
                 if (!repel) {
                     FC.angle = Math.atan2(RC.y - FC.y, RC.x - FC.x);
                     FC.velocity.x = Math.cos(FC.angle) * simulationSpeed;

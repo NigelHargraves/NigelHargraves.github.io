@@ -17,8 +17,8 @@ function () {
     this.cellNumber = cellNumber;
     this.r = rangeBlue;
     this.velocity = {
-      x: 0,
-      y: 0
+      x: (Math.random() - 0.5) * 0.5,
+      y: (Math.random() - 0.5) * 0.5
     };
     this.angle = 0;
     this.cellLife = 1000 + Math.random() * 1000;
@@ -133,7 +133,7 @@ function forBlueCells() {
       var attract = collisionDetection(BC.x, BC.y, BC.r, FC.x, FC.y, FC.r);
 
       if (attract) {
-        var repel = collisionDetection(BC.x, BC.y, repelBlueRange, FC.x, FC.y, repelYellowRange);
+        var repel = collisionDetection(BC.x, BC.y, repelBlueRange, FC.x, FC.y, repelFuchsiaRange);
 
         if (!repel) {
           BC.angle = Math.atan2(FC.y - BC.y, FC.x - BC.x);

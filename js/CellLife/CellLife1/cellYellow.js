@@ -4,7 +4,7 @@ class YellowCell {
         this.y = y;
         this.cellNumber = cellNumber;
         this.r = rangeYellow;
-        this.velocity = { x: 0, y: 0 };
+        this.velocity = { x: (Math.random() - 0.5) * 0.5, y: (Math.random() - 0.5) * 0.5 };
         this.angle = 0;
         this.cellLife = 1000 + Math.random() * 1000;
         this.kill = false;
