@@ -513,56 +513,56 @@ function changeChord() {
     }
 
     if (chordToPlay == 'E1' || chordToPlay == 'E2' || chordToPlay == 'E3') {
-        for (let i = 0; i < 36; i++) {
-            notes[i].note = chordE[i];
+        for (let i = 0; i < 18; i++) {
+            notes[i].note = chordE[i + 18];
         }
     }
 
     if (chordToPlay == 'A1' || chordToPlay == 'A2' || chordToPlay == 'A3') {
-        for (let i = 0; i < 36; i++) {
-            notes[i].note = chordA[i];
+        for (let i = 0; i < 18; i++) {
+            notes[i].note = chordA[i + 18];
         }
     }
 
     if (chordToPlay == 'B') {
-        for (let i = 0; i < 36; i++) {
-            notes[i].note = chordB[i];
+        for (let i = 0; i < 18; i++) {
+            notes[i].note = chordB[i + 18];
         }
     }
 
     if (chordToPlay == 'Gsus4') {
-        for (let i = 0; i < 36; i++) {
-            notes[i].note = chordGsus4[i];
+        for (let i = 0; i < 18; i++) {
+            notes[i].note = chordGsus4[i + 18];
         }
     }
 
     if (chordToPlay == 'G') {
-        for (let i = 0; i < 36; i++) {
-            notes[i].note = chordG[i];
+        for (let i = 0; i < 18; i++) {
+            notes[i].note = chordG[i + 18];
         }
     }
 
     if (chordToPlay == 'F#m7') {
-        for (let i = 0; i < 36; i++) {
-            notes[i].note = chordFSm7[i];
+        for (let i = 0; i < 18; i++) {
+            notes[i].note = chordFSm7[i + 18];
         }
     }
 
     if (chordToPlay == 'C1' || chordToPlay == 'C2' || chordToPlay == 'C3') {
-        for (let i = 0; i < 36; i++) {
-            notes[i].note = chordC[i];
+        for (let i = 0; i < 18; i++) {
+            notes[i].note = chordC[i + 18];
         }
     }
 
     if (chordToPlay == 'F1' || chordToPlay == 'F2') {
-        for (let i = 0; i < 36; i++) {
-            notes[i].note = chordF[i];
+        for (let i = 0; i < 18; i++) {
+            notes[i].note = chordF[i + 18];
         }
     }
 
     if (chordToPlay == 'Bsus4') {
-        for (let i = 0; i < 36; i++) {
-            notes[i].note = chordBsus4[i];
+        for (let i = 0; i < 18; i++) {
+            notes[i].note = chordBsus4[i + 18];
         }
     }
 }

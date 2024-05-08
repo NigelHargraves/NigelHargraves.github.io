@@ -44,16 +44,16 @@ var zz = new ZigZag(),
     hat = new Hat(right + (canvas.width - right) / 2, cTop * 2);
 createChords();
 
-for (var i = 0; i < 36; i++) {
+for (var i = 0; i < 18; i++) {
   var hue1 = Math.random() * 260 + 100;
   var hue2 = Math.random() * 260 + 100;
   var hue3 = Math.random() * 260 + 100;
   color.push('rgb(' + hue1 + ',' + hue2 + ',' + hue3 + ')');
 
-  if (i < 18) {
-    notes.push(new Note(left, cTop, speed, chordE[i], true, 2, color[i]));
+  if (i < 9) {
+    notes.push(new Note(left, cTop, speed, chordE[i + 18], true, 2, color[i]));
   } else {
-    notes.push(new Note(right, cBottom, speed, chordE[i], false, 8, color[i]));
+    notes.push(new Note(right, cBottom, speed, chordE[i + 18], false, 8, color[i]));
   }
 
   speed += speed * 0.02;
@@ -81,8 +81,8 @@ function animate() {
 
   if (start) {
     if (playNow) {
-      for (var _i = 0; _i < 36; _i++) {
-        chordE[_i].play();
+      for (var _i = 0; _i < 18; _i++) {
+        chordE[_i + 18].play();
       }
 
       EBass.play();

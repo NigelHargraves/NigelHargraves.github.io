@@ -575,56 +575,56 @@ function changeChord() {
   }
 
   if (chordToPlay == 'E1' || chordToPlay == 'E2' || chordToPlay == 'E3') {
-    for (var i = 0; i < 36; i++) {
-      notes[i].note = chordE[i];
+    for (var i = 0; i < 18; i++) {
+      notes[i].note = chordE[i + 18];
     }
   }
 
   if (chordToPlay == 'A1' || chordToPlay == 'A2' || chordToPlay == 'A3') {
-    for (var _i = 0; _i < 36; _i++) {
-      notes[_i].note = chordA[_i];
+    for (var _i = 0; _i < 18; _i++) {
+      notes[_i].note = chordA[_i + 18];
     }
   }
 
   if (chordToPlay == 'B') {
-    for (var _i2 = 0; _i2 < 36; _i2++) {
-      notes[_i2].note = chordB[_i2];
+    for (var _i2 = 0; _i2 < 18; _i2++) {
+      notes[_i2].note = chordB[_i2 + 18];
     }
   }
 
   if (chordToPlay == 'Gsus4') {
-    for (var _i3 = 0; _i3 < 36; _i3++) {
-      notes[_i3].note = chordGsus4[_i3];
+    for (var _i3 = 0; _i3 < 18; _i3++) {
+      notes[_i3].note = chordGsus4[_i3 + 18];
     }
   }
 
   if (chordToPlay == 'G') {
-    for (var _i4 = 0; _i4 < 36; _i4++) {
-      notes[_i4].note = chordG[_i4];
+    for (var _i4 = 0; _i4 < 18; _i4++) {
+      notes[_i4].note = chordG[_i4 + 18];
     }
   }
 
   if (chordToPlay == 'F#m7') {
-    for (var _i5 = 0; _i5 < 36; _i5++) {
-      notes[_i5].note = chordFSm7[_i5];
+    for (var _i5 = 0; _i5 < 18; _i5++) {
+      notes[_i5].note = chordFSm7[_i5 + 18];
     }
   }
 
   if (chordToPlay == 'C1' || chordToPlay == 'C2' || chordToPlay == 'C3') {
-    for (var _i6 = 0; _i6 < 36; _i6++) {
-      notes[_i6].note = chordC[_i6];
+    for (var _i6 = 0; _i6 < 18; _i6++) {
+      notes[_i6].note = chordC[_i6 + 18];
     }
   }
 
   if (chordToPlay == 'F1' || chordToPlay == 'F2') {
-    for (var _i7 = 0; _i7 < 36; _i7++) {
-      notes[_i7].note = chordF[_i7];
+    for (var _i7 = 0; _i7 < 18; _i7++) {
+      notes[_i7].note = chordF[_i7 + 18];
     }
   }
 
   if (chordToPlay == 'Bsus4') {
-    for (var _i8 = 0; _i8 < 36; _i8++) {
-      notes[_i8].note = chordBsus4[_i8];
+    for (var _i8 = 0; _i8 < 18; _i8++) {
+      notes[_i8].note = chordBsus4[_i8 + 18];
     }
   }
 }

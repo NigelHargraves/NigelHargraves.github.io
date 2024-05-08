@@ -59,15 +59,15 @@ let zz = new ZigZag(),
 
 createChords();
 
-for (let i = 0; i < 36; i++) {
+for (let i = 0; i < 18; i++) {
     let hue1 = (Math.random() * 260) + 100;
     let hue2 = (Math.random() * 260) + 100;
     let hue3 = (Math.random() * 260) + 100;
     color.push('rgb(' + hue1 + ',' + hue2 + ',' + hue3 + ')')
-    if (i < 18) {
-        notes.push(new Note(left, cTop, speed, chordE[i], true, 2, color[i]));
+    if (i < 9) {
+        notes.push(new Note(left, cTop, speed, chordE[i + 18], true, 2, color[i]));
     } else {
-        notes.push(new Note(right, cBottom, speed, chordE[i], false, 8, color[i]));
+        notes.push(new Note(right, cBottom, speed, chordE[i + 18], false, 8, color[i]));
     }
     speed += speed * 0.02;
 }
@@ -107,8 +107,8 @@ function animate() {
 
     if (start) {
         if (playNow) {
-            for (let i = 0; i < 36; i++) {
-                chordE[i].play();
+            for (let i = 0; i < 18; i++) {
+                chordE[i + 18].play();
             }
             EBass.play();
             EChord.play();

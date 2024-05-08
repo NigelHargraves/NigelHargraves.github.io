@@ -90,7 +90,10 @@ class Note {
         if (this.down) {
             if (((this.angle >= Math.PI + (Math.PI / 2) - 0.001 && this.angle <= Math.PI + (Math.PI / 2) + 0.001) ||
                     (this.angle >= (Math.PI / 2) - 0.001 && this.angle <= (Math.PI / 2) + 0.001)) && this.delay == 0) {
-
+                for (let i = 0; i < 4; i++) {
+                    particles.push(new Particle(center.x, this.yPoint + this.point.y, 'R', this.color))
+                    particles.push(new Particle(center.x, this.yPoint + this.point.y, 'L', this.color))
+                }
                 if (this.yPoint >= canvas.height - (canvas.height / 8) * 2) {
                     this.down = false;
                     this.zoom = 50;
@@ -99,16 +102,16 @@ class Note {
                     this.directX = (Math.random() - 0.5) * 0.02;
                     this.directY = (Math.random() - 0.5) * 0.02;
                 }
-                for (let i = 0; i < 4; i++) {
-                    particles.push(new Particle(center.x, this.yPoint - this.point.y, 'R', this.color))
-                    particles.push(new Particle(center.x, this.yPoint - this.point.y, 'L', this.color))
-                }
+
                 this.delay = 100;
             }
         } else {
             if (((this.angle >= Math.PI + (Math.PI / 2) - 0.001 && this.angle <= Math.PI + (Math.PI / 2) + 0.001) ||
                     (this.angle >= (Math.PI / 2) - 0.001 && this.angle <= (Math.PI / 2) + 0.001)) && this.delay == 0) {
-
+                for (let i = 0; i < 4; i++) {
+                    particles.push(new Particle(center.x, this.yPoint + this.point.y, 'R', this.color))
+                    particles.push(new Particle(center.x, this.yPoint + this.point.y, 'L', this.color))
+                }
                 if (this.yPoint <= (canvas.height / 8) * 2) {
                     this.down = true;
                     this.zoom = 50;
@@ -117,10 +120,7 @@ class Note {
                     this.directX = (Math.random() - 0.5) * 0.02;
                     this.directY = (Math.random() - 0.5) * 0.02;
                 }
-                for (let i = 0; i < 4; i++) {
-                    particles.push(new Particle(center.x, this.yPoint - this.point.y, 'R', this.color))
-                    particles.push(new Particle(center.x, this.yPoint - this.point.y, 'L', this.color))
-                }
+
                 this.delay = 100;
             }
         }
