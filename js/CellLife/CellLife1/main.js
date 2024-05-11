@@ -16,7 +16,8 @@ let delay = 0,
     simulationSpeed = 0.01,
     celSize = 2,
     cellBirth = 0,
-    cellNumber = 0;
+    cellNumber = 0,
+    blurAmount = 0.5;
 
 let start = false,
     playSoundOnce = true,
@@ -37,9 +38,10 @@ function animate() {
     ctx.font = "bold 50px Arial";
     ctx.fillStyle = "white";
     ctx.globalAlpha = 0.005;
+    ctx.filter = "blur(" + 0 + "px)";
     ctx.fillText("𝔸𝕊𝕄ℝ 𝔸𝕌𝔻𝕀𝕆", (canvas.width / 2.4), canvas.height / 2);
     ctx.globalAlpha = 0.2;
-
+    ctx.filter = "blur(" + blurAmount + "px)";
 
 
 
@@ -97,12 +99,14 @@ function animate() {
 
 
         if (showInfo) {
+            ctx.filter = "blur(" + 0 + "px)";
             ctx.font = "bold 30px Arial";
             ctx.fillStyle = "white";
             ctx.fillText('Red            ' + repelRedRange + ' , ' + rangeRed + ', ' + redCells.length, 0, canvas.height * 0.04);
             ctx.fillText('Yellow       ' + repelYellowRange + ' , ' + rangeYellow + ', ' + yellowCells.length, 0, canvas.height * 0.08);
             ctx.fillText('Blue           ' + repelBlueRange + ' , ' + rangeBlue + ', ' + blueCells.length, 0, canvas.height * 0.12);
             ctx.fillText('Fuchsia     ' + repelFuchsiaRange + ' , ' + rangeFuchsia + ', ' + fuchsiaCells.length, 0, canvas.height * 0.16);
+            ctx.filter = "blur(" + blurAmount + "px)";
         }
     }
 
