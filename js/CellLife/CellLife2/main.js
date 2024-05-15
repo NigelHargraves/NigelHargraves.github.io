@@ -10,7 +10,7 @@ let delay = 0,
     simulationSpeed = 0.1,
     celSize = 1,
     cellBirth = 0,
-    friction = 0.01;
+    friction = 0.0001;
 
 let start = false,
     playSoundOnce = true,
@@ -54,16 +54,16 @@ function animate() {
 
 
 
-        if (cellBirth == 100) {
+        if (cellBirth == 50) {
             redCells.push(new RedCell(Math.random() * canvas.width, Math.random() * canvas.height));
         }
-        if (cellBirth == 200) {
+        if (cellBirth == 100) {
             yellowCells.push(new YellowCell(Math.random() * canvas.width, Math.random() * canvas.height));
         }
 
 
         if (redCells.length + yellowCells.length < 100) {
-            if (cellBirth < 200) {
+            if (cellBirth < 100) {
                 cellBirth++;
             } else {
                 cellBirth = 0;

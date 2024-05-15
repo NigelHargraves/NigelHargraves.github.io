@@ -13,6 +13,12 @@ class Amoeba {
         this.point = { x: 0, y: 0 };
         this.paddle = 0;
         this.paddleUp = true;
+        this.aimPoint = { x: Math.random() * canvas.width, y: Math.random() * canvas.height };
+        this.changeDirection = false;
+        this.directionPausePeriod = 1000;
+        this.huntingRed = false;
+        this.huntingYellow = false;
+        this.tailBend = 2;
     }
     draw() {
         ctx.beginPath();
@@ -26,11 +32,36 @@ class Amoeba {
         ctx.arc(this.x + this.point.x, this.y + this.point.y, 1, 0, Math.PI * 2);
         ctx.fillStyle = 'aquamarine';
         ctx.fill();
-        ctx.beginPath();
-        ctx.moveTo(this.x, this.y);
-        ctx.lineTo(this.x + this.point.x, this.y + this.point.y);
-        ctx.strokeStyle = 'aquamarine';
-        ctx.stroke();
+        if (this.paddleUp) {
+            if (this.x < this.aimPoint.x) {
+                ctx.beginPath();
+                ctx.moveTo(this.x, this.y);
+                ctx.bezierCurveTo(this.x, this.y + -this.tailBend, this.x + this.point.x, this.y + this.point.y + -this.tailBend, this.x + this.point.x, this.y + this.point.y);
+                ctx.strokeStyle = 'aquamarine';
+                ctx.stroke();
+            } else {
+                ctx.beginPath();
+                ctx.moveTo(this.x, this.y);
+                ctx.bezierCurveTo(this.x, this.y + this.tailBend, this.x + this.point.x, this.y + this.point.y + this.tailBend, this.x + this.point.x, this.y + this.point.y);
+                ctx.strokeStyle = 'aquamarine';
+                ctx.stroke();
+            }
+
+        } else {
+            if (this.x < this.aimPoint.x) {
+                ctx.beginPath();
+                ctx.moveTo(this.x, this.y);
+                ctx.bezierCurveTo(this.x, this.y - -this.tailBend, this.x + this.point.x, this.y + this.point.y - -this.tailBend, this.x + this.point.x, this.y + this.point.y);
+                ctx.strokeStyle = 'aquamarine';
+                ctx.stroke();
+            } else {
+                ctx.beginPath();
+                ctx.moveTo(this.x, this.y);
+                ctx.bezierCurveTo(this.x, this.y - this.tailBend, this.x + this.point.x, this.y + this.point.y - this.tailBend, this.x + this.point.x, this.y + this.point.y);
+                ctx.strokeStyle = 'aquamarine';
+                ctx.stroke();
+            }
+        }
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
         ctx.strokeStyle = 'yellow';
@@ -50,7 +81,7 @@ class Amoeba {
                 adj = Math.pow(this.y - am.y, 2);
                 if (opp < 0) opp *= -1;
                 if (adj < 0) adj *= -1;
-                hyp = Math.sqrt(opp + adj) / 100;
+                hyp = Math.sqrt(opp + adj) / 10;
                 this.angle = Math.atan2(am.y - this.y, am.x - this.x);
                 am.angle = Math.atan2(this.y - am.y, this.x - am.x);
                 this.velocity.x += -Math.cos(this.angle) * hyp;
@@ -84,6 +115,23 @@ class Amoeba {
             this.lifeSpan -= 1;
         }
 
+        if (this.directionPausePeriod <= 0) {
+            this.changeDirection = true;
+            this.directionPausePeriod = 1000;
+        } else {
+            this.directionPausePeriod -= 1;
+        }
+
+        if (this.changeDirection) {
+            this.aimPoint = { x: Math.random() * canvas.width, y: Math.random() * canvas.height };
+            this.changeDirection = false;
+        }
+
+        if (this.x >= this.aimPoint.x - 3 && this.x <= this.aimPoint.x + 3 && this.y >= this.aimPoint.y - 3 && this.y <= this.aimPoint.y + 3) {
+            this.aimPoint = { x: Math.random() * canvas.width, y: Math.random() * canvas.height };
+            this.directionPausePeriod = 1000;
+        }
+
         this.draw();
     }
 }
@@ -104,10 +152,37 @@ function forAmoebas() {
             am.y = 0;
         }
 
+        //aimless swim
+        if (!am.huntingRed && !am.huntingYellow) {
+            am.angle = Math.atan2(am.aimPoint.y - am.y, am.aimPoint.x - am.x);
+            if (am.paddleUp) {
+                am.paddle += 0.02;
+            } else {
+                am.paddle -= 0.02;
+            }
+            if (am.paddle >= 0.2) {
+                am.paddleUp = false;
+            }
+            if (am.paddle <= -0.2) {
+                am.paddleUp = true;
+            }
+            am.angleOpp = am.angle + (Math.PI + am.paddle);
+            am.velocity.x = Math.cos(am.angle) * am.amoebaSpeed;
+            am.velocity.y = Math.sin(am.angle) * am.amoebaSpeed;
+            am.point.x = am.radius * Math.cos(am.angleOpp);
+            am.point.y = am.radius * Math.sin(am.angleOpp);
+        }
+
+
+
+
+
         //hunt red cell.
         redCells.forEach((RC, redIndex) => {
-            let attract = collisionDetection(am.x, am.y, am.r + 10, RC.x, RC.y, RC.r + 10);
+            let attract = collisionDetection(am.x, am.y, am.r + 20, RC.x, RC.y, RC.r + 20);
             if (attract) {
+                this.huntingRed = true;
+                am.directionPausePeriod = 1000;
                 am.angle = Math.atan2(RC.y - am.y, RC.x - am.x);
                 if (am.paddleUp) {
                     am.paddle += 0.02;
@@ -125,23 +200,30 @@ function forAmoebas() {
                 am.velocity.y = Math.sin(am.angle) * (simulationSpeed + am.amoebaSpeed);
                 am.point.x = am.radius * Math.cos(am.angleOpp);
                 am.point.y = am.radius * Math.sin(am.angleOpp);
+            } else {
+                this.huntingRed = false;
             }
             //eat red cell.
-            let collide = collisionDetection(RC.x, RC.y, 1, am.x, am.y, am.r);
-            if (collide) {
+            let eat = collisionDetection(RC.x, RC.y, 1, am.x, am.y, am.r);
+            if (eat) {
                 redCells.splice(redIndex, 1);
                 am.size += 1;
                 am.r = am.size + 3;
                 am.amoebaSpeed += 0.1;
                 am.lifeSpan -= 100;
                 am.radius = am.r * 2;
+                am.tailBend += 0.4;
+                am.aimPoint = { x: Math.random() * canvas.width, y: Math.random() * canvas.height };
+                this.huntingRed = false;
             }
         });
 
         //hunt yellow cell.
         yellowCells.forEach((YC, yellowIndex) => {
-            let attract = collisionDetection(am.x, am.y, am.r + 10, YC.x, YC.y, YC.r + 10);
+            let attract = collisionDetection(am.x, am.y, am.r + 20, YC.x, YC.y, YC.r + 20);
             if (attract) {
+                this.huntingYellow = true;
+                am.directionPausePeriod = 1000;
                 am.angle = Math.atan2(YC.y - am.y, YC.x - am.x);
                 if (am.paddleUp) {
                     am.paddle += 0.02;
@@ -159,18 +241,24 @@ function forAmoebas() {
                 am.velocity.y = Math.sin(am.angle) * (simulationSpeed + am.amoebaSpeed);
                 am.point.x = am.radius * Math.cos(am.angleOpp);
                 am.point.y = am.radius * Math.sin(am.angleOpp);
+            } else {
+                this.huntingYellow = false;
             }
             //eat yellow cell.
-            let collide = collisionDetection(YC.x, YC.y, 1, am.x, am.y, am.r);
-            if (collide) {
+            let eat = collisionDetection(YC.x, YC.y, 1, am.x, am.y, am.r);
+            if (eat) {
                 yellowCells.splice(yellowIndex, 1);
                 am.size += 1;
                 am.r = am.size + 3;
                 am.amoebaSpeed += 0.1;
                 am.lifeSpan -= 100;
                 am.radius = am.r * 2;
+                am.tailBend += 0.4;
+                am.aimPoint = { x: Math.random() * canvas.width, y: Math.random() * canvas.height };
+                this.huntingYellow = false;
             }
         });
+
 
         //end life.
         if (am.lifeSpan <= 0) {
