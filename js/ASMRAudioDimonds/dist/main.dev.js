@@ -15,8 +15,9 @@ var start = false,
     playNow = true,
     showChords = false;
 var delay = 0,
-    speed = 3,
-    circleSpreadDistance = 100;
+    speed = 10,
+    radius = 50,
+    angle = 0;
 var chordToPlay = 'C';
 var chordC = [],
     chordG = [],
@@ -30,10 +31,41 @@ var colors = [],
     notes = [],
     circles = [];
 
-for (var i = 0; i < 12; i++) {
-  circles.push(new Circle(circleSpreadDistance));
-  circleSpreadDistance += 100;
+for (var i = 0; i < 8; i++) {
+  circles.push(new Circle(radius));
+  notes.push(new Note(0, 0, 400, 1000, speed, angle, radius));
+  radius += 50;
+  speed += 0.1;
 }
+
+angle = Math.PI / 2;
+radius = 50;
+
+for (var _i = 0; _i < 8; _i++) {
+  notes.push(new Note(0, 0, 400, 1000, speed, angle, radius));
+  radius += 50;
+  speed += 0.1;
+}
+
+angle = Math.PI;
+radius = 50;
+
+for (var _i2 = 0; _i2 < 8; _i2++) {
+  notes.push(new Note(0, 0, 400, 1000, speed, angle, radius));
+  radius += 50;
+  speed += 0.1;
+}
+
+angle = Math.PI / 2 * 3;
+radius = 50;
+
+for (var _i3 = 0; _i3 < 8; _i3++) {
+  notes.push(new Note(0, 0, 400, 1000, speed, angle, radius));
+  radius += 50;
+  speed += 0.1;
+}
+
+var cross = new Cross();
 
 function animate() {
   //CLS.
@@ -67,11 +99,13 @@ function animate() {
       playNow = false;
     }
 
+    cross.update();
     forCircles();
+    forNotes();
   } //call next frame.
 
 
-  animationId = requestAnimationFrame(animate);
+  requestAnimationFrame(animate);
 }
 
 animate();

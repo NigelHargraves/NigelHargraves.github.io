@@ -20,12 +20,11 @@ function () {
   _createClass(Circle, [{
     key: "draw",
     value: function draw() {
+      ctx.lineWidth = 0.1;
       ctx.beginPath();
       ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
-      ctx.globalAlpha = 1;
       ctx.strokeStyle = 'white';
       ctx.stroke();
-      ctx.globalAlpha = 0.6;
     }
   }, {
     key: "update",
@@ -38,5 +37,7 @@ function () {
 }();
 
 function forCircles() {
-  circles.update();
+  circles.forEach(function (circle, index) {
+    circle.update();
+  });
 }
